@@ -4,6 +4,13 @@
 
 Keep the repository release version synchronized across `package.json`, both plugin manifests, `CHANGELOG.md`, `docs/VERSION.md`, and `docs/releases/vX.Y.Z.md`.
 
+Run the local version check after changing any version source. Omit the tag to derive it from `package.json`, or pass the intended tag to verify an exact candidate.
+
+```bash
+npm run version:check
+npm run version:check -- vX.Y.Z
+```
+
 Recipe versions are independent semantic versions. Increment a recipe version when its inputs, sequence, evidence requirements, stops, completion criteria, bounds, or result meaning changes. Preserve old immutable versions in release history or Git tags; do not silently change a server-pinned recipe.
 
 Result contracts use explicit identifiers such as `seo-diagnostic/v1`. Add `v2` for an incompatible field or meaning change. Catalog metadata has its own semantic version for importer-visible catalog changes.

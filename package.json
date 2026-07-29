@@ -1,10 +1,11 @@
 {
   "name": "seo-agent-tools",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "type": "module",
   "scripts": {
-    "validate": "node scripts/catalog.mjs validate && node scripts/validate-skill.mjs && node scripts/validate-evaluations.mjs",
+    "validate": "node scripts/check-version.mjs && node scripts/catalog.mjs validate && node scripts/validate-skill.mjs && node scripts/validate-evaluations.mjs",
+    "version:check": "node scripts/check-version.mjs",
     "catalog:validate": "node scripts/catalog.mjs validate",
     "catalog:build": "node scripts/catalog.mjs build",
     "package": "node scripts/package-release.mjs",

@@ -351,7 +351,7 @@ function validateMaintenanceScaffold() {
  * @constraints Validation inspects installed workflows without publishing a release.
  */
 function validateDeliveryContract() {
-  for (const file of ["INSTALL.md", "docs/GITHUB-CLI.md", "docs/GITHUB-CLI-DELIVERY.md", "scripts/verify-gh-skill-install.mjs", "scripts/release-preflight.mjs", "scripts/release-state.mjs", "scripts/verify-release-assets.mjs", "scripts/lib/stored-zip.mjs", "tests/fixtures/README.md"]) {
+  for (const file of ["INSTALL.md", "docs/GITHUB-CLI.md", "docs/GITHUB-CLI-DELIVERY.md", "scripts/check-version.mjs", "scripts/verify-gh-skill-install.mjs", "scripts/release-preflight.mjs", "scripts/release-state.mjs", "scripts/verify-release-assets.mjs", "scripts/lib/stored-zip.mjs", "scripts/lib/version-identity.mjs", "tests/fixtures/README.md"]) {
     if (!exists(file)) {
       fail(`Missing delivery file ${file}.`);
     }
@@ -390,6 +390,7 @@ function validateDeliveryContract() {
     fail("package.json must expose the platform-neutral GitHub CLI install verifier.");
   }
   for (const [name, expected] of [
+    ["version:check", "node scripts/check-version.mjs"],
     ["release:preflight", "node scripts/release-preflight.mjs"],
     ["release:state", "node scripts/release-state.mjs"],
     ["release:verify-assets", "node scripts/verify-release-assets.mjs"]

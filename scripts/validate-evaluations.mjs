@@ -202,4 +202,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log(`Evaluation contract passed: ${registry.cases.length} cases across ${new Set(registry.cases.map((item) => item.segment)).size} segments.`);
+console.log(`Evaluation registry validation passed: ${registry.cases.length} registered cases across ${new Set(registry.cases.map((item) => item.segment)).size} segments; no behavioral cases were executed.`);

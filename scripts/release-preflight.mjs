@@ -10,6 +10,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { validateVersionIdentity } from "./lib/version-identity.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const tag = process.argv[2];
@@ -21,7 +22,7 @@ if (!tag || !/^v[0-9]+\.[0-9]+\.[0-9]+$/.test(tag)) {
 const version = tag.slice(1);
 const initialTreeDigest = snapshotCandidateTree();
 
-validateReleaseIdentity();
+validateVersionIdentity(root, { tag });
 requireUnusedRemoteIdentity();
 runNpm(["run", "validate"]);
 resetGeneratedDistribution();
@@ -50,34 +51,6 @@ console.log(JSON.stringify({
   result: "pass"
 }));
 console.log("Commit this exact validated tree, merge it through the protected pull request workflow, then validate and push the annotated tag.");
-
-function validateReleaseIdentity() {
-  const packageDocument = readJson("package.json");
-  const codexManifest = readJson("packaging/codex-plugin/.codex-plugin/plugin.json");
-  const claudeManifest = readJson("packaging/claude-plugin/.claude-plugin/plugin.json");
-  for (const [label, actual] of [
-    ["package.json", packageDocument.version],
-    ["Codex plugin manifest", codexManifest.version],
-    ["Claude plugin manifest", claudeManifest.version]
-  ]) {
-    if (actual !== version) {
-      throw new Error(`${label} version ${actual || "<missing>"} does not match ${version}.`);
-    }
-  }
-
-  const changelog = fs.readFileSync(path.join(root, "CHANGELOG.md"), "utf8");
-  const versionDocument = fs.readFileSync(path.join(root, "docs", "VERSION.md"), "utf8");
-  const notes = path.join(root, "docs", "releases", `${tag}.md`);
-  if (!changelog.includes(`## [${tag}]`)) {
-    throw new Error(`CHANGELOG.md is missing ## [${tag}].`);
-  }
-  if (!versionDocument.includes(`Current version: \`${version}\`.`)) {
-    throw new Error(`docs/VERSION.md does not declare ${version} as current.`);
-  }
-  if (!fs.existsSync(notes)) {
-    throw new Error(`Missing release notes docs/releases/${tag}.md.`);
-  }
-}
 
 function requireUnusedRemoteIdentity() {
   const remoteTag = git(["ls-remote", "--tags", "origin", `refs/tags/${tag}`, `refs/tags/${tag}^{}`]);
@@ -133,10 +106,6 @@ function snapshotCandidateTree() {
     snapshot.update("\0");
   }
   return snapshot.digest("hex");
-}
-
-function readJson(relativePath) {
-  return JSON.parse(fs.readFileSync(path.join(root, relativePath), "utf8"));
 }
 
 function runNpm(args) {

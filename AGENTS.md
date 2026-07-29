@@ -53,6 +53,42 @@ Treat this repository as the implementation workspace unless the user authorizes
 
 Use the ignored `tmp/` directory for disposable drafts and remove drafts when they are no longer needed. Generated catalog projections and release assets belong under ignored `dist/` and must be reproducible from committed source.
 
+## Writing Quality and Escalation
+
+Write documentation and user- or agent-facing text so a reader without the working conversation, research trail, or context window can understand the actors, actions, relationships, evidence, scope, and required decision. Passing style lint is not enough. Do not replace necessary context with compressed labels, stacked modifiers, vague references, or shorthand that only the author can decode. Read `docs/WRITING.md` when work synthesizes substantial context, creates a handoff or public artifact, changes instructions or contracts materially, or otherwise has meaningful context-compression risk.
+
+Use fresh-context review selectively for those higher-risk cases, not for every edit. Before interrupting a human for minor uncertainty, exhaust relevant repository evidence, safe checks, targeted research, and, when useful and available, an independent agent review. Ask a human only when blocked by missing intent, required approval or authority, private facts, a material tradeoff that the agent is not authorized to decide, or an evidence gap that agents and available tools cannot resolve. Present the goal, relevant evidence, attempted resolutions, remaining unknown, options and consequences, recommendation, and exact decision needed.
+
+## Workstreams and Milestone Checks
+
+An iteration is a small, usually reversible step such as an edit, experiment, narrow check, or partial result that advances a workstream without making the work decision-ready. A milestone is a deliberately chosen checkpoint where a coherent set of related work satisfies defined entry or acceptance conditions and is ready for evidence that can decide whether to continue, rework, hand off, publish, or claim completion.
+
+Organize all substantial work, including code, research, analysis, writing, documentation, and coordination, into coherent workstreams with reviewable milestones. During iteration, prefer fast linting, syntax or schema checks, and narrow diagnostics that can catch errors relevant to the current step. Reserve costly inference, broad IDE inspections and audits, comprehensive test suites, external calls, fresh-context reviews, and human review for milestones where the integrated result can change a decision, validate a handoff or publication, or support a completion claim.
+
+Do not repeat an unchanged expensive check after every small edit or partial delivery. Rerun it when inputs, scope, risk, behavior, evidence, or the integrated result changes enough to affect its conclusion. Never defer a required authorization, safety, or pre-action check merely to reduce cost or time; use `docs/TESTING.md` for verification depth and milestone guidance.
+
+## Maintenance Automation
+
+At meaningful milestones, review the work for repeated deterministic actions that consume recurring tool calls, context, time, or inference. When a pattern is stable and repository-specific, replace it with the smallest documented local command that has clear inputs, outputs, side effects, and failure messages. Reuse or extend an existing command before adding another overlapping entry point.
+
+Do not automate one-off work, unresolved judgment, unstable procedures, or risky external actions merely for convenience. Keep the maintenance command surface small, composable, and discoverable, and remove obsolete paths when a replacement is adopted.
+
+## PhpStorm as a Complementary Quality Tool
+
+When PhpStorm MCP is available, use its project-aware formatting, linting, inspections, audits, quick fixes, and semantic refactoring as a complement to terminal tools. Prefer PhpStorm when indexed or semantic project context and IDE configuration add value; prefer terminal tools when exact output, shell behavior, or fresh file visibility matters more. For supported code symbols, prefer PhpStorm's usage-aware semantic refactoring over raw text replacement so definitions and indexed usages can be updated coherently across the repository; afterward, search for both the old and new symbol with IDE and terminal tools.
+
+Use fast linting and targeted diagnostics when an edit needs immediate semantic feedback. Schedule broad PhpStorm code inspections and audits at meaningful milestones rather than after every edit. Treat findings as detectors of potential refactoring or code-quality improvements, not as automatic authority for broad cleanup.
+
+Group related findings into scoped fix or refactoring batches. Re-inspect the affected scope after a fix family when coordinates or semantics may have changed; otherwise re-inspect at the next meaningful milestone, followed by the relevant diff checks and tests. Do not reformat unrelated files or invoke broad cleanup merely because the IDE offers it.
+
+Ignore the PhpStorm weak warning `Markdown unformatted table`. Treat it as a temporary IDE-setting mismatch rather than a repository defect.
+
+## Sandboxed Git and GitHub Operations
+
+Use elevated sandbox permissions on the first attempt for Git commands that write repository metadata and for credentialed Git or GitHub CLI operations that require SSH keys, credential helpers, or OS keyring tokens. This includes branch, index, commit, merge, rebase, and tag writes; private remote access and pushes; and authenticated pull-request, issue, release, or repository changes. Do not first run these commands without elevation merely to test whether the sandbox can access credentials.
+
+Treat an unelevated `unauthorized`, `invalid token`, credential-helper failure, or `Permission denied (publickey)` response as possible sandbox isolation rather than proof that GitHub credentials are expired or missing. Verify authentication with an elevated CLI check before asking the user to log in again; compare with the PhpStorm terminal only when it is useful for diagnosis. Elevation does not expand the user's authorized mutation scope or override the branch and pull-request rules below.
+
 ## Canonical Files
 
 - `skills/seo-agent-tools/SKILL.md` is the runtime entry point.
@@ -67,11 +103,13 @@ Use the ignored `tmp/` directory for disposable drafts and remove drafts when th
 
 ## Required Checks
 
-Run after every product change:
+Run once at each completed product-change milestone:
 
 ```bash
 npm run validate
 ```
+
+This command validates structural contracts, including evaluation registration; it does not execute behavioral evaluation cases. Report a behavioral case as passed only when that case was actually run and its named invariants were assessed.
 
 Run when runtime, catalog projection, packaging, manifests, or release behavior changes:
 
