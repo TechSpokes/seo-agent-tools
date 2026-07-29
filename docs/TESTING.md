@@ -2,7 +2,7 @@
 
 ## Required Local Checks
 
-Run the full structural suite after any runtime, catalog, fixture, documentation, packaging, or maintenance change:
+Run the full structural suite once after completing a runtime, catalog, fixture, documentation, packaging, or maintenance change milestone:
 
 ```bash
 npm run validate
@@ -21,13 +21,17 @@ Use the intended version tag rather than copying `v0.1.0` after the package vers
 
 `scripts/catalog.mjs` checks public taxonomy, capability vocabulary, recipe identity and versioning, stable step and input IDs, evidence requirements, stops, completion criteria, result-contract references, local schema references, and deterministic projection inputs.
 
+`scripts/check-version.mjs` checks that package metadata, both plugin manifests, the changelog, the current-version document, and release notes declare one version. Run it directly with `npm run version:check`, or rely on `npm run validate` to include it.
+
 `scripts/validate-skill.mjs` checks the single runtime source, skill frontmatter, reference links, package manifests, workflow mode, maintenance documentation, GitHub CLI delivery contracts, and release Markdown formatting.
 
-`scripts/validate-evaluations.mjs` checks activation examples, registered behavior and adversarial scenarios, required evaluation segments, maintenance-agent headings, and the canonical runtime map.
+`scripts/validate-evaluations.mjs` checks activation examples, registered behavior and adversarial scenarios, required evaluation segments, maintenance-agent headings, and the canonical runtime map. It does not execute prompts or assess model outputs.
 
 `scripts/verify-release-assets.mjs` checks deterministic ZIP inventory, checksums, CRC-backed stored entries, normalized line endings, forbidden source paths, local Windows paths, and common credential patterns.
 
 These scripts prove structure and deterministic delivery. They do not prove model behavior, SEO correctness, live server availability, or provider accuracy.
+
+Report a successful `npm run validate` result as structural or evaluation-registry validation, not as behavioral case execution. Report an evaluation case as passed only after an evaluator ran that case and the named invariants were assessed; identify the exact cases and invariant outcomes.
 
 ## Behavioral Evidence
 
@@ -36,6 +40,20 @@ These scripts prove structure and deterministic delivery. They do not prove mode
 `tests/evals/cases.json` is the machine-discoverable registry. Every scenario heading must be registered, and every required segment must have at least one case.
 
 After a substantial instruction change, run fresh-context agent evaluations against representative fixtures. Give each evaluator only the installed runtime tree plus the prompt and test facts needed for its case. Record whether the output satisfied the invariants; do not count an evaluator's agreement with the prose as execution evidence.
+
+## Milestone-Based Verification
+
+Apply milestone-based verification to all substantial work, including code, research, analysis, writing, documentation, and coordination.
+
+An iteration is a small, usually reversible step such as an edit, experiment, narrow check, or partial result. It advances a workstream but does not yet produce an integrated result that is ready for a consequential decision.
+
+A meaningful milestone is a deliberately chosen checkpoint where a coherent set of related work satisfies defined entry or acceptance conditions and is ready for review. It differs from ordinary progress because new evidence can decide whether to continue, rework, hand off, publish, perform a consequential external action, or claim completion. Elapsed time, edit count, a status update, or a partial delivery does not create a milestone by itself.
+
+During iteration, use the smallest targeted check that can catch errors relevant to the current step. Batch costly inference, broad IDE inspections and audits, comprehensive suites, external calls, fresh-context evaluations, and human reviews at meaningful milestones instead of repeating them after every small edit or partial delivery.
+
+Scale test depth progressively. Use syntax, lint, file-level, and schema checks during iteration; run targeted unit or contract tests at workstream checkpoints. Run integration, end-to-end, and full suites when the integrated milestone or changed risk crosses the boundaries those suites protect.
+
+Reuse valid evidence while its inputs, scope, risk, behavior, and expected conclusion remain unchanged. Rerun a check when one of those conditions changes materially. Cost control never permits postponing authorization, privacy, safety, or other pre-action evidence required before a paid, destructive, public, or difficult-to-recover operation.
 
 ## Catalog Change Tests
 

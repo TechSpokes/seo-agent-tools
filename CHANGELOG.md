@@ -1,5 +1,22 @@
 # Changelog
 
+## [v0.1.1] - 2026-07-30
+
+### Added
+
+- Focused writing-quality guidance for self-contained documentation, selective fresh-context review, and autonomous escalation before human interruption.
+- Fast local `npm run version:check` automation shared with release preflight for deterministic version-source validation.
+
+### Changed
+
+- Clarified maintenance instructions for elevated sandbox access to Git and GitHub credentials, PhpStorm semantic refactoring, scoped inspections, milestone-based work, progressive verification, and proportionate automation of repeated deterministic tasks.
+- Made evaluation validation and reporting distinguish registered structural contracts from behavioral cases that were actually executed and assessed.
+- Synchronized package and plugin metadata for the `0.1.1` patch version without creating a tag or release.
+
+### Removed
+
+- Removed `.intake/` source-analysis material from the tracked source tree and ignored future local intake artifacts.
+
 ## [v0.1.0] - 2026-07-29
 
 ### Added
