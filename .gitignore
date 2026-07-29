@@ -1,7 +1,8 @@
 .intake/
 node_modules/
 dist/
-tmp/
+/tmp/*
+!/tmp/AGENTS.md
 .template/state/
 .idea/
 *.log

@@ -6,15 +6,18 @@
   "runtime_map_end": "<!-- canonical-runtime-map:end -->",
   "required_agent_sections": [
     "Summary",
+    "Workspace and Authority",
     "Read Depth",
     "Product and Maintenance Goals",
     "Hard Constraints",
     "Must-Read Documents",
+    "Maintenance Operations",
     "Required Checks",
     "Change Boundaries"
   ],
   "required_agent_documents": [
     "AGENTS.md",
+    "tmp/AGENTS.md",
     "docs/ARCHITECTURE.md",
     "docs/RELEASING.md",
     "docs/TESTING.md",

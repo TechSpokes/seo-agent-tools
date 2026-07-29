@@ -1,6 +1,6 @@
 {
   "name": "seo-agent-tools",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Evidence-backed SEO analysis, recipe discovery, implementation handoffs, and verification through an SEO MCP server.",
   "author": {
     "name": "TechSpokes"
