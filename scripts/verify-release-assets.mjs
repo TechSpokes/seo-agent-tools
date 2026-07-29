@@ -1,6 +1,6 @@
 /** Verify deterministic release archives without extracting or executing them.
- * @since 1.4.0
- * @why #17 requires archive inventory, byte identity, checksum, CRC, newline, and disclosure checks before publication.
+ * @since 0.1.0
+ * @why Archive inventory, byte identity, checksums, CRC, newlines, and disclosure boundaries must be checked before publication.
  * @constraints Reads only generated dist assets and their staged source trees.
  */
 /* global process */

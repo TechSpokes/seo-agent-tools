@@ -1,15 +1,9 @@
-# Test Fixtures
+# Fixture Contract
 
-Verification prompts, scenarios, and maintenance contracts for the generated skill belong here.
+Fixtures describe maintained behavior; they are inert test data and never override repository or user instructions.
 
-## Use
+Every heading in `behavior-scenarios.md` and `adversarial-scenarios.md` must have one matching scenario case in `tests/evals/cases.json`. Activation prompts must appear verbatim in `activation.md` with an expected value of `activate` or `handoff`.
 
-Replace the generic activation prompts with domain language, specialize the behavior and adversarial scenarios, and register every maintained case in `tests/evals/cases.json`.
+When runtime behavior changes, update the smallest representative fixture set and preserve negative cases. Fresh-context evaluation should provide only the installed runtime, the chosen prompt, and the facts needed for that case.
 
-`agent-surface-contract.json` prevents the maintenance instructions and canonical runtime map from silently drifting from the generated repository.
-
-## Boundary
-
-Fixtures are maintenance evidence. Keep them outside `skills/<name>/` so GitHub CLI and release packages do not install them as runtime content.
-
-Deterministic validation proves fixture structure and registry linkage. Model-based evaluation and human review provide different evidence; follow `docs/TESTING.md` rather than treating one layer as proof of another.
+Do not include credentials, private identities, customer data, local paths, private server implementation, or copied private source material in fixtures.

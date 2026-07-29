@@ -1,5 +1,5 @@
 name: Skill run feedback
-description: Share one factual observation from using the generated skill
+description: Share one factual observation from using SEO Agent Tools
 title: "[Feedback]: "
 labels:
   - feedback
@@ -15,8 +15,15 @@ body:
   - type: textarea
     id: context
     attributes:
-      label: Optional context
-      description: Add the intended outcome, impact, environment, or related link only when it is useful and safe to publish.
+      label: Relevant context
+      description: Add the intended outcome, public-safe prompt facts, server-visible behavior, environment, and impact when useful.
+    validations:
+      required: false
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: State the observable behavior you expected and why.
     validations:
       required: false
   - type: checkboxes
@@ -24,5 +31,5 @@ body:
     attributes:
       label: Public disclosure check
       options:
-        - label: I reviewed this exact report and removed credentials, private identities, local paths, and restricted material.
+        - label: I reviewed this exact report and removed credentials, private identities, local paths, customer data, and private server material.
           required: true

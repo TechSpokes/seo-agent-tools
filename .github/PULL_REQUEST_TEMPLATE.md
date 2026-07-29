@@ -1,25 +1,31 @@
 ## Summary
 
-Describe the change and why it matters.
+Describe the public behavior or maintenance outcome that changed and why it matters.
 
 ## Scope
 
-Which area changed?
+- [ ] Runtime skill or references
+- [ ] Catalog recipe, taxonomy, capability, or result contract
+- [ ] Behavioral or adversarial fixtures
+- [ ] Validation or deterministic projection
+- [ ] Installation, packaging, or release workflow
+- [ ] Public documentation or community files
 
-- [ ] Public README or docs
-- [ ] Bootstrap instructions
-- [ ] Skill scaffold
-- [ ] Validation scripts
-- [ ] Packaging or release workflow
-- [ ] GitHub community or maintenance files
+## Contract and Version Impact
+
+- [ ] Recipe versions remain valid or were incremented where meaning changed
+- [ ] Result-contract compatibility remains valid or a new version was added
+- [ ] Package, manifests, changelog, version docs, and release notes agree
+- [ ] Runtime and public/private authority boundaries remain explicit
 
 ## Validation
 
 - [ ] Ran `npm run validate`
-- [ ] Ran `npm run package -- vX.Y.Z` with the intended tag if packaging or release behavior changed
-- [ ] Checked that generated repositories still transition cleanly from bootstrap mode to maintenance mode
-- [ ] Checked that no private intake or local machine paths were added
+- [ ] Ran `npm run package -- vX.Y.Z` when package or release behavior changed
+- [ ] Ran `npm run release:verify-assets -- vX.Y.Z` for a release candidate
+- [ ] Reviewed changed projection inventory and checksums
+- [ ] Confirmed no credentials, private data, private server implementation, or local paths were added
 
-## Notes
+## Evidence
 
-Add assumptions, tradeoffs, or follow-up work.
+List fixture results, fresh-context evaluations, commands, or other evidence that supports the change.

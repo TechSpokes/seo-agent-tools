@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/TechSpokes/seo-agent-tools/catalog/schemas/seo-opportunity-set.v1.schema.json",
+  "title": "SEO Opportunity Set v1",
+  "allOf": [
+    {
+      "$ref": "shared-evidence.schema.json"
+    },
+    {
+      "type": "object",
+      "required": [
+        "opportunity_type",
+        "comparison_basis",
+        "ranking_criteria",
+        "opportunities",
+        "excluded_candidates"
+      ],
+      "properties": {
+        "contract_id": {
+          "const": "seo-opportunity-set/v1"
+        },
+        "opportunity_type": {
+          "type": "string"
+        },
+        "comparison_basis": {
+          "type": "string"
+        },
+        "ranking_criteria": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "opportunities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "target",
+              "rationale",
+              "evidence_ids",
+              "priority",
+              "confidence",
+              "constraints"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "target": {
+                "type": "object"
+              },
+              "rationale": {
+                "type": "string"
+              },
+              "evidence_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "priority": {
+                "enum": [
+                  "low",
+                  "medium",
+                  "high"
+                ]
+              },
+              "confidence": {
+                "enum": [
+                  "low",
+                  "medium",
+                  "high"
+                ]
+              },
+              "constraints": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "excluded_candidates": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  ],
+  "unevaluatedProperties": false
+}

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-/** Validate the exact uncommitted candidate tree before a generated skill release.
- * @since 1.4.0
- * @why #17 requires a reproducible final-tree gate before a release tag creates immutable public identity.
+/** Validate the exact uncommitted candidate tree before an SEO Agent Tools release.
+ * @since 0.1.0
+ * @why A release tag creates immutable public identity, so the exact candidate tree must be reproducible before tagging.
  * @constraints Reads repository and remote release state, resets only generated dist, and never commits, tags, pushes, or publishes.
  */
 /* global process */

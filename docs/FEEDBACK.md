@@ -1,30 +1,22 @@
 # Feedback
 
-## Goal
+## Report One Observation
 
-Route useful observations from real skill runs into the owning GitHub repository without maintaining a second local feedback queue.
+Use the skill-run feedback issue form for one factual observation about activation, routing, evidence use, recipe discovery, content diagnosis, handoff, verification, or a required stop.
 
-## Canonical Surface
+Describe what the agent did, missed, or made difficult. Include the intended outcome, relevant environment, server-visible behavior, and impact only when those details are safe to publish.
 
-GitHub Issues owns durable feedback state. Use the skill-run feedback form for observations, the bug form for reproducible defects, the feature form for proposed improvements, Discussions for questions, and the private security path for sensitive findings.
+Do not publish prompts, outputs, or logs containing credentials, private identities, local paths, customer data, private repository material, account state, or proprietary server details.
 
-The reporter only needs to provide one factual observation. Maintainers or authorized agents may add intended outcome, impact, environment, evidence, hypothesis, and related cases when those facts are known and useful.
+## Draft Privately Before Publishing
 
-## Agent Workflow
+When a report needs editing or privacy review, use the ignored `tmp/` directory for a local draft. Remove restricted material and review the exact public title and body before creating the issue.
 
-1. Preserve the user's factual observation and intended outcome.
-2. Search existing Issues for a duplicate.
-3. Separate observation from diagnosis and label uncertainty.
-4. Remove credentials, private identities, repository relationships, local paths, restricted screenshots, and unnecessary raw logs.
-5. Show the exact public title and body to the user and receive approval before creating or commenting on an Issue.
-6. Verify the created or updated Issue and report its link.
+Do not maintain a second repository backlog or feedback ledger. GitHub Issues remains the source of truth for durable reports and their status.
 
-Use the ignored `tmp/` directory only when a disposable private draft is necessary. Remove the draft after review or submission. Do not create `.plans`, `.skill-template-feedback`, or another tracked backlog.
+## Route Other Requests
 
-## Repository Setup
-
-The issue form requests one observation and an explicit public-disclosure confirmation. During generated-repository setup, create a `feedback` label only after the repository owner approves the public feedback workflow. Labels are navigation aids; GitHub Issues remains the source of truth when the label is absent or changed.
-
-## Security
-
-Do not place vulnerability details, credentials, private data, or exploit material in a public issue. Follow `SECURITY.md` for private reporting and preserve evidence without expanding disclosure.
+- Use a bug report for deterministic validation, packaging, workflow, schema, or documentation defects.
+- Use a feature request for a public skill, catalog, result-contract, or maintenance capability proposal.
+- Use GitHub Discussions for questions and early ideas that are not yet actionable reports.
+- Use private vulnerability reporting for credentials, private data exposure, or release security problems.

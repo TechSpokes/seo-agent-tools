@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "id": "keyword-opportunity-map",
+  "version": "1.0.0",
+  "title": "Keyword Opportunity Map",
+  "summary": "Find and validate a bounded set of keyword clusters, then map each supported opportunity to an existing or proposed page.",
+  "primary_domain": "keyword",
+  "operations": [
+    "discover",
+    "map",
+    "prioritize",
+    "validate"
+  ],
+  "target": "query-set",
+  "required_inputs": [
+    {
+      "id": "site_or_topic",
+      "description": "The site, business area, product, service, or topic whose opportunities should be evaluated."
+    }
+  ],
+  "capabilities": [
+    "keyword-expansion",
+    "keyword-metrics",
+    "serp-results"
+  ],
+  "steps": [
+    {
+      "id": "acquire-context",
+      "instruction": "Confirm the subject, market, audience, existing site context, and decision the opportunity map must support."
+    },
+    {
+      "id": "budget-preflight",
+      "instruction": "Inspect current runtime cost and authorization for the bounded expansion, metrics, and validation plan."
+    },
+    {
+      "id": "expand-candidates",
+      "instruction": "Expand a bounded candidate set from the confirmed subject without treating generated variants as validated demand."
+    },
+    {
+      "id": "add-conditional-metrics",
+      "instruction": "Add current keyword metrics only where they can change candidate selection or priority."
+    },
+    {
+      "id": "validate-finalists",
+      "instruction": "Inspect current search results for finalists to validate intent, page type, and material ambiguity."
+    },
+    {
+      "id": "map-opportunities",
+      "instruction": "Cluster supported queries and map them to an existing page, a distinct proposed page, or a documented rejection."
+    },
+    {
+      "id": "produce-artifact",
+      "instruction": "Return the ranked opportunity set with evidence, differentiation, action, confidence, and constraints."
+    }
+  ],
+  "evidence_requirements": [
+    "Every retained cluster is supported by observed queries and current result-page evidence.",
+    "Intent and recommended page type are interpretations linked to evidence records.",
+    "Existing-page assignments account for overlap with other known site pages.",
+    "Metrics record market, locale, freshness, and estimate limitations when available."
+  ],
+  "stop_conditions": [
+    "Stop before paid expansion or metrics when current authorization is insufficient.",
+    "Stop or narrow the market when the subject or locale is too ambiguous to interpret results.",
+    "Return an empty completed opportunity set when no candidate survives validation."
+  ],
+  "completion_criteria": [
+    "The candidate search and validation bounds are recorded.",
+    "Each included opportunity has a target, rationale, evidence, priority, confidence, and constraints.",
+    "Rejected finalists that materially explain the decision have a reason.",
+    "No more than ten opportunities are returned."
+  ],
+  "output_contracts": [
+    "seo-opportunity-set/v1"
+  ],
+  "bounds": {
+    "max_results": 10,
+    "sample_guidance": "Validate only the strongest bounded finalist set rather than collecting exhaustive keyword inventory."
+  }
+}

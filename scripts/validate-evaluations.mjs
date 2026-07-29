@@ -1,6 +1,6 @@
-/** Validate the generated skill's behavioral registry, fixtures, and maintenance agent surface.
- * @since 1.4.0
- * @why #15 makes activation, workflow, safety, and drift expectations machine-discoverable without shipping tests as runtime content.
+/** Validate SEO Agent Tools behavioral registry, fixtures, and maintenance agent surface.
+ * @since 0.1.0
+ * @why Activation, workflow, safety, and drift expectations must be machine-discoverable without shipping tests as runtime content.
  * @constraints Performs deterministic structural checks only; it does not execute prompts or claim model-level behavioral evidence.
  */
 /* global process */
@@ -10,7 +10,6 @@ import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const fixtureRoot = path.join(root, "tests", "fixtures");
-const bootstrapMode = fs.existsSync(path.join(root, ".template"));
 const failures = [];
 
 function fail(message) {
@@ -124,10 +123,6 @@ function validateAgentSurface(contract) {
       fail(`Agent surface requires missing document ${document}.`);
     }
   }
-  if (bootstrapMode) {
-    return;
-  }
-
   const skillRoot = discoverSkillRoot();
   if (contract.canonical_runtime_root !== skillRoot) {
     fail(`Agent surface runtime root ${contract.canonical_runtime_root} must match ${skillRoot}.`);
@@ -154,7 +149,7 @@ function validateAgentSurface(contract) {
 
   for (const file of ["tests/fixtures/activation.md", "tests/evals/cases.json"]) {
     if (/<(?:primary|adjacent) task/i.test(readText(file))) {
-      fail(`${file} still contains bootstrap evaluation placeholders.`);
+      fail(`${file} still contains construction evaluation placeholders.`);
     }
   }
 }

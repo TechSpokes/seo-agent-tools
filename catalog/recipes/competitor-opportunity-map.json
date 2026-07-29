@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "id": "competitor-opportunity-map",
+  "version": "1.0.0",
+  "title": "Competitor Opportunity Map",
+  "summary": "Confirm relevant search competitors, compare their supported demand and pages with the target domain, and rank opportunities to pursue, defer, or reject.",
+  "primary_domain": "competition",
+  "operations": [
+    "compare",
+    "discover",
+    "map",
+    "prioritize"
+  ],
+  "target": "competitor-set",
+  "required_inputs": [
+    {
+      "id": "own_domain",
+      "description": "The target domain whose search competitors and opportunities should be evaluated."
+    }
+  ],
+  "capabilities": [
+    "competitor-discovery",
+    "keyword-metrics",
+    "page-content",
+    "serp-results"
+  ],
+  "steps": [
+    {
+      "id": "acquire-market-context",
+      "instruction": "Confirm the domain, business scope, market, audience, and constraints that determine competitor relevance."
+    },
+    {
+      "id": "budget-preflight",
+      "instruction": "Inspect current runtime cost and authorization for competitor discovery, keyword collection, and finalist validation."
+    },
+    {
+      "id": "discover-and-confirm-competitors",
+      "instruction": "Discover a bounded set of search competitors and reject entities that do not compete for the relevant audience or demand."
+    },
+    {
+      "id": "collect-keywords",
+      "instruction": "Collect bounded query evidence for confirmed competitors without equating all competitor rankings with target-domain opportunities."
+    },
+    {
+      "id": "validate-opportunities",
+      "instruction": "Validate finalist demand, intent, result types, target-domain coverage, and material feasibility."
+    },
+    {
+      "id": "inspect-pages",
+      "instruction": "Inspect representative competitor and target pages to identify evidence-backed differentiation and page-role requirements."
+    },
+    {
+      "id": "produce-map",
+      "instruction": "Return ranked opportunity clusters with competitor, query, intent, page type, evidence, differentiation, effort, confidence, and disposition."
+    }
+  ],
+  "evidence_requirements": [
+    "Competitor relevance is supported by observed search overlap and business context.",
+    "Every retained opportunity is validated against current result evidence and target-domain coverage.",
+    "Differentiation requirements are derived from evidence and user context, not copied from competitor prose.",
+    "Effort and confidence include the limits of available authority, product, and operational evidence."
+  ],
+  "stop_conditions": [
+    "Stop or narrow when the market or business scope is too ambiguous to confirm competitors.",
+    "Stop before paid collection when authorization is insufficient.",
+    "Return an empty completed opportunity set when confirmed competitors produce no supported target opportunity."
+  ],
+  "completion_criteria": [
+    "The confirmed competitor set and rejection logic are recorded.",
+    "Every included cluster has evidence, differentiation, effort, confidence, and disposition.",
+    "Target-domain overlap and page ownership are considered.",
+    "The result is bounded to the strongest supported opportunities."
+  ],
+  "output_contracts": [
+    "seo-opportunity-set/v1"
+  ],
+  "bounds": {
+    "max_results": 10,
+    "sample_guidance": "Compare a small confirmed competitor set and retain only opportunities that survive demand, intent, coverage, and feasibility checks."
+  }
+}

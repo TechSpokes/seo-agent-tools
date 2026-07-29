@@ -1,15 +1,5 @@
 # Release Notes
 
-Add one Markdown file per release tag.
+Each release has one immutable Markdown file named for its `vX.Y.Z` tag. The draft-release workflow uses that file as the public release body.
 
-## File Naming
-
-Use this format:
-
-```text
-vX.Y.Z.md
-```
-
-The draft release workflow requires the release notes file for the tag being packaged.
-
-Keep each paragraph and list item on one physical source line, give each paragraph one idea, and separate Markdown blocks with one empty line. Let the reader apply soft wrapping instead of hard wrapping prose to a fixed width.
+Release notes describe user-visible runtime, catalog, contract, validation, documentation, and packaging changes. They do not contain private intake, internal server implementation, or unreleased roadmap promises.

@@ -1,127 +1,58 @@
 # Architecture
 
-This document contains a distilled public version of TechSpokes architecture guidance for template-driven agent skill repositories.
+## System Boundary
 
-This template separates bootstrap instructions from generated skill content.
+SEO Agent Tools separates public analytical methodology from private runtime implementation.
 
-## Architectural Goal
+The public repository owns the portable skill, canonical recipe definitions, controlled discovery vocabulary, public capability requirements, result schemas, tests, and deterministic projection builder.
 
-The architecture supports a one-way transition from template to standalone skill repository.
+The connected private SEO MCP server owns tool implementation, provider bindings, deployment state, authentication, tenant authorization, current cost, capability mapping, and caller-specific recipe availability.
 
-The template is useful only while it helps an agent transform intake into a maintained skill. After that transformation, the template structure becomes a liability because it can confuse future agents about which instructions are authoritative.
+The agent uses the public skill to reason about the task and uses the connected server as executable authority. A repository definition describes a method; it does not grant runtime access.
 
-## Design Values
+## Runtime Skill
 
-- Separate user evidence from agent instructions.
-- Separate temporary bootstrap logic from durable skill content.
-- Preserve reasoning that future maintainers need.
-- Remove construction scaffolding when it no longer serves the generated repository.
-- Keep release artifacts focused on runtime skill use.
-
-## Bootstrap Mode
-
-Bootstrap mode is the initial state after a repository is created from this template.
-
-Important areas:
-
-- `.intake/` contains user source material.
-- `.template/` contains agent bootstrap instructions.
-- `.template/generated/` contains files that are installed into generated skill repositories.
-- `skills/placeholder-skill/` contains the standard placeholder source until the final skill name is confirmed.
-- `tests/fixtures/` contains maintenance examples that must not enter the installed runtime.
-- `docs/` contains template documentation until rewritten.
-- `packaging/` contains reusable plugin manifest skeletons.
-
-The reason to keep these areas separate is that each area has a different authority level. Intake is evidence from the user. Template files are instructions for the builder. `skills/<name>/` becomes the runtime product, while `tests/` remains maintenance evidence.
-
-Bootstrap mode includes an intake adequacy step before skill construction. This step determines whether the available intake can support a transferable skill or whether the agent must resolve missing evidence first.
-
-## Skill Mode
-
-Skill mode is the final state after the agent builds the skill and cleans up bootstrap files.
-
-Important areas:
-
-- `skills/<name>/SKILL.md` is the canonical skill entry point and its directory name matches frontmatter.
-- `skills/<name>/references/` contains durable runtime knowledge.
-- `tests/fixtures/` contains activation and behavior evidence outside the installable tree.
-- `docs/` explains the generated skill.
-- `AGENTS.md` explains how future agents maintain the skill.
-- `.github/` explains how GitHub issues, discussions, reviews, funding, and repository automation work for the generated skill.
-- `.template/` is deleted.
-
-Generated skill workflows are installed from `.template/generated/.github/workflows/` during cleanup. The template repository keeps only template-owned workflows active so it validates the scaffold and drafts template releases without publishing placeholder skill assets.
-
-The reason `.template/` is deleted is not tidiness. It prevents future agents from optimizing for bootstrap goals after the repository's purpose has changed.
-
-### Canonical Runtime Map
-
-Update this generated block whenever the runtime tree changes. The evaluation validator compares it with the files below the one canonical skill root in maintenance mode.
+The release packages contain one small skill tree. It teaches routing, evidence discipline, content-quality diagnosis, implementation handoffs, verification, and required stops. It intentionally excludes the full recipe catalog so installation does not load catalog-scale context into every request.
 
 <!-- canonical-runtime-map:start -->
-- skills/placeholder-skill/SKILL.md
-- skills/placeholder-skill/references/README.md
-- skills/placeholder-skill/references/install-and-update-this-skill.md
+- skills/seo-agent-tools/SKILL.md
+- skills/seo-agent-tools/agents/openai.yaml
+- skills/seo-agent-tools/references/content-diagnosis-and-handoff.md
+- skills/seo-agent-tools/references/install-and-update-this-skill.md
+- skills/seo-agent-tools/references/mcp-routing-and-evidence.md
+- skills/seo-agent-tools/references/result-contracts.md
 <!-- canonical-runtime-map:end -->
 
-## Authority Model
+The runtime map is validated against the actual skill tree. Add a runtime file only when an installed agent needs it during task execution.
 
-During bootstrap, authority flows in this order:
+## Catalog Source
 
-1. User request and repository `AGENTS.md`.
-2. `.template/bootstrap/` instructions.
-3. `.intake/` source material.
-4. Existing placeholder files.
+`catalog/catalog.json` owns catalog version, taxonomy, public capabilities, discovery defaults, and result-contract paths. Each file in `catalog/recipes/` owns one immutable recipe version with stable step IDs, inputs, evidence requirements, stops, completion criteria, and output contracts.
 
-When `.intake/` is empty or insufficient, the agent may create temporary assessment files under `.template/state/` and durable evidence under `.intake/`. The assessment files guide construction while bootstrap mode is active. The evidence files become part of the intake boundary and must still be excluded from release artifacts unless transformed into safe runtime references.
+The first five recipes preserve migration behavior from the current service. They are seed data, not a fixed product list, a required category count, or a limit in validation.
 
-During maintenance mode, authority changes:
+Use one primary domain plus controlled operation and target facets. Keep locale, device, market, depth, and budget as runtime inputs or policies unless they materially change the analytical method. Add a new controlled vocabulary value or result contract only when an actual recipe cannot be expressed clearly with the current contract.
 
-1. The generated repository `AGENTS.md`.
-2. `docs/ARCHITECTURE.md`.
-3. Generated docs and release process.
-4. `skills/<name>/SKILL.md`.
-5. New material intentionally placed in `.intake/` for updates.
+## Deterministic Projection
 
-`skills/<name>/SKILL.md` is the canonical skill entry point for installed agent hosts, but it is not the highest-level design authority for repository maintenance. In maintenance work, `SKILL.md` is the runtime implementation of the skill. It should stay aligned with the repository `AGENTS.md` and the design intent documented in `docs/ARCHITECTURE.md`.
+`scripts/catalog.mjs` validates the public source and emits `dist/catalog/catalog.json` plus `dist/catalog/manifest.json`. The projection sorts recipes and object keys, normalizes JSON bytes, records source checksums, and contains no build timestamp.
 
-## Delivery Channels
+The manifest identifies the skill and catalog versions, supported recipe schema versions, result contracts, recipe inventory, source checksums, and projection checksum. A private importer can pin a public revision, verify the manifest, reject unsupported schemas or capabilities, and map public capability IDs to its private tools.
 
-GitHub CLI source installation and release ZIP installation share one canonical runtime tree. GitHub CLI reads the tagged Git tree and adds source metadata, while browser and plugin hosts use the packaged standalone, Codex plugin, and Claude plugin ZIPs.
+The projection direction is public repository to private server. This build never writes into a sibling or private repository.
 
-The generated draft release workflow remains authoritative for curated notes, packages, checksums, attestations, and publication review. Clean `gh skill publish --dry-run` validation checks the source layout without delegating release creation to the preview publisher.
+## Result Contracts
 
-After publication, an ephemeral workflow installs the versionless public release and compares the installed tree without executing it. This confirms the delivery channel while keeping GitHub CLI optional for runtime use.
+All typed results share an evidence envelope. The initial contract families are an opportunity set, a diagnostic, and an implementation handoff. Verification audits one of those results rather than creating an unrelated generic result.
 
-This authority shift is why rewriting `AGENTS.md` is required. The old file governs construction. The new file governs maintenance. `docs/ARCHITECTURE.md` should preserve the reasoning behind the generated skill's structure so future agents can judge when an implementation change is aligned with the design and when it changes the design itself.
+New result contracts are versioned. A recipe references an explicit contract version, and an incompatible contract change requires a new version instead of silently changing existing recipe meaning.
 
-## Communication Design
+## Version and Availability Skew
 
-The template applies cross-intelligence communication rules:
+The installed skill, public catalog, server-imported catalog, and server implementation may differ in version. The server's current discovery response is the executable truth for the active caller.
 
-- Goals appear before procedures.
-- Terms with likely ambiguity are defined.
-- Hard rules are separate from context.
-- Critical constraints are front-loaded.
-- Release packaging boundaries are explicit.
-- Validation checks deterministic conditions where possible.
+When behavior described publicly is unavailable at runtime, the agent reports the skew, searches for a supported alternative, and stops if no supported path can satisfy the evidence contract. A future recipe with an unfamiliar result contract can proceed only when the server supplies the exact versioned schema in an interpretable form. The agent does not reconstruct private calls or contract fields from repository data or memory.
 
-These rules exist because future agents may load partial context, interpret terms differently, or operate under different host constraints. Rationale gives them enough orientation to adapt while preserving purpose.
+## Deferred Runtime Machinery
 
-## Theory Integration
-
-The underlying theory files are intentionally not bundled as full research documents. They are large, exploratory, and broader than this template's operational need.
-
-The template uses adapted theory instead:
-
-- `.template/bootstrap/theory-context.md` carries the compact reasoning model for bootstrap agents.
-- `.template/bootstrap/cross-intelligence-communication.md` converts that model into practical writing rules.
-- Generated repositories should preserve relevant rationale in `AGENTS.md`, `README.md`, and `docs/ARCHITECTURE.md`.
-
-This keeps bootstrap context useful without forcing every generated repository to inherit the full research archive.
-
-## Maintenance Implication
-
-Generated repositories should keep enough reasoning to support future updates. Maintenance docs should explain why the skill is structured as it is, which references are volatile, which boundaries protect scope, and which release rules protect users.
-
-Do not preserve bootstrap rationale just because it exists. Preserve only rationale that helps maintain the generated skill.
+Persistent runs, scheduling, queues, checkpoints, retries, cancellation, retention, authorization renewal, and server-side recipe orchestration require a separate private architecture decision. Stable recipe versions and step IDs preserve a migration path without modeling that machinery in this public release.

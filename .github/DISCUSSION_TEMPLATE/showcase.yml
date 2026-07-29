@@ -1,29 +1,27 @@
-title: "Show And Tell"
-labels: ["showcase", "community"]
+title: "Showcase"
+labels:
+  - showcase
 body:
   - type: markdown
     attributes:
       value: |
-        Share a skill repository or workflow created from Skill Base Template.
-  - type: input
-    id: repository
-    attributes:
-      label: Repository Or Project
-      description: Link to the generated repository or describe the project.
+        Share a public-safe use of SEO Agent Tools, a recipe evaluation, or an integration pattern.
   - type: textarea
-    id: skill
+    id: outcome
     attributes:
-      label: Skill Description
-      description: What does the generated skill help agents do?
+      label: Outcome
+      description: What SEO decision or workflow did the skill support?
     validations:
       required: true
   - type: textarea
-    id: workflow
+    id: evidence
     attributes:
-      label: Workflow Notes
-      description: What worked well or what needed adaptation?
+      label: Evidence and boundaries
+      description: What worked, what remained uncertain, and which private or customer details were removed?
+    validations:
+      required: true
   - type: textarea
-    id: lessons
+    id: learning
     attributes:
-      label: Lessons Learned
-      description: What would help others using this template?
+      label: Reusable learning
+      description: What could other users or maintainers learn from this example?

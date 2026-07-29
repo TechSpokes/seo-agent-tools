@@ -4,3 +4,5 @@ tmp/
 .template/state/
 .idea/
 *.log
+.codex/*
+!.codex/config.toml.example

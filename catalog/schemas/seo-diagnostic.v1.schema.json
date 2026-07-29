@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/TechSpokes/seo-agent-tools/catalog/schemas/seo-diagnostic.v1.schema.json",
+  "title": "SEO Diagnostic v1",
+  "allOf": [
+    {
+      "$ref": "shared-evidence.schema.json"
+    },
+    {
+      "type": "object",
+      "required": [
+        "evaluated_layers",
+        "issues"
+      ],
+      "properties": {
+        "contract_id": {
+          "const": "seo-diagnostic/v1"
+        },
+        "evaluated_layers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "layer",
+              "status"
+            ],
+            "properties": {
+              "layer": {
+                "type": "string"
+              },
+              "status": {
+                "enum": [
+                  "clear",
+                  "issue",
+                  "unknown",
+                  "not-applicable"
+                ]
+              },
+              "evidence_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "scope",
+              "priority",
+              "evidence_ids",
+              "competing_explanations",
+              "likely_root_cause",
+              "recommended_intervention",
+              "verification_method"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "scope": {
+                "type": "string"
+              },
+              "priority": {
+                "enum": [
+                  "low",
+                  "medium",
+                  "high",
+                  "critical"
+                ]
+              },
+              "evidence_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "competing_explanations": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "likely_root_cause": {
+                "type": "string"
+              },
+              "recommended_intervention": {
+                "type": "string"
+              },
+              "page_strategy": {
+                "enum": [
+                  "create",
+                  "refresh",
+                  "consolidate",
+                  "preserve"
+                ]
+              },
+              "verification_method": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "unevaluatedProperties": false
+}

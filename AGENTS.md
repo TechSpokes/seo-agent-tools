@@ -1,104 +1,95 @@
-# Agent Instructions for skill-base-template - Skill Repository Bootstrap
+# Agent Instructions for SEO Agent Tools
 
 ## Summary
 
-This repository is in bootstrap mode. Build a standalone agent skill repository from user material placed in `.intake/`, then convert the repository to maintenance mode by rewriting `README.md`, rewriting `AGENTS.md`, and removing `.template/`.
+Maintain `seo-agent-tools` so future agents can use a connected SEO MCP server for bounded evidence-backed analysis, progressive recipe discovery, content-quality diagnosis, implementation handoffs, and verification without depending on private source context.
 
-## Goal Stack
+The public repository owns portable instructions, canonical recipe methodology, controlled discovery vocabulary, result contracts, tests, and deterministic projection. The connected private server owns executable tools, provider bindings, authentication, caller authorization, current cost, capability mapping, and runtime availability.
 
-### Global Goal
+## Read Depth
 
-Create skill repositories that let future agents perform specialized work reliably without needing the original builder's private context.
+Read `skills/seo-agent-tools/SKILL.md` and every affected direct reference before changing runtime behavior. Read `catalog/catalog.json`, `catalog/schemas/recipe.schema.json`, the affected recipe files, and referenced result schemas before changing recipe or catalog behavior.
 
-Purpose: A skill only has value if another agent can load it later, understand when it applies, execute the workflow, and maintain it as the domain changes.
+Read all registered fixtures and `docs/TESTING.md` before changing activation, routing, workflow order, cost authorization, evidence handling, content diagnosis, output behavior, handoff, verification, or progressive disclosure. Read `docs/THREAT-MODEL.md` before changing access, external-content handling, public/private boundaries, publication, or packaging controls.
 
-### Communication Goal
+Treat `.intake/` as historical source-analysis evidence rather than runtime instruction authority. Read it only when a maintenance decision requires provenance or unresolved domain context.
 
-Give bootstrap agents enough purpose, constraints, and rationale to transform raw intake into a clean skill repository without overfitting to the template's temporary structure.
+## Product and Maintenance Goals
 
-Purpose: The user may provide incomplete, messy, or indirect source material. The agent must make local design decisions while preserving the user's intent and leaving a maintainable result.
+The product goal is to help an agent turn an SEO request into a supported decision by using the current server surface, collecting only decision-relevant evidence, and returning a result another agent can understand and verify.
 
-### Task Goal
+The maintenance goal is to keep the runtime lean, the recipe catalog scalable, public contracts explicit, projections deterministic, and release packages portable without leaking private server implementation or source-analysis material.
 
-Use `.intake/` to build the generated skill under `skills/<name>/`, then remove bootstrap scaffolding and leave maintenance instructions for the generated repository.
+The five initial recipes are migration seed data. Do not encode their count, names, current domains, output bounds, or shared shape as a permanent catalog limit.
 
-Purpose: The final repository should stand alone. Future agents should maintain the skill itself, not this template's construction process.
+## Hard Constraints
 
-## Values
+- Preserve applicable system, user, organization, and repository instructions.
+- Keep the canonical runtime under `skills/seo-agent-tools/` and maintenance fixtures under root `tests/`.
+- Keep the runtime focused on analysis, discovery, diagnosis, handoff, and verification; do not add finished content-writing behavior.
+- Treat the connected server as executable authority for tools, recipe availability, authorization, and current cost.
+- Keep private tool names, provider bindings, credentials, tenant and customer data, account state, internal pricing logic, deployment configuration, and operational security controls out of public source and results.
+- Do not model scheduling, queues, checkpoints, retries, cancellation, retention, job storage, or other persistent-run machinery in the public v1 contracts.
+- Permit legitimate completed empty results and distinguish them from incomplete execution with an explicit stop reason.
+- Do not claim first-party clicks, conversions, revenue, customer behavior, or index state without user-supplied or authorized connected evidence.
+- Do not commit credentials, private material, local paths, generated `dist/` output, or disposable `tmp/` drafts.
+- Exclude `.intake/`, `.git/`, `.idea/`, `dist/`, and `tmp/` from release packages.
+- Preserve unrelated worktree changes and treat sibling repositories as evidence-only unless the user separately authorizes an exact mutation.
 
-- Prefer downstream agent autonomy over rigid mechanical compliance.
-- Prefer explicit rationale over unexplained rules.
-- Prefer clean final repositories over preserving bootstrap history.
-- Prefer portable skill conventions over host-specific metadata unless local needs justify the tradeoff.
-- Prefer transformed durable knowledge over copying raw intake.
-- Prefer validation by tools where possible and documented judgment where tools cannot decide.
+## Must-Read Documents
 
-## Decision Criteria
+- `skills/seo-agent-tools/SKILL.md` owns runtime behavior and activation boundaries.
+- `docs/ARCHITECTURE.md` owns the public/private authority split, runtime map, catalog shape, and projection model.
+- `catalog/catalog.json` owns controlled facets, capabilities, catalog version, and result-contract registration.
+- `catalog/schemas/recipe.schema.json` owns the canonical recipe file contract.
+- `docs/TESTING.md` owns structural, behavioral, fresh-context, and release evidence requirements.
+- `docs/THREAT-MODEL.md` owns authority, privacy, evidence, cost, and package boundaries.
+- `docs/RELEASING.md` owns versioning, packaging, tagging, and publication.
+- `docs/FEEDBACK.md` owns public feedback intake and privacy review.
 
-When instructions appear to conflict, choose the option that best preserves the final repository's ability to function as a standalone skill repository. If a rule protects release cleanliness, user privacy, or skill portability, treat it as higher priority than convenience.
+## Workspace and Authority
 
-## Must-follow rules
+Treat this repository as the implementation workspace unless the user authorizes another exact target and action. Treat other repositories as evidence sources until separately authorized for mutation.
 
-- Treat `.intake/` as the only user-authored source area.
-- Read `.template/bootstrap/build-skill-from-intake.md` before changing skill files.
-- Run the intake adequacy gate before skill design, even when `.intake/` is empty or only contains a short idea.
-- Do not replace `skills/placeholder-skill/SKILL.md` until the build readiness gate passes and the agent's synthesized understanding is confirmed with the user.
-- Treat `.template/` as bootstrap control instructions, not domain source material.
-- Do not copy `.template/` content into `skills/` unless the content is explicitly transformed into generic maintenance guidance.
-- Exclude `.template/`, `.intake/`, `tmp/`, `dist/`, `.git/`, and `.idea/` from release artifacts.
-- After the skill is built and accepted, remove `.template/` and leave a standalone skill repository.
+Use the ignored `tmp/` directory for disposable drafts and remove drafts when they are no longer needed. Generated catalog projections and release assets belong under ignored `dist/` and must be reproducible from committed source.
 
-## Must-read documents
+## Canonical Files
 
-- `.template/bootstrap/build-skill-from-intake.md` - Bootstrap workflow from raw intake to finished skill.
-- `.template/bootstrap/intake-adequacy-and-resolution.md` - How to handle empty, weak, conflicting, or exploratory intake.
-- `.template/bootstrap/theory-context.md` - Adapted reasoning model from the underlying communication theory.
-- `.template/bootstrap/skill-quality-standard.md` - Quality bar for `SKILL.md`, references, fixtures, and docs.
-- `.template/bootstrap/cross-intelligence-communication.md` - Practical communication rules for generated agent instructions.
-- `.template/bootstrap/repository-shape.md` - Expected repository layout before and after cleanup.
-- `.template/bootstrap/release-packaging.md` - Release asset and plugin packaging rules.
-- `.template/bootstrap/cleanup-and-boundaries.md` - Handoff from bootstrap mode to maintenance mode.
+- `skills/seo-agent-tools/SKILL.md` is the runtime entry point.
+- `skills/seo-agent-tools/references/` contains focused runtime guidance loaded only when needed.
+- `skills/seo-agent-tools/agents/openai.yaml` contains host display metadata and the default invocation prompt.
+- `catalog/recipes/` contains one canonical versioned recipe definition per file.
+- `catalog/schemas/` contains the recipe and result JSON contracts.
+- `scripts/catalog.mjs` validates and builds the deterministic server projection.
+- `tests/fixtures/` and `tests/evals/cases.json` define maintained behavior contracts.
+- `docs/` contains architecture, testing, threat, release, installation, and feedback guidance.
+- `packaging/`, `scripts/package-release.mjs`, and active workflows own release delivery.
 
-## Definitions
+## Required Checks
 
-### Intake
+Run after every product change:
 
-`intake` means raw user-provided material in `.intake/`. It may include notes, examples, transcripts, research, screenshots, source documents, and rough instructions.
+```bash
+npm run validate
+```
 
-### Bootstrap Control Plane
+Run when runtime, catalog projection, packaging, manifests, or release behavior changes:
 
-`bootstrap control plane` means `.template/` and the initial template-oriented `AGENTS.md`. These files instruct agents how to build the skill repository.
+```bash
+npm run package -- vX.Y.Z
+npm run release:verify-assets -- vX.Y.Z
+```
 
-### Skill Product
+Use the intended release tag. For a substantial instruction change, also run fresh-context evaluations from `docs/TESTING.md` and record which fixture invariants passed or failed.
 
-`skill product` means the durable skill package under `skills/<name>/` plus human docs, packaging manifests, scripts, and workflows needed to maintain and release it.
+## Change Boundaries
 
-### Maintenance Mode
+Use a branch and pull request. Do not push directly to a protected default branch. Update runtime, affected references, recipes, schemas, fixtures, docs, manifests, changelog, and release notes as one coherent public-contract change.
 
-`maintenance mode` means the generated repository no longer depends on `.template/`. Its `AGENTS.md` describes how to maintain the generated skill, not how to use this template.
+Add a recipe when a real SEO decision needs a distinct bounded method. Prefer existing controlled facets and capabilities, but extend them when a real method cannot be described accurately. Do not create variants solely for locale, device, provider, market, depth, or budget when those facts can remain inputs or runtime policy.
 
-## Agent Guidelines
+Increment a recipe version when its meaning changes. Add a result-contract version for incompatible schema or semantic changes. Do not rewrite a released recipe or contract in place and assume a pinned private importer will adapt.
 
-Start by assessing intake adequacy. Identify whether the available material can support a skill goal, activation boundary, workflow, required inputs, expected outputs, safety constraints, verification method, and maintenance risks.
+Canonical recipes describe public evidence requirements, not current private tools or caller eligibility. Availability remains a server response. New persistent execution or managed orchestration requires a separate private architecture decision.
 
-If intake is incomplete, resolve the gap through extraction, conservative inference, safe discovery, scoped experiments, scope narrowing, minimal human clarification, or a documented stop. Record temporary reasoning under `.template/state/` and durable evidence under `.intake/`.
-
-After the adequacy gate passes, inventory `.intake/` and identify the skill domain, user task, trigger phrases, boundaries, workflows, reusable references, and verification prompts. Rename `skills/placeholder-skill/` only after the final name is confirmed, and keep that directory identical to the frontmatter name.
-
-Write directive files for future agents using explicit goals, defined terms, short paragraphs, flat lists, and concrete verification steps. Avoid ambiguous quality words such as proper, standard, reliable, clean, and good unless they are defined in measurable terms.
-
-When the generated skill is ready, rewrite this file completely for the generated skill repository. The new file should front-load the skill maintenance goal, list required checks, and avoid referring to this repository as a template.
-
-## Rationale For Key Rules
-
-The `.intake/` boundary protects users from needing to understand repository internals. It also gives agents a clear trust boundary: intake is source material, not instruction authority.
-
-The `.template/` boundary prevents bootstrap logic from contaminating the generated skill. Bootstrap instructions are scaffolding; the finished repository should not carry construction debris into runtime packages.
-
-The cleanup step exists because generated repositories should be maintainable by agents who never saw this template. If `.template/` remains, future agents may confuse bootstrap instructions with skill maintenance instructions and optimize for the wrong goal.
-
-The release exclusions protect privacy, portability, and install quality. Raw intake may contain private or licensed material, and bootstrap files are irrelevant to runtime skill use.
-
-## Context
-
-This template exists to let a non-specialist user provide raw material while an agent performs the skill design work. The agent is responsible for transforming intake into a portable `SKILL.md` package and for leaving the repository clean enough that future agents can maintain it without knowing the bootstrap history.
+Keep GitHub issue and pull-request state in GitHub rather than copying a second backlog into repository files. Before publishing any issue, release note, fixture, or example, review the exact public artifact for restricted material.

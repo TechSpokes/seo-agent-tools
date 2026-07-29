@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "id": "technical-seo-triage",
+  "version": "1.0.0",
+  "title": "Technical SEO Triage",
+  "summary": "Inspect a bounded site sample, identify supported technical SEO issues, and prioritize the few fixes most likely to change crawl, index, or page behavior.",
+  "primary_domain": "technical",
+  "operations": [
+    "diagnose",
+    "prioritize",
+    "verify"
+  ],
+  "target": "site",
+  "required_inputs": [
+    {
+      "id": "site_url",
+      "description": "The site URL or origin whose technical SEO state should be triaged."
+    }
+  ],
+  "capabilities": [
+    "page-content",
+    "page-metadata",
+    "page-technical-signals"
+  ],
+  "steps": [
+    {
+      "id": "discover-sample",
+      "instruction": "Define a representative, bounded URL sample from known site structure, user input, or available discovery evidence."
+    },
+    {
+      "id": "budget-preflight",
+      "instruction": "Inspect current runtime cost and authorization for the planned sample and provider-backed checks."
+    },
+    {
+      "id": "inspect-static-signals",
+      "instruction": "Inspect accessible status, redirect, canonical, metadata, structured, rendering, and linking signals that do not require broader paid checks."
+    },
+    {
+      "id": "run-provider-checks",
+      "instruction": "Run only authorized provider checks that can confirm or reject a material issue in the sample."
+    },
+    {
+      "id": "classify-findings",
+      "instruction": "Group observations into supported issues, suspected issues, unaffected scope, and unknown scope without extrapolating the sample to the full site."
+    },
+    {
+      "id": "produce-triage",
+      "instruction": "Return the highest-value supported fixes with severity, confidence, affected sample, evidence, impact, owner, and verification method."
+    }
+  ],
+  "evidence_requirements": [
+    "Every issue identifies the observed URL sample and evidence source.",
+    "Site-wide claims are made only when the evidence covers the full claimed scope.",
+    "Severity and impact are reasoned separately from confidence.",
+    "Verification methods state what observable change would confirm the fix."
+  ],
+  "stop_conditions": [
+    "Stop or narrow the sample when broad crawling would exceed authorization or cost bounds.",
+    "Stop private-account diagnosis when no authorized first-party source is connected.",
+    "Return an empty completed diagnostic when the supported checks find no material issue."
+  ],
+  "completion_criteria": [
+    "The inspected sample and its limits are explicit.",
+    "Each reported issue has severity, confidence, scope, evidence, intervention owner, and verification method.",
+    "The result contains no more than five prioritized fixes and may contain fewer when evidence does not support five.",
+    "Unknown and unaffected scope are not presented as fixed."
+  ],
+  "output_contracts": [
+    "seo-diagnostic/v1"
+  ],
+  "bounds": {
+    "max_results": 5,
+    "sample_guidance": "Prefer a representative URL sample and three to five material fixes over an exhaustive crawl or a padded issue count."
+  }
+}

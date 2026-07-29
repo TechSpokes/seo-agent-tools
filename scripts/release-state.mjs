@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /** Guard immutable release tags and their optional abandonment markers.
- * @since 1.4.0
- * @why #17 requires tagged release identity, default-branch ancestry, and recovery state to remain auditable.
+ * @since 0.1.0
+ * @why Tagged release identity, default-branch ancestry, and recovery state must remain auditable.
  * @constraints Reads and fetches Git refs; it never creates, moves, or deletes tags or releases.
  */
 /* global process */

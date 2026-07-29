@@ -1,43 +1,39 @@
 name: Feature request
-description: Suggest an improvement to the template or generated repository workflow
-labels: [enhancement]
+description: Propose a public skill, recipe, contract, validation, or delivery improvement
+labels:
+  - enhancement
 body:
   - type: textarea
     id: problem
     attributes:
-      label: Problem statement
-      description: What problem would this improvement solve?
-    validations:
-      required: true
-  - type: textarea
-    id: proposal
-    attributes:
-      label: Proposed solution
-      description: Describe the change and where it would belong.
+      label: Decision or maintenance problem
+      description: What real task cannot be handled clearly by the current public contract?
     validations:
       required: true
   - type: dropdown
     id: area
     attributes:
-      label: Area
+      label: Likely area
       options:
-        - Bootstrap workflow
-        - Agent instructions
-        - SKILL.md scaffold
-        - Validation
-        - Packaging
-        - Release workflow
+        - Runtime instruction
+        - Recipe
+        - Discovery taxonomy or capability
+        - Result contract
+        - Validation or testing
+        - Installation or release delivery
         - Documentation
-        - Community maintenance
-        - Other
+        - Unsure
     validations:
       required: true
   - type: textarea
-    id: generated-impact
+    id: evidence
     attributes:
-      label: Impact on generated repositories
-      description: How would this change affect repositories created from the template?
+      label: Evidence and representative case
+      description: Describe a public-safe example and the observable outcome a change should enable.
+    validations:
+      required: true
   - type: textarea
-    id: alternatives
+    id: boundaries
     attributes:
-      label: Alternatives considered
+      label: Boundaries and compatibility
+      description: Note affected recipe versions, result contracts, server capabilities, privacy, cost, or deferred private machinery.

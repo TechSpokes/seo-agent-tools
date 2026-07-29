@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/TechSpokes/seo-agent-tools/catalog/schemas/seo-implementation-handoff.v1.schema.json",
+  "title": "SEO Implementation Handoff v1",
+  "allOf": [
+    {
+      "$ref": "shared-evidence.schema.json"
+    },
+    {
+      "type": "object",
+      "required": [
+        "source_analysis_id",
+        "intended_outcome",
+        "responsible_capability",
+        "requirements",
+        "preserve",
+        "prohibited",
+        "missing_inputs",
+        "acceptance_criteria",
+        "verification_plan"
+      ],
+      "properties": {
+        "contract_id": {
+          "const": "seo-implementation-handoff/v1"
+        },
+        "source_analysis_id": {
+          "type": "string"
+        },
+        "intended_outcome": {
+          "type": "string"
+        },
+        "responsible_capability": {
+          "type": "string"
+        },
+        "requirements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/requirement"
+          }
+        },
+        "preserve": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "prohibited": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "missing_inputs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "acceptance_criteria": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "verification_plan": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "content_context": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "target_queries": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "observed_intent": {
+              "type": "string"
+            },
+            "recommended_page_type": {
+              "type": "string"
+            },
+            "audience_and_journey": {
+              "type": "string"
+            },
+            "buyer_questions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "proof_requirements": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "internal_link_needs": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "content_gaps": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "requirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "statement",
+        "evidence_ids"
+      ],
+      "properties": {
+        "statement": {
+          "type": "string"
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "unevaluatedProperties": false
+}

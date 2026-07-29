@@ -1,30 +1,33 @@
 {
-  "name": "placeholder-skill",
+  "name": "seo-agent-tools",
   "version": "0.1.0",
-  "description": "Placeholder plugin manifest for a generated agent skill.",
+  "description": "Evidence-backed SEO analysis, recipe discovery, implementation handoffs, and verification through an SEO MCP server.",
   "author": {
-    "name": "Template Author"
+    "name": "TechSpokes"
   },
-  "homepage": "https://github.com/OWNER/REPOSITORY",
-  "repository": "https://github.com/OWNER/REPOSITORY",
+  "homepage": "https://github.com/TechSpokes/seo-agent-tools",
+  "repository": "https://github.com/TechSpokes/seo-agent-tools",
   "license": "MIT",
   "keywords": [
     "agent-skill",
-    "codex-plugin"
+    "codex-plugin",
+    "mcp",
+    "seo"
   ],
   "skills": "./skills/",
   "interface": {
-    "displayName": "Placeholder Skill",
-    "shortDescription": "Placeholder skill package generated from the template.",
-    "longDescription": "Replace this manifest when the agent generates the real skill.",
-    "developerName": "Template Author",
+    "displayName": "SEO Agent Tools",
+    "shortDescription": "Evidence-backed SEO analysis through an SEO MCP server.",
+    "longDescription": "Discover current SEO capabilities and recipes, produce bounded evidence-backed decisions, diagnose content quality, hand implementation to another agent, and verify completed work.",
+    "developerName": "TechSpokes",
     "category": "Productivity",
     "capabilities": [
-      "Write"
+      "Analysis",
+      "MCP"
     ],
-    "websiteURL": "https://github.com/OWNER/REPOSITORY",
+    "websiteURL": "https://github.com/TechSpokes/seo-agent-tools",
     "defaultPrompt": [
-      "Build the skill from intake."
+      "Use $seo-agent-tools to investigate this SEO request with the connected SEO MCP server."
     ],
     "brandColor": "#2563EB"
   }

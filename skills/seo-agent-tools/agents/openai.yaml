@@ -1,0 +1,4 @@
+interface:
+  display_name: "SEO Agent Tools"
+  short_description: "Evidence-backed SEO analysis through an SEO MCP server"
+  default_prompt: "Use $seo-agent-tools to investigate this SEO request with the connected SEO MCP server and return a verified, evidence-backed result."
