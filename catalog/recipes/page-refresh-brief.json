@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "id": "page-refresh-brief",
+  "version": "1.0.0",
+  "title": "Page Refresh Brief",
+  "summary": "Diagnose whether one page should be refreshed, consolidated, preserved, or routed to another intervention, then prepare a verification-ready brief.",
+  "primary_domain": "page",
+  "operations": [
+    "audit",
+    "compare",
+    "diagnose",
+    "verify"
+  ],
+  "target": "page",
+  "required_inputs": [
+    {
+      "id": "url",
+      "description": "The canonical or intended URL of the page to diagnose."
+    }
+  ],
+  "capabilities": [
+    "page-content",
+    "page-metadata",
+    "page-technical-signals",
+    "serp-results"
+  ],
+  "steps": [
+    {
+      "id": "acquire-page-context",
+      "instruction": "Confirm the page objective, site role, target market, known query context, and constraints on changes."
+    },
+    {
+      "id": "budget-preflight",
+      "instruction": "Inspect current runtime cost and authorization for page retrieval, result inspection, and comparison."
+    },
+    {
+      "id": "inspect-serp",
+      "instruction": "Inspect a bounded current result set to identify observed intent, result types, and viable page patterns."
+    },
+    {
+      "id": "inspect-target",
+      "instruction": "Collect observable page content, metadata, and blocking technical signals while recording preservation candidates."
+    },
+    {
+      "id": "compare-pages",
+      "instruction": "Compare the target with representative results and relevant site pages without treating competitor phrasing as a drafting template."
+    },
+    {
+      "id": "classify-gaps",
+      "instruction": "Classify supported causes across technical access, site role, intent, planning, content, authority, and operational evidence."
+    },
+    {
+      "id": "produce-brief",
+      "instruction": "Return the diagnostic and, when implementation is justified, a handoff with preserve, change, remove, add, proof, link, acceptance, and verification requirements."
+    }
+  ],
+  "evidence_requirements": [
+    "The diagnosis records current page evidence and result-page conditions.",
+    "Every proposed change or preservation constraint links to an observation or explicit user requirement.",
+    "Competing technical, strategic, authority, and operational explanations are considered before prescribing content.",
+    "First-party performance claims appear only when supplied or returned by an authorized source."
+  ],
+  "stop_conditions": [
+    "Stop content diagnosis when a blocking access or indexing signal makes page comparison misleading.",
+    "Stop before paid result inspection when authorization is insufficient.",
+    "Return an incomplete diagnostic when the page or required market context cannot be resolved."
+  ],
+  "completion_criteria": [
+    "The supported intervention and disposition are explicit.",
+    "The diagnostic distinguishes observations, interpretations, competing explanations, and unknowns.",
+    "Any implementation handoff is self-contained and contains no finished copy.",
+    "Verification criteria protect useful current material and test required changes."
+  ],
+  "output_contracts": [
+    "seo-diagnostic/v1",
+    "seo-implementation-handoff/v1"
+  ],
+  "bounds": {
+    "sample_guidance": "Inspect only enough representative results and site pages to distinguish intent, page role, and material gaps."
+  }
+}

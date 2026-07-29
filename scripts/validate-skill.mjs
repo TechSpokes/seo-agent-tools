@@ -6,7 +6,6 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const failures = [];
 const warnings = [];
-const bootstrapMode = exists(".template");
 
 /**
  * Finds the dedicated repository's one standard skill source.
@@ -204,12 +203,8 @@ function validateSkill() {
     fail("argument-hint must be non-empty when provided.");
   }
 
-  if (bootstrapMode && canonicalSkill.name !== "placeholder-skill") {
-    fail("Bootstrap mode requires skills/placeholder-skill/SKILL.md until the final name is chosen and all bootstrap references are updated.");
-  }
-
-  if (!bootstrapMode && skillText.includes(".template/")) {
-    fail(`${canonicalSkill.skillFile} must not reference .template/ after generation.`);
+  if (skillText.includes(".template/")) {
+    fail(`${canonicalSkill.skillFile} must not reference removed construction controls.`);
   }
 }
 
@@ -265,8 +260,8 @@ function validateManifests() {
       if (canonicalSkill && manifest.name !== canonicalSkill.name) {
         fail(`${manifestPath} name must match the canonical skill directory.`);
       }
-      if (!bootstrapMode && manifest.version !== packageManifest.version) {
-        fail(`${manifestPath} version must match package.json in maintenance mode.`);
+      if (manifest.version !== packageManifest.version) {
+        fail(`${manifestPath} version must match package.json.`);
       }
     } catch (error) {
       fail(`${manifestPath} is not valid JSON: ${error.message}`);
@@ -291,32 +286,15 @@ function validatePackagingBoundaries() {
       fail(`${file} is a maintenance fixture inside the runtime source; move it to tests/fixtures/.`);
     }
     const text = fs.readFileSync(path.join(root, file));
-    if (!bootstrapMode && text.includes(Buffer.from(".template/"))) {
-      fail(`${file} references bootstrap control files.`);
+    if (text.includes(Buffer.from(".template/"))) {
+      fail(`${file} references removed construction controls.`);
     }
   }
 }
 
 function validateWorkflowMode() {
-  if (bootstrapMode) {
-    if (!exists(".github/workflows/template-ci.yml")) {
-      fail("Template mode requires .github/workflows/template-ci.yml.");
-    }
-    for (const workflow of ["ci.yml", "release-draft.yml", "gh-skill-install.yml"]) {
-      if (!exists(`.template/generated/.github/workflows/${workflow}`)) {
-        fail(`Template mode requires generated workflow ${workflow}.`);
-      }
-    }
-    for (const workflow of [".github/workflows/ci.yml", ".github/workflows/release-draft.yml", ".github/workflows/gh-skill-install.yml"]) {
-      if (exists(workflow)) {
-        fail(`${workflow} should live under .template/generated/ while the repository is in template mode.`);
-      }
-    }
-    return;
-  }
-
   if (exists(".github/workflows/template-ci.yml")) {
-    fail("Maintenance mode must remove .github/workflows/template-ci.yml.");
+    fail("The obsolete construction workflow .github/workflows/template-ci.yml must be removed.");
   }
   for (const workflow of [".github/workflows/ci.yml", ".github/workflows/release-draft.yml", ".github/workflows/gh-skill-install.yml"]) {
     if (!exists(workflow)) {
@@ -329,7 +307,7 @@ function validateWorkflowMode() {
  * @returns {void}
  * @sideEffects Appends contract violations to the shared failure collection.
  * @constraints GitHub Issues owns durable feedback state; repository files may provide forms and instructions but not a second backlog.
- * @why #16 replaces inherited planning and feedback folders with one owner-maintained coordination surface.
+ * @why One issue-centered coordination surface prevents feedback state from drifting across repository folders.
  */
 function validateMaintenanceScaffold() {
   if (exists(".plans")) {
@@ -362,30 +340,15 @@ function validateMaintenanceScaffold() {
     }
   }
 
-  if (bootstrapMode) {
-    for (const file of [".template/generated/AGENTS.md", ".template/generated/.github/instructions/writing.instructions.md"]) {
-      if (!exists(file)) {
-        fail(`Missing generated maintenance scaffold ${file}.`);
-      }
-    }
-    const generatedAgents = readText(".template/generated/AGENTS.md");
-    for (const heading of ["Summary", "Read Depth", "Product and Maintenance Goals", "Hard Constraints", "Must-Read Documents", "Workspace and Authority", "Canonical Files", "Required Checks", "Change Boundaries"]) {
-      if (!generatedAgents.includes(`## ${heading}`)) {
-        fail(`Generated maintenance AGENTS.md is missing section ${heading}.`);
-      }
-    }
-    return;
-  }
-
   if (/<(?:Skill Name|skill-name|primary outcome|durable benefit)/.test(readText("AGENTS.md"))) {
-    fail("Maintenance AGENTS.md still contains generated scaffold placeholders.");
+    fail("AGENTS.md still contains construction placeholders.");
   }
 }
 
 /**
  * Validates the reusable GitHub CLI source and release delivery contract.
  * @returns {void}
- * @constraints The template validates generated workflows in bootstrap mode and installed workflows in maintenance mode without publishing a release.
+ * @constraints Validation inspects installed workflows without publishing a release.
  */
 function validateDeliveryContract() {
   for (const file of ["INSTALL.md", "docs/GITHUB-CLI.md", "docs/GITHUB-CLI-DELIVERY.md", "scripts/verify-gh-skill-install.mjs", "scripts/release-preflight.mjs", "scripts/release-state.mjs", "scripts/verify-release-assets.mjs", "scripts/lib/stored-zip.mjs", "tests/fixtures/README.md"]) {
@@ -408,12 +371,10 @@ function validateDeliveryContract() {
     }
   }
 
-  if (!bootstrapMode) {
-    for (const file of ["README.md", "INSTALL.md", "docs/GITHUB-CLI.md", "docs/GITHUB-CLI-DELIVERY.md"]) {
-      const text = readText(file);
-      if (/OWNER\/REPOSITORY|placeholder-skill|skill-name/i.test(text)) {
-        fail(`${file} contains a bootstrap identity placeholder after cleanup.`);
-      }
+  for (const file of ["README.md", "INSTALL.md", "docs/GITHUB-CLI.md", "docs/GITHUB-CLI-DELIVERY.md"]) {
+    const text = readText(file);
+    if (/OWNER\/REPOSITORY|placeholder-skill|skill-name/i.test(text)) {
+      fail(`${file} contains an identity placeholder.`);
     }
   }
 
@@ -438,7 +399,7 @@ function validateDeliveryContract() {
     }
   }
 
-  const workflowRoot = bootstrapMode ? ".template/generated/.github/workflows" : ".github/workflows";
+  const workflowRoot = ".github/workflows";
   const ciWorkflow = readText(`${workflowRoot}/ci.yml`);
   const releaseWorkflow = readText(`${workflowRoot}/release-draft.yml`);
   const installWorkflow = readText(`${workflowRoot}/gh-skill-install.yml`);
@@ -476,7 +437,7 @@ function validateDeliveryContract() {
     }
   }
 
-  for (const workflow of walk(".github/workflows").concat(walk(".template/generated/.github/workflows")).filter((file) => file.endsWith(".yml"))) {
+  for (const workflow of walk(".github/workflows").filter((file) => file.endsWith(".yml"))) {
     if (readText(workflow).includes("actions/setup-node@v6")) {
       fail(`${workflow} must use actions/setup-node@v7.`);
     }

@@ -1,6 +1,6 @@
 /** Create and inspect deterministic stored ZIP archives.
- * @since 1.4.0
- * @why #17 requires dependency-free, byte-identical release archives across operating systems.
+ * @since 0.1.0
+ * @why Release archives must remain dependency-free and byte-identical across operating systems.
  * @constraints Supports classic non-Zip64, single-disk archives containing sorted regular files.
  */
 import fs from "node:fs";

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "canonical_runtime_root": "skills/placeholder-skill",
+  "canonical_runtime_root": "skills/seo-agent-tools",
   "runtime_map_document": "docs/ARCHITECTURE.md",
   "runtime_map_start": "<!-- canonical-runtime-map:start -->",
   "runtime_map_end": "<!-- canonical-runtime-map:end -->",

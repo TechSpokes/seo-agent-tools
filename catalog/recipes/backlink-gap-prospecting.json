@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "id": "backlink-gap-prospecting",
+  "version": "1.0.0",
+  "title": "Backlink Gap Prospecting",
+  "summary": "Compare referring-domain evidence for a target and confirmed competitors, then qualify a bounded set of relevant outreach prospects.",
+  "primary_domain": "authority",
+  "operations": [
+    "compare",
+    "discover",
+    "prioritize"
+  ],
+  "target": "link-prospect-set",
+  "required_inputs": [
+    {
+      "id": "own_domain",
+      "description": "The target domain whose backlink gaps and prospect opportunities should be evaluated."
+    }
+  ],
+  "capabilities": [
+    "authority-metrics",
+    "backlink-sets",
+    "competitor-discovery"
+  ],
+  "steps": [
+    {
+      "id": "acquire-target-context",
+      "instruction": "Confirm the target domain, market, relevant topics, existing assets, outreach constraints, and intended decision."
+    },
+    {
+      "id": "budget-preflight",
+      "instruction": "Inspect current runtime cost and authorization for competitor discovery, backlink-set retrieval, and qualification."
+    },
+    {
+      "id": "acquire-competitors",
+      "instruction": "Use user-confirmed competitors or discover and validate a bounded set whose links are relevant to the target's market."
+    },
+    {
+      "id": "retrieve-domain-sets",
+      "instruction": "Retrieve bounded referring-domain evidence for the target and confirmed competitors with comparable conditions."
+    },
+    {
+      "id": "compute-and-rank-gaps",
+      "instruction": "Identify domains that support relevant competitors but not the target, then rank candidates by supported relevance and authority evidence."
+    },
+    {
+      "id": "qualify-sites",
+      "instruction": "Inspect finalist source context, topical relevance, plausible outreach angle, and disqualifying evidence."
+    },
+    {
+      "id": "produce-prospect-list",
+      "instruction": "Return qualified prospects with source URL, linked competitor, authority evidence, relevance, angle, contact route when observed, confidence, and rejection reason."
+    }
+  ],
+  "evidence_requirements": [
+    "Each prospect is supported by an observed link to a relevant confirmed competitor.",
+    "Authority metrics record their source, freshness, and limitations.",
+    "Relevance and outreach angle are interpretations linked to source context.",
+    "Contact information is reported only when lawfully and directly observed; it is never invented."
+  ],
+  "stop_conditions": [
+    "Stop before paid backlink retrieval when authorization is insufficient.",
+    "Stop or narrow when no relevant competitor set can be confirmed.",
+    "Reject sources with unsupported relevance, unsafe outreach implications, or insufficient evidence.",
+    "Return an empty completed opportunity set when no prospect survives qualification."
+  ],
+  "completion_criteria": [
+    "The target, competitors, data conditions, and comparison logic are recorded.",
+    "Every included prospect has link evidence, relevance, qualification, confidence, and constraints.",
+    "Material finalist rejections have reasons.",
+    "No more than twenty qualified prospects are returned."
+  ],
+  "output_contracts": [
+    "seo-opportunity-set/v1"
+  ],
+  "bounds": {
+    "max_results": 20,
+    "sample_guidance": "Qualify the strongest bounded gap candidates instead of returning an unreviewed backlink export."
+  }
+}

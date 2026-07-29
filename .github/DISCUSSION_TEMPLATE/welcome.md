@@ -1,23 +1,9 @@
-# Welcome To Skill Base Template Discussions
+# Welcome to SEO Agent Tools Discussions
 
-Skill Base Template is a public TechSpokes template for creating structured, validated, releasable agent skill repositories from raw intake material.
+Use Discussions for public questions, early ideas, and examples involving evidence-backed SEO analysis through an SEO MCP server.
 
-## What To Discuss Here
+Good topics include installation, activation, direct versus recipe routing, recipe discovery, content-quality diagnosis, implementation handoffs, verification, public catalog design, and contribution patterns.
 
-- Questions about creating repositories from the template.
-- Ideas for improving agent skill bootstrap workflows.
-- Examples of generated skill repositories.
-- Validation, packaging, and release workflows for skills.
-- Communication-design ideas for agent-readable instructions.
+Use GitHub Issues for actionable defects and feature requests. Use private vulnerability reporting for credentials, private data exposure, or security-sensitive server and release concerns.
 
-## Quick Links
-
-- [README](../README.md)
-- [Bootstrap workflow](../docs/BOOTSTRAP-WORKFLOW.md)
-- [Architecture](../docs/ARCHITECTURE.md)
-- [Contributing](../CONTRIBUTING.md)
-- [Support](../SUPPORT.md)
-
-## Community Notes
-
-Keep examples public and remove private intake material before sharing. Focus on practical improvements that help generated skill repositories become easier to create, validate, release, and maintain.
+Before posting prompts, outputs, screenshots, or logs, remove credentials, private identities, customer data, local paths, account state, and private server details.

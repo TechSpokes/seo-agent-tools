@@ -1,33 +1,29 @@
-title: "Questions And Help"
-labels: ["question", "help wanted"]
+title: "Question"
+labels:
+  - question
 body:
   - type: markdown
     attributes:
       value: |
-        Ask questions about using Skill Base Template.
+        Ask about installing, using, or contributing to SEO Agent Tools.
   - type: dropdown
-    id: question-type
+    id: area
     attributes:
-      label: Question Type
+      label: Area
       options:
-        - Getting started
-        - GitHub template flow
-        - Intake preparation
-        - Agent bootstrap workflow
-        - Generated skill structure
-        - Validation or release
-        - Other
+        - Installation and updates
+        - Activation and routing
+        - SEO MCP server interaction
+        - Recipes and discovery
+        - Result contracts and handoffs
+        - Validation and releases
+        - Contribution design
     validations:
       required: true
   - type: textarea
     id: question
     attributes:
-      label: Your Question
-      description: What specific help do you need?
+      label: Question
+      description: Include only public-safe context needed to understand the question.
     validations:
       required: true
-  - type: textarea
-    id: context
-    attributes:
-      label: Context
-      description: Share commands, repository state, or public examples. Do not include secrets or private intake.

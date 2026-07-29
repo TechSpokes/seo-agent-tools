@@ -1,10 +1,12 @@
 {
-  "name": "skill-base-template",
-  "version": "1.4.0",
+  "name": "seo-agent-tools",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "validate": "node scripts/validate-skill.mjs && node scripts/validate-evaluations.mjs",
+    "validate": "node scripts/catalog.mjs validate && node scripts/validate-skill.mjs && node scripts/validate-evaluations.mjs",
+    "catalog:validate": "node scripts/catalog.mjs validate",
+    "catalog:build": "node scripts/catalog.mjs build",
     "package": "node scripts/package-release.mjs",
     "verify:gh-skill": "node scripts/verify-gh-skill-install.mjs",
     "release:preflight": "node scripts/release-preflight.mjs",

@@ -1,33 +1,29 @@
 title: "General Discussion"
-labels: ["discussion"]
+labels:
+  - discussion
 body:
   - type: markdown
     attributes:
       value: |
-        Start a general discussion about Skill Base Template.
+        Discuss SEO Agent Tools, public recipe methodology, or agent-facing SEO analysis.
   - type: dropdown
-    id: topic-category
+    id: topic
     attributes:
-      label: Topic Category
+      label: Topic
       options:
-        - Template direction
-        - Agent skill repository patterns
-        - Bootstrap workflow
+        - Skill behavior and boundaries
+        - SEO MCP interaction
+        - Recipe methodology
+        - Result contracts and handoffs
         - Validation and release
-        - Documentation
         - Community adoption
         - Other
     validations:
       required: true
   - type: textarea
-    id: discussion-topic
+    id: discussion
     attributes:
-      label: Discussion Topic
-      description: What would you like to discuss?
+      label: Discussion
+      description: Share public-safe context and the question or perspective you want to discuss.
     validations:
       required: true
-  - type: textarea
-    id: context
-    attributes:
-      label: Context
-      description: Add background that would help others understand the topic.

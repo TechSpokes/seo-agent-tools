@@ -1,21 +1,5 @@
 # Version
 
-The template starts public release at version `1.0.0`.
+Current version: `0.1.0`.
 
-The current template version is `1.4.0`.
-
-Generated skill repositories should reset or continue versioning according to the generated skill's release policy.
-
-## Tag Format
-
-Use tags in this format:
-
-```text
-vX.Y.Z
-```
-
-Example:
-
-```text
-v1.0.0
-```
+This version applies to the portable skill and plugin packages. Catalog and recipe definitions have independent versions described in [Releasing](RELEASING.md).

@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "catalog_version": "0.1.0",
+  "recipe_schema": "catalog/schemas/recipe.schema.json",
+  "supported_recipe_schema_versions": [
+    1
+  ],
+  "default_discovery_limit": 10,
+  "taxonomy": {
+    "domains": [
+      "authority",
+      "competition",
+      "keyword",
+      "page",
+      "technical"
+    ],
+    "operations": [
+      "audit",
+      "compare",
+      "diagnose",
+      "discover",
+      "map",
+      "prioritize",
+      "validate",
+      "verify"
+    ],
+    "targets": [
+      "competitor-set",
+      "link-prospect-set",
+      "page",
+      "query-set",
+      "site"
+    ]
+  },
+  "capabilities": [
+    "authority-metrics",
+    "backlink-sets",
+    "competitor-discovery",
+    "keyword-expansion",
+    "keyword-metrics",
+    "page-content",
+    "page-metadata",
+    "page-technical-signals",
+    "serp-results"
+  ],
+  "result_contracts": {
+    "seo-diagnostic/v1": "catalog/schemas/seo-diagnostic.v1.schema.json",
+    "seo-implementation-handoff/v1": "catalog/schemas/seo-implementation-handoff.v1.schema.json",
+    "seo-opportunity-set/v1": "catalog/schemas/seo-opportunity-set.v1.schema.json"
+  }
+}

@@ -1,15 +1,16 @@
 /* global process */
 /**
  * Builds the standalone and plugin archives plus their checksum manifest from the single canonical skill source.
- * @since 1.4.0
+ * @since 0.1.0
  * @why Generated repositories need one portable package path that agrees with GitHub CLI source delivery.
  * @constraints Reads exactly one skills/<name>/SKILL.md tree and resets only this repository's generated dist directory.
- * @see ../.template/bootstrap/release-packaging.md
+ * @see ../docs/RELEASING.md
  */
 import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { buildCatalogProjection } from "./catalog.mjs";
 import { createStoredZip } from "./lib/stored-zip.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -42,8 +43,9 @@ zipDirectory(path.join(stage, skill.name), standaloneAsset);
 zipDirectory(path.join(stage, `${skill.name}-codex-plugin`), codexAsset);
 zipDirectory(path.join(stage, `${skill.name}-claude-plugin`), claudeAsset);
 writeChecksums([standaloneAsset, codexAsset, claudeAsset], path.join(assets, "SHA256SUMS"));
+buildCatalogProjection();
 
-console.log(`Packaged release assets for ${skill.name} ${tag}.`);
+console.log(`Packaged release assets and built the catalog projection for ${skill.name} ${tag}.`);
 
 /**
  * Discovers and validates the dedicated repository's one canonical skill tree.
@@ -131,7 +133,7 @@ function copyRuntimeTree(source, destination) {
  * @throws {TypeError} When a known text file is not valid UTF-8.
  * @sideEffects Creates or replaces the staged file.
  * @constraints Known text formats use LF so existing Windows and clean Linux checkouts produce identical archives.
- * @why #17 requires release identity to be independent of the checkout platform.
+ * @why Release identity must be independent of the checkout platform.
  */
 function copyReleaseFile(source, destination) {
   const extension = path.extname(source).toLowerCase();
@@ -186,7 +188,7 @@ function stagePlugin(type, skill, releaseVersion) {
  * @throws {Error} When staging contains a symbolic link or unsupported entry.
  * @sideEffects Creates or replaces the destination archive.
  * @constraints Fixed metadata, sorted names, and stored entries make output independent of host archivers and timestamps.
- * @why #17 requires two builds of the same candidate tree to have identical checksums.
+ * @why Two builds of the same candidate tree must have identical checksums.
  */
 function zipDirectory(source, destination) {
   const archiveRoot = path.basename(source);

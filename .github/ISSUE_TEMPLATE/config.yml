@@ -1,11 +1,11 @@
 blank_issues_enabled: false
 contact_links:
   - name: Documentation
-    url: https://github.com/TechSpokes/skill-base-template/blob/main/README.md
-    about: Read the public template documentation.
+    url: https://github.com/TechSpokes/seo-agent-tools/blob/main/README.md
+    about: Read installation, usage, catalog, and maintenance documentation.
   - name: Discussions
-    url: https://github.com/TechSpokes/skill-base-template/discussions
-    about: Ask questions, share generated skill repositories, or discuss ideas.
-  - name: Commercial Support
-    url: https://www.techspokes.com
-    about: Professional support and consulting from TechSpokes.
+    url: https://github.com/TechSpokes/seo-agent-tools/discussions
+    about: Ask questions and discuss early ideas that are not actionable reports.
+  - name: Security
+    url: https://github.com/TechSpokes/seo-agent-tools/security/advisories/new
+    about: Report sensitive vulnerabilities privately.

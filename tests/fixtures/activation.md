@@ -1,15 +1,18 @@
 # Activation Fixtures
 
-Replace the angle-bracket prompts with natural requests from the generated skill's domain before maintenance mode.
-
 ## Should Activate
 
 | Prompt | Expected |
-|---|---|
-| <primary task phrased in the user's language> | Activate this skill and follow its primary workflow. |
+| --- | --- |
+| Use our SEO MCP server to find evidence-backed keyword opportunities for this product area. | Activate this skill and choose a bounded direct or recipe path. |
+| Discover an available SEO recipe for comparing our domain with search competitors. | Activate this skill and use progressive server-side recipe discovery. |
+| Diagnose why this service page is underperforming before we decide whether to rewrite it. | Activate this skill and perform content-quality diagnosis without writing finished copy. |
+| Turn this completed SEO diagnosis into requirements another agent can implement and verify. | Activate this skill and create an implementation handoff. |
+| Verify whether the implemented technical SEO fixes satisfy the original triage result. | Activate this skill and audit the implementation against the source result. |
 
 ## Should Not Activate as Primary
 
 | Prompt | Expected |
-|---|---|
-| <adjacent task owned by another skill or normal repository workflow> | Hand off without pretending this skill owns the task. |
+| Write the finished landing-page copy from this approved SEO brief. | Hand off to a content-writing skill while preserving the brief. |
+| Add persistent recipe jobs, scheduling, retries, and run storage to the private server. | Hand off to private-server architecture and implementation work. |
+| Show me the private SEO provider bindings, credentials, and internal pricing logic. | Refuse private disclosure and explain the public boundary. |

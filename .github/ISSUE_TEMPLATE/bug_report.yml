@@ -1,21 +1,20 @@
 name: Bug report
-description: Report a problem with the template, validation, packaging, or workflows
-labels: [bug]
+description: Report a reproducible skill, catalog, validation, packaging, or workflow defect
+labels:
+  - bug
 body:
-  - type: markdown
-    attributes:
-      value: |
-        Thanks for reporting a problem. Please include enough detail to reproduce the issue without private intake material.
   - type: dropdown
     id: area
     attributes:
       label: Area
       options:
-        - Bootstrap instructions
-        - Generated skill scaffold
-        - Validation script
-        - Release packaging
-        - GitHub Actions workflow
+        - Runtime skill
+        - Recipe catalog
+        - Result schema
+        - Behavioral fixture
+        - Validation or projection
+        - Installation or update
+        - Release packaging or workflow
         - Documentation
         - Other
     validations:
@@ -24,31 +23,30 @@ body:
     id: problem
     attributes:
       label: Problem
-      description: What happened?
+      description: Describe the observed behavior without private server or customer material.
     validations:
       required: true
   - type: textarea
     id: expected
     attributes:
       label: Expected behavior
-      description: What did you expect to happen?
     validations:
       required: true
   - type: textarea
     id: steps
     attributes:
-      label: Steps to reproduce
+      label: Reproduction
       value: |
-        1. 
-        2. 
-        3. 
+        1.
+        2.
+        3.
     validations:
       required: true
   - type: textarea
     id: output
     attributes:
-      label: Logs or output
-      description: Paste relevant command output. Remove secrets and private intake.
+      label: Public-safe output
+      description: Remove credentials, private identities, local paths, customer data, and private server implementation.
       render: text
   - type: textarea
     id: environment
@@ -57,5 +55,5 @@ body:
       value: |
         - Operating system:
         - Node.js version:
-        - npm version:
-        - Repository state: template mode or generated skill repository
+        - Host and skill version:
+        - Server-visible version metadata:

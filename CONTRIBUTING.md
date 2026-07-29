@@ -1,46 +1,39 @@
 # Contributing
 
-Thank you for improving Skill Base Template.
+Thank you for improving SEO Agent Tools.
 
-## Purpose
+## Useful Contributions
 
-This project helps teams create structured, validated, releasable agent skill repositories from raw intake material. Contributions should preserve that purpose.
+- Clarify runtime routing, evidence, diagnosis, handoff, or verification behavior.
+- Add or improve a bounded public SEO recipe with representative evaluation cases.
+- Add a result-contract version when an existing contract cannot represent a real decision safely.
+- Improve deterministic catalog projection, validation, installation, packaging, or release verification.
+- Report factual skill behavior that reveals an activation, evidence, privacy, cost, or fresh-context communication failure.
 
-## Good Contributions
+Do not contribute private server code, provider bindings, credentials, tenant data, customer examples, internal pricing logic, or copied private source material.
 
-- Improve bootstrap instructions for agents.
-- Improve generated repository maintenance guidance.
-- Improve validation or release packaging.
-- Improve documentation clarity for new GitHub users.
-- Add checks that prevent raw intake or bootstrap files from leaking into release assets.
-- Clarify rationale behind instructions when it improves downstream agent judgment.
+## Before Editing
 
-## How Changes Land
+Read [AGENTS.md](AGENTS.md), the affected runtime references, and the relevant architecture, testing, threat, and release documents. Recipe changes also require reading `catalog/catalog.json`, `catalog/schemas/recipe.schema.json`, and the result schema they use.
 
-Changes reach `main` only through a squash-merged pull request that passes the required check. Direct pushes to `main` are blocked. The full workflow and the repository protections are described in `docs/TEMPLATE-RELEASING.md`.
+Use a branch and pull request. Keep one change coherent across runtime instructions, recipes, schemas, fixtures, docs, manifests, changelog, and release notes where those contracts are affected.
 
-## Before Opening A Pull Request
+## Required Checks
 
-- Read `README.md`.
-- Read `docs/ARCHITECTURE.md`.
-- Run `npm run validate`.
-- Run `npm run package -- vX.Y.Z` with the intended tag when changing packaging or release behavior.
+```bash
+npm run validate
+npm run package -- v0.1.0
+npm run release:verify-assets -- v0.1.0
+```
 
-## Documentation Standards
+Use the intended version tag when release behavior or public package contents change.
 
-Use plain Markdown with real headings, short paragraphs, flat lists, and fenced code blocks with language identifiers.
+## Recipe Expectations
 
-Prefer explaining why a rule exists when future agents may need to adapt it. Avoid adding long theory directly to the README. Put operational depth in `docs/` or `.template/bootstrap/`.
+A recipe describes one bounded SEO decision. It needs discovery metadata that distinguishes it, irreducible required inputs, stable public capability requirements, stable step IDs, evidence requirements, stop conditions, completion criteria, a typed output contract, and representative fixtures.
 
-## Pull Request Expectations
+Do not encode private tool names, provider bindings, authored prices, runtime eligibility, or future job state in a canonical recipe. Do not add a general component language until repeated real duplication proves it reduces maintenance.
 
-Each pull request should explain:
+## Pull Request Description
 
-- What changed.
-- Why it matters.
-- How it was validated.
-- Whether generated repositories are affected.
-
-## Security And Privacy
-
-Do not commit private intake material, credentials, tokens, or proprietary examples. Use minimal public examples when demonstrating a workflow.
+Explain what changed, why it matters, which public contract changed, how it was validated, and whether the runtime package, catalog projection, recipe or contract version, security boundary, or release assets changed.

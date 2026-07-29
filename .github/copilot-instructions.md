@@ -1,9 +1,9 @@
-# GitHub Copilot Instructions
+# Repository Instructions
 
-Follow the repository `AGENTS.md` first.
+Maintain SEO Agent Tools as a public, portable runtime skill plus a scalable public recipe catalog.
 
-This repository is a template for generating standalone agent skill repositories. Keep bootstrap instructions, user intake, generated skill content, and release artifacts separate.
+Treat `skills/seo-agent-tools/` as the only installable runtime. Treat `catalog/` as public methodology and server-projection source. Treat a connected private SEO MCP server as authoritative for executable tools, availability, authorization, and current cost.
 
-For Markdown files, also follow `.github/instructions/markdown.instructions.md`.
+Do not add finished content-writing behavior, private provider bindings, credentials, tenant or customer data, internal pricing logic, deployment state, or persistent-job machinery.
 
-Run `npm run validate` after changing scaffold, docs, validation, or packaging files.
+Read `AGENTS.md` and affected direct references before editing. Run `npm run validate` after every product change and build the intended release candidate when package contents or delivery behavior changes.

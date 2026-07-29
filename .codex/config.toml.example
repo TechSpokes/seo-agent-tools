@@ -1,0 +1,8 @@
+[mcp_servers.seomcp]
+url = "https://apis-internal-seo-tools-mcp.techspokes.net/mcp"
+bearer_token_env_var = "TECHSPOKES_SEO_TOOLS_MCP_API_KEY"
+
+enabled = true
+required = false
+startup_timeout_sec = 30
+tool_timeout_sec = 180

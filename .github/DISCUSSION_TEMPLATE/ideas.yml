@@ -1,41 +1,25 @@
-title: "Ideas And Suggestions"
-labels: ["enhancement", "discussion"]
+title: "Idea"
+labels:
+  - idea
 body:
   - type: markdown
     attributes:
       value: |
-        Share ideas for improving Skill Base Template or the generated repository lifecycle.
+        Share an early public idea for improving SEO Agent Tools. Use an issue when the proposal is concrete and actionable.
   - type: textarea
-    id: idea
+    id: problem
     attributes:
-      label: Idea
-      description: What improvement would you like to see?
+      label: Problem or opportunity
+      description: What SEO decision or maintenance task could be handled better?
     validations:
       required: true
   - type: textarea
-    id: use-case
+    id: approach
     attributes:
-      label: Use Case
-      description: What problem does this solve?
-    validations:
-      required: true
-  - type: dropdown
-    id: area
+      label: Possible approach
+      description: Describe the public behavior, recipe, contract, or validation change you are considering.
+  - type: textarea
+    id: evidence
     attributes:
-      label: Area
-      options:
-        - Intake workflow
-        - Bootstrap instructions
-        - Generated skill structure
-        - Validation
-        - Release packaging
-        - Maintenance docs
-        - Other
-  - type: checkboxes
-    id: contribution
-    attributes:
-      label: Contribution
-      options:
-        - label: I can help test this idea.
-        - label: I can provide an example generated skill repository.
-        - label: I can help with documentation.
+      label: Evidence
+      description: Share a public-safe representative case or observation that motivates the idea.

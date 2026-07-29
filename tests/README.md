@@ -1,8 +1,11 @@
 # Tests
 
-The generated test surface keeps maintenance evidence outside the runtime skill package.
+This directory contains maintenance evidence for SEO Agent Tools. Test fixtures are not included in runtime packages.
 
-- `fixtures/` contains activation, workflow, adversarial, and agent-surface contracts.
-- `evals/cases.json` is the stable registry that connects every maintained case to its fixture and coverage segment.
+- `evals/cases.json` registers activation, behavior, adversarial, and maintenance-surface cases.
+- `fixtures/activation.md` defines primary activation and handoff prompts.
+- `fixtures/behavior-scenarios.md` defines expected operating behavior.
+- `fixtures/adversarial-scenarios.md` defines authority, privacy, and evidence-integrity boundaries.
+- `fixtures/agent-surface-contract.json` defines the maintenance-agent surface and canonical runtime map.
 
-Run `npm run validate` after changing runtime behavior, activation, safety boundaries, maintenance instructions, or the runtime file tree.
+Run `npm run validate` after changes. See [Testing](../docs/TESTING.md) for structural and fresh-context evaluation requirements.

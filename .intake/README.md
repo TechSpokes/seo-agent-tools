@@ -1,6 +1,15 @@
 # Intake
 
-Place all user-provided source material or skill ideas in this folder.
+This folder contains the user-confirmed direction and public-safe evidence needed to design the SEO Agent Tools skill.
+
+## Current Evidence Map
+
+- `goal.md` defines the intended skill and repository boundary.
+- `direction/` records product, authority, publication, scale, and simplicity decisions.
+- `sources/seo-tools/` records the current private MCP behavior and five seed recipe semantics.
+- `sources/content-evaluation/` records content-quality diagnosis and implementation-handoff evidence without writing procedures.
+- `research/` contains source provenance, questions, contradictions, normalized contracts, and design candidates for intake analysis.
+- `examples/behavioral-cases.md` defines representative activation, routing, diagnosis, availability, and verification behavior.
 
 ## Rules
 
@@ -12,7 +21,7 @@ Place all user-provided source material or skill ideas in this folder.
 
 ## How Agents Use This Folder
 
-Agents treat this folder as source material. They infer the intended skill, extract durable knowledge, build `src/SKILL.md`, create references, update documentation, and prepare release packaging.
+Agents treat this folder as source material. They analyze the evidence, confirm a synthesized skill design with the user, build the skill, create references, update documentation, and prepare release packaging.
 
 Agents may create `research/`, `experiments/`, and `playground/` subfolders here to hold evidence gathered while resolving gaps.
 

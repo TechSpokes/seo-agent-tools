@@ -1,7 +1,7 @@
 /* global process */
 /**
  * Verifies that GitHub CLI installed the repository's canonical skill from the expected published release.
- * @since 1.4.0
+ * @since 0.1.0
  * @why Generated repositories need an end-to-end source delivery check without executing installed skill content.
  * @constraints Reads one canonical skills/<name> tree and one caller-provided install root; it never installs, executes, deletes, or writes skill files.
  * @see ../docs/GITHUB-CLI-DELIVERY.md

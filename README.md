@@ -1,93 +1,77 @@
-# Skill Base Template
+# SEO Agent Tools
 
-Skill Base Template is a public GitHub repository template by TechSpokes for creating structured, validated, releasable agent skill repositories from raw intake material.
+SEO Agent Tools is a public agent skill for evidence-backed SEO analysis through a connected SEO MCP server. It helps an agent choose a direct evidence lookup or discover a versioned analytical recipe, diagnose page and site problems, prepare implementation handoffs, and verify completed work.
 
-Use this template when you want a repeatable path from a skill idea to a maintained repository with `SKILL.md`, references, validation scripts, release workflows, and plugin packaging. The template is designed for agent-assisted creation: the user places source material or a short skill idea in `.intake/`, and an AI coding agent turns that material into a standalone skill repository.
+The skill does not write finished content, expose private server internals, or implement persistent jobs. The connected server remains responsible for current tools, recipe availability, authorization, and cost.
 
-## Why It Exists
+## What It Helps Agents Do
 
-Agent skills are becoming reusable operational units for AI coding environments. Teams need a consistent way to create them without hand-building repository structure, release assets, validation checks, and maintenance instructions each time.
+- Answer narrow SEO questions with the smallest sufficient server evidence path.
+- Discover recipes progressively without loading an entire catalog into context.
+- Execute a selected recipe with bounded evidence, explicit stops, and typed results.
+- Diagnose whether a page needs creation, refresh, consolidation, preservation, or a non-content intervention.
+- Hand implementation requirements to another agent without depending on shared conversation history.
+- Verify implemented work against the original result and acceptance criteria.
 
-This template promotes a structured workflow for automated creation, validation, release, and maintenance of agent skills. It helps skill authors move faster while preserving the reasoning and boundaries future agents need to maintain the skill safely.
+## Install
 
-## What It Provides
+Install the canonical skill with a GitHub CLI version that supports `gh skill`:
 
-- Intake-driven skill generation from `.intake/`.
-- Intake adequacy checks for empty, weak, conflicting, or exploratory starts.
-- Bootstrap instructions for AI coding agents.
-- A portable `skills/<name>/SKILL.md` source layout that works with Agent Skills hosts and GitHub CLI.
-- Runtime reference and asset folders for progressive disclosure plus separate maintenance fixtures under `tests/`.
-- Validation for skill frontmatter, manifests, links, and release boundaries.
-- Template-safe CI, template draft releases, and generated skill release workflows installed during bootstrap cleanup.
-- A cleanup path that converts the generated repository into a standalone maintained skill repo.
+```bash
+gh skill install TechSpokes/seo-agent-tools skills/seo-agent-tools --dir "<ABSOLUTE_SKILLS_FOLDER>"
+```
 
-## Intended Users
+Use [INSTALL.md](INSTALL.md) for release pins, update previews, verification, repair, and removal guidance.
 
-This template is for teams and maintainers who want to publish dedicated agent skills without requiring every contributor to understand the full skill packaging process.
+## Use
 
-It is also useful for organizations adopting structured agent workflows across multiple skill repositories.
+Invoke `$seo-agent-tools` when the agent has access to an SEO MCP server and the task requires SEO evidence or a reusable decision.
 
-## Quick Start
+Example requests:
 
-1. Open this template repository on GitHub.
-2. Click `Use this template` above the file list.
-3. Select `Create a new repository`.
-4. Choose the owner account or organization for the new repository.
-5. Enter a repository name and optional description.
-6. Choose public or private visibility.
-7. Leave `Include all branches` unchecked unless you intentionally need every branch from the template.
-8. Click `Create repository from template`.
-9. Clone the new repository GitHub created, not the template repository.
-10. Add source material, examples, rough notes, or a short skill idea to `.intake/`.
-11. Ask an AI coding agent to build the skill from intake.
-12. Let the agent assess and resolve intake gaps before it builds the skill.
-13. Review the generated skill, docs, packaging, and validation results.
-14. Publish release assets when the generated repository is ready.
+- Use `$seo-agent-tools` to discover an available method for finding keyword opportunities for this service area.
+- Use `$seo-agent-tools` to diagnose why this page is underperforming before anyone rewrites it.
+- Use `$seo-agent-tools` to convert this SEO diagnostic into a self-contained implementation handoff.
+- Use `$seo-agent-tools` to verify the implemented canonical and redirect changes against the original triage result.
 
-Detailed workflow: [docs/BOOTSTRAP-WORKFLOW.md](docs/BOOTSTRAP-WORKFLOW.md).
+The installed skill discovers the connected server's current surface at runtime. A recipe or capability present in this repository is not an entitlement and may be unavailable to a particular server, deployment, or caller.
 
-## Documentation
+## Public Recipe Catalog
 
-- [docs/BOOTSTRAP-WORKFLOW.md](docs/BOOTSTRAP-WORKFLOW.md) - Full lifecycle from intake to standalone skill repository.
-- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) - Repository modes, authority model, and design intent.
-- [docs/QUICKSTART.md](docs/QUICKSTART.md) - Short usage path for creating a skill repository.
-- [INSTALL.md](INSTALL.md) - Beginner installation, update, verification, repair, and removal requirements for generated skills.
-- [docs/GITHUB-CLI.md](docs/GITHUB-CLI.md) - Beginner GitHub CLI orientation for generated repositories.
-- [docs/GITHUB-CLI-DELIVERY.md](docs/GITHUB-CLI-DELIVERY.md) - Source, release, containment, and verification architecture.
-- [docs/RELEASING.md](docs/RELEASING.md) - Generated skill release checklist and packaging workflow.
-- [docs/TEMPLATE-RELEASING.md](docs/TEMPLATE-RELEASING.md) - Template repository release workflow.
-- [docs/PROVENANCE.md](docs/PROVENANCE.md) - Attribution and distilled-source notes.
-- [CONTRIBUTING.md](CONTRIBUTING.md) - Contribution guidelines.
-- [SUPPORT.md](SUPPORT.md) - Support paths and contact options.
-- [SECURITY.md](SECURITY.md) - Security reporting and sensitive material guidance.
+The root [catalog](catalog/) contains versioned public SEO methods, controlled discovery facets, capability requirements, and JSON result contracts. The initial recipes preserve current migration behavior, but the catalog format is designed for additional methods without changing the runtime skill's workflow.
 
-## Template Status
+The private server can import a pinned public revision and map stable capability IDs to its own tool registry. The server decides caller-specific visibility and execution eligibility; this repository does not contain provider bindings, credentials, tenant state, or private pricing logic.
 
-This repository starts in bootstrap mode. Generated repositories should eventually remove `.template/`, rewrite `README.md`, rewrite `AGENTS.md`, and become standalone skill repositories.
+Validate and build the deterministic projection:
 
-## Validation
+```bash
+npm run catalog:validate
+npm run catalog:build
+```
 
-Run:
+Generated projection files are written to `dist/catalog/` and are not runtime skill content.
+
+## Develop and Validate
+
+Node.js 22 is used in CI. The repository has no runtime package dependency.
 
 ```bash
 npm run validate
+npm run package -- v0.1.0
+npm run release:verify-assets -- v0.1.0
 ```
 
-## Packaging
+`npm run validate` checks catalog structure, runtime skill structure, documentation links, behavioral fixtures, and maintenance contracts. Packaging creates deterministic standalone, Codex plugin, and Claude plugin archives under `dist/assets/` and also builds the server projection under `dist/catalog/`.
 
-Run:
+## Repository Guide
 
-```bash
-npm run package -- vX.Y.Z
-```
-
-Use the intended release tag. Packaging writes release assets to `dist/assets/`.
-
-## Author
-
-Authored and maintained by TechSpokes.
-
-Several bootstrap and documentation files contain distilled versions of TechSpokes ideas on agent instructions, README structure, Markdown form engineering, and cross-intelligence communication. See [docs/PROVENANCE.md](docs/PROVENANCE.md).
+- [skills/seo-agent-tools/SKILL.md](skills/seo-agent-tools/SKILL.md) is the portable runtime entry point.
+- [catalog/catalog.json](catalog/catalog.json) owns public taxonomy, capabilities, and result-contract registration.
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) explains source and runtime authority.
+- [docs/TESTING.md](docs/TESTING.md) defines maintained validation evidence.
+- [docs/THREAT-MODEL.md](docs/THREAT-MODEL.md) defines privacy, authority, and evidence boundaries.
+- [docs/RELEASING.md](docs/RELEASING.md) defines versioning and release delivery.
+- [docs/FEEDBACK.md](docs/FEEDBACK.md) explains how to report factual skill-run observations.
 
 ## License
 

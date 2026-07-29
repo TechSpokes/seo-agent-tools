@@ -1,16 +1,18 @@
 {
-  "name": "placeholder-skill",
-  "displayName": "Placeholder Skill",
+  "name": "seo-agent-tools",
+  "displayName": "SEO Agent Tools",
   "version": "0.1.0",
-  "description": "Placeholder plugin manifest for a generated agent skill.",
+  "description": "Evidence-backed SEO analysis, recipe discovery, implementation handoffs, and verification through an SEO MCP server.",
   "author": {
-    "name": "Template Author"
+    "name": "TechSpokes"
   },
-  "homepage": "https://github.com/OWNER/REPOSITORY",
-  "repository": "https://github.com/OWNER/REPOSITORY",
+  "homepage": "https://github.com/TechSpokes/seo-agent-tools",
+  "repository": "https://github.com/TechSpokes/seo-agent-tools",
   "license": "MIT",
   "keywords": [
     "agent-skill",
-    "claude-plugin"
+    "claude-plugin",
+    "mcp",
+    "seo"
   ]
 }

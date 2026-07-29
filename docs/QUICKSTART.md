@@ -1,42 +1,22 @@
-# Quickstart
+# Quick Start
 
-This repository starts as a template for building a skill repository.
+## For Skill Users
 
-## Create A Skill Repository
+1. Install `skills/seo-agent-tools` by following [INSTALL.md](../INSTALL.md).
+2. Connect an SEO MCP server that exposes caller-authorized SEO capabilities.
+3. Ask the agent to use `$seo-agent-tools` for an SEO analysis, recipe, diagnosis, handoff, or verification task.
+4. Expect the agent to inspect the current server surface, bound cost and evidence, and report uncertainty or unavailable behavior explicitly.
 
-1. Open the template repository on GitHub.
-2. Click `Use this template`.
-3. Select `Create a new repository`.
-4. Choose the owner, repository name, description, and visibility.
-5. Click `Create repository from template`.
-6. Clone the generated repository.
-7. Add source material or a short skill idea to `.intake/`.
-8. Ask an AI coding agent to build the skill from intake.
-9. Let the agent assess and resolve intake gaps before skill construction.
-10. Let the agent rewrite the repository into maintenance mode.
-11. Review the generated skill, docs, manifests, and validation results.
+The skill is analytical. Route finished content writing and private server implementation to separate capabilities.
 
-## What To Expect From The Agent
+## For Contributors
 
-The agent should not merely fill placeholders. It should infer the reusable capability hidden in the intake, decide what belongs in the skill, record important assumptions, and explain the reasoning that future maintainers need.
+Read [AGENTS.md](../AGENTS.md) and the affected runtime or catalog contract before editing. Then run:
 
-If the agent finds contradictions in the intake, it should resolve low-risk issues locally and document high-impact assumptions. The goal is a maintainable skill, not a perfect transcript of every source file.
+```bash
+npm run validate
+npm run package -- v0.1.0
+npm run release:verify-assets -- v0.1.0
+```
 
-If `.intake/` is empty, weak, conflicting, or exploratory, the agent should not replace the placeholder skill immediately. It should first determine what is missing, why the missing evidence matters, and how to resolve the gap with minimal human help.
-
-Expected resolution paths include extracting evidence, making low-risk assumptions, inspecting local tools or docs, creating disposable experiments, narrowing scope, asking concise questions, or stopping before construction when the skill would otherwise be fabricated.
-
-## What The Agent Builds
-
-The agent renames `skills/placeholder-skill/` to the confirmed final name and builds its `SKILL.md`, runtime references, root installation guide, GitHub CLI orientation, separate maintenance fixtures, packaging manifests, release notes, and maintenance mode `AGENTS.md`.
-
-## After Cleanup
-
-After cleanup, `.template/` should be gone. The repository should read like a normal skill repository, not a generated project.
-
-The generated `AGENTS.md` should explain how to maintain the skill and why important boundaries exist. Future agents should not need to know this template existed.
-
-## Related
-
-- `BOOTSTRAP-WORKFLOW.md` - Full lifecycle and cleanup rationale.
-- `ARCHITECTURE.md` - Repository modes and authority model.
+Generated output belongs under ignored `dist/`. Public recipe source belongs under `catalog/recipes/`, and portable runtime behavior belongs under `skills/seo-agent-tools/`.
