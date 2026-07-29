@@ -6,27 +6,33 @@ Maintain `seo-agent-tools` so future agents can use a connected SEO MCP server f
 
 The public repository owns portable instructions, canonical recipe methodology, controlled discovery vocabulary, result contracts, tests, and deterministic projection. The connected private server owns executable tools, provider bindings, authentication, caller authorization, current cost, capability mapping, and runtime availability.
 
-## Read Depth
+This file is the maintenance routing surface. Read the Summary, Workspace and Authority, and Hard Constraints for every task, then use Read Depth to load only the instructions and references needed for the affected behavior.
 
-Read `skills/seo-agent-tools/SKILL.md` and every affected direct reference before changing runtime behavior. Read `catalog/catalog.json`, `catalog/schemas/recipe.schema.json`, the affected recipe files, and referenced result schemas before changing recipe or catalog behavior.
+## Workspace and Authority
 
-Read all registered fixtures and `docs/TESTING.md` before changing activation, routing, workflow order, cost authorization, evidence handling, content diagnosis, output behavior, handoff, verification, or progressive disclosure. Read `docs/THREAT-MODEL.md` before changing access, external-content handling, public/private boundaries, publication, or packaging controls.
+The current workspace contains two authorized implementation repositories. This repository root is the primary workspace, and the connected private SEO MCP server repository is the second workspace. The Codex agent operating from this root coordinates work assigned across that pair because an agent confined to the private repository cannot modify this public repository.
 
-Treat `.intake/` as historical source-analysis evidence rather than runtime instruction authority. Read it only when a maintenance decision requires provenance or unresolved domain context.
+The coordinating Codex agent may read and write both authorized repositories and may carry the complete Git, GitHub, release, deployment, and production workflow required by the assigned task. This standing workspace authority removes an artificial human-only handoff; it does not add effects that the current task or owning issue does not require.
+
+Before changing either repository, confirm its stable identity, current instructions, branch and worktree state, issue dependencies, and required checks. Preserve existing changes, keep each repository's branches, commits, pull requests, tests, changelogs, versions, releases, and rollback evidence separate, and use current GitHub issues as the coordination record rather than copying a second backlog into files.
+
+Keep the dependency direction one way: the private runtime may import an immutable public release, while public source and releases must not depend on private files or runtime access. Do not delegate public mutations or cross-repository contract resolution to an agent that can operate only in the private repository.
+
+Treat every repository outside this authorized pair as evidence-only unless the user separately authorizes its exact role and mutation scope. Never disclose private repository identity, local paths, implementation details, credentials, pricing, customer data, or deployment state in public source, issues, pull requests, or releases.
 
 ## Product and Maintenance Goals
 
 The product goal is to help an agent turn an SEO request into a supported decision by using the current server surface, collecting only decision-relevant evidence, and returning a result another agent can understand and verify.
 
-The maintenance goal is to keep the runtime lean, the recipe catalog scalable, public contracts explicit, projections deterministic, and release packages portable without leaking private server implementation or source-analysis material.
+The maintenance goal is to keep the installed public skill lean, the recipe catalog scalable, public contracts explicit, projections deterministic, and release packages portable without leaking private server implementation or source-analysis material.
 
 The five initial recipes are migration seed data. Do not encode their count, names, current domains, output bounds, or shared shape as a permanent catalog limit.
 
 ## Hard Constraints
 
 - Preserve applicable system, user, organization, and repository instructions.
-- Keep the canonical runtime under `skills/seo-agent-tools/` and maintenance fixtures under root `tests/`.
-- Keep the runtime focused on analysis, discovery, diagnosis, handoff, and verification; do not add finished content-writing behavior.
+- Keep the canonical public agent skill under `skills/seo-agent-tools/` and maintenance fixtures under root `tests/`.
+- Keep the public skill focused on analysis, discovery, diagnosis, handoff, and verification; do not add finished content-writing behavior.
 - Treat the connected server as executable authority for tools, recipe availability, authorization, and current cost.
 - Keep private tool names, provider bindings, credentials, tenant and customer data, account state, internal pricing logic, deployment configuration, and operational security controls out of public source and results.
 - Do not model scheduling, queues, checkpoints, retries, cancellation, retention, job storage, or other persistent-run machinery in the public v1 contracts.
@@ -34,32 +40,46 @@ The five initial recipes are migration seed data. Do not encode their count, nam
 - Do not claim first-party clicks, conversions, revenue, customer behavior, or index state without user-supplied or authorized connected evidence.
 - Do not commit credentials, private material, local paths, generated `dist/` output, or disposable `tmp/` drafts.
 - Exclude `.intake/`, `.git/`, `.idea/`, `dist/`, and `tmp/` from release packages.
-- Preserve unrelated worktree changes and treat sibling repositories as evidence-only unless the user separately authorizes an exact mutation.
+- Preserve unrelated worktree changes and treat repositories outside the authorized workspace pair as evidence-only unless the user separately authorizes an exact mutation.
+
+## Read Depth
+
+Read only the change-specific material needed to preserve the affected contract.
+
+- Read `skills/seo-agent-tools/SKILL.md` and every affected direct reference before changing public skill behavior.
+- Read `catalog/catalog.json`, `catalog/schemas/recipe.schema.json`, affected recipes, and referenced result schemas before changing recipe or catalog behavior.
+- Read all registered fixtures and `docs/TESTING.md` before changing activation, routing, workflow order, cost authorization, evidence handling, content diagnosis, output behavior, handoff, verification, or progressive disclosure.
+- Read `docs/THREAT-MODEL.md` before changing access, external-content handling, public/private boundaries, publication, or packaging controls.
+- Read `docs/WRITING.md` before substantial synthesis, instruction, contract, handoff, or public-language changes.
+- Read the relevant Maintenance Operations subsection before using temporary files, broad verification, automation, PhpStorm, Git, GitHub, releases, deployments, or coordinated repository workflows.
+
+Treat `.intake/` as historical source-analysis evidence rather than public skill instruction authority. Read it only when a maintenance decision requires provenance or unresolved domain context.
 
 ## Must-Read Documents
 
-- `skills/seo-agent-tools/SKILL.md` owns runtime behavior and activation boundaries.
-- `docs/ARCHITECTURE.md` owns the public/private authority split, runtime map, catalog shape, and projection model.
+These documents are mandatory when Read Depth routes the current change to them. Do not load every document for an unrelated maintenance task.
+
+- `skills/seo-agent-tools/SKILL.md` owns public skill behavior and activation boundaries.
+- `docs/ARCHITECTURE.md` owns the public/private authority split, public skill map, catalog shape, and projection model.
 - `catalog/catalog.json` owns controlled facets, capabilities, catalog version, and result-contract registration.
 - `catalog/schemas/recipe.schema.json` owns the canonical recipe file contract.
 - `docs/TESTING.md` owns structural, behavioral, fresh-context, and release evidence requirements.
 - `docs/THREAT-MODEL.md` owns authority, privacy, evidence, cost, and package boundaries.
 - `docs/RELEASING.md` owns versioning, packaging, tagging, and publication.
+- `docs/WRITING.md` owns self-contained language and fresh-context review guidance.
 - `docs/FEEDBACK.md` owns public feedback intake and privacy review.
 
-## Workspace and Authority
+## Maintenance Operations
 
-Treat this repository as the implementation workspace unless the user authorizes another exact target and action. Treat other repositories as evidence sources until separately authorized for mutation.
+Read only the subsection relevant to the current operation. These rules apply to code, research, analysis, writing, documentation, coordination, and releases.
 
-Use the ignored `tmp/` directory for disposable drafts and remove drafts when they are no longer needed. Generated catalog projections and release assets belong under ignored `dist/` and must be reproducible from committed source.
-
-## Writing Quality and Escalation
+### Writing Quality and Escalation
 
 Write documentation and user- or agent-facing text so a reader without the working conversation, research trail, or context window can understand the actors, actions, relationships, evidence, scope, and required decision. Passing style lint is not enough. Do not replace necessary context with compressed labels, stacked modifiers, vague references, or shorthand that only the author can decode. Read `docs/WRITING.md` when work synthesizes substantial context, creates a handoff or public artifact, changes instructions or contracts materially, or otherwise has meaningful context-compression risk.
 
 Use fresh-context review selectively for those higher-risk cases, not for every edit. Before interrupting a human for minor uncertainty, exhaust relevant repository evidence, safe checks, targeted research, and, when useful and available, an independent agent review. Ask a human only when blocked by missing intent, required approval or authority, private facts, a material tradeoff that the agent is not authorized to decide, or an evidence gap that agents and available tools cannot resolve. Present the goal, relevant evidence, attempted resolutions, remaining unknown, options and consequences, recommendation, and exact decision needed.
 
-## Workstreams and Milestone Checks
+### Workstreams and Milestone Checks
 
 An iteration is a small, usually reversible step such as an edit, experiment, narrow check, or partial result that advances a workstream without making the work decision-ready. A milestone is a deliberately chosen checkpoint where a coherent set of related work satisfies defined entry or acceptance conditions and is ready for evidence that can decide whether to continue, rework, hand off, publish, or claim completion.
 
@@ -67,13 +87,21 @@ Organize all substantial work, including code, research, analysis, writing, docu
 
 Do not repeat an unchanged expensive check after every small edit or partial delivery. Rerun it when inputs, scope, risk, behavior, evidence, or the integrated result changes enough to affect its conclusion. Never defer a required authorization, safety, or pre-action check merely to reduce cost or time; use `docs/TESTING.md` for verification depth and milestone guidance.
 
-## Maintenance Automation
+### Maintenance Automation
 
 At meaningful milestones, review the work for repeated deterministic actions that consume recurring tool calls, context, time, or inference. When a pattern is stable and repository-specific, replace it with the smallest documented local command that has clear inputs, outputs, side effects, and failure messages. Reuse or extend an existing command before adding another overlapping entry point.
 
 Do not automate one-off work, unresolved judgment, unstable procedures, or risky external actions merely for convenience. Keep the maintenance command surface small, composable, and discoverable, and remove obsolete paths when a replacement is adopted.
 
-## PhpStorm as a Complementary Quality Tool
+### Temporary Files
+
+Use the primary repository's `tmp/` directory for disposable drafts, cross-repository coordination notes, captured output, downloads under review, and experiments. The tracked `tmp/AGENTS.md` materializes this ignored workspace in every checkout; prefer it over host-level temporary locations such as `C:\tmp`, `/tmp`, or `%TEMP%`, which may be outside the sandbox or require repeated permission prompts.
+
+Use a descriptive task-specific subdirectory when several files belong together. Put repository-specific generated output in the owning repository's local `tmp/`, remove obsolete scratch material at a meaningful milestone, and never place credentials, authoritative source, durable decisions, or required handoff state in disposable storage.
+
+Generated catalog projections and release assets belong under ignored `dist/` and must be reproducible from committed source.
+
+### PhpStorm as a Complementary Quality Tool
 
 When PhpStorm MCP is available, use its project-aware formatting, linting, inspections, audits, quick fixes, and semantic refactoring as a complement to terminal tools. Prefer PhpStorm when indexed or semantic project context and IDE configuration add value; prefer terminal tools when exact output, shell behavior, or fresh file visibility matters more. For supported code symbols, prefer PhpStorm's usage-aware semantic refactoring over raw text replacement so definitions and indexed usages can be updated coherently across the repository; afterward, search for both the old and new symbol with IDE and terminal tools.
 
@@ -83,7 +111,7 @@ Group related findings into scoped fix or refactoring batches. Re-inspect the af
 
 Ignore the PhpStorm weak warning `Markdown unformatted table`. Treat it as a temporary IDE-setting mismatch rather than a repository defect.
 
-## Sandboxed Git and GitHub Operations
+### Sandboxed Git and GitHub Operations
 
 Use elevated sandbox permissions on the first attempt for Git commands that write repository metadata and for credentialed Git or GitHub CLI operations that require SSH keys, credential helpers, or OS keyring tokens. This includes branch, index, commit, merge, rebase, and tag writes; private remote access and pushes; and authenticated pull-request, issue, release, or repository changes. Do not first run these commands without elevation merely to test whether the sandbox can access credentials.
 
@@ -91,13 +119,14 @@ Treat an unelevated `unauthorized`, `invalid token`, credential-helper failure, 
 
 ## Canonical Files
 
-- `skills/seo-agent-tools/SKILL.md` is the runtime entry point.
-- `skills/seo-agent-tools/references/` contains focused runtime guidance loaded only when needed.
+- `skills/seo-agent-tools/SKILL.md` is the installed public skill entry point.
+- `skills/seo-agent-tools/references/` contains focused public skill guidance loaded only when needed.
 - `skills/seo-agent-tools/agents/openai.yaml` contains host display metadata and the default invocation prompt.
 - `catalog/recipes/` contains one canonical versioned recipe definition per file.
 - `catalog/schemas/` contains the recipe and result JSON contracts.
 - `scripts/catalog.mjs` validates and builds the deterministic server projection.
 - `tests/fixtures/` and `tests/evals/cases.json` define maintained behavior contracts.
+- `tmp/AGENTS.md` defines the tracked boundary for ignored disposable work.
 - `docs/` contains architecture, testing, threat, release, installation, and feedback guidance.
 - `packaging/`, `scripts/package-release.mjs`, and active workflows own release delivery.
 
@@ -111,7 +140,7 @@ npm run validate
 
 This command validates structural contracts, including evaluation registration; it does not execute behavioral evaluation cases. Report a behavioral case as passed only when that case was actually run and its named invariants were assessed.
 
-Run when runtime, catalog projection, packaging, manifests, or release behavior changes:
+Run when public skill, catalog projection, packaging, manifests, or release behavior changes:
 
 ```bash
 npm run package -- vX.Y.Z
@@ -122,9 +151,9 @@ Use the intended release tag. For a substantial instruction change, also run fre
 
 ## Change Boundaries
 
-Use a branch and pull request. Do not push directly to a protected default branch. Update runtime, affected references, recipes, schemas, fixtures, docs, manifests, changelog, and release notes as one coherent public-contract change.
+Use a branch and pull request. Do not push directly to a protected default branch. Update the public skill, affected references, recipes, schemas, fixtures, docs, manifests, changelog, and release notes as one coherent public-contract change.
 
-Add a recipe when a real SEO decision needs a distinct bounded method. Prefer existing controlled facets and capabilities, but extend them when a real method cannot be described accurately. Do not create variants solely for locale, device, provider, market, depth, or budget when those facts can remain inputs or runtime policy.
+Add a recipe when a real SEO decision needs a distinct bounded method. Prefer existing controlled facets and capabilities, but extend them when a real method cannot be described accurately. Do not create variants solely for locale, device, provider, market, depth, or budget when those facts can remain inputs or private server runtime policy.
 
 Increment a recipe version when its meaning changes. Add a result-contract version for incompatible schema or semantic changes. Do not rewrite a released recipe or contract in place and assume a pinned private importer will adapt.
 

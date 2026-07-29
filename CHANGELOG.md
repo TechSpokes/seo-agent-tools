@@ -1,5 +1,16 @@
 # Changelog
 
+## [v0.1.2] - 2026-07-30
+
+### Added
+
+- Tracked `tmp/AGENTS.md` guidance that materializes a repository-local disposable workspace while keeping its generated contents ignored.
+
+### Changed
+
+- Reorganized maintenance instructions for progressive discovery, partial reading, explicit primary and coordinated workspace roles, and full authorized Codex delivery across the public and connected private repositories.
+- Synchronized package and plugin metadata for the `0.1.2` patch version without creating a tag or release.
+
 ## [v0.1.1] - 2026-07-30
 
 ### Added
