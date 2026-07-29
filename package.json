@@ -1,0 +1,14 @@
+{
+  "name": "skill-base-template",
+  "version": "1.4.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate": "node scripts/validate-skill.mjs && node scripts/validate-evaluations.mjs",
+    "package": "node scripts/package-release.mjs",
+    "verify:gh-skill": "node scripts/verify-gh-skill-install.mjs",
+    "release:preflight": "node scripts/release-preflight.mjs",
+    "release:state": "node scripts/release-state.mjs",
+    "release:verify-assets": "node scripts/verify-release-assets.mjs"
+  }
+}

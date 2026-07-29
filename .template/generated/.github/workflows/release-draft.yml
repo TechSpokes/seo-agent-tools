@@ -1,0 +1,153 @@
+name: Draft Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to package, for example v0.1.0"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  id-token: write
+  attestations: write
+
+concurrency:
+  group: release-state-${{ github.event.inputs.tag || github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  draft-release:
+    name: Build release assets and draft release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out tagged commit
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.inputs.tag || github.ref }}
+          fetch-depth: 0
+
+      - name: Resolve release metadata
+        id: meta
+        shell: bash
+        env:
+          INPUT_TAG: ${{ github.event.inputs.tag }}
+        run: |
+          set -euo pipefail
+
+          tag="${INPUT_TAG:-${GITHUB_REF_NAME}}"
+          notes_file="docs/releases/${tag}.md"
+
+          if [[ ! "${tag}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Tag '${tag}' does not match expected vX.Y.Z format." >&2
+            exit 1
+          fi
+
+          if [[ ! -f "${notes_file}" ]]; then
+            echo "Missing release notes file: ${notes_file}" >&2
+            exit 1
+          fi
+
+          if ! grep -Fq "## [${tag}]" CHANGELOG.md; then
+            echo "CHANGELOG.md is missing required section: ## [${tag}]" >&2
+            exit 1
+          fi
+
+          {
+            echo "tag=${tag}"
+            echo "notes_file=${notes_file}"
+            echo "release_title=${tag}"
+          } >> "${GITHUB_OUTPUT}"
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+
+      - name: Guard exact immutable tag
+        env:
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: npm run release:state -- guard --tag "${{ steps.meta.outputs.tag }}" --github-output "${GITHUB_OUTPUT}"
+
+      - name: Validate skill
+        run: npm run validate
+
+      - name: Validate GitHub CLI skill source
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh skill publish --dry-run
+
+      - name: Package release assets
+        run: npm run package -- ${{ steps.meta.outputs.tag }}
+
+      - name: Verify packaged assets
+        run: npm run release:verify-assets -- ${{ steps.meta.outputs.tag }}
+
+      - name: Resolve canonical skill
+        id: skill
+        shell: bash
+        run: |
+          set -euo pipefail
+          skill_name="$(node scripts/verify-gh-skill-install.mjs --print-skill-name)"
+          echo "name=${skill_name}" >> "${GITHUB_OUTPUT}"
+
+      - name: Install the exact unpublished tag
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ steps.meta.outputs.tag }}
+          SKILL_NAME: ${{ steps.skill.outputs.name }}
+        run: |
+          set -euo pipefail
+          gh skill install "${GITHUB_REPOSITORY}" "skills/${SKILL_NAME}@${RELEASE_TAG}" --dir "${RUNNER_TEMP}/gh-skill-tag-install"
+
+      - name: Verify the exact tag installation
+        env:
+          INSTALL_ROOT: ${{ runner.temp }}/gh-skill-tag-install
+          RELEASE_TAG: ${{ steps.meta.outputs.tag }}
+        run: npm run verify:gh-skill -- --install-root "${INSTALL_ROOT}" --repository "${GITHUB_REPOSITORY}" --tag "${RELEASE_TAG}"
+
+      - name: Attest release ZIP provenance
+        uses: actions/attest@v4
+        with:
+          subject-path: dist/assets/*.zip
+
+      - name: Create immutable draft release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ steps.meta.outputs.tag }}
+          RELEASE_TITLE: ${{ steps.meta.outputs.release_title }}
+          NOTES_FILE: ${{ steps.meta.outputs.notes_file }}
+        run: |
+          set -euo pipefail
+
+          if release_json="$(gh release view "${TAG_NAME}" --json body,isDraft,isPrerelease,name 2>/dev/null)"; then
+            if [[ "$(jq -r '.isDraft' <<<"${release_json}")" != "true" || "$(jq -r '.isPrerelease' <<<"${release_json}")" != "false" ]]; then
+              echo "Release ${TAG_NAME} is already published." >&2
+              exit 1
+            fi
+            if [[ "$(jq -r '.name' <<<"${release_json}")" != "${RELEASE_TITLE}" || "$(jq -r '.body' <<<"${release_json}")" != "$(cat "${NOTES_FILE}")" ]]; then
+              echo "Draft ${TAG_NAME} differs from the immutable tagged title or notes; refusing to overwrite it." >&2
+              exit 1
+            fi
+          else
+            gh release create "${TAG_NAME}" \
+              --draft \
+              --title "${RELEASE_TITLE}" \
+              --notes-file "${NOTES_FILE}"
+          fi
+
+      - name: Upload release assets
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ steps.meta.outputs.tag }}
+        run: |
+          set -euo pipefail
+          gh release upload "${TAG_NAME}" dist/assets/*.zip dist/assets/SHA256SUMS --clobber

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "canonical_runtime_root": "skills/placeholder-skill",
+  "runtime_map_document": "docs/ARCHITECTURE.md",
+  "runtime_map_start": "<!-- canonical-runtime-map:start -->",
+  "runtime_map_end": "<!-- canonical-runtime-map:end -->",
+  "required_agent_sections": [
+    "Summary",
+    "Read Depth",
+    "Product and Maintenance Goals",
+    "Hard Constraints",
+    "Must-Read Documents",
+    "Required Checks",
+    "Change Boundaries"
+  ],
+  "required_agent_documents": [
+    "AGENTS.md",
+    "docs/ARCHITECTURE.md",
+    "docs/RELEASING.md",
+    "docs/TESTING.md",
+    "docs/THREAT-MODEL.md",
+    "tests/evals/cases.json"
+  ]
+}

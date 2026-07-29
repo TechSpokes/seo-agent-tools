@@ -1,0 +1,157 @@
+name: GitHub CLI Skill Install
+
+on:
+  release:
+    types:
+      - published
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-state-${{ github.event.release.tag_name }}
+  cancel-in-progress: false
+
+jobs:
+  verify-install:
+    name: Verify public gh skill install
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out released source
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.release.tag_name }}
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+
+      - name: Confirm GitHub CLI skill support
+        run: gh skill --help
+
+      - name: Resolve canonical skill
+        id: skill
+        shell: bash
+        run: |
+          set -euo pipefail
+          skill_name="$(node scripts/verify-gh-skill-install.mjs --print-skill-name)"
+          echo "name=${skill_name}" >> "${GITHUB_OUTPUT}"
+
+      - name: Install the latest published release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh skill install "${GITHUB_REPOSITORY}" "skills/${{ steps.skill.outputs.name }}" --dir "${RUNNER_TEMP}/gh-skill-install"
+
+      - name: Verify installed source and metadata
+        env:
+          INSTALL_ROOT: ${{ runner.temp }}/gh-skill-install
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: npm run verify:gh-skill -- --install-root "${INSTALL_ROOT}" --repository "${GITHUB_REPOSITORY}" --tag "${RELEASE_TAG}"
+
+  verify-update:
+    name: Verify update from previous release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out released source
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.release.tag_name }}
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+
+      - name: Resolve previous published release
+        id: previous
+        shell: bash
+        env:
+          CURRENT_TAG: ${{ github.event.release.tag_name }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          releases="$(gh release list --repo "${GITHUB_REPOSITORY}" --limit 100 --json tagName,isDraft,isPrerelease)"
+          previous="$(jq -r --arg current "${CURRENT_TAG}" '[.[] | select(.isDraft == false and .isPrerelease == false and .tagName != $current)][0].tagName // ""' <<<"${releases}")"
+          echo "tag=${previous}" >> "${GITHUB_OUTPUT}"
+
+      - name: Check out previous released source
+        if: steps.previous.outputs.tag != ''
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ steps.previous.outputs.tag }}
+          path: tmp/previous-source
+
+      - name: Resolve canonical skill
+        if: steps.previous.outputs.tag != ''
+        id: skill
+        shell: bash
+        run: |
+          set -euo pipefail
+          skill_name="$(node scripts/verify-gh-skill-install.mjs --print-skill-name)"
+          echo "name=${skill_name}" >> "${GITHUB_OUTPUT}"
+
+      - name: Compare released runtime
+        if: steps.previous.outputs.tag != ''
+        id: runtime
+        shell: bash
+        env:
+          PREVIOUS_SOURCE: ${{ github.workspace }}/tmp/previous-source
+          SKILL_NAME: ${{ steps.skill.outputs.name }}
+        run: |
+          set -euo pipefail
+          current_tree="$(git rev-parse "HEAD:skills/${SKILL_NAME}")"
+          previous_tree="$(git -C "${PREVIOUS_SOURCE}" rev-parse "HEAD:skills/${SKILL_NAME}")"
+          if [[ "${current_tree}" == "${previous_tree}" ]]; then
+            echo "changed=false" >> "${GITHUB_OUTPUT}"
+          else
+            echo "changed=true" >> "${GITHUB_OUTPUT}"
+          fi
+
+      - name: Install the previous published release
+        if: steps.previous.outputs.tag != ''
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PREVIOUS_TAG: ${{ steps.previous.outputs.tag }}
+          SKILL_NAME: ${{ steps.skill.outputs.name }}
+        run: |
+          set -euo pipefail
+          gh skill install "${GITHUB_REPOSITORY}" "skills/${SKILL_NAME}@${PREVIOUS_TAG}" --dir "${RUNNER_TEMP}/gh-skill-update"
+
+      - name: Verify the previous installation
+        if: steps.previous.outputs.tag != ''
+        env:
+          INSTALL_ROOT: ${{ runner.temp }}/gh-skill-update
+          PREVIOUS_TAG: ${{ steps.previous.outputs.tag }}
+        run: npm run verify:gh-skill -- --source-root "${GITHUB_WORKSPACE}/tmp/previous-source" --install-root "${INSTALL_ROOT}" --repository "${GITHUB_REPOSITORY}" --tag "${PREVIOUS_TAG}"
+
+      - name: Preview and apply the contained update
+        if: steps.previous.outputs.tag != '' && steps.runtime.outputs.changed == 'true'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SKILL_NAME: ${{ steps.skill.outputs.name }}
+        run: |
+          set -euo pipefail
+          gh skill update "${SKILL_NAME}" --dir "${RUNNER_TEMP}/gh-skill-update" --dry-run
+          gh skill update "${SKILL_NAME}" --dir "${RUNNER_TEMP}/gh-skill-update" --all
+
+      - name: Verify the updated installation
+        if: steps.previous.outputs.tag != '' && steps.runtime.outputs.changed == 'true'
+        env:
+          INSTALL_ROOT: ${{ runner.temp }}/gh-skill-update
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: npm run verify:gh-skill -- --install-root "${INSTALL_ROOT}" --repository "${GITHUB_REPOSITORY}" --tag "${RELEASE_TAG}"
+
+      - name: Verify the unchanged runtime
+        if: steps.previous.outputs.tag != '' && steps.runtime.outputs.changed == 'false'
+        env:
+          INSTALL_ROOT: ${{ runner.temp }}/gh-skill-update
+          PREVIOUS_TAG: ${{ steps.previous.outputs.tag }}
+        run: npm run verify:gh-skill -- --install-root "${INSTALL_ROOT}" --repository "${GITHUB_REPOSITORY}" --tag "${PREVIOUS_TAG}"

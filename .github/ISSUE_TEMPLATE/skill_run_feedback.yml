@@ -1,0 +1,28 @@
+name: Skill run feedback
+description: Share one factual observation from using the generated skill
+title: "[Feedback]: "
+labels:
+  - feedback
+body:
+  - type: textarea
+    id: observation
+    attributes:
+      label: What happened?
+      description: One factual observation is enough. Describe what the skill did, missed, or made difficult.
+      placeholder: The skill...
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Optional context
+      description: Add the intended outcome, impact, environment, or related link only when it is useful and safe to publish.
+    validations:
+      required: false
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Public disclosure check
+      options:
+        - label: I reviewed this exact report and removed credentials, private identities, local paths, and restricted material.
+          required: true
