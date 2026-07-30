@@ -13,4 +13,4 @@ The runtime skill preserves these durable ideas:
 - Empty supported results are valid, while missing evidence produces an explicit incomplete state.
 - Public methodology can scale independently of private provider and runtime machinery.
 
-Repository history and source notes provide maintenance provenance. Runtime packages exclude `.intake/` and other source-analysis material because installed agents need the transformed contracts, not the original construction context.
+The v0.1.0 tag and repository history preserve the processed construction evidence. Active source no longer maintains an `.intake/` workspace because its durable decisions are represented in public contracts, schemas, tests, and documentation. Runtime and importer artifacts exclude source-analysis material because consumers need the transformed contracts, not the original construction context.

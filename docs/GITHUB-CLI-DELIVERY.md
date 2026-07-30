@@ -8,11 +8,11 @@ The only installable skill source is `skills/seo-agent-tools/`. GitHub CLI sourc
 
 ## Release Sequence
 
-1. CI validates the repository, runs `gh skill publish --dry-run`, and performs a package smoke test.
+1. CI validates the repository, runs `gh skill publish --dry-run`, and performs package and release-verification smoke tests.
 2. A version tag starts the draft-release workflow at the tagged commit.
 3. Release state checks reject a moving or mismatched tag.
-4. The workflow validates, packages, verifies archives, and installs the exact unpublished tag through GitHub CLI.
-5. The workflow attests ZIP provenance and creates or reuses an immutable draft release whose title and notes match the tag.
+4. The workflow validates, packages, proves all five assets byte-identical across two builds, and installs the exact unpublished tag through GitHub CLI.
+5. The workflow attests release-asset provenance and creates or reuses an immutable draft release whose title and notes match the tag.
 6. A maintainer reviews and publishes the draft.
 7. Publication starts clean-install verification and, when a previous release exists and runtime files changed, contained update verification.
 
@@ -20,7 +20,7 @@ The only installable skill source is `skills/seo-agent-tools/`. GitHub CLI sourc
 
 Install and update tests use temporary directories. Update commands name `seo-agent-tools` explicitly and pass the exact temporary skills parent through `--dir`.
 
-Release packages contain no `.intake/`, `.git/`, `.idea/`, `dist/`, `tmp/`, or private server source. The catalog projection is generated for server import but is not added to the three runtime ZIP files.
+Release packages contain no `.intake/`, `.git/`, `.idea/`, `dist/`, `tmp/`, tests, fixtures, or private server source. The versioned catalog and manifest are uploaded for server import but are not added to the three runtime ZIP files.
 
 ## Failure Behavior
 

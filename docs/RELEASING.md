@@ -23,17 +23,17 @@ Result contracts use explicit identifiers such as `seo-diagnostic/v1`. Add `v2` 
 
 ```bash
 npm run validate
-npm run package -- v0.1.0
-npm run release:verify-assets -- v0.1.0
+npm run package -- v0.2.0
+npm run release:verify-assets -- v0.2.0
 ```
 
 4. Run the repository preflight when the branch and remote state are ready for release.
 
 ```bash
-npm run release:preflight -- v0.1.0
+npm run release:preflight -- v0.2.0
 ```
 
-5. Review `dist/assets/SHA256SUMS`, the three ZIP inventories, and `dist/catalog/manifest.json`.
+5. Review `dist/assets/SHA256SUMS`, the three ZIP inventories, and both versioned catalog files under `dist/catalog/`.
 6. Open and merge a pull request through the protected default branch workflow.
 7. Create and push the exact immutable `vX.Y.Z` tag from the reviewed release commit.
 
@@ -44,13 +44,15 @@ Packaging creates:
 - `seo-agent-tools-vX.Y.Z.zip` with the standalone skill directory.
 - `seo-agent-tools-codex-plugin-vX.Y.Z.zip` with the Codex plugin wrapper and canonical skill.
 - `seo-agent-tools-claude-plugin-vX.Y.Z.zip` with the Claude plugin wrapper and canonical skill.
-- `SHA256SUMS` for the three archives.
+- `seo-agent-tools-catalog-vX.Y.Z.json` with compact discovery cards, complete canonical recipes, controlled vocabulary, capability registration, and exact bundled schemas.
+- `seo-agent-tools-catalog-manifest-vX.Y.Z.json` with repository, tag, commit, version, inventory, normalized source-checksum, and catalog-checksum provenance.
+- `SHA256SUMS` for all five release assets.
 
-The deterministic catalog projection is generated under `dist/catalog/` for server-import testing. It is not a fourth runtime archive and is not uploaded by the current release workflow.
+The versioned catalog files are generated under `dist/catalog/`, copied byte-for-byte into `dist/assets/`, and uploaded beside the three runtime archives. They are importer artifacts, not additions to any runtime ZIP. `npm run release:verify-assets -- vX.Y.Z` verifies both generated and copied inventories, disclosure boundaries, exact manifest provenance, and byte identity across two clean builds.
 
 ## Draft and Publication
 
-Pushing a release tag starts `.github/workflows/release-draft.yml`. The workflow checks immutable tag state, validates and packages the tagged source, verifies exact tag installation, attests ZIP provenance, and creates an immutable draft release.
+Pushing a release tag starts `.github/workflows/release-draft.yml`. The workflow checks immutable tag state, validates and packages the tagged source, proves all five assets reproducible, verifies exact tag installation, attests release-asset provenance, and creates an immutable draft release.
 
 A maintainer reviews the draft title, notes, assets, checksums, and attestations before publication. Publication triggers `.github/workflows/gh-skill-install.yml`, which verifies a clean public installation and a contained update from the previous release when runtime files changed.
 

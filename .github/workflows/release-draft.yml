@@ -116,10 +116,10 @@ jobs:
           RELEASE_TAG: ${{ steps.meta.outputs.tag }}
         run: npm run verify:gh-skill -- --install-root "${INSTALL_ROOT}" --repository "${GITHUB_REPOSITORY}" --tag "${RELEASE_TAG}"
 
-      - name: Attest release ZIP provenance
+      - name: Attest release asset provenance
         uses: actions/attest@v4
         with:
-          subject-path: dist/assets/*.zip
+          subject-path: dist/assets/*
 
       - name: Create immutable draft release
         shell: bash
@@ -154,4 +154,4 @@ jobs:
           TAG_NAME: ${{ steps.meta.outputs.tag }}
         run: |
           set -euo pipefail
-          gh release upload "${TAG_NAME}" dist/assets/*.zip dist/assets/SHA256SUMS --clobber
+          gh release upload "${TAG_NAME}" dist/assets/* --clobber

@@ -379,7 +379,7 @@ function validateDeliveryContract() {
   }
 
   const packageScript = readText("scripts/package-release.mjs");
-  for (const expected of ["fileURLToPath(import.meta.url)", "Expected exactly one skills/<name>/SKILL.md source", "relative !== \"dist\"", "SHA256SUMS", "createStoredZip", "copyReleaseFile", "replace(/\\r\\n/g, \"\\n\")"]) {
+  for (const expected of ["fileURLToPath(import.meta.url)", "Expected exactly one skills/<name>/SKILL.md source", "relative !== \"dist\"", "SHA256SUMS", "createStoredZip", "copyReleaseFile", "replace(/\\r\\n/g, \"\\n\")", "buildCatalogProjection({ tag })", "catalogManifestAsset"]) {
     if (!packageScript.includes(expected)) {
       fail(`scripts/package-release.mjs is missing delivery contract: ${expected}.`);
     }
@@ -414,7 +414,11 @@ function validateDeliveryContract() {
     }
   }
 
-  for (const expected of ["id-token: write", "attestations: write", "actions/attest@v4", "subject-path: dist/assets/*.zip", "dist/assets/SHA256SUMS --clobber"]) {
+  if (!ciWorkflow.includes("release:verify-assets -- v0.0.0")) {
+    fail("CI workflow must smoke-test complete release-asset verification.");
+  }
+
+  for (const expected of ["id-token: write", "attestations: write", "actions/attest@v4", "subject-path: dist/assets/*", "dist/assets/* --clobber"]) {
     if (!releaseWorkflow.includes(expected)) {
       fail(`Generated release workflow is missing provenance contract: ${expected}.`);
     }

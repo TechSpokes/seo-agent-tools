@@ -4,7 +4,7 @@
 
 SEO Agent Tools separates public analytical methodology from private runtime implementation.
 
-The public repository owns the portable skill, canonical recipe definitions, controlled discovery vocabulary, public capability requirements, result schemas, tests, and deterministic projection builder.
+The public repository is canonical for the portable skill, analytical methodology, recipe definitions, evidence discipline, controlled discovery vocabulary, public capability requirements, result schemas, tests, and deterministic projection builder.
 
 The connected private SEO MCP server owns tool implementation, provider bindings, deployment state, authentication, tenant authorization, current cost, capability mapping, and caller-specific recipe availability.
 
@@ -35,9 +35,9 @@ Use one primary domain plus controlled operation and target facets. Keep locale,
 
 ## Deterministic Projection
 
-`scripts/catalog.mjs` first compiles all catalog and result schemas with one standards-compliant Draft 2020-12 validator, then applies cross-file vocabulary, reference, disclosure, and completion semantics that JSON Schema cannot express alone. It emits `dist/catalog/catalog.json` plus `dist/catalog/manifest.json`. The projection sorts recipes and object keys, normalizes JSON bytes, records source checksums, and contains no build timestamp. Compact cards derive capability and source summaries for discovery; only the selected complete recipe's evidence plan and output composition govern execution.
+`scripts/catalog.mjs` first compiles all catalog and result schemas with one standards-compliant Draft 2020-12 validator, then applies cross-file vocabulary, reference, disclosure, and completion semantics that JSON Schema cannot express alone. It emits versioned `seo-agent-tools-catalog-vX.Y.Z.json` and `seo-agent-tools-catalog-manifest-vX.Y.Z.json` files under `dist/catalog/`. The projection sorts recipes and object keys, normalizes JSON bytes, bundles exact catalog, recipe, shared-evidence, and result schemas, records source checksums, and contains no build timestamp. Compact cards derive capability and source summaries for discovery; only the selected complete recipe's evidence plan and output composition govern execution.
 
-The manifest identifies the skill and catalog versions, supported recipe schema versions, result contracts, recipe inventory, source checksums, and projection checksum. A private importer can pin a public revision, verify the manifest, reject unsupported schemas or capabilities, map public capability IDs to its private tools, and resolve the evidence scope into a conservative call budget without copying the public method into a second recipe body.
+The manifest identifies the public repository, immutable release tag, source commit, skill and catalog versions, supported recipe schema versions, result contracts, recipe and schema inventories, normalized canonical-source checksums, and projection path and checksum. A private importer can pin a public release asset, verify the manifest, reject unsupported schemas or capabilities, map public capability IDs to its private tools, and resolve the evidence scope into a conservative call budget without copying the public method into a second recipe body.
 
 The projection direction is public repository to private server. This build never writes into a sibling or private repository.
 

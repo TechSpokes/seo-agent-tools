@@ -9,6 +9,7 @@
 import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
+import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
@@ -54,7 +55,7 @@ if (path.resolve(process.argv[1] ?? "") === scriptPath) {
     console.log(`Catalog validation passed: ${result.recipes.length} recipes, ${Object.keys(result.catalog.result_contracts).length} result contracts, and ${result.fixtureCount} contract fixtures.`);
   } else if (command === "build") {
     const result = buildCatalogProjection();
-    console.log(`Built deterministic catalog projection with ${result.recipeCount} recipes at ${path.relative(root, result.outputDirectory)}.`);
+    console.log(`Built deterministic catalog projection with ${result.recipeCount} recipes at ${path.relative(root, result.artifactPath)}.`);
   } else {
     throw new Error("Usage: node scripts/catalog.mjs [validate|build]");
   }
@@ -63,7 +64,7 @@ if (path.resolve(process.argv[1] ?? "") === scriptPath) {
 /**
  * Validate the catalog metadata, recipe definitions, and local schema references.
  *
- * @returns {{catalog: object, recipes: Recipe[], sourceFiles: string[], fixtureCount: number}} Parsed canonical inputs in deterministic file order.
+ * @returns {{catalog: object, recipes: Recipe[], sourceFiles: string[], schemaFiles: string[], fixtureCount: number}} Parsed canonical inputs in deterministic file order.
  * @throws {Error} When a public contract is malformed, ambiguous, or references uncontrolled vocabulary.
  */
 export function validateCatalog() {
@@ -113,6 +114,7 @@ export function validateCatalog() {
     catalog,
     recipes: recipes.sort((left, right) => left.id.localeCompare(right.id)),
     sourceFiles: ["catalog/catalog.json", ...recipeFiles, ...schemaFiles].sort(),
+    schemaFiles,
     fixtureCount
   };
 }
@@ -120,13 +122,19 @@ export function validateCatalog() {
 /**
  * Build the normalized catalog and provenance manifest used by private-server importers.
  *
- * @returns {{outputDirectory: string, recipeCount: number}} Projection location and inventory size.
+ * @param {{tag?: string}} [options] Optional release identity; defaults to the package version for local catalog builds.
+ * @returns {{outputDirectory: string, artifactPath: string, manifestPath: string, recipeCount: number}} Projection locations and inventory size.
  * @sideEffects Replaces only this repository's generated dist/catalog directory.
  */
-export function buildCatalogProjection() {
-  const { catalog, recipes, sourceFiles } = validateCatalog();
+export function buildCatalogProjection(options = {}) {
+  const { catalog, recipes, sourceFiles, schemaFiles } = validateCatalog();
   const packageManifest = readJson("package.json", []);
+  const tag = options.tag ?? `v${packageManifest.version}`;
+  if (!/^v[0-9]+\.[0-9]+\.[0-9]+$/.test(tag)) throw new Error(`Catalog release tag ${tag} must use vX.Y.Z format.`);
+  const sourceCommit = resolveSourceCommit();
   const outputDirectory = path.join(root, "dist", "catalog");
+  const artifactName = `${packageManifest.name}-catalog-${tag}.json`;
+  const manifestName = `${packageManifest.name}-catalog-manifest-${tag}.json`;
   resetProjection(outputDirectory);
 
   const cards = recipes.map((recipe) => ({
@@ -142,39 +150,64 @@ export function buildCatalogProjection() {
     capabilities: [...new Set(recipe.evidence_plan.map((entry) => entry.capability))].sort(),
     evidence_sources: [...new Set(recipe.evidence_plan.map((entry) => entry.source))].sort()
   }));
+  const schemas = Object.fromEntries(schemaFiles.map((file) => [file, readJson(file, [])]));
   const projection = {
     schema_version: 2,
+    catalog_id: packageManifest.name,
     skill_version: packageManifest.version,
     catalog_version: catalog.catalog_version,
+    catalog_schema: catalog.catalog_schema,
+    recipe_schema: catalog.recipe_schema,
     supported_recipe_schema_versions: catalog.supported_recipe_schema_versions,
+    default_discovery_limit: catalog.default_discovery_limit,
     taxonomy: catalog.taxonomy,
     capabilities: catalog.capabilities,
     result_contracts: catalog.result_contracts,
     recipe_cards: cards,
-    recipes
+    recipes,
+    schemas
   };
   const projectionText = stableJson(projection);
-  const projectionPath = path.join(outputDirectory, "catalog.json");
-  fs.writeFileSync(projectionPath, projectionText, "utf8");
+  const artifactPath = path.join(outputDirectory, artifactName);
+  fs.writeFileSync(artifactPath, projectionText, "utf8");
 
   const manifest = {
-    schema_version: 1,
+    schema_version: 2,
+    catalog_id: packageManifest.name,
+    source_repository: "https://github.com/TechSpokes/seo-agent-tools",
+    release_tag: tag,
+    source_commit: sourceCommit,
     skill_version: packageManifest.version,
     catalog_version: catalog.catalog_version,
     supported_recipe_schema_versions: catalog.supported_recipe_schema_versions,
     result_contracts: Object.keys(catalog.result_contracts).sort(),
     recipe_inventory: recipes.map((recipe) => `${recipe.id}@${recipe.version}`),
+    schema_inventory: schemaFiles.map((file) => ({
+      path: file,
+      sha256: hash(stableJson(readJson(file, [])))
+    })),
     source_checksums: sourceFiles.map((file) => ({
       path: file,
       sha256: hash(stableJson(readJson(file, [])))
     })),
     projection: {
-      path: "catalog.json",
+      path: artifactName,
       sha256: hash(projectionText)
     }
   };
-  fs.writeFileSync(path.join(outputDirectory, "manifest.json"), stableJson(manifest), "utf8");
-  return { outputDirectory, recipeCount: recipes.length };
+  const manifestPath = path.join(outputDirectory, manifestName);
+  fs.writeFileSync(manifestPath, stableJson(manifest), "utf8");
+  return { outputDirectory, artifactPath, manifestPath, recipeCount: recipes.length };
+}
+
+function resolveSourceCommit() {
+  const result = spawnSync("git", ["rev-parse", "--verify", "HEAD^{commit}"], { cwd: root, encoding: "utf8" });
+  if (result.error) throw result.error;
+  const commit = result.stdout.trim();
+  if (result.status !== 0 || !/^[0-9a-f]{40}$/.test(commit)) {
+    throw new Error(result.stderr.trim() || "Unable to resolve the catalog source commit.");
+  }
+  return commit;
 }
 
 /**

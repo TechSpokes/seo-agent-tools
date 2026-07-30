@@ -42,10 +42,14 @@ const claudeAsset = path.join(assets, `${skill.name}-claude-plugin-${tag}.zip`);
 zipDirectory(path.join(stage, skill.name), standaloneAsset);
 zipDirectory(path.join(stage, `${skill.name}-codex-plugin`), codexAsset);
 zipDirectory(path.join(stage, `${skill.name}-claude-plugin`), claudeAsset);
-writeChecksums([standaloneAsset, codexAsset, claudeAsset], path.join(assets, "SHA256SUMS"));
-buildCatalogProjection();
+const catalog = buildCatalogProjection({ tag });
+const catalogAsset = path.join(assets, path.basename(catalog.artifactPath));
+const catalogManifestAsset = path.join(assets, path.basename(catalog.manifestPath));
+fs.copyFileSync(catalog.artifactPath, catalogAsset);
+fs.copyFileSync(catalog.manifestPath, catalogManifestAsset);
+writeChecksums([standaloneAsset, codexAsset, claudeAsset, catalogAsset, catalogManifestAsset], path.join(assets, "SHA256SUMS"));
 
-console.log(`Packaged release assets and built the catalog projection for ${skill.name} ${tag}.`);
+console.log(`Packaged three runtime archives and two catalog artifacts for ${skill.name} ${tag}.`);
 
 /**
  * Discovers and validates the dedicated repository's one canonical skill tree.

@@ -29,14 +29,7 @@ resetGeneratedDistribution();
 run("gh", ["skill", "publish", "--dry-run"]);
 runNpm(["run", "package", "--", tag]);
 runNpm(["run", "release:verify-assets", "--", tag]);
-const firstChecksums = fs.readFileSync(path.join(root, "dist", "assets", "SHA256SUMS"), "utf8");
-runNpm(["run", "package", "--", tag]);
-runNpm(["run", "release:verify-assets", "--", tag]);
-const secondChecksums = fs.readFileSync(path.join(root, "dist", "assets", "SHA256SUMS"), "utf8");
-
-if (firstChecksums !== secondChecksums) {
-  throw new Error("Two release builds produced different archive checksums.");
-}
+const checksums = fs.readFileSync(path.join(root, "dist", "assets", "SHA256SUMS"), "utf8");
 
 const finalTreeDigest = snapshotCandidateTree();
 if (finalTreeDigest !== initialTreeDigest) {
@@ -47,7 +40,7 @@ console.log(JSON.stringify({
   tag,
   version,
   releaseTreeSha256: initialTreeDigest,
-  checksumsSha256: digest(secondChecksums),
+  checksumsSha256: digest(checksums),
   result: "pass"
 }));
 console.log("Commit this exact validated tree, merge it through the protected pull request workflow, then validate and push the annotated tag.");
