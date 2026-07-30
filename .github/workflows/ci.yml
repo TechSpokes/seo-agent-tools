@@ -38,3 +38,6 @@ jobs:
 
       - name: Package smoke test
         run: npm run package -- v0.0.0 # non-release smoke version
+
+      - name: Verify release-asset smoke test
+        run: npm run release:verify-assets -- v0.0.0

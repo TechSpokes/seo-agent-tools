@@ -46,7 +46,7 @@ Requirements that make sense only inside the analyst's conversation can cause un
 
 ### Package Contamination
 
-Raw intake, private evidence, build scaffolding, or local state could enter public archives. Packaging reads only the canonical runtime and wrapper manifests. Archive verification rejects `.intake`, `.git`, `.idea`, `dist`, `tmp`, bootstrap paths, local Windows user paths, and credential patterns.
+Raw intake, private evidence, build scaffolding, or local state could enter public archives or importer artifacts. Runtime packaging reads only the canonical skill and wrapper manifests. Catalog packaging reads only validated canonical catalog source and schemas. Release verification rejects maintenance-only paths, private-style tool fields, local Windows user paths, credential patterns, and unexpected archive, catalog, or checksum inventory.
 
 ## Out of Scope
 

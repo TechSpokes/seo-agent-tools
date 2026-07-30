@@ -17,11 +17,11 @@ npm run validate
 When runtime or release behavior changes, also build and verify the intended release candidate:
 
 ```bash
-npm run package -- v0.1.0
-npm run release:verify-assets -- v0.1.0
+npm run package -- v0.2.0
+npm run release:verify-assets -- v0.2.0
 ```
 
-Use the intended version tag rather than copying `v0.1.0` after the package version changes.
+Use the intended version tag rather than retaining an older release example after the package version changes.
 
 ## What Validation Covers
 
@@ -33,7 +33,7 @@ Use the intended version tag rather than copying `v0.1.0` after the package vers
 
 `scripts/validate-evaluations.mjs` checks activation examples, registered behavior and adversarial scenarios, required evaluation segments, maintenance-agent headings, and the canonical runtime map. It does not execute prompts or assess model outputs.
 
-`scripts/verify-release-assets.mjs` checks deterministic ZIP inventory, checksums, CRC-backed stored entries, normalized line endings, forbidden source paths, local Windows paths, and common credential patterns.
+`scripts/verify-release-assets.mjs` checks all five release assets, deterministic ZIP inventory, CRC-backed stored entries, versioned catalog provenance and schema inventory, normalized source checksums, disclosure boundaries, line endings, forbidden paths, local Windows paths, and common credential patterns. It rebuilds into a clean generated tree and requires byte identity with the first build.
 
 These scripts prove structure and deterministic delivery. They do not prove model behavior, SEO correctness, live server availability, or provider accuracy.
 

@@ -2,9 +2,12 @@
 
 ## [Unreleased]
 
+## [v0.2.0] - 2026-07-30
+
 ### Added
 
 - Draft 2020-12 catalog schema authority and registered positive and negative fixtures for catalog, recipe, and result-contract validation.
+- Immutable versioned catalog and catalog-manifest release assets that bundle importer-required schemas and record source, release, inventory, and checksum provenance.
 
 ### Changed
 
@@ -12,6 +15,11 @@
 - Catalog v0.2.0 and all five seed recipes now expose importer-ready execution meaning while preserving runtime authority, public/private separation, bounded results, legitimate completed empty results, and explicit incomplete stops.
 - Catalog validation now delegates structural rules and schema-reference resolution to AJV while retaining cross-file vocabulary, identity, evidence-link, completion-state, disclosure, and deterministic-projection checks.
 - Validation and draft-release workflows now install the locked validator dependencies on clean hosted runners.
+- Release verification now checks all five assets, importer disclosure boundaries, exact catalog provenance, and byte identity across two clean builds.
+
+### Removed
+
+- Retired the processed `.intake/` maintenance workspace and its active guidance after confirming that durable decisions are represented in maintained contracts, tests, documentation, and v0.1.0 history.
 
 ## [v0.1.2] - 2026-07-30
 

@@ -53,8 +53,6 @@ Read only the change-specific material needed to preserve the affected contract.
 - Read `docs/WRITING.md` before substantial synthesis, instruction, contract, handoff, or public-language changes.
 - Read the relevant Maintenance Operations subsection before using temporary files, broad verification, automation, PhpStorm, Git, GitHub, releases, deployments, or coordinated repository workflows.
 
-Treat `.intake/` as historical source-analysis evidence rather than public skill instruction authority. Read it only when a maintenance decision requires provenance or unresolved domain context.
-
 ## Must-Read Documents
 
 These documents are mandatory when Read Depth routes the current change to them. Do not load every document for an unrelated maintenance task.

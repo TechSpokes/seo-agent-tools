@@ -1,8 +1,8 @@
 # SEO Agent Tools
 
-SEO Agent Tools is a public agent skill for evidence-backed SEO analysis through a connected SEO MCP server. It helps an agent choose a direct evidence lookup or discover a versioned analytical recipe, diagnose page and site problems, prepare implementation handoffs, and verify completed work.
+SEO Agent Tools is the canonical public source for portable SEO methodology, recipes, evidence discipline, and result contracts used through a connected SEO MCP server. It helps an agent choose a direct evidence lookup or discover a versioned analytical recipe, diagnose page and site problems, prepare implementation handoffs, and verify completed work.
 
-The skill does not write finished content, expose private server internals, or implement persistent jobs. The connected server remains responsible for current tools, recipe availability, authorization, and cost.
+The skill does not write finished content, expose private server internals, or implement persistent jobs. The connected server remains the runtime authority for current tools, private mappings, recipe availability, authorization, and cost.
 
 ## What It Helps Agents Do
 
@@ -49,19 +49,20 @@ npm run catalog:validate
 npm run catalog:build
 ```
 
-Generated projection files are written to `dist/catalog/` and are not runtime skill content.
+Generated projection files use immutable versioned names under `dist/catalog/`. The catalog bundles the exact public schemas needed by an importer, and its manifest records source and checksum provenance. These files are not runtime skill content.
 
 ## Develop and Validate
 
 Node.js 22 is used in CI. The repository has no runtime package dependency.
 
 ```bash
+npm ci
 npm run validate
-npm run package -- v0.1.0
-npm run release:verify-assets -- v0.1.0
+npm run package -- v0.2.0
+npm run release:verify-assets -- v0.2.0
 ```
 
-`npm run validate` checks catalog structure, runtime skill structure, documentation links, behavioral fixtures, and maintenance contracts. Packaging creates deterministic standalone, Codex plugin, and Claude plugin archives under `dist/assets/` and also builds the server projection under `dist/catalog/`.
+`npm run validate` checks catalog structure, runtime skill structure, documentation links, behavioral fixtures, and maintenance contracts. Packaging creates deterministic standalone, Codex plugin, and Claude plugin archives plus versioned catalog and manifest assets under `dist/assets/`. Release verification checks all five assets and rebuilds them to prove byte identity.
 
 ## Repository Guide
 
