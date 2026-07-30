@@ -23,7 +23,7 @@ Treat a request to rewrite content as a hypothesis about the intervention, not a
 
 A direct analysis uses one or a few server capabilities when the question is narrow and the evidence path is obvious.
 
-A recipe is a versioned SEO method discovered from the connected server. It defines required inputs, stable steps, evidence requirements, stop conditions, completion criteria, and a result contract. The catalog can grow; never treat a remembered list of recipes as complete.
+A recipe is a versioned SEO method discovered from the connected server. It defines required inputs, stable steps, source-classed evidence requirements, evidence bounds, missing-capability behavior, stop conditions, completion criteria, and explicit result composition. The catalog can grow; never treat a remembered list of recipes as complete.
 
 A result contract makes the decision reusable. It records the subject, evidence, findings, confidence, constraints, disposition, completion state, and verification status instead of returning an unsupported recommendation. A selected recipe may use a contract newer than this installed skill; use it only when the connected server supplies the exact versioned contract in an interpretable form.
 
@@ -33,8 +33,8 @@ A result contract makes the decision reusable. It records the subject, evidence,
 2. Inspect the connected server's current tool and recipe-discovery surface. Do not infer availability from this skill, a public catalog, or a previous session.
 3. Choose the shortest route that can answer the question with sufficient evidence: direct analysis, recipe execution, content-quality diagnosis, implementation handoff, or verification.
 4. Before any paid or approval-gated call, obtain current price and balance information when the server exposes it, state the expected call scope, and follow the user's authorization boundary.
-5. Confirm that the selected recipe's exact result contract is interpretable before collecting its evidence. Use a contract embedded in the full server-resolved recipe or a contract obtained through a discovered server schema surface. Never coerce an unfamiliar contract into a locally documented family; stop for unsupported result-contract skew when the exact shape is unavailable or incompatible.
-6. Execute only the selected path. Keep result counts and page samples bounded, load full recipe definitions only after selecting a candidate, and stop when required evidence is unavailable.
+5. Confirm that the selected recipe's evidence plan, primary result contract, and any conditional result contracts are interpretable before collecting evidence. Use contracts embedded in the full server-resolved recipe or obtained through a discovered server schema surface. Never coerce an unfamiliar contract into a locally documented family; stop for unsupported result-contract skew when the exact shape is unavailable or incompatible.
+6. Execute only the selected path. Resolve each evidence entry by its `server`, `client`, or `user` source, apply its required, conditional, or fallback use, respect the provider-neutral evidence bound, and follow its declared completion-without behavior. Load full recipe definitions only after selecting a candidate, and stop when required evidence is unavailable.
 7. Separate observed facts from interpretations. Preserve source, subject, observation time, locale, device, query, and other conditions needed to understand what each item of evidence means.
 8. Return the applicable result contract. If another agent must implement the decision, add a handoff that specifies outcomes, constraints, acceptance criteria, and verification without drafting the finished content.
 9. Verify the result against the original decision and completion criteria. Report unavailable checks and unresolved uncertainty instead of implying completion.
@@ -43,7 +43,7 @@ A result contract makes the decision reusable. It records the subject, evidence,
 
 Use direct analysis when one bounded evidence lookup can answer the question and a multi-step method would add no decision value.
 
-Use recipe discovery when the request requires several dependent evidence steps, a repeatable methodology, or a typed result that another agent or system will consume. Filter compact recipe cards by goal facets, compare a small candidate set, then retrieve one full recipe definition. An unfamiliar recipe name or facet is acceptable when the server describes it; an uninterpretable result contract is not.
+Use recipe discovery when the request requires several dependent evidence steps, a repeatable methodology, or a typed result that another agent or system will consume. Filter compact recipe cards by goal facets, compare a small candidate set, then retrieve one full recipe definition. Treat a card's capability list as a discovery summary; the selected full recipe's evidence plan and output composition govern execution. An unfamiliar recipe name or facet is acceptable when the server describes it; an uninterpretable result contract is not.
 
 Use content-quality diagnosis when the user assumes a page needs new or rewritten content. Determine whether the actual intervention is to create, refresh, consolidate, preserve, fix a technical blocker, change site strategy, improve authority, or obtain first-party operational evidence.
 

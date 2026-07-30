@@ -102,6 +102,17 @@
       ]
     },
     {
+      "id": "missing-client-evidence",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "failure",
+      "heading": "Missing Client Evidence Constrains a Recipe",
+      "baseline_risks": [
+        "source-class confusion",
+        "invented client capability"
+      ]
+    },
+    {
       "id": "future-result-contract",
       "kind": "scenario",
       "fixture": "behavior-scenarios.md",
@@ -143,6 +154,17 @@
       "baseline_risks": [
         "context-dependent requirements",
         "missing preservation constraints"
+      ]
+    },
+    {
+      "id": "conditional-output-composition",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "handoff",
+      "heading": "Conditional Output Follows Recipe Composition",
+      "baseline_risks": [
+        "unjustified handoff emission",
+        "output-role ambiguity"
       ]
     },
     {

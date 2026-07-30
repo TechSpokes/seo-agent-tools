@@ -38,9 +38,9 @@ The installed skill discovers the connected server's current surface at runtime.
 
 ## Public Recipe Catalog
 
-The root [catalog](catalog/) contains versioned public SEO methods, controlled discovery facets, capability requirements, and JSON result contracts. The initial recipes preserve current migration behavior, but the catalog format is designed for additional methods without changing the runtime skill's workflow.
+The root [catalog](catalog/catalog.json) contains versioned public SEO methods, controlled discovery facets, source-classed evidence plans, provider-neutral evidence bounds, missing-capability behavior, and explicit JSON result composition. The initial recipes preserve current migration behavior, but the catalog format is designed for additional methods without changing the runtime skill's workflow.
 
-The private server can import a pinned public revision and map stable capability IDs to its own tool registry. The server decides caller-specific visibility and execution eligibility; this repository does not contain provider bindings, credentials, tenant state, or private pricing logic.
+The private server can import a pinned public revision, map stable capability IDs to its own tool registry, and resolve evidence units into a conservative caller-specific call plan. Direct analysis remains usable whenever a connected compatible server exposes suitable tools. A public recipe is executable only when that server exposes a compatible recipe version and the exact result contracts; catalog presence is not entitlement. This repository does not contain provider bindings, credentials, tenant state, or private pricing logic.
 
 Validate and build the deterministic projection:
 

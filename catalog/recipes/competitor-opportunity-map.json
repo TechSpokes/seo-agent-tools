@@ -1,7 +1,7 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "id": "competitor-opportunity-map",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "title": "Competitor Opportunity Map",
   "summary": "Confirm relevant search competitors, compare their supported demand and pages with the target domain, and rank opportunities to pursue, defer, or reject.",
   "primary_domain": "competition",
@@ -18,11 +18,105 @@
       "description": "The target domain whose search competitors and opportunities should be evaluated."
     }
   ],
-  "capabilities": [
-    "competitor-discovery",
-    "keyword-metrics",
-    "page-content",
-    "serp-results"
+  "evidence_plan": [
+    {
+      "capability": "competitor-discovery",
+      "source": "server",
+      "use": "conditional",
+      "steps": [
+        "discover-and-confirm-competitors"
+      ],
+      "scope": {
+        "unit": "domain",
+        "maximum": 3,
+        "guidance": "Discover and confirm no more than three relevant search competitors."
+      },
+      "condition": "Use server discovery when the user has not supplied a sufficiently relevant competitor set.",
+      "completion_without": {
+        "allowed": true,
+        "limitation": "The method requires a user-supplied competitor set and must record that server discovery was unavailable."
+      },
+      "fallback": "Use only user-supplied domains that can be confirmed against current result evidence; otherwise stop incomplete."
+    },
+    {
+      "capability": "competitor-domains",
+      "source": "user",
+      "use": "fallback",
+      "steps": [
+        "acquire-market-context",
+        "discover-and-confirm-competitors"
+      ],
+      "scope": {
+        "unit": "domain",
+        "maximum": 3,
+        "guidance": "Accept no more than three user-supplied competitor domains for confirmation."
+      },
+      "completion_without": {
+        "allowed": true,
+        "limitation": "Competitors must instead be discovered and confirmed through the connected server."
+      },
+      "fallback": "Use the server discovery path and reject domains that current search evidence does not confirm as relevant."
+    },
+    {
+      "capability": "keyword-metrics",
+      "source": "server",
+      "use": "conditional",
+      "steps": [
+        "collect-keywords",
+        "validate-opportunities"
+      ],
+      "scope": {
+        "unit": "query",
+        "maximum": 20,
+        "guidance": "Measure no more than twenty retained competitor queries that can change prioritization."
+      },
+      "condition": "Use metrics only when qualitative demand evidence cannot distinguish or prioritize retained queries.",
+      "completion_without": {
+        "allowed": true,
+        "limitation": "Opportunity ranking remains qualitative and confidence must reflect missing quantitative evidence."
+      },
+      "fallback": "Rank with current intent, coverage, relevance, and feasibility evidence."
+    },
+    {
+      "capability": "serp-results",
+      "source": "server",
+      "use": "required",
+      "steps": [
+        "discover-and-confirm-competitors",
+        "validate-opportunities",
+        "produce-map"
+      ],
+      "scope": {
+        "unit": "query",
+        "maximum": 5,
+        "guidance": "Validate no more than five representative queries across the retained opportunity clusters."
+      },
+      "completion_without": {
+        "allowed": false,
+        "limitation": "The method cannot confirm search competitors, current intent, or result types without current result evidence."
+      },
+      "fallback": "Return an incomplete opportunity set rather than infer competitor relevance from business labels alone."
+    },
+    {
+      "capability": "page-content",
+      "source": "client",
+      "use": "conditional",
+      "steps": [
+        "inspect-pages",
+        "produce-map"
+      ],
+      "scope": {
+        "unit": "page",
+        "maximum": 6,
+        "guidance": "Read no more than one representative page per confirmed competitor and three target-domain pages."
+      },
+      "condition": "Use page content when a retained cluster requires page-role, coverage, or differentiation evidence beyond current result snippets.",
+      "completion_without": {
+        "allowed": true,
+        "limitation": "Affected page-role and differentiation findings remain provisional and cannot support implementation-ready requirements."
+      },
+      "fallback": "Keep the affected opportunity conditional and request a compatible page reader before implementation."
+    }
   ],
   "steps": [
     {
@@ -72,7 +166,10 @@
     "The result is bounded to the strongest supported opportunities."
   ],
   "output_contracts": [
-    "seo-opportunity-set/v1"
+    {
+      "id": "seo-opportunity-set/v1",
+      "role": "primary"
+    }
   ],
   "bounds": {
     "max_results": 10,

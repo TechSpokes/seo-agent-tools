@@ -19,7 +19,7 @@ Use the intended version tag rather than copying `v0.1.0` after the package vers
 
 ## What Validation Covers
 
-`scripts/catalog.mjs` checks public taxonomy, capability vocabulary, recipe identity and versioning, stable step and input IDs, evidence requirements, stops, completion criteria, result-contract references, local schema references, and deterministic projection inputs.
+`scripts/catalog.mjs` checks public taxonomy, capability and evidence-unit vocabulary, recipe identity and versioning, stable step and input IDs, evidence-plan source and use classes, step references, scope bounds, completion-without behavior, output composition, evidence requirements, stops, completion criteria, result-contract references, public/private disclosure patterns, local schema references, and deterministic projection inputs.
 
 `scripts/check-version.mjs` checks that package metadata, both plugin manifests, the changelog, the current-version document, and release notes declare one version. Run it directly with `npm run version:check`, or rely on `npm run validate` to include it.
 
@@ -61,10 +61,11 @@ For a new recipe, confirm:
 
 - Discovery metadata lets an agent distinguish it from nearby methods.
 - Required inputs identify facts that materially change the method.
-- Capabilities describe public evidence needs rather than private tool names.
+- Evidence-plan entries describe public capabilities, source classes, use classes, bounded evidence units, step references, and missing-capability behavior rather than private tool names or request counts.
 - Stable step IDs describe a bounded analytical sequence.
 - Stops distinguish unavailable evidence from a completed empty result.
-- The selected result contract represents the actual decision without generic catch-all fields.
+- Output composition identifies exactly one primary result and deterministic conditions for additional results.
+- The selected result contracts represent the actual decision without generic catch-all fields.
 - The deterministic projection changes only as expected.
 
 For a new result-contract version, validate at least one complete result, one legitimate empty result when supported, and one incomplete result with a stop reason using a standards-compliant JSON Schema 2020-12 validator.
