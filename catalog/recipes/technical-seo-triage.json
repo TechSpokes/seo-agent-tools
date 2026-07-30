@@ -1,7 +1,7 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "id": "technical-seo-triage",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "title": "Technical SEO Triage",
   "summary": "Inspect a bounded site sample, identify supported technical SEO issues, and prioritize the few fixes most likely to change crawl, index, or page behavior.",
   "primary_domain": "technical",
@@ -17,10 +17,107 @@
       "description": "The site URL or origin whose technical SEO state should be triaged."
     }
   ],
-  "capabilities": [
-    "page-content",
-    "page-metadata",
-    "page-technical-signals"
+  "evidence_plan": [
+    {
+      "capability": "page-metadata",
+      "source": "server",
+      "use": "required",
+      "steps": [
+        "discover-sample",
+        "inspect-static-signals",
+        "classify-findings"
+      ],
+      "scope": {
+        "unit": "page",
+        "maximum": 10,
+        "guidance": "Inspect metadata for no more than ten representative pages in the bounded sample."
+      },
+      "completion_without": {
+        "allowed": false,
+        "limitation": "The method cannot identify or compare the sampled pages reliably without page metadata."
+      },
+      "fallback": "Narrow the sample if possible; otherwise return an incomplete diagnostic."
+    },
+    {
+      "capability": "page-technical-signals",
+      "source": "server",
+      "use": "required",
+      "steps": [
+        "inspect-static-signals",
+        "run-provider-checks",
+        "classify-findings"
+      ],
+      "scope": {
+        "unit": "page",
+        "maximum": 10,
+        "guidance": "Inspect technical signals for the same representative sample of no more than ten pages."
+      },
+      "completion_without": {
+        "allowed": false,
+        "limitation": "The method cannot support technical issue findings without observable technical signals."
+      },
+      "fallback": "Return an incomplete diagnostic rather than inferring site-wide technical state."
+    },
+    {
+      "capability": "page-content",
+      "source": "client",
+      "use": "conditional",
+      "steps": [
+        "inspect-static-signals",
+        "classify-findings"
+      ],
+      "scope": {
+        "unit": "page",
+        "maximum": 5,
+        "guidance": "Read only sampled pages needed to resolve structured-content or linking questions."
+      },
+      "condition": "Use a full-page reader when static server evidence raises a material structured-content or internal-linking question that the server evidence does not resolve.",
+      "completion_without": {
+        "allowed": true,
+        "limitation": "Affected content and linking questions remain unknown and cannot become supported issues."
+      },
+      "fallback": "Record the unresolved scope as unknown and omit recommendations that require page-content confirmation."
+    },
+    {
+      "capability": "rendered-page-content",
+      "source": "client",
+      "use": "conditional",
+      "steps": [
+        "inspect-static-signals",
+        "classify-findings"
+      ],
+      "scope": {
+        "unit": "page",
+        "maximum": 5,
+        "guidance": "Render only sampled pages needed to test a material client-rendering question."
+      },
+      "condition": "Use rendered-page evidence when static signals suggest that client-side rendering may change crawlable content, metadata, or links.",
+      "completion_without": {
+        "allowed": true,
+        "limitation": "Rendered behavior remains unknown and cannot become a confirmed issue or unaffected finding."
+      },
+      "fallback": "Record the rendering question as suspected or unknown and request a compatible rendered-page capability for confirmation."
+    },
+    {
+      "capability": "first-party-search-data",
+      "source": "user",
+      "use": "conditional",
+      "steps": [
+        "classify-findings",
+        "produce-triage"
+      ],
+      "scope": {
+        "unit": "context-record",
+        "maximum": 1,
+        "guidance": "Use one user-supplied or independently authorized search-performance context for the sampled scope."
+      },
+      "condition": "Use first-party evidence only when the user supplies it or authorizes an independent source and the requested finding depends on crawl, index, click, or other account state.",
+      "completion_without": {
+        "allowed": true,
+        "limitation": "The result cannot claim private crawl, index, or search-performance state."
+      },
+      "fallback": "Limit the diagnostic to observable public signals and mark first-party checks unavailable."
+    }
   ],
   "steps": [
     {
@@ -66,7 +163,10 @@
     "Unknown and unaffected scope are not presented as fixed."
   ],
   "output_contracts": [
-    "seo-diagnostic/v1"
+    {
+      "id": "seo-diagnostic/v1",
+      "role": "primary"
+    }
   ],
   "bounds": {
     "max_results": 5,

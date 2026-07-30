@@ -11,6 +11,33 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+/**
+ * @typedef {object} EvidencePlanEntry
+ * @property {string} capability
+ * @property {"client" | "server" | "user"} source
+ * @property {"conditional" | "fallback" | "required"} use
+ * @property {string[]} steps
+ * @property {{unit: string, maximum: number, guidance: string}} scope
+ * @property {string} [condition]
+ * @property {{allowed: boolean, limitation: string}} completion_without
+ * @property {string} fallback
+ */
+
+/**
+ * @typedef {object} Recipe
+ * @property {string} id
+ * @property {string} version
+ * @property {string} title
+ * @property {string} summary
+ * @property {string} primary_domain
+ * @property {string[]} operations
+ * @property {string} target
+ * @property {{id: string, description: string}[]} required_inputs
+ * @property {EvidencePlanEntry[]} evidence_plan
+ * @property {{id: string, instruction: string}[]} steps
+ * @property {{id: string, role: "conditional" | "primary", condition?: string}[]} output_contracts
+ */
+
 const scriptPath = fileURLToPath(import.meta.url);
 const root = path.resolve(path.dirname(scriptPath), "..");
 const catalogRoot = path.join(root, "catalog");
@@ -33,7 +60,7 @@ if (path.resolve(process.argv[1] ?? "") === scriptPath) {
 /**
  * Validate the catalog metadata, recipe definitions, and local schema references.
  *
- * @returns {{catalog: object, recipes: object[], sourceFiles: string[]}} Parsed canonical inputs in deterministic file order.
+ * @returns {{catalog: object, recipes: Recipe[], sourceFiles: string[]}} Parsed canonical inputs in deterministic file order.
  * @throws {Error} When a public contract is malformed, ambiguous, or references uncontrolled vocabulary.
  */
 export function validateCatalog() {
@@ -54,7 +81,7 @@ export function validateCatalog() {
     validateSchema(file, failures);
   }
 
-  const recipes = [];
+  const recipes = /** @type {Recipe[]} */ ([]);
   const recipeIds = new Set();
   for (const file of recipeFiles) {
     const recipe = readJson(file, failures);
@@ -99,10 +126,11 @@ export function buildCatalogProjection() {
     target: recipe.target,
     output_contracts: recipe.output_contracts,
     required_inputs: recipe.required_inputs.map((input) => input.id),
-    capabilities: recipe.capabilities
+    capabilities: [...new Set(recipe.evidence_plan.map((entry) => entry.capability))].sort(),
+    evidence_sources: [...new Set(recipe.evidence_plan.map((entry) => entry.source))].sort()
   }));
   const projection = {
-    schema_version: 1,
+    schema_version: 2,
     skill_version: packageManifest.version,
     catalog_version: catalog.catalog_version,
     supported_recipe_schema_versions: catalog.supported_recipe_schema_versions,
@@ -142,10 +170,10 @@ function validateCatalogMetadata(catalog, failures) {
   if (catalog.schema_version !== 1) failures.push("catalog/catalog.json schema_version must be 1.");
   if (!isSemver(catalog.catalog_version)) failures.push("catalog/catalog.json catalog_version must be semantic version X.Y.Z.");
   if (!Number.isInteger(catalog.default_discovery_limit) || catalog.default_discovery_limit < 1) failures.push("catalog/catalog.json default_discovery_limit must be a positive integer.");
-  if (!Array.isArray(catalog.supported_recipe_schema_versions) || !catalog.supported_recipe_schema_versions.includes(1)) failures.push("catalog/catalog.json must support recipe schema version 1.");
+  if (!Array.isArray(catalog.supported_recipe_schema_versions) || !catalog.supported_recipe_schema_versions.includes(2)) failures.push("catalog/catalog.json must support recipe schema version 2.");
   if (!exists(catalog.recipe_schema)) failures.push(`catalog/catalog.json references missing recipe schema ${catalog.recipe_schema}.`);
 
-  for (const facet of ["domains", "operations", "targets"]) {
+  for (const facet of ["domains", "evidence_units", "operations", "targets"]) {
     validateControlledArray(catalog.taxonomy?.[facet], `catalog taxonomy ${facet}`, failures);
   }
   validateControlledArray(catalog.capabilities, "catalog capabilities", failures);
@@ -160,7 +188,7 @@ function validateCatalogMetadata(catalog, failures) {
 }
 
 function validateRecipe(recipe, file, catalog, failures) {
-  const required = ["schema_version", "id", "version", "title", "summary", "primary_domain", "operations", "target", "required_inputs", "capabilities", "steps", "evidence_requirements", "stop_conditions", "completion_criteria", "output_contracts"];
+  const required = ["schema_version", "id", "version", "title", "summary", "primary_domain", "operations", "target", "required_inputs", "evidence_plan", "steps", "evidence_requirements", "stop_conditions", "completion_criteria", "output_contracts"];
   const allowed = new Set([...required, "bounds"]);
   requireKeys(recipe, required, file, failures);
   for (const key of Object.keys(recipe)) {
@@ -175,18 +203,122 @@ function validateRecipe(recipe, file, catalog, failures) {
   if (!catalog.taxonomy.domains.includes(recipe.primary_domain)) failures.push(`${file} uses uncontrolled primary_domain ${recipe.primary_domain}.`);
   if (!catalog.taxonomy.targets.includes(recipe.target)) failures.push(`${file} uses uncontrolled target ${recipe.target}.`);
   validateMembershipArray(recipe.operations, catalog.taxonomy.operations, `${file} operations`, failures);
-  validateMembershipArray(recipe.capabilities, catalog.capabilities, `${file} capabilities`, failures);
   validateObjectList(recipe.required_inputs, "id", `${file} required_inputs`, failures);
   validateObjectList(recipe.steps, "id", `${file} steps`, failures);
   for (const [index, input] of (recipe.required_inputs ?? []).entries()) requireNonEmptyString(input.description, `${file} required_inputs[${index}].description`, failures);
   for (const [index, step] of (recipe.steps ?? []).entries()) requireNonEmptyString(step.instruction, `${file} steps[${index}].instruction`, failures);
+  validateEvidencePlan(recipe, file, catalog, failures);
   for (const key of ["evidence_requirements", "stop_conditions", "completion_criteria"]) validateTextArray(recipe[key], `${file} ${key}`, failures);
-  validateTextArray(recipe.output_contracts, `${file} output_contracts`, failures);
-  for (const contract of recipe.output_contracts ?? []) {
-    if (!catalog.result_contracts[contract]) failures.push(`${file} references unknown result contract ${contract}.`);
-  }
+  validateOutputComposition(recipe.output_contracts, file, catalog, failures);
   if (recipe.bounds?.max_results !== undefined && (!Number.isInteger(recipe.bounds.max_results) || recipe.bounds.max_results < 1)) failures.push(`${file} bounds.max_results must be a positive integer.`);
   if (recipe.bounds?.sample_guidance !== undefined) requireNonEmptyString(recipe.bounds.sample_guidance, `${file} bounds.sample_guidance`, failures);
+  validatePublicRecipeBoundary(recipe, file, failures);
+}
+
+/**
+ * Validate cross-field evidence semantics that a private importer needs for capability resolution and conservative budgeting.
+ *
+ * @param {Recipe} recipe Canonical recipe being validated.
+ * @param {string} file Repository-relative recipe path used in failures.
+ * @param {object} catalog Controlled public vocabulary and contract registration.
+ * @param {string[]} failures Accumulated validation failures.
+ */
+function validateEvidencePlan(recipe, file, catalog, failures) {
+  const entries = recipe.evidence_plan;
+  validateObjectList(entries, "capability", `${file} evidence_plan`, failures);
+  if (!Array.isArray(entries)) return;
+
+  const stepIds = new Set((recipe.steps ?? []).map((step) => step.id));
+  const allowedSources = ["client", "server", "user"];
+  const allowedUses = ["conditional", "fallback", "required"];
+  const allowedKeys = new Set(["capability", "source", "use", "steps", "scope", "condition", "completion_without", "fallback"]);
+
+  entries.forEach((entry, index) => {
+    const label = `${file} evidence_plan[${index}]`;
+    if (!isPlainObject(entry)) return;
+    requireOnlyKeys(entry, allowedKeys, label, failures);
+    if (!catalog.capabilities.includes(entry.capability)) failures.push(`${label} references unknown capability ${entry.capability}.`);
+    if (!allowedSources.includes(entry.source)) failures.push(`${label} source must be client, server, or user.`);
+    if (!allowedUses.includes(entry.use)) failures.push(`${label} use must be conditional, fallback, or required.`);
+
+    validateTextArray(entry.steps, `${label}.steps`, failures);
+    for (const step of entry.steps ?? []) {
+      if (!stepIds.has(step)) failures.push(`${label} references unknown step ${step}.`);
+    }
+
+    if (entry.use === "conditional") requireNonEmptyString(entry.condition, `${label}.condition`, failures);
+    if (entry.use !== "conditional" && "condition" in entry) failures.push(`${label} condition is allowed only when use is conditional.`);
+
+    if (!isPlainObject(entry.scope)) {
+      failures.push(`${label}.scope must be an object.`);
+    } else {
+      requireKeys(entry.scope, ["unit", "maximum", "guidance"], `${label}.scope`, failures);
+      requireOnlyKeys(entry.scope, new Set(["unit", "maximum", "guidance"]), `${label}.scope`, failures);
+      if (!catalog.taxonomy.evidence_units.includes(entry.scope.unit)) failures.push(`${label}.scope uses unknown evidence unit ${entry.scope.unit}.`);
+      if (!Number.isInteger(entry.scope.maximum) || entry.scope.maximum < 1) failures.push(`${label}.scope.maximum must be a positive integer.`);
+      requireNonEmptyString(entry.scope.guidance, `${label}.scope.guidance`, failures);
+    }
+
+    if (!isPlainObject(entry.completion_without)) {
+      failures.push(`${label}.completion_without must be an object.`);
+    } else {
+      requireKeys(entry.completion_without, ["allowed", "limitation"], `${label}.completion_without`, failures);
+      requireOnlyKeys(entry.completion_without, new Set(["allowed", "limitation"]), `${label}.completion_without`, failures);
+      if (typeof entry.completion_without.allowed !== "boolean") failures.push(`${label}.completion_without.allowed must be boolean.`);
+      requireNonEmptyString(entry.completion_without.limitation, `${label}.completion_without.limitation`, failures);
+      if (entry.use === "required" && entry.completion_without.allowed !== false) failures.push(`${label} required evidence must set completion_without.allowed to false.`);
+    }
+    requireNonEmptyString(entry.fallback, `${label}.fallback`, failures);
+  });
+}
+
+/**
+ * Require exactly one primary result and make every additional result conditional and testable.
+ *
+ * @param {Recipe["output_contracts"]} outputs Recipe output composition.
+ * @param {string} file Repository-relative recipe path used in failures.
+ * @param {object} catalog Registered public result contracts.
+ * @param {string[]} failures Accumulated validation failures.
+ */
+function validateOutputComposition(outputs, file, catalog, failures) {
+  validateObjectList(outputs, "id", `${file} output_contracts`, failures);
+  if (!Array.isArray(outputs)) return;
+  let primaryCount = 0;
+  outputs.forEach((output, index) => {
+    const label = `${file} output_contracts[${index}]`;
+    if (!isPlainObject(output)) return;
+    requireOnlyKeys(output, new Set(["id", "role", "condition"]), label, failures);
+    if (!catalog.result_contracts[output.id]) failures.push(`${label} references unknown result contract ${output.id}.`);
+    if (output.role === "primary") {
+      primaryCount += 1;
+      if ("condition" in output) failures.push(`${label} primary result must not declare a condition.`);
+    } else if (output.role === "conditional") {
+      requireNonEmptyString(output.condition, `${label}.condition`, failures);
+    } else {
+      failures.push(`${label}.role must be primary or conditional.`);
+    }
+  });
+  if (primaryCount !== 1) failures.push(`${file} output_contracts must contain exactly one primary result.`);
+}
+
+/**
+ * Reject common private-runtime identifiers and pricing or credential literals from canonical public recipes.
+ *
+ * @param {Recipe} recipe Canonical recipe being validated.
+ * @param {string} file Repository-relative recipe path used in failures.
+ * @param {string[]} failures Accumulated validation failures.
+ */
+function validatePublicRecipeBoundary(recipe, file, failures) {
+  const text = JSON.stringify(recipe);
+  const forbidden = [
+    [/\bseo_[a-z0-9_]+\b/i, "private-style tool identifier"],
+    [/\b(?:api[-_ ]?key|bearer token|credential secret)\b/i, "credential identifier"],
+    [/\b\d+(?:\.\d+)?\s+credits?\b/i, "private price literal"],
+    [/https?:\/\//i, "provider or endpoint URL"]
+  ];
+  for (const [pattern, label] of forbidden) {
+    if (pattern.test(text)) failures.push(`${file} contains a forbidden ${label}.`);
+  }
 }
 
 function validateSchema(file, failures) {
@@ -245,6 +377,12 @@ function requireKeys(value, keys, label, failures) {
     return;
   }
   for (const key of keys) if (!(key in value)) failures.push(`${label} is missing ${key}.`);
+}
+
+function requireOnlyKeys(value, allowed, label, failures) {
+  for (const key of Object.keys(value)) {
+    if (!allowed.has(key)) failures.push(`${label} contains unsupported field ${key}.`);
+  }
 }
 
 function requireNonEmptyString(value, label, failures) {

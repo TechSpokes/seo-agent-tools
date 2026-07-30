@@ -27,7 +27,7 @@ The runtime map is validated against the actual skill tree. Add a runtime file o
 
 ## Catalog Source
 
-`catalog/catalog.json` owns catalog version, taxonomy, public capabilities, discovery defaults, and result-contract paths. Each file in `catalog/recipes/` owns one immutable recipe version with stable step IDs, inputs, evidence requirements, stops, completion criteria, and output contracts.
+`catalog/catalog.json` owns catalog version, taxonomy, public capabilities, evidence units, discovery defaults, and result-contract paths. Each file in `catalog/recipes/` owns one immutable recipe version with stable step IDs, inputs, source-classed evidence plans, provider-neutral evidence bounds, missing-capability behavior, stops, completion criteria, and output-contract roles.
 
 The first five recipes preserve migration behavior from the current service. They are seed data, not a fixed product list, a required category count, or a limit in validation.
 
@@ -35,9 +35,9 @@ Use one primary domain plus controlled operation and target facets. Keep locale,
 
 ## Deterministic Projection
 
-`scripts/catalog.mjs` validates the public source and emits `dist/catalog/catalog.json` plus `dist/catalog/manifest.json`. The projection sorts recipes and object keys, normalizes JSON bytes, records source checksums, and contains no build timestamp.
+`scripts/catalog.mjs` validates the public source and emits `dist/catalog/catalog.json` plus `dist/catalog/manifest.json`. The projection sorts recipes and object keys, normalizes JSON bytes, records source checksums, and contains no build timestamp. Compact cards derive capability and source summaries for discovery; only the selected complete recipe's evidence plan and output composition govern execution.
 
-The manifest identifies the skill and catalog versions, supported recipe schema versions, result contracts, recipe inventory, source checksums, and projection checksum. A private importer can pin a public revision, verify the manifest, reject unsupported schemas or capabilities, and map public capability IDs to its private tools.
+The manifest identifies the skill and catalog versions, supported recipe schema versions, result contracts, recipe inventory, source checksums, and projection checksum. A private importer can pin a public revision, verify the manifest, reject unsupported schemas or capabilities, map public capability IDs to its private tools, and resolve the evidence scope into a conservative call budget without copying the public method into a second recipe body.
 
 The projection direction is public repository to private server. This build never writes into a sibling or private repository.
 
@@ -51,7 +51,7 @@ New result contracts are versioned. A recipe references an explicit contract ver
 
 The installed skill, public catalog, server-imported catalog, and server implementation may differ in version. The server's current discovery response is the executable truth for the active caller.
 
-When behavior described publicly is unavailable at runtime, the agent reports the skew, searches for a supported alternative, and stops if no supported path can satisfy the evidence contract. A future recipe with an unfamiliar result contract can proceed only when the server supplies the exact versioned schema in an interpretable form. The agent does not reconstruct private calls or contract fields from repository data or memory.
+Direct analysis can proceed whenever the connected server exposes suitable authorized tools. Typed recipe execution additionally requires a compatible recipe version and every exact result contract that the selected output composition may emit. When behavior described publicly is unavailable at runtime, the agent reports the skew, follows the recipe's constrained fallback where permitted, and stops if no supported path can satisfy the evidence contract. A future recipe with an unfamiliar result contract can proceed only when the server supplies the exact versioned schema in an interpretable form. The agent does not reconstruct private calls or contract fields from repository data or memory.
 
 ## Deferred Runtime Machinery
 

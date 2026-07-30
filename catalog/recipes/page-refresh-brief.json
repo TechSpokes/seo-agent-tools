@@ -1,7 +1,7 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "id": "page-refresh-brief",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "title": "Page Refresh Brief",
   "summary": "Diagnose whether one page should be refreshed, consolidated, preserved, or routed to another intervention, then prepare a verification-ready brief.",
   "primary_domain": "page",
@@ -18,11 +18,105 @@
       "description": "The canonical or intended URL of the page to diagnose."
     }
   ],
-  "capabilities": [
-    "page-content",
-    "page-metadata",
-    "page-technical-signals",
-    "serp-results"
+  "evidence_plan": [
+    {
+      "capability": "serp-results",
+      "source": "server",
+      "use": "required",
+      "steps": [
+        "inspect-serp",
+        "compare-pages",
+        "classify-gaps"
+      ],
+      "scope": {
+        "unit": "query",
+        "maximum": 3,
+        "guidance": "Inspect no more than three representative queries needed to distinguish intent and page role."
+      },
+      "completion_without": {
+        "allowed": false,
+        "limitation": "The method cannot support a search-intent or result-pattern diagnosis without current result evidence."
+      },
+      "fallback": "Return an incomplete diagnostic and do not prescribe a content intervention."
+    },
+    {
+      "capability": "page-metadata",
+      "source": "server",
+      "use": "required",
+      "steps": [
+        "inspect-target",
+        "classify-gaps"
+      ],
+      "scope": {
+        "unit": "page",
+        "maximum": 1,
+        "guidance": "Inspect metadata for the one target page."
+      },
+      "completion_without": {
+        "allowed": false,
+        "limitation": "The target page cannot be identified and compared reliably without its current metadata."
+      },
+      "fallback": "Return an incomplete diagnostic with the unresolved target evidence named."
+    },
+    {
+      "capability": "page-technical-signals",
+      "source": "server",
+      "use": "required",
+      "steps": [
+        "inspect-target",
+        "classify-gaps"
+      ],
+      "scope": {
+        "unit": "page",
+        "maximum": 1,
+        "guidance": "Inspect blocking technical signals for the one target page before content comparison."
+      },
+      "completion_without": {
+        "allowed": false,
+        "limitation": "The method cannot rule out an earlier technical blocker before recommending content work."
+      },
+      "fallback": "Return an incomplete diagnostic rather than assuming the page is technically eligible for refresh."
+    },
+    {
+      "capability": "page-content",
+      "source": "client",
+      "use": "required",
+      "steps": [
+        "inspect-target",
+        "compare-pages",
+        "classify-gaps"
+      ],
+      "scope": {
+        "unit": "page",
+        "maximum": 4,
+        "guidance": "Read the target and no more than three representative comparison pages."
+      },
+      "completion_without": {
+        "allowed": false,
+        "limitation": "The method cannot diagnose content gaps, preservation needs, or page overlap without full-page evidence."
+      },
+      "fallback": "Return an incomplete diagnostic and request a compatible full-page reader."
+    },
+    {
+      "capability": "first-party-performance-data",
+      "source": "user",
+      "use": "conditional",
+      "steps": [
+        "acquire-page-context",
+        "classify-gaps"
+      ],
+      "scope": {
+        "unit": "context-record",
+        "maximum": 1,
+        "guidance": "Use one user-supplied or independently authorized performance context for the target page."
+      },
+      "condition": "Use first-party evidence only when the user supplies it or authorizes an independent source and the diagnosis requires clicks, conversions, revenue, behavior, or index-state claims.",
+      "completion_without": {
+        "allowed": true,
+        "limitation": "The result is limited to public page and search evidence and cannot claim first-party performance or index state."
+      },
+      "fallback": "Mark operational outcome claims unavailable and continue only with the supported public-evidence diagnosis."
+    }
   ],
   "steps": [
     {
@@ -72,8 +166,15 @@
     "Verification criteria protect useful current material and test required changes."
   ],
   "output_contracts": [
-    "seo-diagnostic/v1",
-    "seo-implementation-handoff/v1"
+    {
+      "id": "seo-diagnostic/v1",
+      "role": "primary"
+    },
+    {
+      "id": "seo-implementation-handoff/v1",
+      "role": "conditional",
+      "condition": "Emit only when the diagnostic is complete and its disposition is proceed or conditional."
+    }
   ],
   "bounds": {
     "sample_guidance": "Inspect only enough representative results and site pages to distinguish intent, page role, and material gaps."

@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- Recipe schema v2 replaces flat capability execution hints with source-classed, step-linked evidence plans, provider-neutral scope bounds, explicit missing-capability behavior, and unambiguous primary or conditional result composition.
+- Catalog v0.2.0 and all five seed recipes now expose importer-ready execution meaning while preserving runtime authority, public/private separation, bounded results, legitimate completed empty results, and explicit incomplete stops.
+
 ## [v0.1.2] - 2026-07-30
 
 ### Added

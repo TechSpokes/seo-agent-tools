@@ -25,6 +25,14 @@ Use dispositions consistently. `proceed` means the supported action can move for
 
 For an individual verification check, use `not-run` when no implementation state has been inspected yet and `unavailable` when the implementation was inspected but the required evidence source or observation window is not available.
 
+## Recipe Output Composition
+
+A full recipe identifies exactly one `primary` result contract. Return that contract for both completed execution and explicit incomplete execution so the completion state and stop reason remain machine-readable.
+
+An additional result contract has a `conditional` role and a deterministic condition. Emit it only when that condition is satisfied. For the seed page-refresh method, the implementation handoff is emitted only when the diagnostic is complete and its disposition is `proceed` or `conditional`; do not emit it for `reject`, incomplete execution, or an unresolved `defer`.
+
+Output composition does not change contract compatibility requirements. Interpret the exact versioned schema for every result that may be emitted before collecting evidence that exists solely for that result.
+
 ## SEO Opportunity Set v1
 
 Use `seo-opportunity-set/v1` for ranked keyword, competitor, content-gap, or link-prospect opportunities. Include:

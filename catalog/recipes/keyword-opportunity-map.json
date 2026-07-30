@@ -1,7 +1,7 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "id": "keyword-opportunity-map",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "title": "Keyword Opportunity Map",
   "summary": "Find and validate a bounded set of keyword clusters, then map each supported opportunity to an existing or proposed page.",
   "primary_domain": "keyword",
@@ -18,10 +18,84 @@
       "description": "The site, business area, product, service, or topic whose opportunities should be evaluated."
     }
   ],
-  "capabilities": [
-    "keyword-expansion",
-    "keyword-metrics",
-    "serp-results"
+  "evidence_plan": [
+    {
+      "capability": "keyword-expansion",
+      "source": "server",
+      "use": "required",
+      "steps": [
+        "expand-candidates"
+      ],
+      "scope": {
+        "unit": "query",
+        "maximum": 50,
+        "guidance": "Expand no more than fifty candidate queries before finalist selection."
+      },
+      "completion_without": {
+        "allowed": false,
+        "limitation": "The method cannot establish a bounded candidate search without query expansion evidence."
+      },
+      "fallback": "Return an incomplete result with a missing-required-evidence stop reason."
+    },
+    {
+      "capability": "keyword-metrics",
+      "source": "server",
+      "use": "conditional",
+      "steps": [
+        "add-conditional-metrics",
+        "map-opportunities"
+      ],
+      "scope": {
+        "unit": "query",
+        "maximum": 20,
+        "guidance": "Measure only candidates whose metrics can change finalist selection or priority."
+      },
+      "condition": "Use metrics only when qualitative demand evidence cannot distinguish or prioritize plausible candidates.",
+      "completion_without": {
+        "allowed": true,
+        "limitation": "Priorities remain qualitative and confidence must reflect the missing metric evidence."
+      },
+      "fallback": "Rank with validated intent and fit evidence, and record that quantitative comparison was unavailable."
+    },
+    {
+      "capability": "serp-results",
+      "source": "server",
+      "use": "required",
+      "steps": [
+        "validate-finalists",
+        "map-opportunities"
+      ],
+      "scope": {
+        "unit": "query",
+        "maximum": 5,
+        "guidance": "Validate no more than five representative finalist queries against current result evidence."
+      },
+      "completion_without": {
+        "allowed": false,
+        "limitation": "The method cannot validate intent, page type, or ambiguity without current result evidence."
+      },
+      "fallback": "Return an incomplete result instead of presenting generated candidates as validated opportunities."
+    },
+    {
+      "capability": "page-content",
+      "source": "client",
+      "use": "conditional",
+      "steps": [
+        "acquire-context",
+        "map-opportunities"
+      ],
+      "scope": {
+        "unit": "page",
+        "maximum": 5,
+        "guidance": "Read only representative known pages needed to test ownership or overlap."
+      },
+      "condition": "Use page content when the subject has an existing site and a finalist may overlap a known page role.",
+      "completion_without": {
+        "allowed": true,
+        "limitation": "The result cannot confirm page ownership or site-page overlap and must label affected mappings as provisional."
+      },
+      "fallback": "Map the query cluster to an unresolved page decision and request a compatible page reader before implementation."
+    }
   ],
   "steps": [
     {
@@ -71,7 +145,10 @@
     "No more than ten opportunities are returned."
   ],
   "output_contracts": [
-    "seo-opportunity-set/v1"
+    {
+      "id": "seo-opportunity-set/v1",
+      "role": "primary"
+    }
   ],
   "bounds": {
     "max_results": 10,

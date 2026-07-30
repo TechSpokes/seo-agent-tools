@@ -14,7 +14,7 @@
     "operations",
     "target",
     "required_inputs",
-    "capabilities",
+    "evidence_plan",
     "steps",
     "evidence_requirements",
     "stop_conditions",
@@ -23,7 +23,7 @@
   ],
   "properties": {
     "schema_version": {
-      "const": 1
+      "const": 2
     },
     "id": {
       "type": "string",
@@ -77,12 +77,124 @@
         }
       }
     },
-    "capabilities": {
+    "evidence_plan": {
       "type": "array",
       "minItems": 1,
-      "uniqueItems": true,
       "items": {
-        "type": "string"
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "capability",
+          "source",
+          "use",
+          "steps",
+          "scope",
+          "completion_without",
+          "fallback"
+        ],
+        "properties": {
+          "capability": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "source": {
+            "enum": [
+              "client",
+              "server",
+              "user"
+            ]
+          },
+          "use": {
+            "enum": [
+              "conditional",
+              "fallback",
+              "required"
+            ]
+          },
+          "steps": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            }
+          },
+          "scope": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "unit",
+              "maximum",
+              "guidance"
+            ],
+            "properties": {
+              "unit": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "maximum": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "guidance": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "condition": {
+            "type": "string",
+            "minLength": 1
+          },
+          "completion_without": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "allowed",
+              "limitation"
+            ],
+            "properties": {
+              "allowed": {
+                "type": "boolean"
+              },
+              "limitation": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "fallback": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "use": {
+                  "const": "conditional"
+                }
+              },
+              "required": [
+                "use"
+              ]
+            },
+            "then": {
+              "required": [
+                "condition"
+              ]
+            },
+            "else": {
+              "not": {
+                "required": [
+                  "condition"
+                ]
+              }
+            }
+          }
+        ]
       }
     },
     "steps": {
@@ -134,9 +246,55 @@
     "output_contracts": {
       "type": "array",
       "minItems": 1,
-      "uniqueItems": true,
       "items": {
-        "type": "string"
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "role"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+/v[1-9][0-9]*$"
+          },
+          "role": {
+            "enum": [
+              "conditional",
+              "primary"
+            ]
+          },
+          "condition": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "role": {
+                  "const": "conditional"
+                }
+              },
+              "required": [
+                "role"
+              ]
+            },
+            "then": {
+              "required": [
+                "condition"
+              ]
+            },
+            "else": {
+              "not": {
+                "required": [
+                  "condition"
+                ]
+              }
+            }
+          }
+        ]
       }
     },
     "bounds": {

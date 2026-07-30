@@ -1,7 +1,7 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "id": "backlink-gap-prospecting",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "title": "Backlink Gap Prospecting",
   "summary": "Compare referring-domain evidence for a target and confirmed competitors, then qualify a bounded set of relevant outreach prospects.",
   "primary_domain": "authority",
@@ -17,10 +17,103 @@
       "description": "The target domain whose backlink gaps and prospect opportunities should be evaluated."
     }
   ],
-  "capabilities": [
-    "authority-metrics",
-    "backlink-sets",
-    "competitor-discovery"
+  "evidence_plan": [
+    {
+      "capability": "competitor-discovery",
+      "source": "server",
+      "use": "conditional",
+      "steps": [
+        "acquire-competitors"
+      ],
+      "scope": {
+        "unit": "domain",
+        "maximum": 3,
+        "guidance": "Discover and confirm no more than three competitors whose link evidence is relevant to the target market."
+      },
+      "condition": "Use server discovery when the user has not supplied a sufficiently relevant competitor set.",
+      "completion_without": {
+        "allowed": true,
+        "limitation": "The method requires user-supplied competitor domains that can be confirmed as relevant."
+      },
+      "fallback": "Use only user-supplied competitors that available evidence confirms; otherwise stop incomplete."
+    },
+    {
+      "capability": "competitor-domains",
+      "source": "user",
+      "use": "fallback",
+      "steps": [
+        "acquire-target-context",
+        "acquire-competitors"
+      ],
+      "scope": {
+        "unit": "domain",
+        "maximum": 3,
+        "guidance": "Accept no more than three user-supplied competitor domains for relevance confirmation."
+      },
+      "completion_without": {
+        "allowed": true,
+        "limitation": "Competitors must instead be discovered and confirmed through the connected server."
+      },
+      "fallback": "Use the server discovery path and preserve its relevance limitations."
+    },
+    {
+      "capability": "backlink-sets",
+      "source": "server",
+      "use": "required",
+      "steps": [
+        "retrieve-domain-sets",
+        "compute-and-rank-gaps"
+      ],
+      "scope": {
+        "unit": "domain",
+        "maximum": 4,
+        "guidance": "Retrieve comparable referring-domain evidence for the target and no more than three confirmed competitors."
+      },
+      "completion_without": {
+        "allowed": false,
+        "limitation": "The method cannot establish a backlink gap without comparable target and competitor link sets."
+      },
+      "fallback": "Return an incomplete opportunity set rather than infer link gaps from authority or search visibility alone."
+    },
+    {
+      "capability": "authority-metrics",
+      "source": "server",
+      "use": "conditional",
+      "steps": [
+        "compute-and-rank-gaps",
+        "qualify-sites"
+      ],
+      "scope": {
+        "unit": "domain",
+        "maximum": 20,
+        "guidance": "Measure no more than twenty finalist referring domains whose authority can change qualification or priority."
+      },
+      "condition": "Use authority metrics only when they can change finalist qualification or ordering.",
+      "completion_without": {
+        "allowed": true,
+        "limitation": "Prospects are ranked by observed relevance and link evidence without a quantitative authority comparison."
+      },
+      "fallback": "Lower confidence where authority evidence is material and rank by supported relevance and source context."
+    },
+    {
+      "capability": "page-content",
+      "source": "client",
+      "use": "required",
+      "steps": [
+        "qualify-sites",
+        "produce-prospect-list"
+      ],
+      "scope": {
+        "unit": "page",
+        "maximum": 20,
+        "guidance": "Read one representative source page for each of no more than twenty finalist domains."
+      },
+      "completion_without": {
+        "allowed": false,
+        "limitation": "The method cannot qualify topical relevance, outreach angle, or disqualifying context without source-page evidence."
+      },
+      "fallback": "If no finalist source page can be read, return incomplete; otherwise narrow the completed set to candidates whose source context was observed."
+    }
   ],
   "steps": [
     {
@@ -71,7 +164,10 @@
     "No more than twenty qualified prospects are returned."
   ],
   "output_contracts": [
-    "seo-opportunity-set/v1"
+    {
+      "id": "seo-opportunity-set/v1",
+      "role": "primary"
+    }
   ],
   "bounds": {
     "max_results": 20,
