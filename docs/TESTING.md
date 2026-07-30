@@ -2,6 +2,12 @@
 
 ## Required Local Checks
 
+Install the locked maintenance dependencies once in a fresh checkout:
+
+```bash
+npm ci
+```
+
 Run the full structural suite once after completing a runtime, catalog, fixture, documentation, packaging, or maintenance change milestone:
 
 ```bash
@@ -19,7 +25,7 @@ Use the intended version tag rather than copying `v0.1.0` after the package vers
 
 ## What Validation Covers
 
-`scripts/catalog.mjs` checks public taxonomy, capability and evidence-unit vocabulary, recipe identity and versioning, stable step and input IDs, evidence-plan source and use classes, step references, scope bounds, completion-without behavior, output composition, evidence requirements, stops, completion criteria, result-contract references, public/private disclosure patterns, local schema references, and deterministic projection inputs.
+`scripts/catalog.mjs` uses AJV's dedicated Draft 2020-12 validator, with RFC 3339 formats, as the structural authority for catalog metadata, recipes, and every result schema. It compiles the complete schema set before validating canonical source, so unresolved local references fail the same command. Repository checks retain only cross-file and semantic invariants: controlled vocabulary membership and ordering, stable and unique identities, step and evidence references, result-contract registration and composition, completion-state meaning, public/private disclosure patterns, and deterministic projection inputs.
 
 `scripts/check-version.mjs` checks that package metadata, both plugin manifests, the changelog, the current-version document, and release notes declare one version. Run it directly with `npm run version:check`, or rely on `npm run validate` to include it.
 
@@ -38,6 +44,8 @@ Report a successful `npm run validate` result as structural or evaluation-regist
 `tests/fixtures/activation.md` defines primary activation and handoff boundaries. `tests/fixtures/behavior-scenarios.md` defines routing, discovery, future-contract compatibility, authorization, diagnosis, handoff, verification, and stop behavior. `tests/fixtures/adversarial-scenarios.md` defines untrusted-content, privacy, runtime-authority, empty-result, and first-party-data boundaries.
 
 `tests/evals/cases.json` is the machine-discoverable registry. Every scenario heading must be registered, and every required segment must have at least one case.
+
+`tests/fixtures/contracts/cases.json` registers valid and intentionally invalid JSON instances assessed by catalog validation. The result cases cover a non-empty opportunity set, completed empty opportunity and diagnostic results, a diagnostic with issues, an incomplete diagnostic with a precise stop reason, a self-contained implementation handoff, unresolved evidence, an unsupported disposition, and missing handoff context. Catalog and recipe cases prove rejection of unknown fields, unsupported schema versions, uncontrolled capability and scope values, unknown steps and result contracts, invalid evidence source and use classes, missing conditional predicates, invalid bounds, and ambiguous output composition. The registry and its source instances remain under `tests/` and are excluded from release archives and the server projection.
 
 After a substantial instruction change, run fresh-context agent evaluations against representative fixtures. Give each evaluator only the installed runtime tree plus the prompt and test facts needed for its case. Record whether the output satisfied the invariants; do not count an evaluator's agreement with the prose as execution evidence.
 

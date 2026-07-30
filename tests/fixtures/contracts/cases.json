@@ -1,0 +1,284 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "id": "opportunity-nonempty-valid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/opportunity-nonempty.json",
+      "contract_id": "seo-opportunity-set/v1",
+      "expected": "valid"
+    },
+    {
+      "id": "opportunity-completed-empty-valid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/opportunity-empty.json",
+      "contract_id": "seo-opportunity-set/v1",
+      "expected": "valid"
+    },
+    {
+      "id": "opportunity-missing-evidence-link-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/opportunity-nonempty.json",
+      "contract_id": "seo-opportunity-set/v1",
+      "expected": "invalid",
+      "expected_error": "references unknown evidence id evidence-missing",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/opportunities/0/evidence_ids",
+          "value": [
+            "evidence-missing"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "diagnostic-with-issues-valid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/diagnostic-issues.json",
+      "contract_id": "seo-diagnostic/v1",
+      "expected": "valid"
+    },
+    {
+      "id": "diagnostic-completed-empty-valid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/diagnostic-empty.json",
+      "contract_id": "seo-diagnostic/v1",
+      "expected": "valid"
+    },
+    {
+      "id": "diagnostic-incomplete-with-stop-valid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/diagnostic-incomplete.json",
+      "contract_id": "seo-diagnostic/v1",
+      "expected": "valid"
+    },
+    {
+      "id": "diagnostic-unsupported-disposition-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/diagnostic-empty.json",
+      "contract_id": "seo-diagnostic/v1",
+      "expected": "invalid",
+      "expected_error": "/disposition must be equal to one of the allowed values",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/disposition",
+          "value": "unsupported"
+        }
+      ]
+    },
+    {
+      "id": "handoff-self-contained-valid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/handoff-valid.json",
+      "contract_id": "seo-implementation-handoff/v1",
+      "expected": "valid"
+    },
+    {
+      "id": "handoff-missing-required-context-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/handoff-valid.json",
+      "contract_id": "seo-implementation-handoff/v1",
+      "expected": "invalid",
+      "expected_error": "must have required property 'source_analysis_id'",
+      "mutations": [
+        {
+          "op": "delete",
+          "path": "/source_analysis_id"
+        },
+        {
+          "op": "delete",
+          "path": "/preserve"
+        },
+        {
+          "op": "delete",
+          "path": "/acceptance_criteria"
+        }
+      ]
+    },
+    {
+      "id": "catalog-baseline-valid",
+      "kind": "catalog",
+      "path": "tests/fixtures/contracts/catalog-valid.json",
+      "expected": "valid"
+    },
+    {
+      "id": "catalog-unknown-field-invalid",
+      "kind": "catalog",
+      "path": "tests/fixtures/contracts/catalog-valid.json",
+      "expected": "invalid",
+      "expected_error": "must NOT have additional properties",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/unexpected",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "recipe-baseline-valid",
+      "kind": "recipe",
+      "path": "tests/fixtures/contracts/recipe-valid.json",
+      "expected": "valid"
+    },
+    {
+      "id": "recipe-unknown-field-invalid",
+      "kind": "recipe",
+      "path": "tests/fixtures/contracts/recipe-valid.json",
+      "expected": "invalid",
+      "expected_error": "must NOT have additional properties",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/unexpected",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "recipe-unsupported-schema-version-invalid",
+      "kind": "recipe",
+      "path": "tests/fixtures/contracts/recipe-valid.json",
+      "expected": "invalid",
+      "expected_error": "/schema_version must be equal to constant",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/schema_version",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "id": "recipe-unknown-capability-invalid",
+      "kind": "recipe",
+      "path": "tests/fixtures/contracts/recipe-valid.json",
+      "expected": "invalid",
+      "expected_error": "references unknown capability unregistered-capability",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/evidence_plan/0/capability",
+          "value": "unregistered-capability"
+        }
+      ]
+    },
+    {
+      "id": "recipe-unknown-step-invalid",
+      "kind": "recipe",
+      "path": "tests/fixtures/contracts/recipe-valid.json",
+      "expected": "invalid",
+      "expected_error": "references unknown step missing-step",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/evidence_plan/0/steps/0",
+          "value": "missing-step"
+        }
+      ]
+    },
+    {
+      "id": "recipe-invalid-source-invalid",
+      "kind": "recipe",
+      "path": "tests/fixtures/contracts/recipe-valid.json",
+      "expected": "invalid",
+      "expected_error": "/evidence_plan/0/source must be equal to one of the allowed values",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/evidence_plan/0/source",
+          "value": "provider"
+        }
+      ]
+    },
+    {
+      "id": "recipe-invalid-use-invalid",
+      "kind": "recipe",
+      "path": "tests/fixtures/contracts/recipe-valid.json",
+      "expected": "invalid",
+      "expected_error": "/evidence_plan/0/use must be equal to one of the allowed values",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/evidence_plan/0/use",
+          "value": "optional"
+        }
+      ]
+    },
+    {
+      "id": "recipe-conditional-without-condition-invalid",
+      "kind": "recipe",
+      "path": "tests/fixtures/contracts/recipe-valid.json",
+      "expected": "invalid",
+      "expected_error": "must have required property 'condition'",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/evidence_plan/0/use",
+          "value": "conditional"
+        }
+      ]
+    },
+    {
+      "id": "recipe-unknown-scope-unit-invalid",
+      "kind": "recipe",
+      "path": "tests/fixtures/contracts/recipe-valid.json",
+      "expected": "invalid",
+      "expected_error": "scope uses unknown evidence unit record",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/evidence_plan/0/scope/unit",
+          "value": "record"
+        }
+      ]
+    },
+    {
+      "id": "recipe-invalid-scope-bound-invalid",
+      "kind": "recipe",
+      "path": "tests/fixtures/contracts/recipe-valid.json",
+      "expected": "invalid",
+      "expected_error": "/evidence_plan/0/scope/maximum must be >= 1",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/evidence_plan/0/scope/maximum",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": "recipe-unknown-result-contract-invalid",
+      "kind": "recipe",
+      "path": "tests/fixtures/contracts/recipe-valid.json",
+      "expected": "invalid",
+      "expected_error": "references unknown result contract unregistered/v1",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/output_contracts/0/id",
+          "value": "unregistered/v1"
+        }
+      ]
+    },
+    {
+      "id": "recipe-ambiguous-output-composition-invalid",
+      "kind": "recipe",
+      "path": "tests/fixtures/contracts/recipe-valid.json",
+      "expected": "invalid",
+      "expected_error": "must contain at least 1 and no more than 1 valid item(s)",
+      "mutations": [
+        {
+          "op": "append",
+          "path": "/output_contracts",
+          "value": {
+            "id": "seo-opportunity-set/v1",
+            "role": "primary"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "analysis_id": "analysis-diagnostic-empty",
+  "contract_id": "seo-diagnostic/v1",
+  "subject": {
+    "url": "https://example.test/page"
+  },
+  "observed_at": "2026-07-30T08:00:00Z",
+  "evidence": [],
+  "findings": [],
+  "disposition": "proceed",
+  "confidence": {
+    "level": "medium",
+    "reasons": [
+      "The bounded diagnostic completed without supported issues."
+    ]
+  },
+  "constraints": [],
+  "completion": {
+    "status": "complete"
+  },
+  "verification": [],
+  "evaluated_layers": [],
+  "issues": []
+}

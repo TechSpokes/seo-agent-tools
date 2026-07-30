@@ -2,10 +2,16 @@
 
 ## [Unreleased]
 
+### Added
+
+- Draft 2020-12 catalog schema authority and registered positive and negative fixtures for catalog, recipe, and result-contract validation.
+
 ### Changed
 
 - Recipe schema v2 replaces flat capability execution hints with source-classed, step-linked evidence plans, provider-neutral scope bounds, explicit missing-capability behavior, and unambiguous primary or conditional result composition.
 - Catalog v0.2.0 and all five seed recipes now expose importer-ready execution meaning while preserving runtime authority, public/private separation, bounded results, legitimate completed empty results, and explicit incomplete stops.
+- Catalog validation now delegates structural rules and schema-reference resolution to AJV while retaining cross-file vocabulary, identity, evidence-link, completion-state, disclosure, and deterministic-projection checks.
+- Validation and draft-release workflows now install the locked validator dependencies on clean hosted runners.
 
 ## [v0.1.2] - 2026-07-30
 

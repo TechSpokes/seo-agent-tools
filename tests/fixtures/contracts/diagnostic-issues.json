@@ -1,0 +1,72 @@
+{
+  "analysis_id": "analysis-diagnostic-1",
+  "contract_id": "seo-diagnostic/v1",
+  "subject": {
+    "url": "https://example.test/page"
+  },
+  "observed_at": "2026-07-30T08:00:00Z",
+  "evidence": [
+    {
+      "id": "evidence-diagnostic-1",
+      "source": "authorized page evidence",
+      "subject": "https://example.test/page",
+      "observed_at": "2026-07-30T08:00:00Z",
+      "observation": "A blocking technical signal was observed.",
+      "limitations": []
+    }
+  ],
+  "findings": [
+    {
+      "id": "finding-diagnostic-1",
+      "statement": "The page has a supported technical issue.",
+      "evidence_ids": [
+        "evidence-diagnostic-1"
+      ]
+    }
+  ],
+  "disposition": "conditional",
+  "confidence": {
+    "level": "high",
+    "reasons": [
+      "The issue is directly observed."
+    ]
+  },
+  "constraints": [],
+  "completion": {
+    "status": "complete"
+  },
+  "verification": [
+    {
+      "check": "Technical signal",
+      "status": "pass",
+      "evidence_ids": [
+        "evidence-diagnostic-1"
+      ]
+    }
+  ],
+  "evaluated_layers": [
+    {
+      "layer": "technical access",
+      "status": "issue",
+      "evidence_ids": [
+        "evidence-diagnostic-1"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "id": "issue-1",
+      "scope": "page",
+      "priority": "high",
+      "evidence_ids": [
+        "evidence-diagnostic-1"
+      ],
+      "competing_explanations": [
+        "A transient fetch condition"
+      ],
+      "likely_root_cause": "The observed blocking signal",
+      "recommended_intervention": "Resolve the blocker before content work.",
+      "verification_method": "Repeat the bounded technical check."
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "schema_version": 2,
+  "id": "fixture-recipe",
+  "version": "2.0.0",
+  "title": "Fixture Recipe",
+  "summary": "Provide one small valid recipe from which negative contract cases can be derived.",
+  "primary_domain": "page",
+  "operations": [
+    "audit"
+  ],
+  "target": "page",
+  "required_inputs": [
+    {
+      "id": "url",
+      "description": "The page to inspect."
+    }
+  ],
+  "evidence_plan": [
+    {
+      "capability": "page-metadata",
+      "source": "server",
+      "use": "required",
+      "steps": [
+        "inspect"
+      ],
+      "scope": {
+        "unit": "page",
+        "maximum": 1,
+        "guidance": "Inspect one page."
+      },
+      "completion_without": {
+        "allowed": false,
+        "limitation": "The recipe cannot complete without page metadata."
+      },
+      "fallback": "Return an incomplete diagnostic."
+    }
+  ],
+  "steps": [
+    {
+      "id": "inspect",
+      "instruction": "Inspect the page metadata."
+    }
+  ],
+  "evidence_requirements": [
+    "Link every finding to page evidence."
+  ],
+  "stop_conditions": [
+    "Stop when the required page cannot be resolved."
+  ],
+  "completion_criteria": [
+    "Return a supported disposition."
+  ],
+  "output_contracts": [
+    {
+      "id": "seo-diagnostic/v1",
+      "role": "primary"
+    }
+  ]
+}

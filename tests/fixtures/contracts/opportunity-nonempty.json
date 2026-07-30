@@ -1,0 +1,68 @@
+{
+  "analysis_id": "analysis-opportunity-1",
+  "contract_id": "seo-opportunity-set/v1",
+  "subject": {
+    "site": "example.test"
+  },
+  "observed_at": "2026-07-30T08:00:00Z",
+  "evidence": [
+    {
+      "id": "evidence-opportunity-1",
+      "source": "authorized search evidence",
+      "subject": "example query",
+      "observed_at": "2026-07-30T08:00:00Z",
+      "observation": "A relevant result pattern was observed.",
+      "limitations": []
+    }
+  ],
+  "findings": [
+    {
+      "id": "finding-opportunity-1",
+      "statement": "The query has a supported opportunity.",
+      "evidence_ids": [
+        "evidence-opportunity-1"
+      ]
+    }
+  ],
+  "disposition": "proceed",
+  "confidence": {
+    "level": "medium",
+    "reasons": [
+      "The opportunity is supported by bounded current evidence."
+    ]
+  },
+  "constraints": [],
+  "completion": {
+    "status": "complete"
+  },
+  "verification": [
+    {
+      "check": "Evidence linkage",
+      "status": "pass",
+      "evidence_ids": [
+        "evidence-opportunity-1"
+      ]
+    }
+  ],
+  "opportunity_type": "keyword",
+  "comparison_basis": "Bounded query comparison",
+  "ranking_criteria": [
+    "Evidence strength"
+  ],
+  "opportunities": [
+    {
+      "id": "opportunity-1",
+      "target": {
+        "query": "example query"
+      },
+      "rationale": "The observed result pattern supports further consideration.",
+      "evidence_ids": [
+        "evidence-opportunity-1"
+      ],
+      "priority": "medium",
+      "confidence": "medium",
+      "constraints": []
+    }
+  ],
+  "excluded_candidates": []
+}
