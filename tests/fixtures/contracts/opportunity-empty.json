@@ -1,0 +1,29 @@
+{
+  "analysis_id": "analysis-opportunity-empty",
+  "contract_id": "seo-opportunity-set/v1",
+  "subject": {
+    "site": "example.test"
+  },
+  "observed_at": "2026-07-30T08:00:00Z",
+  "evidence": [],
+  "findings": [],
+  "disposition": "defer",
+  "confidence": {
+    "level": "medium",
+    "reasons": [
+      "The bounded analysis completed without supported opportunities."
+    ]
+  },
+  "constraints": [],
+  "completion": {
+    "status": "complete"
+  },
+  "verification": [],
+  "opportunity_type": "keyword",
+  "comparison_basis": "Bounded query comparison",
+  "ranking_criteria": [
+    "Evidence strength"
+  ],
+  "opportunities": [],
+  "excluded_candidates": []
+}

@@ -1,0 +1,38 @@
+{
+  "analysis_id": "analysis-diagnostic-incomplete",
+  "contract_id": "seo-diagnostic/v1",
+  "subject": {
+    "url": "https://example.test/page"
+  },
+  "observed_at": "2026-07-30T08:00:00Z",
+  "evidence": [],
+  "findings": [],
+  "disposition": "defer",
+  "confidence": {
+    "level": "low",
+    "reasons": [
+      "Required page evidence was unavailable."
+    ]
+  },
+  "constraints": [
+    "No authorized page reader was available."
+  ],
+  "completion": {
+    "status": "incomplete",
+    "stop_reason": "Required current page evidence could not be acquired from an authorized source."
+  },
+  "verification": [
+    {
+      "check": "Page evidence acquisition",
+      "status": "unavailable",
+      "note": "No authorized source was available."
+    }
+  ],
+  "evaluated_layers": [
+    {
+      "layer": "page evidence",
+      "status": "unknown"
+    }
+  ],
+  "issues": []
+}

@@ -15,6 +15,12 @@
       "page",
       "technical"
     ],
+    "evidence_units": [
+      "context-record",
+      "domain",
+      "page",
+      "query"
+    ],
     "operations": [
       "audit",
       "compare",
@@ -31,12 +37,6 @@
       "page",
       "query-set",
       "site"
-    ],
-    "evidence_units": [
-      "context-record",
-      "domain",
-      "page",
-      "query"
     ]
   },
   "capabilities": [

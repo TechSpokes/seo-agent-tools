@@ -1,0 +1,71 @@
+{
+  "analysis_id": "analysis-handoff-1",
+  "contract_id": "seo-implementation-handoff/v1",
+  "subject": {
+    "url": "https://example.test/page"
+  },
+  "observed_at": "2026-07-30T08:00:00Z",
+  "evidence": [
+    {
+      "id": "evidence-handoff-1",
+      "source": "authorized diagnostic evidence",
+      "subject": "https://example.test/page",
+      "observed_at": "2026-07-30T08:00:00Z",
+      "observation": "The diagnostic supports a bounded metadata change.",
+      "limitations": []
+    }
+  ],
+  "findings": [
+    {
+      "id": "finding-handoff-1",
+      "statement": "One metadata requirement is ready for implementation.",
+      "evidence_ids": [
+        "evidence-handoff-1"
+      ]
+    }
+  ],
+  "disposition": "proceed",
+  "confidence": {
+    "level": "high",
+    "reasons": [
+      "The source diagnosis is complete and evidence-linked."
+    ]
+  },
+  "constraints": [],
+  "completion": {
+    "status": "complete"
+  },
+  "verification": [
+    {
+      "check": "Source evidence identity",
+      "status": "pass",
+      "evidence_ids": [
+        "evidence-handoff-1"
+      ]
+    }
+  ],
+  "source_analysis_id": "analysis-diagnostic-source",
+  "intended_outcome": "Implement the supported metadata correction without changing preserved content.",
+  "responsible_capability": "page implementation",
+  "requirements": [
+    {
+      "statement": "Correct the identified metadata field.",
+      "evidence_ids": [
+        "evidence-handoff-1"
+      ]
+    }
+  ],
+  "preserve": [
+    "Existing verified page copy"
+  ],
+  "prohibited": [
+    "Do not introduce unsupported claims."
+  ],
+  "missing_inputs": [],
+  "acceptance_criteria": [
+    "The corrected metadata is present and the preserved page copy is unchanged."
+  ],
+  "verification_plan": [
+    "Retrieve the page metadata after implementation and compare it with the requirement."
+  ]
+}

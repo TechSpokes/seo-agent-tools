@@ -13,5 +13,9 @@
     "release:preflight": "node scripts/release-preflight.mjs",
     "release:state": "node scripts/release-state.mjs",
     "release:verify-assets": "node scripts/verify-release-assets.mjs"
+  },
+  "devDependencies": {
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1"
   }
 }
