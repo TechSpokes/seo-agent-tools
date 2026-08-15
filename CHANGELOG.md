@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [v0.3.1] - 2026-08-15
+
+### Changed
+
+- Republished the `0.3.0` portable runtime and catalog content under repository-enforced release immutability, with no recipe, schema, result-contract, or guidance changes.
+- Preserved `content-production-workflow@1.0.0` and catalog `0.3.0` while advancing the package and plugin release identity to `0.3.1`.
+
 ## [v0.3.0] - 2026-08-15
 
 ### Added
