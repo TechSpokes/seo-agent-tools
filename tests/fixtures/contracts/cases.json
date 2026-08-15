@@ -76,6 +76,13 @@
       "expected": "valid"
     },
     {
+      "id": "handoff-content-production-valid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/handoff-content-production-valid.json",
+      "contract_id": "seo-implementation-handoff/v1",
+      "expected": "valid"
+    },
+    {
       "id": "handoff-missing-required-context-invalid",
       "kind": "result",
       "path": "tests/fixtures/contracts/handoff-valid.json",

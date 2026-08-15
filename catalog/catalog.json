@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "catalog_version": "0.2.0",
+  "catalog_version": "0.3.0",
   "catalog_schema": "catalog/schemas/catalog.schema.json",
   "recipe_schema": "catalog/schemas/recipe.schema.json",
   "supported_recipe_schema_versions": [
@@ -11,6 +11,7 @@
     "domains": [
       "authority",
       "competition",
+      "content",
       "keyword",
       "page",
       "technical"
@@ -21,19 +22,23 @@
       "diagnose",
       "discover",
       "map",
+      "plan",
       "prioritize",
       "validate",
       "verify"
     ],
     "targets": [
       "competitor-set",
+      "content-handoff",
       "link-prospect-set",
       "page",
       "query-set",
       "site"
     ],
     "evidence_units": [
+      "claim-set",
       "context-record",
+      "document",
       "domain",
       "page",
       "query"
@@ -42,8 +47,15 @@
   "capabilities": [
     "authority-metrics",
     "backlink-sets",
+    "canonical-content-document",
     "competitor-discovery",
     "competitor-domains",
+    "content-context",
+    "content-helpfulness-analysis",
+    "content-publication",
+    "content-readability-analysis",
+    "content-seo-analysis",
+    "factual-claim-verification",
     "first-party-performance-data",
     "first-party-search-data",
     "keyword-expansion",

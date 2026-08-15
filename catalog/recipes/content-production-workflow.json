@@ -1,0 +1,360 @@
+{
+  "schema_version": 2,
+  "id": "content-production-workflow",
+  "version": "1.0.0",
+  "title": "Content Production Workflow",
+  "summary": "Plan, evaluate, publish, and verify one bounded existing-site content artifact while preserving business context, factual limits, approval, freshness, and lifecycle ownership.",
+  "primary_domain": "content",
+  "operations": [
+    "discover",
+    "plan",
+    "validate",
+    "verify"
+  ],
+  "target": "content-handoff",
+  "required_inputs": [
+    {
+      "id": "content_objective",
+      "description": "The site, topic, audience need, or business outcome that one bounded content artifact must support."
+    }
+  ],
+  "evidence_plan": [
+    {
+      "capability": "content-context",
+      "source": "user",
+      "use": "required",
+      "steps": [
+        "acquire-context",
+        "approve-outline",
+        "prepare-publication-handoff",
+        "record-lifecycle-decision"
+      ],
+      "scope": {
+        "unit": "context-record",
+        "maximum": 1,
+        "guidance": "Maintain one bounded context record covering audience, business goal, page role, conversion path, market, editorial constraints, approval ownership, and lifecycle constraints."
+      },
+      "completion_without": {
+        "allowed": false,
+        "limitation": "The method cannot support an outline, draft evaluation, approval, or lifecycle decision without sufficient business and editorial context."
+      },
+      "fallback": "Return an incomplete handoff naming the unresolved context and responsible owner."
+    },
+    {
+      "capability": "page-content",
+      "source": "client",
+      "use": "required",
+      "steps": [
+        "acquire-context",
+        "research-before-outline",
+        "verify-publication"
+      ],
+      "scope": {
+        "unit": "page",
+        "maximum": 6,
+        "guidance": "Read the published page and no more than five existing pages needed to resolve taxonomy, overlap, preservation, or internal-link questions."
+      },
+      "completion_without": {
+        "allowed": false,
+        "limitation": "The method cannot confirm the published artifact or its relationship to relevant existing pages without client-observed page content."
+      },
+      "fallback": "Return an incomplete handoff and identify the exact page evidence the client must supply."
+    },
+    {
+      "capability": "keyword-expansion",
+      "source": "server",
+      "use": "conditional",
+      "steps": [
+        "research-before-outline"
+      ],
+      "scope": {
+        "unit": "query",
+        "maximum": 50,
+        "guidance": "Expand no more than fifty candidate queries when seed expansion can materially change the outline."
+      },
+      "condition": "Use expansion only when supplied context does not already identify the material audience questions and candidate subtopics.",
+      "completion_without": {
+        "allowed": true,
+        "limitation": "The outline is limited to user and client evidence and cannot claim that omitted subtopics were tested through server expansion."
+      },
+      "fallback": "Use the supported supplied context, label topic discovery as limited, and lower confidence where the missing expansion matters."
+    },
+    {
+      "capability": "keyword-metrics",
+      "source": "server",
+      "use": "conditional",
+      "steps": [
+        "research-before-outline"
+      ],
+      "scope": {
+        "unit": "query",
+        "maximum": 20,
+        "guidance": "Measure only candidates whose metrics can change subtopic selection, emphasis, or priority."
+      },
+      "condition": "Use metrics only when qualitative fit and current intent evidence cannot distinguish material candidate subtopics.",
+      "completion_without": {
+        "allowed": true,
+        "limitation": "Subtopic priority remains qualitative and must not imply measured demand."
+      },
+      "fallback": "Prioritize with supported audience, business, and intent evidence and record that quantitative comparison was unavailable."
+    },
+    {
+      "capability": "serp-results",
+      "source": "server",
+      "use": "conditional",
+      "steps": [
+        "research-before-outline"
+      ],
+      "scope": {
+        "unit": "query",
+        "maximum": 3,
+        "guidance": "Inspect no more than three representative current result sets when intent, page type, or result format can change the outline."
+      },
+      "condition": "Use current result evidence only when the selected focus or page role remains materially ambiguous.",
+      "completion_without": {
+        "allowed": true,
+        "limitation": "The handoff cannot claim that current result patterns or page-type expectations were verified."
+      },
+      "fallback": "Preserve the ambiguity as a constraint and avoid unsupported intent or page-type claims."
+    },
+    {
+      "capability": "canonical-content-document",
+      "source": "client",
+      "use": "required",
+      "steps": [
+        "prepare-canonical-document",
+        "analyze-document",
+        "prepare-publication-handoff"
+      ],
+      "scope": {
+        "unit": "document",
+        "maximum": 1,
+        "guidance": "Maintain one canonical Markdown, HTML, or text document with explicit metadata provenance and a stable client-owned identity."
+      },
+      "completion_without": {
+        "allowed": false,
+        "limitation": "The method cannot analyze, approve, publish, or verify content without one canonical client-owned document."
+      },
+      "fallback": "Return an incomplete handoff and request a canonical document from the responsible content capability."
+    },
+    {
+      "capability": "content-seo-analysis",
+      "source": "server",
+      "use": "required",
+      "steps": [
+        "analyze-document",
+        "prepare-publication-handoff"
+      ],
+      "scope": {
+        "unit": "document",
+        "maximum": 1,
+        "guidance": "Evaluate the canonical document once against the supported focus and preserve structural reliability and input limitations."
+      },
+      "completion_without": {
+        "allowed": false,
+        "limitation": "The method cannot claim that the supplied document received its required focus-specific content review."
+      },
+      "fallback": "Return an incomplete handoff without presenting the document as publication-ready."
+    },
+    {
+      "capability": "content-helpfulness-analysis",
+      "source": "server",
+      "use": "conditional",
+      "steps": [
+        "analyze-document",
+        "prepare-publication-handoff"
+      ],
+      "scope": {
+        "unit": "document",
+        "maximum": 1,
+        "guidance": "Evaluate the canonical document once when a people-first quality regression could change approval or revision."
+      },
+      "condition": "Use helpfulness analysis only when the draft, intended audience, or an SEO-motivated edit raises a material people-first quality question.",
+      "completion_without": {
+        "allowed": true,
+        "limitation": "The handoff cannot claim that model-based helpfulness concerns were evaluated."
+      },
+      "fallback": "Use human editorial review, record the unavailable check, and do not infer search-engine classifier behavior."
+    },
+    {
+      "capability": "content-readability-analysis",
+      "source": "server",
+      "use": "conditional",
+      "steps": [
+        "analyze-document",
+        "prepare-publication-handoff"
+      ],
+      "scope": {
+        "unit": "document",
+        "maximum": 1,
+        "guidance": "Evaluate the canonical document once when textual complexity could change audience fit or expose a regression."
+      },
+      "condition": "Use readability analysis only when audience fit or a proposed edit creates a material complexity question.",
+      "completion_without": {
+        "allowed": true,
+        "limitation": "The handoff cannot claim that textual complexity was measured."
+      },
+      "fallback": "Use human editorial review, record the unavailable measurement, and do not claim comprehension."
+    },
+    {
+      "capability": "factual-claim-verification",
+      "source": "client",
+      "use": "required",
+      "steps": [
+        "verify-factual-claims",
+        "prepare-publication-handoff"
+      ],
+      "scope": {
+        "unit": "claim-set",
+        "maximum": 1,
+        "guidance": "Maintain one bounded verification record for material factual claims, including an explicit empty set when none require external verification."
+      },
+      "completion_without": {
+        "allowed": false,
+        "limitation": "Content-analysis scores cannot establish whether material factual claims are accurate."
+      },
+      "fallback": "Return an incomplete handoff identifying the unverified material claims and the evidence owner required to continue."
+    },
+    {
+      "capability": "content-publication",
+      "source": "client",
+      "use": "required",
+      "steps": [
+        "confirm-approval",
+        "publish-content",
+        "verify-publication"
+      ],
+      "scope": {
+        "unit": "page",
+        "maximum": 1,
+        "guidance": "Publish the approved canonical artifact through one independently authorized client-owned surface and return its intended public URL."
+      },
+      "completion_without": {
+        "allowed": false,
+        "limitation": "The end-to-end method cannot complete without explicit approval and client-owned publication evidence."
+      },
+      "fallback": "Return an incomplete publication handoff without implying that the server can mutate a CMS."
+    },
+    {
+      "capability": "page-metadata",
+      "source": "server",
+      "use": "required",
+      "steps": [
+        "verify-publication",
+        "produce-handoff"
+      ],
+      "scope": {
+        "unit": "page",
+        "maximum": 1,
+        "guidance": "Inspect current metadata and static page declarations for the one published URL."
+      },
+      "completion_without": {
+        "allowed": false,
+        "limitation": "The method cannot verify the published page's current declared identity and structure."
+      },
+      "fallback": "Return an incomplete handoff with the live metadata verification still required."
+    },
+    {
+      "capability": "page-technical-signals",
+      "source": "server",
+      "use": "required",
+      "steps": [
+        "verify-publication",
+        "produce-handoff"
+      ],
+      "scope": {
+        "unit": "page",
+        "maximum": 1,
+        "guidance": "Inspect current blocking transport and technical signals for the one published URL."
+      },
+      "completion_without": {
+        "allowed": false,
+        "limitation": "The method cannot rule out an immediate observable publication blocker."
+      },
+      "fallback": "Return an incomplete handoff with the live technical verification still required."
+    }
+  ],
+  "steps": [
+    {
+      "id": "acquire-context",
+      "instruction": "Confirm the audience, business goal, page role, conversion path, market, editorial and factual constraints, known site context, approval owner, and lifecycle constraints before paid research."
+    },
+    {
+      "id": "budget-preflight",
+      "instruction": "Inspect current runtime authorization and cost for the required path and only those conditional research or analysis steps that can change a decision."
+    },
+    {
+      "id": "research-before-outline",
+      "instruction": "Use supplied site evidence and one bounded research burst before outlining only when candidate subtopics, intent, page type, or priority can materially change."
+    },
+    {
+      "id": "approve-outline",
+      "instruction": "Have the client prepare an outline that links material sections, proof needs, and internal-link needs to supported context or evidence, then obtain the required approval."
+    },
+    {
+      "id": "prepare-canonical-document",
+      "instruction": "Have a separate client content capability create and edit one canonical document; prefer explicit title and meta-description provenance and keep publishing-only instructions outside analyzed body content."
+    },
+    {
+      "id": "analyze-document",
+      "instruction": "Run the required focus-specific review and only the conditional quality checks whose result can change revision or approval; do not maximize scores blindly."
+    },
+    {
+      "id": "verify-factual-claims",
+      "instruction": "Verify material factual claims through appropriate public, first-party, or user-supplied evidence independently of content-analysis scores."
+    },
+    {
+      "id": "prepare-publication-handoff",
+      "instruction": "Record the canonical artifact identity, evidence-backed requirements, preservation and prohibition constraints, missing inputs, intended URL, acceptance criteria, and verification plan without embedding finished content."
+    },
+    {
+      "id": "confirm-approval",
+      "instruction": "Obtain the required human or client approval for the exact canonical artifact and publication target."
+    },
+    {
+      "id": "publish-content",
+      "instruction": "Route publication to an independently authorized client-owned capability; the recipe does not grant CMS authority or perform mutation."
+    },
+    {
+      "id": "verify-publication",
+      "instruction": "Read the published page and inspect current metadata and blocking technical signals, requesting fresh evidence only when immediate verification justifies the current full quote."
+    },
+    {
+      "id": "record-lifecycle-decision",
+      "instruction": "For time-limited content, record the review trigger and decision owner without inferring retain, update, unpublish, noindex, or redirect."
+    },
+    {
+      "id": "produce-handoff",
+      "instruction": "Return the evidence-linked implementation handoff with publication verification, limitations, completion state, and remaining lifecycle ownership."
+    }
+  ],
+  "evidence_requirements": [
+    "Every outline and publication requirement links to user, client, or server evidence or is labeled as an unresolved constraint.",
+    "Generated variants, third-party estimates, content-analysis scores, and client-supplied snapshots retain their distinct provenance and limitations.",
+    "Material factual claims have separate verification evidence or an explicit blocking record; content-analysis scores never satisfy factual verification.",
+    "Publication and live verification are client and server evidence respectively; a staged snapshot cannot establish production equivalence.",
+    "The canonical page body remains a client-owned artifact and is not embedded in the validated handoff."
+  ],
+  "stop_conditions": [
+    "Stop or narrow before paid research when the audience, market, page role, factual constraints, or approval ownership is materially ambiguous.",
+    "Stop before a paid step when current authorization or budget is insufficient for the selected bounded evidence path.",
+    "Stop publication when the canonical document, factual verification, or required approval is incomplete.",
+    "Return an incomplete handoff when the published page or required live verification evidence cannot be obtained."
+  ],
+  "completion_criteria": [
+    "The business and editorial context, research bounds, approved outline, and canonical artifact identity are recorded.",
+    "Required and selected conditional analyses are evidence-linked, and score conflicts or input limitations are explicit.",
+    "Material factual claims are separately verified or the result stops incomplete.",
+    "Approval, client-owned publication, live page reading, metadata, and technical verification are recorded.",
+    "The handoff is self-contained, contains no finished page body, and identifies lifecycle ownership and any remaining checks."
+  ],
+  "output_contracts": [
+    {
+      "id": "seo-implementation-handoff/v1",
+      "role": "primary"
+    }
+  ],
+  "bounds": {
+    "sample_guidance": "Produce one approved canonical artifact and inspect only the research, comparison pages, and quality signals that can change its structure, publication decision, or verification."
+  }
+}

@@ -40,6 +40,14 @@
       "expected": "activate"
     },
     {
+      "id": "activate-content-production",
+      "kind": "activation",
+      "fixture": "activation.md",
+      "segment": "content-boundary",
+      "prompt": "Guide one selected article from business context through draft analysis, publication, and fresh verification without writing the copy itself.",
+      "expected": "activate"
+    },
+    {
       "id": "activate-handoff",
       "kind": "activation",
       "fixture": "activation.md",
@@ -154,6 +162,28 @@
       "baseline_risks": [
         "context-dependent requirements",
         "missing preservation constraints"
+      ]
+    },
+    {
+      "id": "content-production-boundaries",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "content-boundary",
+      "heading": "Content Production Recipe Preserves Capability Boundaries",
+      "baseline_risks": [
+        "direct generation mistaken for the workflow",
+        "client and server responsibility confusion"
+      ]
+    },
+    {
+      "id": "live-publication-verification",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "verification",
+      "heading": "Post-Publication Verification Requires Live Evidence",
+      "baseline_risks": [
+        "staged snapshot treated as production proof",
+        "stale post-publication evidence"
       ]
     },
     {

@@ -70,6 +70,8 @@ Use `seo-implementation-handoff/v1` when another agent or team must implement an
 
 The handoff specifies what the implementation must achieve and protect. It does not contain finished content or pretend that implementation has occurred.
 
+When the handoff closes a client-executed content-production workflow, identify the canonical document and claim-verification artifacts without embedding their full contents. Record approval, client-owned publication, current public-page verification, freshness constraints, and lifecycle ownership in the shared evidence and verification fields. Do not imply that the connected SEO server wrote or published the content.
+
 ## Verification Report
 
 A verification report audits an existing result or handoff; it is not a fourth generic result contract. Identify the source contract, implementation or state inspected, checks performed, evidence observed, and an overall status of `pass`, `partial`, or `fail`.
