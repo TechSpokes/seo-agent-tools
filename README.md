@@ -9,6 +9,7 @@ The skill does not write finished content, expose private server internals, or i
 - Answer narrow SEO questions with the smallest sufficient server evidence path.
 - Discover recipes progressively without loading an entire catalog into context.
 - Execute a selected recipe with bounded evidence, explicit stops, and typed results.
+- Coordinate one selected content objective through bounded research, client-owned drafting, supplied-document analysis, approval, publication, and live verification without writing the finished copy.
 - Diagnose whether a page needs creation, refresh, consolidation, preservation, or a non-content intervention.
 - Hand implementation requirements to another agent without depending on shared conversation history.
 - Verify implemented work against the original result and acceptance criteria.
@@ -31,6 +32,7 @@ Example requests:
 
 - Use `$seo-agent-tools` to discover an available method for finding keyword opportunities for this service area.
 - Use `$seo-agent-tools` to diagnose why this page is underperforming before anyone rewrites it.
+- Use `$seo-agent-tools` to discover the content-production workflow for one approved article objective and coordinate its evidence, handoff, publication, and fresh verification without writing the copy itself.
 - Use `$seo-agent-tools` to convert this SEO diagnostic into a self-contained implementation handoff.
 - Use `$seo-agent-tools` to verify the implemented canonical and redirect changes against the original triage result.
 
@@ -58,8 +60,8 @@ Node.js 22 is used in CI. The repository has no runtime package dependency.
 ```bash
 npm ci
 npm run validate
-npm run package -- v0.2.0
-npm run release:verify-assets -- v0.2.0
+npm run package -- v0.3.0
+npm run release:verify-assets -- v0.3.0
 ```
 
 `npm run validate` checks catalog structure, runtime skill structure, documentation links, behavioral fixtures, and maintenance contracts. Packaging creates deterministic standalone, Codex plugin, and Claude plugin archives plus versioned catalog and manifest assets under `dist/assets/`. Release verification checks all five assets and rebuilds them to prove byte identity.

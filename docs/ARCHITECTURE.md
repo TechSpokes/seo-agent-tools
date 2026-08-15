@@ -29,7 +29,7 @@ The runtime map is validated against the actual skill tree. Add a runtime file o
 
 `catalog/catalog.json` owns catalog version, taxonomy, public capabilities, evidence units, discovery defaults, and result-contract paths. `catalog/schemas/catalog.schema.json` and the catalog's registered recipe schema are the Draft 2020-12 structural authorities. Each file in `catalog/recipes/` owns one immutable recipe version with stable step IDs, inputs, source-classed evidence plans, provider-neutral evidence bounds, missing-capability behavior, stops, completion criteria, and output-contract roles.
 
-The first five recipes preserve migration behavior from the current service. They are seed data, not a fixed product list, a required category count, or a limit in validation.
+The first five recipes preserve migration behavior from the current service. They are seed data, not a fixed product list, a required category count, or a limit in validation. The sixth recipe establishes content production as a separate bounded method whose public evidence plan coordinates user context, client-owned artifacts and actions, and server analysis without moving finished writing or CMS mutation into the portable skill.
 
 Use one primary domain plus controlled operation and target facets. Keep locale, device, market, depth, and budget as runtime inputs or policies unless they materially change the analytical method. Add a new controlled vocabulary value or result contract only when an actual recipe cannot be expressed clearly with the current contract.
 

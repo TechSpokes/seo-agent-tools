@@ -1,0 +1,176 @@
+{
+  "analysis_id": "analysis-content-production-1",
+  "contract_id": "seo-implementation-handoff/v1",
+  "recipe": {
+    "id": "content-production-workflow",
+    "version": "1.0.0"
+  },
+  "subject": {
+    "content_objective": "Publish one evidence-backed guide for an existing site.",
+    "url": "https://example.test/guide"
+  },
+  "observed_at": "2026-08-15T12:00:00Z",
+  "evidence": [
+    {
+      "id": "evidence-content-context",
+      "source": "user-supplied editorial context",
+      "subject": "existing-site guide objective",
+      "observed_at": "2026-08-15T10:00:00Z",
+      "observation": "The audience, business goal, page role, constraints, approval owner, and lifecycle owner are recorded.",
+      "limitations": []
+    },
+    {
+      "id": "evidence-canonical-document",
+      "source": "client-owned canonical document",
+      "subject": "canonical document content-guide-1",
+      "observed_at": "2026-08-15T10:30:00Z",
+      "observation": "The approved document identity and metadata provenance are recorded without embedding the page body.",
+      "limitations": [
+        "The validated handoff does not contain the finished content."
+      ]
+    },
+    {
+      "id": "evidence-content-analysis",
+      "source": "authorized content analysis",
+      "subject": "canonical document content-guide-1",
+      "observed_at": "2026-08-15T10:45:00Z",
+      "observation": "The required focus-specific review completed and its input limitations are recorded.",
+      "limitations": [
+        "The analysis does not prove factual accuracy, ranking impact, or search-engine classifier behavior."
+      ]
+    },
+    {
+      "id": "evidence-claim-verification",
+      "source": "client factual-verification record",
+      "subject": "material claims for content-guide-1",
+      "observed_at": "2026-08-15T11:00:00Z",
+      "observation": "Every material factual claim has an appropriate source or is absent from the approved document.",
+      "limitations": []
+    },
+    {
+      "id": "evidence-publication",
+      "source": "client publication evidence",
+      "subject": "https://example.test/guide",
+      "observed_at": "2026-08-15T11:30:00Z",
+      "observation": "The approved canonical artifact was published at the intended URL.",
+      "limitations": [
+        "Publication alone does not prove indexing or business performance."
+      ]
+    },
+    {
+      "id": "evidence-live-verification",
+      "source": "authorized current page evidence",
+      "subject": "https://example.test/guide",
+      "observed_at": "2026-08-15T12:00:00Z",
+      "observation": "The public page content, metadata, and blocking technical signals satisfy the immediate acceptance checks.",
+      "limitations": [
+        "Delayed crawl, index, ranking, and first-party outcomes require later evidence."
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "finding-content-production-ready",
+      "statement": "The bounded content artifact completed approval, client-owned publication, and immediate live verification.",
+      "evidence_ids": [
+        "evidence-content-context",
+        "evidence-canonical-document",
+        "evidence-content-analysis",
+        "evidence-claim-verification",
+        "evidence-publication",
+        "evidence-live-verification"
+      ]
+    }
+  ],
+  "disposition": "proceed",
+  "confidence": {
+    "level": "high",
+    "reasons": [
+      "The required client, user, and server evidence is linked and immediate verification passed."
+    ]
+  },
+  "constraints": [
+    "The result makes no claim about delayed indexing, ranking, traffic, or business outcomes."
+  ],
+  "completion": {
+    "status": "complete"
+  },
+  "verification": [
+    {
+      "check": "Canonical artifact approval and publication",
+      "status": "pass",
+      "evidence_ids": [
+        "evidence-canonical-document",
+        "evidence-publication"
+      ]
+    },
+    {
+      "check": "Immediate public-page content, metadata, and technical evidence",
+      "status": "pass",
+      "evidence_ids": [
+        "evidence-live-verification"
+      ]
+    },
+    {
+      "check": "Delayed search and business outcomes",
+      "status": "not-run",
+      "note": "These outcomes require a later observation window and an authorized evidence source."
+    }
+  ],
+  "source_analysis_id": "analysis-content-production-1",
+  "intended_outcome": "Preserve the approved guide, its evidence boundaries, and its immediate publication verification while assigning later lifecycle review.",
+  "responsible_capability": "client content and publication workflow",
+  "requirements": [
+    {
+      "statement": "Retain the approved canonical artifact at the verified public URL.",
+      "evidence_ids": [
+        "evidence-canonical-document",
+        "evidence-publication",
+        "evidence-live-verification"
+      ]
+    },
+    {
+      "statement": "Preserve the separate factual-verification record for material claims.",
+      "evidence_ids": [
+        "evidence-claim-verification"
+      ]
+    }
+  ],
+  "preserve": [
+    "The approved canonical artifact identity and verified material claims",
+    "The intended page role, audience, and conversion path"
+  ],
+  "prohibited": [
+    "Do not treat content-analysis scores as factual verification.",
+    "Do not claim delayed search or business outcomes from immediate publication evidence."
+  ],
+  "missing_inputs": [],
+  "acceptance_criteria": [
+    "The public page retains the approved content and metadata.",
+    "Immediate page content, metadata, and blocking technical checks remain satisfactory.",
+    "The named owner reviews the artifact when its lifecycle trigger occurs."
+  ],
+  "verification_plan": [
+    "Repeat current public-page checks after any material implementation change.",
+    "Evaluate delayed search or business outcomes only with an authorized source and appropriate observation window.",
+    "Ask the lifecycle owner to choose retain, update, unpublish, noindex, or redirect when the declared trigger occurs."
+  ],
+  "content_context": {
+    "target_queries": [
+      "example guide topic"
+    ],
+    "observed_intent": "The audience needs an explanatory guide before choosing the next action.",
+    "recommended_page_type": "Existing-site guide",
+    "audience_and_journey": "Prospective users evaluating the topic.",
+    "buyer_questions": [
+      "What decision does this guide support?"
+    ],
+    "proof_requirements": [
+      "Material factual claims retain appropriate public or first-party evidence."
+    ],
+    "internal_link_needs": [
+      "Preserve the approved path to the relevant next-step page."
+    ],
+    "content_gaps": []
+  }
+}

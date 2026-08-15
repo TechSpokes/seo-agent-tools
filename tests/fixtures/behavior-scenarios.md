@@ -70,6 +70,26 @@ Expected invariants:
 - The handoff states evidence-backed requirements, preservation constraints, prohibited changes, missing inputs, and acceptance criteria.
 - The handoff includes content-specific query, intent, audience, proof, gap, and internal-link context without finished prose.
 
+## Content Production Recipe Preserves Capability Boundaries
+
+Input: The user has selected one existing-site article objective and asks to move from business context through research, draft analysis, publication, and verification. The connected server exposes the content-production recipe, while separate client capabilities can create the canonical document, verify material claims, publish, and read the public page.
+
+Expected invariants:
+
+- The agent selects the multi-step recipe instead of treating direct content generation as the complete outcome.
+- User evidence supplies business and editorial context, client capabilities own finished drafting, claim verification, approval, publication, and page reading, and server capabilities supply only their mapped research and analysis evidence.
+- The validated handoff identifies the canonical artifact and evidence records without embedding finished page copy or implying that the SEO server mutated the CMS.
+
+## Post-Publication Verification Requires Live Evidence
+
+Input: The client has a staged snapshot and says the approved article is now public. The last cached page evidence predates publication, and the selected live operations expose a current full-price refresh path.
+
+Expected invariants:
+
+- The agent treats the staged snapshot as bounded client evidence and does not use it as proof of production transport, execution, crawlability, freshness, authenticity, or equivalence.
+- The agent reads the public page and inspects current metadata and blocking technical signals, requesting a cache bypass only when freshness can change the decision and the approved budget covers the current quote.
+- The verification records immediate pass, partial, fail, or unavailable checks separately from later crawl, index, ranking, first-party outcome, and lifecycle decisions.
+
 ## Conditional Output Follows Recipe Composition
 
 Input: A page-refresh recipe lists a diagnostic as primary and an implementation handoff as conditional. The diagnostic completes with an unresolved `defer` disposition.

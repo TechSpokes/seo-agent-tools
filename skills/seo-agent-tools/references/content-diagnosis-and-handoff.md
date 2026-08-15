@@ -28,6 +28,22 @@ Keep the strategy separate from timing and confidence. A sound `refresh` recomme
 
 If the supported intervention is technical, strategic, authority-related, or operational, say so directly and hand off to that capability. Do not force every diagnosis into a content action.
 
+## Coordinate One Content Artifact Through Publication
+
+Use a server-discovered content-production recipe only after one content objective and page role are selected. Preserve these boundaries:
+
+1. Capture the audience, business goal, conversion path, market, editorial and factual constraints, known site taxonomy, approval owner, and lifecycle constraints before paid research.
+2. Run one bounded research burst before outlining only when candidate subtopics, current intent, or page type can change the structure. Keep metrics conditional on a decision they can change.
+3. Route outlining and finished drafting to a separate client content capability. Maintain one canonical Markdown, HTML, or text document with explicit metadata provenance, and keep publishing-only instructions outside analyzed body content.
+4. Require focus-specific content analysis. Use helpfulness or readability evidence only when it can catch a material regression or change approval. Treat coverage, semantic relevance, and overlap checks as optional direct paths for named uncertainties.
+5. Resolve score conflicts through the audience and evidence-backed objective. An SEO-motivated edit must not materially degrade helpfulness or readability without an explicit supported tradeoff.
+6. Verify material factual claims separately. Content-analysis scores do not prove accuracy, originality, ranking impact, or search-engine classifier behavior.
+7. Record the canonical artifact identity, evidence-linked requirements, preservation and prohibition constraints, missing inputs, intended publication target, acceptance criteria, and verification plan. Obtain approval before routing publication to an independently authorized client capability.
+8. Verify the public page with current page content, metadata, and blocking technical evidence. A staged or client-supplied snapshot can support pre-publication static checks, but it cannot prove production transport, execution, crawlability, freshness, authenticity, or equivalence.
+9. For time-limited content, record the review trigger and decision owner. Do not infer retain, update, unpublish, noindex, or redirect without site-policy authority.
+
+Keep the canonical page body and detailed claim-verification material in client-owned artifacts. The validated handoff records their stable identities, decisions, evidence links, and verification state without reproducing finished content.
+
 ## Build a Self-Contained Handoff
 
 An implementation handoff must allow a receiving agent to act without access to the analyst's hidden reasoning or conversation history. Include:
@@ -43,6 +59,8 @@ An implementation handoff must allow a receiving agent to act without access to 
 - A verification plan tied to the intended outcome.
 
 For content implementation, also include the target query and useful variants, observed intent, recommended page type, audience and journey state, buyer questions, proof requirements, content gaps, internal-link needs, and facts that must not be invented.
+
+For a completed content-production workflow, also identify the canonical artifact, approval and publication evidence, live verification evidence, and lifecycle owner. A handoff can record that publication occurred without implying that the SEO server performed the mutation.
 
 Do not write headlines, paragraphs, calls to action, metadata copy, or finished page text. Route that work to an appropriate content-writing skill after the handoff is accepted.
 

@@ -2,6 +2,20 @@
 
 ## [Unreleased]
 
+## [v0.3.0] - 2026-08-15
+
+### Added
+
+- The `content-production-workflow` recipe for coordinating one selected existing-site content objective through context, bounded research, client-owned drafting, supplied-document analysis, factual verification, approval, publication, live verification, and lifecycle ownership.
+- Controlled content taxonomy, document and claim-set evidence units, and public capabilities for canonical documents, content context, bounded content analysis, factual verification, and client-owned publication.
+- Structural and fresh-context fixtures for content-production routing, client and server responsibility boundaries, representative handoff validation, and live post-publication verification.
+
+### Changed
+
+- Catalog `0.3.0` now publishes six recipes while retaining the connected server as authority for mappings, authorization, availability, current prices, and caller-specific readiness.
+- Public guidance now distinguishes a complete content-production recipe from direct generation, keeps finished writing and CMS mutation in separate client capabilities, and requires factual and live-page verification to remain distinct from content scores and staged snapshots.
+- Portable skill and plugin packages now identify content-production coordination as an activation path without adding finished content-writing behavior or a new result contract.
+
 ## [v0.2.0] - 2026-07-30
 
 ### Added

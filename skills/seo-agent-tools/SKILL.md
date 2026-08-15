@@ -1,6 +1,6 @@
 ---
 name: seo-agent-tools
-description: Use when an agent must investigate an SEO question with a connected SEO MCP server, discover and run an available SEO recipe, diagnose why a page or site is underperforming, prepare an evidence-backed implementation handoff, or verify completed SEO work. Do not use it to write finished content, reveal private server internals, or invent unavailable tools, data, or persistent job behavior.
+description: Use when an agent must investigate an SEO question with a connected SEO MCP server, discover and run an available SEO recipe, coordinate evidence-backed content production without writing the copy, diagnose why a page or site is underperforming, prepare an implementation handoff, or verify completed SEO work. Do not use it to write finished content, reveal private server internals, or invent unavailable tools, data, or persistent job behavior.
 ---
 
 # SEO Agent Tools
@@ -13,11 +13,13 @@ The server is the authority for tools, recipes, availability, authorization, and
 
 ## Activation Boundaries
 
-Activate this skill for SEO analysis that benefits from server evidence, including keyword and search-result investigation, page and site diagnosis, technical triage, competitor or backlink comparison, recipe discovery, implementation planning, and verification of SEO changes.
+Activate this skill for SEO analysis that benefits from server evidence, including keyword and search-result investigation, page and site diagnosis, technical triage, competitor or backlink comparison, recipe discovery, content-production coordination, implementation planning, and verification of SEO changes.
 
 Use another skill or hand off when the primary task is writing finished page copy, administering the MCP server, implementing provider integrations, changing billing or access policy, or designing persistent jobs and scheduled workflows.
 
 Treat a request to rewrite content as a hypothesis about the intervention, not as proof that writing is the right next action. Diagnose the cause before preparing a handoff to a content-writing capability.
+
+When the user has already selected one content objective and wants to move from context through publication, this skill may coordinate a server-discovered content-production recipe. A separate client capability owns outlining, finished drafting, approval, factual verification, publication, and artifact custody; this skill preserves the evidence, boundaries, handoff, and verification.
 
 ## Working Model
 
@@ -46,6 +48,8 @@ Use direct analysis when one bounded evidence lookup can answer the question and
 Use recipe discovery when the request requires several dependent evidence steps, a repeatable methodology, or a typed result that another agent or system will consume. Filter compact recipe cards by goal facets, compare a small candidate set, then retrieve one full recipe definition. Treat a card's capability list as a discovery summary; the selected full recipe's evidence plan and output composition govern execution. An unfamiliar recipe name or facet is acceptable when the server describes it; an uninterpretable result contract is not.
 
 Use content-quality diagnosis when the user assumes a page needs new or rewritten content. Determine whether the actual intervention is to create, refresh, consolidate, preserve, fix a technical blocker, change site strategy, improve authority, or obtain first-party operational evidence.
+
+Use a server-discovered content-production recipe when one content objective is already selected and the requested outcome spans business context, bounded research, client-owned drafting, supplied-document analysis, factual verification, approval, publication, live verification, and lifecycle ownership. Do not substitute a direct generation capability for that multi-step outcome, and do not perform the finished writing inside this skill.
 
 Use an implementation handoff when the analysis has selected an intervention but execution belongs to another capability. The handoff must make the decision independently understandable to an agent that did not share this analysis context.
 

@@ -38,6 +38,8 @@ The selected full recipe, not its compact discovery card, defines execution. For
 
 Treat `scope.maximum` as a bound on evidence units, not as a provider request count. The server may satisfy one evidence scope through individual calls, bulk calls, cache hits, or another implementation. Never translate a public evidence bound into a private call plan from memory.
 
+For a content-production recipe, keep the source boundary explicit across the whole workflow. User evidence establishes business and editorial context. Client capabilities own the canonical document, material-claim verification, approval, publication, and published-page reading. Server evidence supplies only the mapped research, analysis, metadata, and technical observations. A connected server reporting its own capabilities as ready does not prove that the client can draft, verify claims, publish, or read the published page.
+
 Produce the one `primary` result for completed or explicitly incomplete execution. Emit a `conditional` result only when its declared condition is satisfied. Do not create an implementation handoff merely because its contract is listed; an unresolved `defer`, a rejected intervention, or incomplete diagnosis does not satisfy the seed page-refresh handoff condition.
 
 ## Cost and Authorization
@@ -47,6 +49,8 @@ Before a call that can incur cost, give the server the selected recipe and bound
 Use an existing user-approved budget only within its stated scope. Ask for approval when the call exceeds that scope, changes provider or data class, or the server marks the action as approval-gated.
 
 Do not repeat a paid call merely to increase confidence unless the added evidence can change the decision. Prefer cheap discovery and static evidence before expensive metrics or broad collection.
+
+When immediate post-publication verification needs evidence newer than a cache hit, inspect the selected operation's current refresh behavior and full fresh quote. Request a cache bypass only when the operation supports it, the user-approved scope covers it, and freshness can change the publication decision. A client-supplied staged snapshot remains client evidence and cannot replace current public-page verification.
 
 ## Evidence Record
 
