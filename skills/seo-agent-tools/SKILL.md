@@ -1,6 +1,6 @@
 ---
 name: seo-agent-tools
-description: Use when an agent must investigate an SEO question with a connected SEO MCP server, discover and run an available SEO recipe, coordinate evidence-backed content production without writing the copy, diagnose why a page or site is underperforming, prepare an implementation handoff, or verify completed SEO work. Do not use it to write finished content, reveal private server internals, or invent unavailable tools, data, or persistent job behavior.
+description: Use when an agent must investigate an SEO question with a connected SEO MCP server, observe current AI brand representation, discover and run an available SEO recipe, coordinate evidence-backed content production without writing the copy, diagnose why a page or site is underperforming, prepare an implementation handoff, or verify completed SEO work. Do not use it to write finished content, reveal private server internals, or invent unavailable tools, data, or persistent job behavior.
 ---
 
 # SEO Agent Tools
@@ -13,7 +13,7 @@ The server is the authority for tools, recipes, availability, authorization, and
 
 ## Activation Boundaries
 
-Activate this skill for SEO analysis that benefits from server evidence, including keyword and search-result investigation, page and site diagnosis, technical triage, competitor or backlink comparison, recipe discovery, content-production coordination, implementation planning, and verification of SEO changes.
+Activate this skill for SEO analysis that benefits from server evidence, including keyword and search-result investigation, current AI brand-representation observation, page and site diagnosis, technical triage, competitor or backlink comparison, recipe discovery, content-production coordination, implementation planning, and verification of SEO changes.
 
 Use another skill or hand off when the primary task is writing finished page copy, administering the MCP server, implementing provider integrations, changing billing or access policy, or designing persistent jobs and scheduled workflows.
 
@@ -24,6 +24,8 @@ When the user has already selected one content objective and wants to move from 
 ## Working Model
 
 A direct analysis uses one or a few server capabilities when the question is narrow and the evidence path is obvious.
+
+A direct one-channel brand analysis observes how one named answer channel represents a brand that the caller explicitly supplies. The three-channel AI Brand Representation Snapshot is a versioned recipe that applies identical settled framing to ChatGPT, Gemini, and Perplexity and returns one current, non-persistent result. Neither path measures unprompted buyer-prompt presence, stable model knowledge, or historical change.
 
 A recipe is a versioned SEO method discovered from the connected server. It defines required inputs, stable steps, source-classed evidence requirements, evidence bounds, missing-capability behavior, stop conditions, completion criteria, and explicit result composition. The catalog can grow; never treat a remembered list of recipes as complete.
 
@@ -44,6 +46,8 @@ A result contract makes the decision reusable by defining the exact subject, sup
 ## Route the Request
 
 Use direct analysis when one bounded evidence lookup can answer the question and a multi-step method would add no decision value.
+
+Use a current direct capability when the user asks about one answer channel. Use recipe discovery for a comparable ChatGPT, Gemini, and Perplexity brand-representation snapshot. Do not use either path to answer whether unbranded buyer prompts mention the brand or whether visibility changed over time; those questions require separately supported methods and evidence.
 
 Use recipe discovery when the request requires several dependent evidence steps, a repeatable methodology, or a typed result that another agent or system will consume. Filter compact recipe cards by goal facets, compare a small candidate set, then retrieve one full recipe definition. Treat a card's capability list as a discovery summary; the selected full recipe's evidence plan and output composition govern execution. An unfamiliar recipe name or facet is acceptable when the server describes it; an uninterpretable result contract is not.
 

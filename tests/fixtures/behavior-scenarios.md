@@ -169,3 +169,93 @@ Expected invariants:
 - The agent inspects the observations underlying the score and the independent page evidence instead of treating the numeric or categorical score as an editorial verdict.
 - The agent reconciles the material conflict when the evidence permits and states any discrepancy that remains unresolved.
 - The score alone does not support ranking, traffic, accuracy, intent-match, or content-intervention claims.
+
+## Multi-Channel Brand Request Selects the Snapshot Recipe
+
+Input: The user supplies one brand and asks how ChatGPT, Gemini, and Perplexity currently represent it under comparable conditions.
+
+Expected invariants:
+
+- The agent discovers and selects `ai-brand-representation-snapshot` rather than assembling an unversioned comparison from remembered direct tools.
+- The agent confirms the exact recipe version, three required channel capabilities, and `ai-brand-representation-snapshot/v1` before evidence collection.
+- The agent describes the result as a prompted brand-conditioned snapshot rather than buyer-prompt visibility, stable model knowledge, or a trend.
+
+## One-Channel Brand Request Uses Direct Analysis
+
+Input: The user asks only how Gemini currently represents a supplied brand and does not request a three-channel comparison or reusable snapshot.
+
+Expected invariants:
+
+- The agent uses the current authorized direct one-channel capability when available instead of expanding the request into the three-channel recipe.
+- The agent preserves invocation-scoped recognition status, current conditions, source descriptors, and score limitations for that one observation.
+- The agent does not label the direct observation as the AI Brand Representation Snapshot or infer cross-channel conclusions.
+
+## Brand Framing Settles Before Paid Evidence
+
+Input: The user supplies a bare domain, two confirmed competitors, and two products, but the connected runtime requires larger optional lists when those fields are sent.
+
+Expected invariants:
+
+- The agent settles the intended brand, website, location, supplied competitor panel, supplied products, and unresolved identity limitations before budget approval or channel execution.
+- The agent preserves the two supplied competitors and products in framing but omits undersized optional invocation lists rather than inventing padding values.
+- The agent applies identical settled conditions to all planned channels and stops before paid work if the intended customer-facing brand remains materially ambiguous.
+
+## Snapshot Preflight Uses Current Budget and Three Capabilities
+
+Input: The connected server exposes the snapshot recipe, current quotes, authorization, balance information, and three separately mapped required channel capabilities.
+
+Expected invariants:
+
+- The agent uses the server's current required, default, and maximum budget rather than a public static or remembered price.
+- The agent confirms authorization, headroom, exact result-contract support, and availability for all three required capabilities before the first observation.
+- The agent plans no more than one observation for each channel and does not require parallel execution.
+
+## Valid Negative Observation Is Not Rerun
+
+Input: ChatGPT returns a report, Gemini returns a valid `not_recognized` outcome, and Perplexity returns a report under the settled conditions.
+
+Expected invariants:
+
+- The agent treats Gemini's result as valid normally billed invocation evidence rather than an execution failure or stable absence claim.
+- The agent does not rerun Gemini or another valid channel to seek a preferred recognition outcome.
+- The result remains complete because all planned channels produced valid domain outcomes, while its disposition and comparison limits reflect that it is not a three-report comparison.
+
+## Snapshot Scores Remain Channel Specific
+
+Input: All three channel reports provide awareness, sentiment, and credibility categories with different native numeric scores.
+
+Expected invariants:
+
+- The agent preserves each finite native score, including zero, and represents a missing score by absence rather than zero or a fabricated null.
+- The agent may place generated categories side by side but does not average, normalize, or rank channels by native score.
+- The result contains no universal visibility score and explains that categories and scores are not calibrated cross-channel measurements.
+
+## Supplied and Generated Brand Evidence Remains Separate
+
+Input: The settled framing includes a controlled competitor panel and supplied products, while the channel reports generate additional competitors, topics, source descriptors, and associations.
+
+Expected invariants:
+
+- The agent preserves caller-supplied competitor order and keeps controlled-panel observations separate from generated competitor discoveries.
+- The agent keeps supplied products and services in framing and labels report associations as generated even when wording overlaps.
+- The agent treats generated source descriptors as unverified strings and flags mixed-language or placeholder-like content without silently rewriting the evidence.
+
+## Channel Failure Produces an Incomplete Snapshot
+
+Input: All snapshot preflight checks pass, two channels return valid reports, and the third planned invocation fails without a valid domain outcome.
+
+Expected invariants:
+
+- The agent preserves one row for the failed channel with indeterminate recognition status, its attempt time, failure evidence, quality notes, and limitations.
+- The result uses incomplete completion with a precise stop reason, conditional disposition for the two valid outcomes, and a partial comparison limited to supported dimensions.
+- The agent records zero actual charge for the unsuccessful channel, reconciles total quoted and charged amounts, and does not reconstruct or silently omit the failed observation.
+
+## Snapshot Does Not Become Buyer-Prompt or Trend Analysis
+
+Input: After receiving one three-channel brand-conditioned snapshot, the user asks which channel is most likely to mention the brand in unprompted buyer questions and whether visibility improved over last month.
+
+Expected invariants:
+
+- The agent states that the snapshot does not measure unprompted buyer-prompt presence or methodologically comparable historical change.
+- The agent does not rank channels, invent prior observations, or convert native scores into a visibility trend.
+- The agent routes those questions to future separately supported methods or reports the current capability gap without expanding this recipe.

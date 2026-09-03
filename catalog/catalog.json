@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "catalog_version": "0.4.1",
+  "catalog_version": "0.5.0",
   "catalog_schema": "catalog/schemas/catalog.schema.json",
   "recipe_schema": "catalog/schemas/recipe.schema.json",
   "supported_recipe_schema_versions": [
@@ -14,7 +14,8 @@
       "content",
       "keyword",
       "page",
-      "technical"
+      "technical",
+      "visibility"
     ],
     "operations": [
       "audit",
@@ -28,6 +29,7 @@
       "verify"
     ],
     "targets": [
+      "brand",
       "competitor-set",
       "content-handoff",
       "link-prospect-set",
@@ -36,6 +38,7 @@
       "site"
     ],
     "evidence_units": [
+      "channel",
       "claim-set",
       "context-record",
       "document",
@@ -47,6 +50,9 @@
   "capabilities": [
     "authority-metrics",
     "backlink-sets",
+    "brand-representation-chatgpt",
+    "brand-representation-gemini",
+    "brand-representation-perplexity",
     "canonical-content-document",
     "competitor-discovery",
     "competitor-domains",
@@ -67,6 +73,7 @@
     "serp-results"
   ],
   "result_contracts": {
+    "ai-brand-representation-snapshot/v1": "catalog/schemas/ai-brand-representation-snapshot.v1.schema.json",
     "content-question-review/v1": "catalog/schemas/content-question-review.v1.schema.json",
     "seo-diagnostic/v1": "catalog/schemas/seo-diagnostic.v1.schema.json",
     "seo-implementation-handoff/v1": "catalog/schemas/seo-implementation-handoff.v1.schema.json",

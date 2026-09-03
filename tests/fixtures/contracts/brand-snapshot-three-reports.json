@@ -1,0 +1,359 @@
+{
+  "analysis_id": "analysis-brand-snapshot-three-reports",
+  "contract_id": "ai-brand-representation-snapshot/v1",
+  "recipe": {
+    "id": "ai-brand-representation-snapshot",
+    "version": "1.0.0"
+  },
+  "subject": {
+    "brand": "Example Brand",
+    "website": "https://example.test"
+  },
+  "observed_at": "2026-09-03T12:03:00Z",
+  "evidence": [
+    {
+      "id": "evidence-chatgpt",
+      "source": "authorized ChatGPT brand-representation observation",
+      "subject": "Example Brand",
+      "observed_at": "2026-09-03T12:01:00Z",
+      "conditions": {
+        "location": "France",
+        "competitor_count": 3,
+        "product_count": 3
+      },
+      "observation": "A structured brand-conditioned report was returned.",
+      "limitations": [
+        "This prompted observation does not measure buyer-prompt presence or stable model knowledge."
+      ]
+    },
+    {
+      "id": "evidence-gemini",
+      "source": "authorized Gemini brand-representation observation",
+      "subject": "Example Brand",
+      "observed_at": "2026-09-03T12:02:00Z",
+      "conditions": {
+        "location": "France",
+        "competitor_count": 3,
+        "product_count": 3
+      },
+      "observation": "A structured brand-conditioned report was returned.",
+      "limitations": [
+        "This prompted observation does not measure buyer-prompt presence or stable model knowledge."
+      ]
+    },
+    {
+      "id": "evidence-perplexity",
+      "source": "authorized Perplexity brand-representation observation",
+      "subject": "Example Brand",
+      "observed_at": "2026-09-03T12:03:00Z",
+      "conditions": {
+        "location": "France",
+        "competitor_count": 3,
+        "product_count": 3
+      },
+      "observation": "A structured brand-conditioned report was returned.",
+      "limitations": [
+        "This prompted observation does not measure buyer-prompt presence or stable model knowledge."
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "finding-three-reports",
+      "statement": "All three channels returned usable structured reports under identical settled conditions.",
+      "evidence_ids": [
+        "evidence-chatgpt",
+        "evidence-gemini",
+        "evidence-perplexity"
+      ],
+      "limitations": [
+        "The native scores are channel-specific and cannot be compared as one calibrated scale."
+      ]
+    }
+  ],
+  "disposition": "proceed",
+  "confidence": {
+    "level": "high",
+    "reasons": [
+      "Each required channel produced one evidence-linked structured report under identical conditions."
+    ]
+  },
+  "constraints": [
+    "Generated source descriptors are not verified citations.",
+    "The snapshot does not measure buyer-prompt presence, trends, or business impact."
+  ],
+  "completion": {
+    "status": "complete"
+  },
+  "verification": [
+    {
+      "check": "Snapshot contract validation",
+      "status": "pass",
+      "evidence_ids": [
+        "evidence-chatgpt",
+        "evidence-gemini",
+        "evidence-perplexity"
+      ]
+    }
+  ],
+  "framing": {
+    "suppliedSubject": "https://example.test",
+    "settledBrandName": "Example Brand",
+    "canonicalWebsite": "https://example.test",
+    "location": "France",
+    "suppliedCompetitorPanel": [
+      {
+        "label": "Alpha",
+        "url": "https://alpha.example"
+      },
+      {
+        "url": "https://beta.example"
+      },
+      {
+        "label": "Gamma"
+      }
+    ],
+    "suppliedProductsOrServices": [
+      "Analytics",
+      "Reporting",
+      "Monitoring"
+    ],
+    "limitations": []
+  },
+  "channel_observations": [
+    {
+      "channel": "chatgpt",
+      "outcome": "report",
+      "recognitionStatus": "recognized",
+      "observedAt": "2026-09-03T12:01:00Z",
+      "evidenceIds": [
+        "evidence-chatgpt"
+      ],
+      "conditions": {
+        "brand": "https://example.test",
+        "location": "France",
+        "competitors": [
+          "https://alpha.example",
+          "https://beta.example",
+          "Gamma"
+        ],
+        "productsOrServices": [
+          "Analytics",
+          "Reporting",
+          "Monitoring"
+        ]
+      },
+      "report": {
+        "brandDescription": "A reporting and monitoring service.",
+        "awareness": {
+          "category": "emerging",
+          "information": "The generated report describes limited category awareness.",
+          "nativeScore": 0
+        },
+        "sentiment": {
+          "category": "neutral",
+          "information": "The generated report uses neutral language."
+        },
+        "credibility": {
+          "category": "moderate",
+          "nativeScore": 0.5
+        },
+        "generatedTopics": [
+          "reporting workflows"
+        ],
+        "generatedAssociations": [
+          "operational dashboards"
+        ],
+        "sourceDescriptors": [
+          "industry publications"
+        ],
+        "controlledCompetitorObservations": [
+          {
+            "panelIndex": 0,
+            "observedName": "Alpha",
+            "observedUrl": "https://alpha.example",
+            "awareness": {
+              "category": "established",
+              "nativeScore": 0.7
+            },
+            "sentiment": {
+              "category": "positive",
+              "nativeScore": 0.6
+            },
+            "credibility": {
+              "category": "established",
+              "nativeScore": 0.8
+            },
+            "limitations": []
+          }
+        ],
+        "generatedCompetitors": [
+          {
+            "name": "Delta",
+            "url": "https://delta.example",
+            "awareness": {
+              "category": "moderate"
+            },
+            "sentiment": {
+              "category": "neutral"
+            },
+            "credibility": {
+              "category": "moderate"
+            },
+            "limitations": [
+              "This competitor was generated by the channel and was not part of the supplied panel."
+            ]
+          }
+        ]
+      },
+      "qualityNotes": [],
+      "limitations": [
+        "The missing sentiment score is unavailable rather than zero."
+      ]
+    },
+    {
+      "channel": "gemini",
+      "outcome": "report",
+      "recognitionStatus": "recognized",
+      "observedAt": "2026-09-03T12:02:00Z",
+      "evidenceIds": [
+        "evidence-gemini"
+      ],
+      "conditions": {
+        "brand": "https://example.test",
+        "location": "France",
+        "competitors": [
+          "https://alpha.example",
+          "https://beta.example",
+          "Gamma"
+        ],
+        "productsOrServices": [
+          "Analytics",
+          "Reporting",
+          "Monitoring"
+        ]
+      },
+      "report": {
+        "brandDescription": "A reporting and monitoring service.",
+        "awareness": {
+          "category": "emerging",
+          "nativeScore": 0.2
+        },
+        "sentiment": {
+          "category": "neutral",
+          "nativeScore": 0.1
+        },
+        "credibility": {
+          "category": "moderate",
+          "nativeScore": 0.4
+        },
+        "generatedTopics": [
+          "reporting workflows"
+        ],
+        "generatedAssociations": [
+          "operational dashboards"
+        ],
+        "sourceDescriptors": [
+          "industry publications"
+        ],
+        "controlledCompetitorObservations": [],
+        "generatedCompetitors": []
+      },
+      "qualityNotes": [],
+      "limitations": []
+    },
+    {
+      "channel": "perplexity",
+      "outcome": "report",
+      "recognitionStatus": "recognized",
+      "observedAt": "2026-09-03T12:03:00Z",
+      "evidenceIds": [
+        "evidence-perplexity"
+      ],
+      "conditions": {
+        "brand": "https://example.test",
+        "location": "France",
+        "competitors": [
+          "https://alpha.example",
+          "https://beta.example",
+          "Gamma"
+        ],
+        "productsOrServices": [
+          "Analytics",
+          "Reporting",
+          "Monitoring"
+        ]
+      },
+      "report": {
+        "brandDescription": "A reporting and monitoring service.",
+        "awareness": {
+          "category": "emerging",
+          "nativeScore": 0.3
+        },
+        "sentiment": {
+          "category": "neutral",
+          "nativeScore": 0.2
+        },
+        "credibility": {
+          "category": "moderate",
+          "nativeScore": 0.6
+        },
+        "generatedTopics": [
+          "reporting workflows"
+        ],
+        "generatedAssociations": [
+          "operational dashboards"
+        ],
+        "sourceDescriptors": [
+          "unknown listing"
+        ],
+        "controlledCompetitorObservations": [],
+        "generatedCompetitors": []
+      },
+      "qualityNotes": [],
+      "limitations": []
+    }
+  ],
+  "comparison": {
+    "channelsAttempted": [
+      "chatgpt",
+      "gemini",
+      "perplexity"
+    ],
+    "usableReportChannels": [
+      "chatgpt",
+      "gemini",
+      "perplexity"
+    ],
+    "completeness": "complete",
+    "supportedAgreements": [],
+    "supportedDifferences": [],
+    "excludedComparisonClaims": [
+      "No universal visibility score or cross-channel score average was calculated.",
+      "No buyer-prompt presence, trend, or business-impact claim was made."
+    ],
+    "scoreComparisonPolicy": "Native scores are channel-specific and must not be averaged, normalized, or used to rank channels."
+  },
+  "cost_summary": {
+    "unit": "test-unit",
+    "totalQuoted": 3,
+    "totalCharged": 3,
+    "channels": [
+      {
+        "channel": "chatgpt",
+        "quotedAmount": 1,
+        "chargedAmount": 1
+      },
+      {
+        "channel": "gemini",
+        "quotedAmount": 1,
+        "chargedAmount": 1
+      },
+      {
+        "channel": "perplexity",
+        "quotedAmount": 1,
+        "chargedAmount": 1
+      }
+    ]
+  }
+}

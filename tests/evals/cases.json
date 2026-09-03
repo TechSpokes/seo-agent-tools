@@ -275,6 +275,105 @@
       ]
     },
     {
+      "id": "brand-snapshot-recipe-selection",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "routing",
+      "heading": "Multi-Channel Brand Request Selects the Snapshot Recipe",
+      "baseline_risks": [
+        "unversioned direct-tool orchestration",
+        "snapshot scope misrepresented"
+      ]
+    },
+    {
+      "id": "brand-direct-single-channel-routing",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "routing",
+      "heading": "One-Channel Brand Request Uses Direct Analysis",
+      "baseline_risks": [
+        "unnecessary three-channel spend",
+        "direct observation mislabeled as snapshot"
+      ]
+    },
+    {
+      "id": "brand-framing-before-spend",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "cost-authority",
+      "heading": "Brand Framing Settles Before Paid Evidence",
+      "baseline_risks": [
+        "invented competitor or product padding",
+        "inconsistent channel conditions"
+      ]
+    },
+    {
+      "id": "brand-snapshot-current-budget-capabilities",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "cost-authority",
+      "heading": "Snapshot Preflight Uses Current Budget and Three Capabilities",
+      "baseline_risks": [
+        "stale public price assumption",
+        "missing required channel readiness"
+      ]
+    },
+    {
+      "id": "brand-valid-negative-no-rerun",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "evidence-integrity",
+      "heading": "Valid Negative Observation Is Not Rerun",
+      "baseline_risks": [
+        "valid negative treated as failure",
+        "paid outcome smoothing"
+      ]
+    },
+    {
+      "id": "brand-channel-specific-scores",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "evidence-integrity",
+      "heading": "Snapshot Scores Remain Channel Specific",
+      "baseline_risks": [
+        "cross-channel score averaging",
+        "zero and missing score confusion"
+      ]
+    },
+    {
+      "id": "brand-supplied-generated-separation",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "evidence-integrity",
+      "heading": "Supplied and Generated Brand Evidence Remains Separate",
+      "baseline_risks": [
+        "controlled and generated competitors conflated",
+        "source descriptors presented as citations"
+      ]
+    },
+    {
+      "id": "brand-channel-failure-incomplete",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "failure",
+      "heading": "Channel Failure Produces an Incomplete Snapshot",
+      "baseline_risks": [
+        "failed channel silently omitted",
+        "cost and completion totals inconsistent"
+      ]
+    },
+    {
+      "id": "brand-snapshot-scope-boundary",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "runtime-authority",
+      "heading": "Snapshot Does Not Become Buyer-Prompt or Trend Analysis",
+      "baseline_risks": [
+        "buyer-prompt presence inferred",
+        "trend fabricated from one snapshot"
+      ]
+    },
+    {
       "id": "retrieval-injection",
       "kind": "scenario",
       "fixture": "adversarial-scenarios.md",

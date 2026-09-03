@@ -47,7 +47,8 @@ const catalogRoot = path.join(root, "catalog");
 const recipeRoot = path.join(catalogRoot, "recipes");
 const schemaRoot = path.join(catalogRoot, "schemas");
 const contractFixtureRoot = path.join(root, "tests", "fixtures", "contracts");
-const legacyEnvelopeContractIds = new Set([
+const evidenceEnvelopeContractIds = new Set([
+  "ai-brand-representation-snapshot/v1",
   "seo-diagnostic/v1",
   "seo-implementation-handoff/v1",
   "seo-opportunity-set/v1"
@@ -344,7 +345,17 @@ function validateContractFixtures(authority, catalog, failures) {
   return registry.cases.length;
 }
 
-/** Derive one negative instance from a checked-in valid baseline using a deliberately tiny mutation vocabulary. */
+/**
+ * Derive one negative instance from a checked-in valid baseline using a deliberately tiny mutation vocabulary.
+ *
+ * @param {object} source Valid checked-in baseline instance.
+ * @param {object[]} mutations Append, delete, or set operations using absolute JSON pointers.
+ * @param {string} label Fixture case label used in failures.
+ * @param {string[]} failures Accumulated validation failures.
+ * @returns {object} Cloned and mutated fixture instance.
+ * @sideEffects Adds mutation-shape failures to the supplied failure collection.
+ * @constraints Deleting an array index removes the item and closes the gap; deleting an object property preserves ordinary property-deletion behavior.
+ */
 function applyFixtureMutations(source, mutations, label, failures) {
   const instance = structuredClone(source);
   if (!Array.isArray(mutations)) {
@@ -370,7 +381,8 @@ function applyFixtureMutations(source, mutations, label, failures) {
       continue;
     }
     if (mutation.op === "delete") {
-      delete parent[property];
+      if (Array.isArray(parent) && /^(?:0|[1-9][0-9]*)$/.test(property)) parent.splice(Number(property), 1);
+      else delete parent[property];
     } else if (mutation.op === "append") {
       if (!Array.isArray(parent[property])) failures.push(`${mutationLabel} append target must be an array.`);
       else parent[property].push(structuredClone(mutation.value));
@@ -387,8 +399,8 @@ function applyFixtureMutations(source, mutations, label, failures) {
  * @param {object} result Structurally valid result contract instance.
  * @param {string} label Fixture path used in failures.
  * @param {string[]} failures Accumulated validation failures.
- * @why Issue #17 adds a standalone result whose readable sources intentionally avoid the legacy evidence-ID graph.
- * @constraints Legacy evidence-link checks apply only to the three released envelope-based v1 contracts; focused contracts must not acquire those fields implicitly.
+ * @why Issue #17 adds a standalone result whose readable sources intentionally avoid the evidence-ID graph, while issue #15 adds a focused contract composed with that graph.
+ * @constraints Evidence-link checks apply only to contracts composed with the shared envelope; standalone focused contracts must not acquire those fields implicitly.
  */
 function validateResultSemantics(result, label, failures) {
   if (result.completion.status === "incomplete" && (typeof result.completion.stop_reason !== "string" || result.completion.stop_reason.trim() === "")) {
@@ -401,14 +413,19 @@ function validateResultSemantics(result, label, failures) {
     failures.push(`${label} complete completion must not include a blocking human escalation.`);
   }
 
-  if (!legacyEnvelopeContractIds.has(result.contract_id)) return;
+  if (!evidenceEnvelopeContractIds.has(result.contract_id)) return;
 
   const evidenceIds = collectUniqueIds(result.evidence, `${label} evidence`, failures);
   collectUniqueIds(result.findings, `${label} findings`, failures);
   validateEvidenceLinks(result.findings, "evidence_ids", evidenceIds, `${label} findings`, failures, true);
   validateEvidenceLinks(result.verification, "evidence_ids", evidenceIds, `${label} verification`, failures, false);
 
-  if (result.contract_id === "seo-opportunity-set/v1") {
+  if (result.contract_id === "ai-brand-representation-snapshot/v1") {
+    validateEvidenceLinks(result.channel_observations, "evidenceIds", evidenceIds, `${label} channel_observations`, failures, false);
+    validateEvidenceLinks(result.comparison.supportedAgreements, "evidenceIds", evidenceIds, `${label} comparison.supportedAgreements`, failures, true);
+    validateEvidenceLinks(result.comparison.supportedDifferences, "evidenceIds", evidenceIds, `${label} comparison.supportedDifferences`, failures, true);
+    validateBrandSnapshotSemantics(result, label, failures);
+  } else if (result.contract_id === "seo-opportunity-set/v1") {
     collectUniqueIds(result.opportunities, `${label} opportunities`, failures);
     validateEvidenceLinks(result.opportunities, "evidence_ids", evidenceIds, `${label} opportunities`, failures, true);
   } else if (result.contract_id === "seo-diagnostic/v1") {
@@ -418,6 +435,128 @@ function validateResultSemantics(result, label, failures) {
   } else if (result.contract_id === "seo-implementation-handoff/v1") {
     validateEvidenceLinks(result.requirements, "evidence_ids", evidenceIds, `${label} requirements`, failures, true);
   }
+}
+
+/**
+ * Enforce cross-collection snapshot invariants that JSON Schema cannot express.
+ *
+ * @param {object} result Structurally valid AI Brand Representation Snapshot instance.
+ * @param {string} label Fixture path used in failures.
+ * @param {string[]} failures Accumulated validation failures.
+ * @returns {void}
+ * @why Issue #15 requires exact channel coverage, deterministic disposition and completion, identical framing, and arithmetic cost reconciliation.
+ * @constraints The public validator reasons only from provider-neutral result fields and never embeds runtime mappings, prices, or billing policy.
+ */
+function validateBrandSnapshotSemantics(result, label, failures) {
+  const channels = ["chatgpt", "gemini", "perplexity"];
+  const observations = result.channel_observations;
+  const costs = result.cost_summary.channels;
+  validateExactChannelRows(observations, `${label} channel_observations`, channels, failures);
+  validateExactChannelRows(costs, `${label} cost_summary.channels`, channels, failures);
+
+  const baselineConditions = stableJson(observations[0].conditions);
+  for (const [index, observation] of observations.entries()) {
+    if (stableJson(observation.conditions) !== baselineConditions) {
+      failures.push(`${label} channel_observations[${index}] must use conditions identical to every other channel.`);
+    }
+  }
+
+  const attemptedOutcomes = new Set(["report", "not_recognized", "failed"]);
+  const validOutcomes = new Set(["report", "not_recognized"]);
+  const attemptedChannels = observations.filter((item) => attemptedOutcomes.has(item.outcome)).map((item) => item.channel);
+  const reportChannels = observations.filter((item) => item.outcome === "report").map((item) => item.channel);
+  const validCount = observations.filter((item) => validOutcomes.has(item.outcome)).length;
+  validateExactChannelList(result.comparison.channelsAttempted, attemptedChannels, `${label} comparison.channelsAttempted`, failures);
+  validateExactChannelList(result.comparison.usableReportChannels, reportChannels, `${label} comparison.usableReportChannels`, failures);
+
+  if (result.disposition === "reject") {
+    if (observations.some((item) => item.outcome !== "not_attempted")) {
+      failures.push(`${label} reject disposition requires every channel outcome to be not_attempted.`);
+    }
+  } else {
+    const expectedDisposition = reportChannels.length === 3 ? "proceed" : validCount >= 2 ? "conditional" : "defer";
+    if (result.disposition !== expectedDisposition) {
+      failures.push(`${label} disposition must be ${expectedDisposition} for the recorded channel outcomes.`);
+    }
+  }
+
+  const expectedCompletion = validCount === 3 ? "complete" : "incomplete";
+  if (result.completion.status !== expectedCompletion) {
+    failures.push(`${label} completion.status must be ${expectedCompletion} for the recorded channel outcomes.`);
+  }
+
+  const expectedComparison = reportChannels.length === 3 ? "complete" : validCount >= 2 ? "partial" : "unavailable";
+  if (result.comparison.completeness !== expectedComparison) {
+    failures.push(`${label} comparison.completeness must be ${expectedComparison} for the recorded channel outcomes.`);
+  }
+
+  const claims = [...result.comparison.supportedAgreements, ...result.comparison.supportedDifferences];
+  for (const claim of claims) {
+    if (claim.kind === "recognition_status" && validCount < 2) {
+      failures.push(`${label} recognition-status comparison requires at least two valid channel outcomes.`);
+    }
+    if (claim.kind !== "recognition_status" && reportChannels.length < 2) {
+      failures.push(`${label} report-content comparison kind ${claim.kind} requires at least two usable reports.`);
+    }
+  }
+
+  for (const [observationIndex, observation] of observations.entries()) {
+    if (observation.outcome !== "report") continue;
+    const panelIndexes = new Set();
+    for (const competitor of observation.report.controlledCompetitorObservations) {
+      if (panelIndexes.has(competitor.panelIndex)) {
+        failures.push(`${label} channel_observations[${observationIndex}] duplicates controlled competitor panelIndex ${competitor.panelIndex}.`);
+      }
+      panelIndexes.add(competitor.panelIndex);
+      if (competitor.panelIndex >= result.framing.suppliedCompetitorPanel.length) {
+        failures.push(`${label} channel_observations[${observationIndex}] references controlled competitor panelIndex ${competitor.panelIndex} outside the supplied panel.`);
+      }
+    }
+  }
+
+  const observationByChannel = new Map(observations.map((item) => [item.channel, item]));
+  for (const cost of costs) {
+    const outcome = observationByChannel.get(cost.channel)?.outcome;
+    if (cost.quotedAmount === null && !["unavailable", "not_attempted"].includes(outcome)) {
+      failures.push(`${label} cost_summary.channels quote for ${cost.channel} may be null only when no quote was reached.`);
+    }
+    if (["failed", "unavailable", "not_attempted"].includes(outcome) && cost.chargedAmount !== 0) {
+      failures.push(`${label} cost_summary.channels charge for ${cost.channel} must be zero for outcome ${outcome}.`);
+    }
+  }
+
+  const chargedTotal = costs.reduce((sum, item) => sum + item.chargedAmount, 0);
+  if (!amountsEqual(result.cost_summary.totalCharged, chargedTotal)) {
+    failures.push(`${label} cost_summary.totalCharged must equal the sum of channel chargedAmount values.`);
+  }
+  const completeQuote = costs.every((item) => item.quotedAmount !== null);
+  if (completeQuote) {
+    const quotedTotal = costs.reduce((sum, item) => sum + item.quotedAmount, 0);
+    if (!amountsEqual(result.cost_summary.totalQuoted, quotedTotal)) {
+      failures.push(`${label} cost_summary.totalQuoted must equal the sum of channel quotedAmount values.`);
+    }
+  } else if (result.cost_summary.totalQuoted !== null) {
+    failures.push(`${label} cost_summary.totalQuoted must be null when any channel quote was not reached.`);
+  }
+}
+
+function validateExactChannelRows(rows, label, expectedChannels, failures) {
+  const actual = rows.map((item) => item.channel);
+  validateExactChannelList(actual, expectedChannels, label, failures);
+}
+
+function validateExactChannelList(actual, expected, label, failures) {
+  const actualCounts = new Map(actual.map((channel) => [channel, actual.filter((item) => item === channel).length]));
+  for (const channel of expected) {
+    if (actualCounts.get(channel) !== 1) failures.push(`${label} must contain channel ${channel} exactly once.`);
+  }
+  for (const channel of actualCounts.keys()) {
+    if (!expected.includes(channel)) failures.push(`${label} contains unexpected channel ${channel}.`);
+  }
+}
+
+function amountsEqual(left, right) {
+  return typeof left === "number" && Math.abs(left - right) <= 1e-9;
 }
 
 function collectUniqueIds(items, label, failures) {

@@ -40,6 +40,10 @@ An installed skill or public recipe can be newer than the connected server. The 
 
 Expected list sizes can pressure an agent to invent opportunities or issues. Result contracts permit completed empty arrays, while incomplete execution requires a separate stop reason.
 
+### Misclassified Brand Representation
+
+A prompted brand-conditioned report can be mislabeled as unprompted buyer-prompt presence, stable model knowledge, a calibrated cross-channel score, or a historical trend. The snapshot contract preserves invocation conditions, separates supplied framing from generated material, forbids universal and averaged score fields, requires exact channel outcomes, and limits report-content comparison to at least two usable reports.
+
 ### Context-Dependent Handoffs
 
 Requirements that make sense only inside the analyst's conversation can cause unsafe or incorrect implementation. The handoff contract requires target, outcome, evidence, constraints, missing inputs, acceptance criteria, and verification in the artifact itself.

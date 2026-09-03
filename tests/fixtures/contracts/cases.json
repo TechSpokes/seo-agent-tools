@@ -2,6 +2,868 @@
   "schema_version": 1,
   "cases": [
     {
+      "id": "brand-snapshot-three-reports-valid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "valid"
+    },
+    {
+      "id": "brand-snapshot-two-reports-one-not-recognized-valid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "valid",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/channel_observations/2/outcome",
+          "value": "not_recognized"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/2/recognitionStatus",
+          "value": "not_recognized"
+        },
+        {
+          "op": "delete",
+          "path": "/channel_observations/2/report"
+        },
+        {
+          "op": "set",
+          "path": "/comparison/usableReportChannels",
+          "value": [
+            "chatgpt",
+            "gemini"
+          ]
+        },
+        {
+          "op": "set",
+          "path": "/comparison/completeness",
+          "value": "partial"
+        },
+        {
+          "op": "set",
+          "path": "/findings",
+          "value": []
+        },
+        {
+          "op": "set",
+          "path": "/disposition",
+          "value": "conditional"
+        }
+      ]
+    },
+    {
+      "id": "brand-snapshot-one-report-two-not-recognized-valid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "valid",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/channel_observations/1/outcome",
+          "value": "not_recognized"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/1/recognitionStatus",
+          "value": "not_recognized"
+        },
+        {
+          "op": "delete",
+          "path": "/channel_observations/1/report"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/2/outcome",
+          "value": "not_recognized"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/2/recognitionStatus",
+          "value": "not_recognized"
+        },
+        {
+          "op": "delete",
+          "path": "/channel_observations/2/report"
+        },
+        {
+          "op": "set",
+          "path": "/comparison/usableReportChannels",
+          "value": [
+            "chatgpt"
+          ]
+        },
+        {
+          "op": "set",
+          "path": "/comparison/completeness",
+          "value": "partial"
+        },
+        {
+          "op": "set",
+          "path": "/findings",
+          "value": []
+        },
+        {
+          "op": "set",
+          "path": "/disposition",
+          "value": "conditional"
+        }
+      ]
+    },
+    {
+      "id": "brand-snapshot-one-failed-channel-valid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "valid",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/channel_observations/2/outcome",
+          "value": "failed"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/2/recognitionStatus",
+          "value": "indeterminate"
+        },
+        {
+          "op": "delete",
+          "path": "/channel_observations/2/report"
+        },
+        {
+          "op": "set",
+          "path": "/comparison/usableReportChannels",
+          "value": [
+            "chatgpt",
+            "gemini"
+          ]
+        },
+        {
+          "op": "set",
+          "path": "/comparison/completeness",
+          "value": "partial"
+        },
+        {
+          "op": "set",
+          "path": "/findings",
+          "value": []
+        },
+        {
+          "op": "set",
+          "path": "/disposition",
+          "value": "conditional"
+        },
+        {
+          "op": "set",
+          "path": "/completion/status",
+          "value": "incomplete"
+        },
+        {
+          "op": "set",
+          "path": "/completion/stop_reason",
+          "value": "The planned Perplexity invocation failed after execution began and did not produce a valid domain outcome."
+        },
+        {
+          "op": "set",
+          "path": "/cost_summary/channels/2/chargedAmount",
+          "value": 0
+        },
+        {
+          "op": "set",
+          "path": "/cost_summary/totalCharged",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "id": "brand-snapshot-only-one-valid-outcome-valid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "valid",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/channel_observations/1/outcome",
+          "value": "failed"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/1/recognitionStatus",
+          "value": "indeterminate"
+        },
+        {
+          "op": "delete",
+          "path": "/channel_observations/1/report"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/2/outcome",
+          "value": "failed"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/2/recognitionStatus",
+          "value": "indeterminate"
+        },
+        {
+          "op": "delete",
+          "path": "/channel_observations/2/report"
+        },
+        {
+          "op": "set",
+          "path": "/comparison/usableReportChannels",
+          "value": [
+            "chatgpt"
+          ]
+        },
+        {
+          "op": "set",
+          "path": "/comparison/completeness",
+          "value": "unavailable"
+        },
+        {
+          "op": "set",
+          "path": "/findings",
+          "value": []
+        },
+        {
+          "op": "set",
+          "path": "/disposition",
+          "value": "defer"
+        },
+        {
+          "op": "set",
+          "path": "/completion/status",
+          "value": "incomplete"
+        },
+        {
+          "op": "set",
+          "path": "/completion/stop_reason",
+          "value": "Only one valid domain outcome remained after two planned channel invocations failed."
+        },
+        {
+          "op": "set",
+          "path": "/cost_summary/channels/1/chargedAmount",
+          "value": 0
+        },
+        {
+          "op": "set",
+          "path": "/cost_summary/channels/2/chargedAmount",
+          "value": 0
+        },
+        {
+          "op": "set",
+          "path": "/cost_summary/totalCharged",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "brand-snapshot-no-usable-reports-valid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "valid",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/channel_observations/0/outcome",
+          "value": "not_recognized"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/0/recognitionStatus",
+          "value": "not_recognized"
+        },
+        {
+          "op": "delete",
+          "path": "/channel_observations/0/report"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/0/limitations",
+          "value": [
+            "This valid negative outcome supplies no report categories or scores."
+          ]
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/1/outcome",
+          "value": "not_recognized"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/1/recognitionStatus",
+          "value": "not_recognized"
+        },
+        {
+          "op": "delete",
+          "path": "/channel_observations/1/report"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/2/outcome",
+          "value": "not_recognized"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/2/recognitionStatus",
+          "value": "not_recognized"
+        },
+        {
+          "op": "delete",
+          "path": "/channel_observations/2/report"
+        },
+        {
+          "op": "set",
+          "path": "/comparison/usableReportChannels",
+          "value": []
+        },
+        {
+          "op": "set",
+          "path": "/comparison/completeness",
+          "value": "partial"
+        },
+        {
+          "op": "set",
+          "path": "/findings",
+          "value": []
+        },
+        {
+          "op": "set",
+          "path": "/disposition",
+          "value": "conditional"
+        }
+      ]
+    },
+    {
+      "id": "brand-snapshot-preflight-unavailable-valid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "valid",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/evidence",
+          "value": []
+        },
+        {
+          "op": "set",
+          "path": "/findings",
+          "value": []
+        },
+        {
+          "op": "set",
+          "path": "/verification/0/status",
+          "value": "unavailable"
+        },
+        {
+          "op": "delete",
+          "path": "/verification/0/evidence_ids"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/0/outcome",
+          "value": "unavailable"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/0/recognitionStatus",
+          "value": "indeterminate"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/0/observedAt",
+          "value": null
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/0/evidenceIds",
+          "value": []
+        },
+        {
+          "op": "delete",
+          "path": "/channel_observations/0/report"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/0/limitations",
+          "value": [
+            "The required channel capability was unavailable before execution."
+          ]
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/1/outcome",
+          "value": "not_attempted"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/1/recognitionStatus",
+          "value": "indeterminate"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/1/observedAt",
+          "value": null
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/1/evidenceIds",
+          "value": []
+        },
+        {
+          "op": "delete",
+          "path": "/channel_observations/1/report"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/2/outcome",
+          "value": "not_attempted"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/2/recognitionStatus",
+          "value": "indeterminate"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/2/observedAt",
+          "value": null
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/2/evidenceIds",
+          "value": []
+        },
+        {
+          "op": "delete",
+          "path": "/channel_observations/2/report"
+        },
+        {
+          "op": "set",
+          "path": "/comparison/channelsAttempted",
+          "value": []
+        },
+        {
+          "op": "set",
+          "path": "/comparison/usableReportChannels",
+          "value": []
+        },
+        {
+          "op": "set",
+          "path": "/comparison/completeness",
+          "value": "unavailable"
+        },
+        {
+          "op": "set",
+          "path": "/disposition",
+          "value": "defer"
+        },
+        {
+          "op": "set",
+          "path": "/completion/status",
+          "value": "incomplete"
+        },
+        {
+          "op": "set",
+          "path": "/completion/stop_reason",
+          "value": "A required channel capability was unavailable at preflight, so no channel execution began."
+        },
+        {
+          "op": "set",
+          "path": "/cost_summary/totalQuoted",
+          "value": null
+        },
+        {
+          "op": "set",
+          "path": "/cost_summary/totalCharged",
+          "value": 0
+        },
+        {
+          "op": "set",
+          "path": "/cost_summary/channels/0/quotedAmount",
+          "value": null
+        },
+        {
+          "op": "set",
+          "path": "/cost_summary/channels/0/chargedAmount",
+          "value": 0
+        },
+        {
+          "op": "set",
+          "path": "/cost_summary/channels/1/quotedAmount",
+          "value": null
+        },
+        {
+          "op": "set",
+          "path": "/cost_summary/channels/1/chargedAmount",
+          "value": 0
+        },
+        {
+          "op": "set",
+          "path": "/cost_summary/channels/2/quotedAmount",
+          "value": null
+        },
+        {
+          "op": "set",
+          "path": "/cost_summary/channels/2/chargedAmount",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": "brand-snapshot-rejected-ambiguous-subject-valid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-rejected.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "valid"
+    },
+    {
+      "id": "brand-snapshot-controlled-competitors-separated-valid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "valid"
+    },
+    {
+      "id": "brand-snapshot-supplied-products-separated-valid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "valid"
+    },
+    {
+      "id": "brand-snapshot-zero-and-missing-scores-valid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "valid"
+    },
+    {
+      "id": "brand-snapshot-quality-note-valid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "valid",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/channel_observations/2/qualityNotes",
+          "value": [
+            "One generated phrase uses mixed languages and one source descriptor appears placeholder-like; the underlying evidence is preserved without translation or rewriting."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "brand-snapshot-zero-gap-comparison-valid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "valid"
+    },
+    {
+      "id": "brand-snapshot-supported-comparison-valid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "valid",
+      "mutations": [
+        {
+          "op": "append",
+          "path": "/comparison/supportedAgreements",
+          "value": {
+            "kind": "category",
+            "statement": "ChatGPT and Gemini generated the same awareness category.",
+            "evidenceIds": [
+              "evidence-chatgpt",
+              "evidence-gemini"
+            ]
+          }
+        },
+        {
+          "op": "append",
+          "path": "/comparison/supportedDifferences",
+          "value": {
+            "kind": "competitor",
+            "statement": "Only the ChatGPT report generated an additional competitor in this snapshot.",
+            "evidenceIds": [
+              "evidence-chatgpt",
+              "evidence-perplexity"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "brand-snapshot-one-report-content-comparison-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "invalid",
+      "expected_error": "report-content comparison kind category requires at least two usable reports",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/channel_observations/1/outcome",
+          "value": "not_recognized"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/1/recognitionStatus",
+          "value": "not_recognized"
+        },
+        {
+          "op": "delete",
+          "path": "/channel_observations/1/report"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/2/outcome",
+          "value": "not_recognized"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/2/recognitionStatus",
+          "value": "not_recognized"
+        },
+        {
+          "op": "delete",
+          "path": "/channel_observations/2/report"
+        },
+        {
+          "op": "set",
+          "path": "/comparison/usableReportChannels",
+          "value": [
+            "chatgpt"
+          ]
+        },
+        {
+          "op": "set",
+          "path": "/comparison/completeness",
+          "value": "partial"
+        },
+        {
+          "op": "set",
+          "path": "/findings",
+          "value": []
+        },
+        {
+          "op": "set",
+          "path": "/disposition",
+          "value": "conditional"
+        },
+        {
+          "op": "append",
+          "path": "/comparison/supportedAgreements",
+          "value": {
+            "kind": "category",
+            "statement": "A category comparison was attempted without two reports.",
+            "evidenceIds": [
+              "evidence-chatgpt",
+              "evidence-gemini"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "brand-snapshot-duplicate-channel-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "invalid",
+      "expected_error": "must contain channel gemini exactly once",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/channel_observations/2/channel",
+          "value": "gemini"
+        }
+      ]
+    },
+    {
+      "id": "brand-snapshot-missing-channel-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "invalid",
+      "expected_error": "must NOT have fewer than 3 items",
+      "mutations": [
+        {
+          "op": "delete",
+          "path": "/channel_observations/2"
+        }
+      ]
+    },
+    {
+      "id": "brand-snapshot-universal-score-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "invalid",
+      "expected_error": "/comparison must NOT have additional properties",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/comparison/universalVisibilityScore",
+          "value": 0.5
+        }
+      ]
+    },
+    {
+      "id": "brand-snapshot-averaged-score-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "invalid",
+      "expected_error": "/comparison must NOT have additional properties",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/comparison/averageNativeScore",
+          "value": 0.5
+        }
+      ]
+    },
+    {
+      "id": "brand-snapshot-unresolved-evidence-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "invalid",
+      "expected_error": "references unknown evidence id evidence-missing",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/channel_observations/0/evidenceIds/0",
+          "value": "evidence-missing"
+        }
+      ]
+    },
+    {
+      "id": "brand-snapshot-inconsistent-conditions-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "invalid",
+      "expected_error": "must use conditions identical to every other channel",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/channel_observations/2/conditions/location",
+          "value": "Canada"
+        }
+      ]
+    },
+    {
+      "id": "brand-snapshot-controlled-panel-reference-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "invalid",
+      "expected_error": "references controlled competitor panelIndex 3 outside the supplied panel",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/channel_observations/0/report/controlledCompetitorObservations/0/panelIndex",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "id": "brand-snapshot-charged-total-mismatch-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "invalid",
+      "expected_error": "totalCharged must equal the sum",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/cost_summary/totalCharged",
+          "value": 2.5
+        }
+      ]
+    },
+    {
+      "id": "brand-snapshot-quoted-total-mismatch-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "invalid",
+      "expected_error": "totalQuoted must equal the sum",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/cost_summary/totalQuoted",
+          "value": 2.5
+        }
+      ]
+    },
+    {
+      "id": "brand-snapshot-attempted-null-quote-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "invalid",
+      "expected_error": "may be null only when no quote was reached",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/cost_summary/channels/0/quotedAmount",
+          "value": null
+        },
+        {
+          "op": "set",
+          "path": "/cost_summary/totalQuoted",
+          "value": null
+        }
+      ]
+    },
+    {
+      "id": "brand-snapshot-disposition-mismatch-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "invalid",
+      "expected_error": "disposition must be proceed",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/disposition",
+          "value": "conditional"
+        }
+      ]
+    },
+    {
+      "id": "brand-snapshot-completion-mismatch-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "invalid",
+      "expected_error": "completion.status must be complete",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/completion/status",
+          "value": "incomplete"
+        },
+        {
+          "op": "set",
+          "path": "/completion/stop_reason",
+          "value": "Synthetic invalid completion state."
+        }
+      ]
+    },
+    {
       "id": "content-question-review-valid",
       "kind": "result",
       "path": "tests/fixtures/contracts/content-question-review-valid.json",

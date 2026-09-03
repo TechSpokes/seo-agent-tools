@@ -1,0 +1,151 @@
+{
+  "schema_version": 2,
+  "id": "ai-brand-representation-snapshot",
+  "version": "1.0.0",
+  "title": "AI Brand Representation Snapshot",
+  "summary": "Observe how ChatGPT, Gemini, and Perplexity represent one explicitly supplied brand under identical settled conditions, then return one evidence-linked current snapshot without cross-channel score normalization or buyer-prompt visibility claims.",
+  "primary_domain": "visibility",
+  "operations": [
+    "compare",
+    "diagnose",
+    "validate"
+  ],
+  "target": "brand",
+  "required_inputs": [
+    {
+      "id": "brand",
+      "description": "The brand name, bare public domain, or absolute HTTP/HTTPS public URL whose prompted brand representation should be observed."
+    }
+  ],
+  "evidence_plan": [
+    {
+      "capability": "brand-representation-chatgpt",
+      "source": "server",
+      "use": "required",
+      "steps": [
+        "observe-chatgpt",
+        "compare-representation",
+        "validate-snapshot"
+      ],
+      "scope": {
+        "unit": "channel",
+        "maximum": 1,
+        "guidance": "Collect no more than one ChatGPT observation under the settled framing."
+      },
+      "completion_without": {
+        "allowed": false,
+        "limitation": "The recipe is not execution-ready when this required channel is unavailable before execution."
+      },
+      "fallback": "Stop before channel execution when readiness is unavailable. If a planned invocation fails after execution begins, preserve the failed channel in a contract-valid incomplete snapshot and follow the current server result and failure guidance."
+    },
+    {
+      "capability": "brand-representation-gemini",
+      "source": "server",
+      "use": "required",
+      "steps": [
+        "observe-gemini",
+        "compare-representation",
+        "validate-snapshot"
+      ],
+      "scope": {
+        "unit": "channel",
+        "maximum": 1,
+        "guidance": "Collect no more than one Gemini observation under the settled framing."
+      },
+      "completion_without": {
+        "allowed": false,
+        "limitation": "The recipe is not execution-ready when this required channel is unavailable before execution."
+      },
+      "fallback": "Stop before channel execution when readiness is unavailable. If a planned invocation fails after execution begins, preserve the failed channel in a contract-valid incomplete snapshot and follow the current server result and failure guidance."
+    },
+    {
+      "capability": "brand-representation-perplexity",
+      "source": "server",
+      "use": "required",
+      "steps": [
+        "observe-perplexity",
+        "compare-representation",
+        "validate-snapshot"
+      ],
+      "scope": {
+        "unit": "channel",
+        "maximum": 1,
+        "guidance": "Collect no more than one Perplexity observation under the settled framing."
+      },
+      "completion_without": {
+        "allowed": false,
+        "limitation": "The recipe is not execution-ready when this required channel is unavailable before execution."
+      },
+      "fallback": "Stop before channel execution when readiness is unavailable. If a planned invocation fails after execution begins, preserve the failed channel in a contract-valid incomplete snapshot and follow the current server result and failure guidance."
+    }
+  ],
+  "steps": [
+    {
+      "id": "settle-brand-framing",
+      "instruction": "Before spending, settle one supplied subject, intended brand name and canonical website when known, location or market, controlled competitor panel, supplied products or services, and unresolved identity limitations. Apply the same settled framing to every channel. Never invent competitors or products; omit a panel or product list that does not meet the current runtime's confirmed input requirements. Reject the snapshot before paid work when the intended brand remains materially ambiguous."
+    },
+    {
+      "id": "budget-preflight",
+      "instruction": "Resolve this exact recipe through the connected server, inspect its current availability and result contract, obtain the current required, default, and maximum budget, and confirm authorization and headroom for all three required channel capabilities before any observation."
+    },
+    {
+      "id": "observe-chatgpt",
+      "instruction": "Obtain exactly one ChatGPT observation under the settled conditions. Preserve a valid report or not-recognized result without rerunning it for a preferred outcome, and preserve an actual post-start failure instead of reconstructing the observation through another channel."
+    },
+    {
+      "id": "observe-gemini",
+      "instruction": "Obtain exactly one Gemini observation under the settled conditions. Preserve a valid report or not-recognized result without rerunning it for a preferred outcome, and preserve an actual post-start failure instead of reconstructing the observation through another channel."
+    },
+    {
+      "id": "observe-perplexity",
+      "instruction": "Obtain exactly one Perplexity observation under the settled conditions. Preserve a valid report or not-recognized result without rerunning it for a preferred outcome, and preserve an actual post-start failure instead of reconstructing the observation through another channel."
+    },
+    {
+      "id": "compare-representation",
+      "instruction": "Compare recognition outcomes across valid channel observations. Compare report descriptions, categories, topics, associations, and competitors only when at least two structured reports are usable. Keep controlled-panel observations separate from generated competitors and supplied products or services separate from generated associations. Never average, normalize, or rank channel-native scores."
+    },
+    {
+      "id": "validate-snapshot",
+      "instruction": "Return and validate ai-brand-representation-snapshot/v1. Include one row for each channel, exact conditions, evidence links, limitations, actual provider-neutral cost structure, deterministic disposition and completion state, and no complete raw provider response. Use connected-server result validation when that capability exists."
+    }
+  ],
+  "evidence_requirements": [
+    "Every channel row records its outcome, invocation-scoped recognition status, observation time when attempted, exact conditions, evidence links, quality notes, and limitations.",
+    "A not-recognized result is valid normally billed evidence about that invocation, not a failed operation or proof of stable model knowledge.",
+    "Missing scores remain absent and numeric zero remains evidence; native scores do not share a calibrated cross-channel scale.",
+    "Generated source descriptors remain generated strings rather than verified citations.",
+    "Supplied competitor and product framing remains separate from generated competitor discoveries and associations.",
+    "The snapshot records actual quoted and charged amounts without embedding public static prices or private billing logic."
+  ],
+  "stop_conditions": [
+    "Stop before paid work and use reject when the supplied subject cannot be settled to an unambiguous intended brand.",
+    "Stop before execution when current authorization, headroom, exact result-contract support, or any required channel capability is unavailable.",
+    "Never invent competitors or products to satisfy a current runtime minimum.",
+    "Never repeat a valid report or not-recognized observation to smooth or improve the result.",
+    "Do not initiate a hidden or preference-seeking retry; a server-directed retry for an actual retryable execution failure remains governed by the connected server.",
+    "Never infer stable model knowledge from one report or not-recognized outcome.",
+    "Never average, normalize, or rank native scores across channels.",
+    "Never present generated source descriptors as verified citations.",
+    "Never make report-content comparison claims from fewer than two usable reports.",
+    "Return a contract-valid incomplete result when a planned invocation fails after execution begins."
+  ],
+  "completion_criteria": [
+    "The framing and identical invocation conditions are explicit for all three channels.",
+    "Exactly one row exists for ChatGPT, Gemini, and Perplexity, including unavailable, failed, or not-attempted rows when applicable.",
+    "Proceed is used only for three reports; conditional is used for at least two valid report or not-recognized outcomes when the snapshot is not a three-report comparison; defer is used for fewer than two valid outcomes; reject is used for invalid or unresolved framing before paid execution.",
+    "Completion is complete only when all three planned channels produced a valid report or not-recognized outcome.",
+    "Report-content comparison claims use at least two reports, while recognition-status comparison uses only valid report or not-recognized outcomes.",
+    "The cost summary reconciles channel quoted and charged amounts and preserves unknown quotes only when no quote was reached.",
+    "The result makes no universal visibility score, buyer-prompt presence, stable model knowledge, historical trend, or business-impact claim."
+  ],
+  "output_contracts": [
+    {
+      "id": "ai-brand-representation-snapshot/v1",
+      "role": "primary"
+    }
+  ],
+  "bounds": {
+    "max_results": 1,
+    "sample_guidance": "Return one current non-persistent snapshot containing no more than one observation from each of the three required channels."
+  }
+}

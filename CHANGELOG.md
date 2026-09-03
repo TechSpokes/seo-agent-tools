@@ -2,6 +2,21 @@
 
 ## [Unreleased]
 
+## [v0.5.0] - 2026-09-03
+
+### Added
+
+- `ai-brand-representation-snapshot@1.0.0`, a bounded agent-executed method for observing how ChatGPT, Gemini, and Perplexity represent one explicitly supplied brand under identical settled conditions.
+- The `ai-brand-representation-snapshot/v1` result contract with closed framing, channel observation, comparison, and provider-neutral cost structures composed with the shared evidence envelope.
+- Controlled `visibility`, `brand`, and `channel` vocabulary plus separate public capabilities for the three required answer channels.
+- Deterministic complete, negative, failed, unavailable, insufficient-evidence, and rejected result fixtures with semantic checks for exact channel coverage, evidence links, identical conditions, comparison support, completion, disposition, and cost reconciliation.
+- Fresh-context scenarios for snapshot selection, direct one-channel routing, pre-spend framing, current budget discovery, one observation per channel, valid negative handling, evidence separation, score limits, failure behavior, and buyer-prompt or trend boundaries.
+
+### Changed
+
+- Public runtime guidance now distinguishes direct one-channel brand analysis, the three-channel AI Brand Representation Snapshot, and future buyer-prompt presence or longitudinal methods.
+- Catalog, package, plugin, and current-version identities advance to `0.5.0` without changing previously released recipe or result-contract versions.
+
 ## [v0.4.1] - 2026-09-03
 
 ### Changed

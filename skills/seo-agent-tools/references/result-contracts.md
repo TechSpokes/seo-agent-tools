@@ -51,6 +51,34 @@ Before creating a human escalation, inspect the brief and draft, retrieve availa
 
 An incomplete question review requires a precise `stop_reason`. A complete review omits `stop_reason`. A blocking unresolved escalation prevents a complete review; nonblocking escalations may remain when they do not affect publication readiness. Do not add fields outside the exact contract.
 
+## AI Brand Representation Snapshot v1
+
+Use `ai-brand-representation-snapshot/v1` for one current brand-conditioned observation across ChatGPT, Gemini, and Perplexity under identical settled conditions. The contract composes the shared evidence envelope with `framing`, `channel_observations`, `comparison`, and `cost_summary`; it does not measure buyer-prompt presence, stable model knowledge, historical change, or business impact.
+
+`framing` preserves the supplied subject, settled brand name and canonical website when known, optional location, supplied competitor panel in caller order, supplied products or services in caller order, and identity limitations. A supplied competitor entry may contain a label, a public URL, or both. Do not invent a label from a hostname, and do not pad supplied competitor or product lists to satisfy current runtime input requirements.
+
+`channel_observations` contains exactly one row for each named channel. Every row records `channel`, `outcome`, `recognitionStatus`, `observedAt`, `evidenceIds`, exact `conditions`, `qualityNotes`, and `limitations`. A `report` row additionally contains generated description, awareness, sentiment, and credibility dimensions, topics, associations, source descriptors, controlled-panel observations, and generated competitors.
+
+Use channel outcomes consistently:
+
+- `report` means the invocation returned a structured report and uses `recognized` recognition status.
+- `not_recognized` means the invocation returned the exact valid no-report domain outcome and uses the same recognition status.
+- `failed` means an attempted invocation returned no valid domain outcome and uses `indeterminate` recognition status.
+- `unavailable` means the required capability was unavailable or unauthorized at preflight and uses `indeterminate` recognition status.
+- `not_attempted` means no call occurred because framing was rejected or execution stopped before that channel and uses `indeterminate` recognition status.
+
+`observedAt` is required for `report`, `not_recognized`, and `failed` outcomes and is null for `unavailable` or `not_attempted`. A report or not-recognized result is valid normally billed invocation evidence. A failed, unavailable, or not-attempted outcome is not a substitute for an observation and remains visible in an incomplete result.
+
+Every report dimension requires a generated category or explicit null when the category is unavailable. `nativeScore` is optional and numeric when supplied. Preserve zero as evidence and represent a missing score by omitting `nativeScore`, not by converting it to zero or adding a fabricated null.
+
+`comparison` records attempted channels, usable report channels, completeness, evidence-linked supported agreements and differences, excluded claims, and the fixed score-comparison policy. A report-content claim identifies its comparison kind and requires at least two usable reports. A recognition-status claim requires at least two valid report or not-recognized outcomes. Never add a universal score, cross-channel average, native-score normalization, or score-derived channel rank.
+
+`cost_summary` records the provider-neutral unit, total quoted amount when fully known, total charged amount, and exactly one cost row per channel. Channel rows contain quoted and charged amounts. All known totals must equal their channel sums; a null quote is valid only when no quote was reached, and an unsuccessful, unavailable, or not-attempted channel records zero actual charge.
+
+Use disposition and completion deterministically. `proceed` requires three report outcomes. `conditional` requires at least two valid report or not-recognized outcomes when the result is not a three-report comparison. `defer` means fewer than two valid outcomes remain. `reject` is reserved for invalid or unresolved framing before paid execution and requires all channels to remain not attempted. Completion is `complete` only when all three planned channels produced a valid report or not-recognized outcome; every other state is `incomplete` with a precise stop reason.
+
+Do not copy complete raw channel responses into the result. Preserve concise evidence records and references, observation conditions, generated material required by the contract, quality notes, limitations, and verification status.
+
 ## SEO Opportunity Set v1
 
 Use `seo-opportunity-set/v1` for ranked keyword, competitor, content-gap, or link-prospect opportunities. Include:

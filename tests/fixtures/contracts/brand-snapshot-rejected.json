@@ -1,0 +1,132 @@
+{
+  "analysis_id": "analysis-brand-snapshot-rejected",
+  "contract_id": "ai-brand-representation-snapshot/v1",
+  "recipe": {
+    "id": "ai-brand-representation-snapshot",
+    "version": "1.0.0"
+  },
+  "subject": {
+    "supplied_value": "example.test"
+  },
+  "observed_at": "2026-09-03T12:00:00Z",
+  "evidence": [],
+  "findings": [],
+  "disposition": "reject",
+  "confidence": {
+    "level": "low",
+    "reasons": [
+      "The website was identified, but the intended customer-facing brand remained unresolved."
+    ]
+  },
+  "constraints": [
+    "No paid channel observation was attempted."
+  ],
+  "completion": {
+    "status": "incomplete",
+    "stop_reason": "Brand framing was rejected before spending because the intended customer-facing brand remained materially ambiguous."
+  },
+  "verification": [
+    {
+      "check": "Brand identity framing",
+      "status": "unavailable",
+      "note": "Resume only after the intended customer-facing brand is confirmed."
+    }
+  ],
+  "framing": {
+    "suppliedSubject": "example.test",
+    "settledBrandName": null,
+    "canonicalWebsite": "https://example.test",
+    "location": null,
+    "suppliedCompetitorPanel": [],
+    "suppliedProductsOrServices": [],
+    "limitations": [
+      "A website alone did not prove which customer-facing brand the caller intended."
+    ]
+  },
+  "channel_observations": [
+    {
+      "channel": "chatgpt",
+      "outcome": "not_attempted",
+      "recognitionStatus": "indeterminate",
+      "observedAt": null,
+      "evidenceIds": [],
+      "conditions": {
+        "brand": "example.test",
+        "location": null,
+        "competitors": [],
+        "productsOrServices": []
+      },
+      "qualityNotes": [],
+      "limitations": [
+        "The call was not attempted because framing was rejected."
+      ]
+    },
+    {
+      "channel": "gemini",
+      "outcome": "not_attempted",
+      "recognitionStatus": "indeterminate",
+      "observedAt": null,
+      "evidenceIds": [],
+      "conditions": {
+        "brand": "example.test",
+        "location": null,
+        "competitors": [],
+        "productsOrServices": []
+      },
+      "qualityNotes": [],
+      "limitations": [
+        "The call was not attempted because framing was rejected."
+      ]
+    },
+    {
+      "channel": "perplexity",
+      "outcome": "not_attempted",
+      "recognitionStatus": "indeterminate",
+      "observedAt": null,
+      "evidenceIds": [],
+      "conditions": {
+        "brand": "example.test",
+        "location": null,
+        "competitors": [],
+        "productsOrServices": []
+      },
+      "qualityNotes": [],
+      "limitations": [
+        "The call was not attempted because framing was rejected."
+      ]
+    }
+  ],
+  "comparison": {
+    "channelsAttempted": [],
+    "usableReportChannels": [],
+    "completeness": "unavailable",
+    "supportedAgreements": [],
+    "supportedDifferences": [],
+    "excludedComparisonClaims": [
+      "No representation comparison was possible before the subject was settled."
+    ],
+    "scoreComparisonPolicy": "Native scores are channel-specific and must not be averaged, normalized, or used to rank channels."
+  },
+  "cost_summary": {
+    "unit": "test-unit",
+    "totalQuoted": null,
+    "totalCharged": 0,
+    "channels": [
+      {
+        "channel": "chatgpt",
+        "quotedAmount": null,
+        "chargedAmount": 0
+      },
+      {
+        "channel": "gemini",
+        "quotedAmount": null,
+        "chargedAmount": 0
+      },
+      {
+        "channel": "perplexity",
+        "quotedAmount": null,
+        "chargedAmount": 0
+      }
+    ]
+  }
+}
