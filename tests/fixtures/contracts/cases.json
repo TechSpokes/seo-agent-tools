@@ -717,6 +717,122 @@
       ]
     },
     {
+      "id": "brand-snapshot-recognition-comparison-valid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "valid",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/channel_observations/1/outcome",
+          "value": "not_recognized"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/1/recognitionStatus",
+          "value": "not_recognized"
+        },
+        {
+          "op": "delete",
+          "path": "/channel_observations/1/report"
+        },
+        {
+          "op": "set",
+          "path": "/comparison/usableReportChannels",
+          "value": [
+            "chatgpt",
+            "perplexity"
+          ]
+        },
+        {
+          "op": "set",
+          "path": "/comparison/completeness",
+          "value": "partial"
+        },
+        {
+          "op": "set",
+          "path": "/findings",
+          "value": []
+        },
+        {
+          "op": "set",
+          "path": "/disposition",
+          "value": "conditional"
+        },
+        {
+          "op": "append",
+          "path": "/comparison/supportedDifferences",
+          "value": {
+            "kind": "recognition_status",
+            "statement": "ChatGPT returned a report while Gemini returned not recognized for this invocation.",
+            "evidenceIds": [
+              "evidence-chatgpt",
+              "evidence-gemini"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "brand-snapshot-recognition-comparison-evidence-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "invalid",
+      "expected_error": "must link evidence from at least two valid-outcome channel rows",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/channel_observations/1/outcome",
+          "value": "not_recognized"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/1/recognitionStatus",
+          "value": "not_recognized"
+        },
+        {
+          "op": "delete",
+          "path": "/channel_observations/1/report"
+        },
+        {
+          "op": "set",
+          "path": "/comparison/usableReportChannels",
+          "value": [
+            "chatgpt",
+            "perplexity"
+          ]
+        },
+        {
+          "op": "set",
+          "path": "/comparison/completeness",
+          "value": "partial"
+        },
+        {
+          "op": "set",
+          "path": "/findings",
+          "value": []
+        },
+        {
+          "op": "set",
+          "path": "/disposition",
+          "value": "conditional"
+        },
+        {
+          "op": "append",
+          "path": "/comparison/supportedDifferences",
+          "value": {
+            "kind": "recognition_status",
+            "statement": "A recognition comparison cites only the ChatGPT outcome.",
+            "evidenceIds": [
+              "evidence-chatgpt"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "brand-snapshot-single-channel-comparison-evidence-invalid",
       "kind": "result",
       "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
@@ -1019,6 +1135,86 @@
           "op": "set",
           "path": "/cost_summary/totalQuoted",
           "value": null
+        }
+      ]
+    },
+    {
+      "id": "brand-snapshot-attempted-null-observed-at-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "invalid",
+      "expected_error": "must be string",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/channel_observations/0/observedAt",
+          "value": null
+        }
+      ]
+    },
+    {
+      "id": "brand-snapshot-not-attempted-observed-at-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-rejected.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "invalid",
+      "expected_error": "must be null",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/channel_observations/0/observedAt",
+          "value": "2026-09-03T12:01:00Z"
+        }
+      ]
+    },
+    {
+      "id": "brand-snapshot-not-attempted-charge-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-rejected.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "invalid",
+      "expected_error": "must be zero for outcome not_attempted",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/cost_summary/channels/0/chargedAmount",
+          "value": 0.5
+        },
+        {
+          "op": "set",
+          "path": "/cost_summary/totalCharged",
+          "value": 0.5
+        }
+      ]
+    },
+    {
+      "id": "brand-snapshot-unavailable-charge-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-rejected.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "invalid",
+      "expected_error": "must be zero for outcome unavailable",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/channel_observations/0/outcome",
+          "value": "unavailable"
+        },
+        {
+          "op": "set",
+          "path": "/disposition",
+          "value": "defer"
+        },
+        {
+          "op": "set",
+          "path": "/cost_summary/channels/0/chargedAmount",
+          "value": 0.5
+        },
+        {
+          "op": "set",
+          "path": "/cost_summary/totalCharged",
+          "value": 0.5
         }
       ]
     },
