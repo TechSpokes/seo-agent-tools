@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "catalog_version": "0.3.1",
+  "catalog_version": "0.4.0",
   "catalog_schema": "catalog/schemas/catalog.schema.json",
   "recipe_schema": "catalog/schemas/recipe.schema.json",
   "supported_recipe_schema_versions": [
@@ -67,6 +67,7 @@
     "serp-results"
   ],
   "result_contracts": {
+    "content-question-review/v1": "catalog/schemas/content-question-review.v1.schema.json",
     "seo-diagnostic/v1": "catalog/schemas/seo-diagnostic.v1.schema.json",
     "seo-implementation-handoff/v1": "catalog/schemas/seo-implementation-handoff.v1.schema.json",
     "seo-opportunity-set/v1": "catalog/schemas/seo-opportunity-set.v1.schema.json"

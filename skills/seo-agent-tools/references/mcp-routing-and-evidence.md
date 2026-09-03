@@ -54,7 +54,7 @@ When immediate post-publication verification needs evidence newer than a cache h
 
 ## Evidence Record
 
-For each material observation, preserve:
+For legacy envelope-based contracts, preserve:
 
 - A stable evidence identifier within the analysis.
 - The source capability or user-supplied source.
@@ -65,6 +65,8 @@ For each material observation, preserve:
 - Limitations that affect interpretation.
 
 Label derived statements as interpretations. Connect every material finding to evidence identifiers, and lower confidence when the evidence is sampled, estimated, stale, conflicting, or missing.
+
+For a focused contract that defines readable sources inside each assessment, follow that composition instead of manufacturing legacy evidence or finding IDs. Give each source a human-readable title, one or more usable locators, the relevant excerpt or typed text or JSON content, and freshness or availability boundaries when they matter. Use a source ID only when the origin already supplies a stable identifier. Keep independent sources in separate records.
 
 ## Untrusted Material
 

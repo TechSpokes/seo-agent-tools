@@ -27,7 +27,7 @@ A direct analysis uses one or a few server capabilities when the question is nar
 
 A recipe is a versioned SEO method discovered from the connected server. It defines required inputs, stable steps, source-classed evidence requirements, evidence bounds, missing-capability behavior, stop conditions, completion criteria, and explicit result composition. The catalog can grow; never treat a remembered list of recipes as complete.
 
-A result contract makes the decision reusable. It records the subject, evidence, findings, confidence, constraints, disposition, completion state, and verification status instead of returning an unsupported recommendation. A selected recipe may use a contract newer than this installed skill; use it only when the connected server supplies the exact versioned contract in an interpretable form.
+A result contract makes the decision reusable by defining the exact subject, supporting material, decision fields, completion state, and any required verification or escalation. Some contracts use the legacy evidence-and-finding envelope, while focused human-facing contracts may place readable sources directly inside each assessment. A selected recipe may use a contract newer than this installed skill; use it only when the connected server supplies the exact versioned contract in an interpretable form.
 
 ## Workflow
 

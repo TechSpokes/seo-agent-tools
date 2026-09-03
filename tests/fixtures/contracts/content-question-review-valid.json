@@ -1,0 +1,200 @@
+{
+  "contract_id": "content-question-review/v1",
+  "subject": {
+    "document": "canonical-draft.md"
+  },
+  "reviewed_at": "2026-09-03T08:00:00Z",
+  "questions": [
+    {
+      "question": "What problem does the guide help the reader solve?",
+      "status": "answered",
+      "reason": "The opening section identifies the decision and the obstacle the reader needs to resolve.",
+      "sources": [
+        {
+          "kind": "conversation",
+          "title": "Approved brief discussion",
+          "references": [
+            {
+              "type": "message",
+              "value": "brief-message-14",
+              "label": "Approved question"
+            }
+          ],
+          "content": [
+            {
+              "type": "text",
+              "text": "What problem does the guide help the reader solve?"
+            }
+          ]
+        },
+        {
+          "kind": "file",
+          "title": "Canonical draft",
+          "references": [
+            {
+              "type": "path",
+              "value": "canonical-draft.md",
+              "available": true
+            }
+          ],
+          "location": "Opening section",
+          "excerpt": "The guide explains how a small team can choose a review process when ownership is unclear."
+        }
+      ]
+    },
+    {
+      "question": "Which option fits a small team?",
+      "status": "partially_answered",
+      "reason": "The draft names two options but does not relate either option to a small team's constraints.",
+      "sources": [
+        {
+          "kind": "file",
+          "title": "Approved content brief",
+          "references": [
+            {
+              "type": "section-anchor",
+              "value": "brief#approved-questions",
+              "label": "Approved questions",
+              "available": true
+            }
+          ],
+          "excerpt": "Which option fits a small team?"
+        },
+        {
+          "kind": "file",
+          "title": "Canonical draft",
+          "references": [
+            {
+              "type": "path",
+              "value": "canonical-draft.md"
+            }
+          ],
+          "location": "Options section",
+          "excerpt": "The draft describes a scheduled review and an event-triggered review without connecting either choice to team size."
+        }
+      ],
+      "recommendation": "Add one sentence explaining which option has the lower coordination burden for a small team."
+    },
+    {
+      "question": "What evidence supports the recommended approach?",
+      "status": "not_answered",
+      "reason": "The draft makes a recommendation but provides no supporting source or attributed experience.",
+      "sources": [
+        {
+          "kind": "file",
+          "title": "Approved content brief",
+          "references": [
+            {
+              "type": "path",
+              "value": "approved-brief.md"
+            }
+          ],
+          "excerpt": "What evidence supports the recommended approach?"
+        },
+        {
+          "kind": "tool",
+          "title": "Draft section inventory",
+          "references": [
+            {
+              "type": "trace",
+              "value": "analysis-trace-7",
+              "available": false
+            }
+          ],
+          "location": "Recommendation section",
+          "content": [
+            {
+              "type": "json",
+              "data": {
+                "citations": [],
+                "attributed_examples": []
+              }
+            }
+          ],
+          "notes": [
+            "The trace records the bounded draft inspection, not an external source of truth."
+          ]
+        }
+      ],
+      "recommendation": "Add one directly relevant source or remove the unsupported recommendation."
+    }
+  ],
+  "supplemental_questions": [
+    {
+      "question": "How often should the guide be reviewed?",
+      "status": "unable_to_determine",
+      "reason": "Public guidance supports periodic review, but the appropriate cadence depends on the owner's change frequency.",
+      "sources": [
+        {
+          "kind": "web",
+          "title": "Public maintenance guidance",
+          "references": [
+            {
+              "type": "url",
+              "value": "https://example.test/guidance",
+              "label": "Open guidance",
+              "available": true
+            }
+          ],
+          "excerpt": "Review material when its governing facts or operating conditions change.",
+          "observed_at": "2026-09-03T07:45:00Z",
+          "notes": [
+            "The guidance does not know the owner's internal change schedule."
+          ]
+        }
+      ]
+    }
+  ],
+  "human_escalations": [
+    {
+      "kind": "input",
+      "title": "Confirm the expected review cadence",
+      "context": "The supplemental maintenance question depends on the owner's internal change frequency.",
+      "reason": "That operating detail is private knowledge and is not retrievable from the approved brief or public guidance.",
+      "request": "State the expected change cadence or confirm that an event-triggered review is sufficient.",
+      "sources": [],
+      "blocking": false
+    },
+    {
+      "kind": "decision",
+      "title": "Choose whether to include a fixed review interval",
+      "context": "Both a fixed interval and an event-triggered review are viable editorial policies.",
+      "reason": "The choice depends on ownership capacity rather than search evidence.",
+      "request": "Choose the maintenance policy that the named owner can sustain.",
+      "sources": [
+        {
+          "kind": "web",
+          "title": "Public maintenance guidance",
+          "references": [
+            {
+              "type": "url",
+              "value": "https://example.test/guidance"
+            }
+          ],
+          "excerpt": "Review material when its governing facts or operating conditions change."
+        }
+      ],
+      "options": [
+        {
+          "label": "Use a fixed interval",
+          "consequences": [
+            "Creates a predictable review date.",
+            "May schedule work when no material facts changed."
+          ]
+        },
+        {
+          "label": "Use an event trigger",
+          "consequences": [
+            "Ties review to a material change.",
+            "Requires a named owner to notice the trigger."
+          ]
+        }
+      ],
+      "recommendation": "Use an event trigger when ownership is explicit and reliable.",
+      "blocking": false
+    }
+  ],
+  "completion": {
+    "status": "complete"
+  }
+}

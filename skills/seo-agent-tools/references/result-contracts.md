@@ -1,10 +1,10 @@
 # Result Contracts
 
-The three families below are the initial locally documented contracts, not a permanent list of every result a growing server catalog may support.
+The contracts below are the locally documented result shapes, not a permanent list of every result a growing server catalog may support. Follow each exact versioned schema; do not assume every contract uses the same envelope.
 
-## Shared Evidence Envelope
+## Legacy Shared Evidence Envelope
 
-Every structured result should contain enough context to be interpreted outside the current conversation:
+The opportunity, diagnostic, and implementation-handoff v1 contracts use the shared evidence envelope. Each contains enough context to be interpreted outside the current conversation:
 
 - `analysis_id`: A stable identifier for this analysis.
 - `contract_id`: The result contract and version.
@@ -32,6 +32,20 @@ A full recipe identifies exactly one `primary` result contract. Return that cont
 An additional result contract has a `conditional` role and a deterministic condition. Emit it only when that condition is satisfied. For the seed page-refresh method, the implementation handoff is emitted only when the diagnostic is complete and its disposition is `proceed` or `conditional`; do not emit it for `reject`, incomplete execution, or an unresolved `defer`.
 
 Output composition does not change contract compatibility requirements. Interpret the exact versioned schema for every result that may be emitted before collecting evidence that exists solely for that result.
+
+## Content Question Review v1
+
+Use `content-question-review/v1` when an approved content brief supplies buyer or people-also-ask questions that must be assessed against one canonical draft. This focused contract is standalone and does not use the legacy analysis, evidence, finding, disposition, confidence, or verification fields.
+
+The root contains only `contract_id`, a non-empty `subject` object, `reviewed_at`, `questions`, `supplemental_questions`, `human_escalations`, and `completion`. Preserve every supplied question exactly and in its original order. For each item, return `question`, `status`, `reason`, non-empty `sources`, and an optional `recommendation`. Use `answered`, `partially_answered`, `not_answered`, or `unable_to_determine` as the status. Add one scoped recommendation for a partial or missing answer. Do not use `ambiguous` or `contradictory` as coverage statuses; those conditions may explain why coverage is unable to be determined.
+
+Every supplied assessment has readable sources containing both the governing question or brief constraint and the relevant draft passage or bounded absence evidence. Keep independently discovered questions in `supplemental_questions`, using the same question-review fields. Current search results, keyword or people-also-ask research, and generated query-coverage analysis can challenge a proposed brief before approval or add supplemental questions afterward, but they cannot replace, reorder, or satisfy approved questions.
+
+A readable source has an open `kind`, a human-readable `title`, at least one locator in `references`, and at least an `excerpt` or non-empty `content` array. Common source kinds are `web`, `tool`, `file`, and `conversation`. Common reference types are `url`, `resource`, `trace`, `file`, `attachment`, `commit`, `thread`, `message`, and `path`; both vocabularies remain open. A reference has `type`, `value`, and optional `label` and `available`. Use only `{ "type": "text", "text": "..." }` or `{ "type": "json", "data": ... }` content parts. Add `id` only when the source system already provides a stable identifier, not to construct a local response graph. Use one source object per primary source and record location, observation time, availability, and caveats when they matter.
+
+Before creating a human escalation, inspect the brief and draft, retrieve available evidence, resolve ordinary source conflicts by authority, provenance, scope, and freshness, and apply any existing rule that determines the outcome. Escalate a material issue only when it still requires human intent, approval, authority, private knowledge, ownership, or a genuine business or editorial tradeoff. The escalation kind remains open; common values include `decision`, `input`, `approval`, `action`, and `review`. The escalation must include its kind, title, context, reason, exact request, relevant sources, blocking state, viable options and consequences when applicable, and a supported recommendation when one exists. Final angle, sourcing, quotations, and editorial approval remain human or client responsibilities.
+
+An incomplete question review requires a precise `stop_reason`. A complete review omits `stop_reason`. A blocking unresolved escalation prevents a complete review; nonblocking escalations may remain when they do not affect publication readiness. Do not add fields outside the exact contract.
 
 ## SEO Opportunity Set v1
 
@@ -74,7 +88,7 @@ When the handoff closes a client-executed content-production workflow, identify 
 
 ## Verification Report
 
-A verification report audits an existing result or handoff; it is not a fourth generic result contract. Identify the source contract, implementation or state inspected, checks performed, evidence observed, and an overall status of `pass`, `partial`, or `fail`.
+A verification report audits an existing result or handoff; it is not an additional generic result contract. Identify the source contract, implementation or state inspected, checks performed, evidence observed, and an overall status of `pass`, `partial`, or `fail`.
 
 Keep delayed outcome checks separate from immediate implementation checks. State when ranking, crawl, indexing, conversion, or revenue verification requires a later observation window or an authorized first-party source.
 

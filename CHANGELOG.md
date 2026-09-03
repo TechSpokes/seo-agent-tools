@@ -2,6 +2,20 @@
 
 ## [Unreleased]
 
+## [v0.4.0] - 2026-09-03
+
+### Added
+
+- The standalone `content-question-review/v1` result contract for ordered approved-question assessments, separate supplemental questions, structured human escalations, and explicit completion state without a legacy evidence-ID graph.
+- Additive reusable `source` and `humanEscalation` definitions supporting readable web, tool, file, and conversation material without changing released envelope requirements.
+- Deterministic positive and negative fixtures covering source variants, typed content payloads, review statuses, revision recommendations, escalation behavior, and incomplete-result stops.
+
+### Changed
+
+- `content-production-workflow@1.1.0` conditionally emits the question review when approved buyer or people-also-ask questions are present, reviews their exact wording and order before publication approval, and keeps generated coverage supplemental.
+- Public guidance now requires bounded autonomous resolution before a self-contained human escalation and preserves final angle, sourcing, quotations, and editorial approval as human or client responsibilities.
+- Catalog `0.4.0` registers the new contract while retaining the legacy diagnostic, opportunity, and implementation-handoff schemas and evidence-ID semantics unchanged.
+
 ## [v0.3.2] - 2026-09-03
 
 ### Changed

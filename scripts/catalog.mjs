@@ -47,6 +47,11 @@ const catalogRoot = path.join(root, "catalog");
 const recipeRoot = path.join(catalogRoot, "recipes");
 const schemaRoot = path.join(catalogRoot, "schemas");
 const contractFixtureRoot = path.join(root, "tests", "fixtures", "contracts");
+const legacyEnvelopeContractIds = new Set([
+  "seo-diagnostic/v1",
+  "seo-implementation-handoff/v1",
+  "seo-opportunity-set/v1"
+]);
 
 if (path.resolve(process.argv[1] ?? "") === scriptPath) {
   const command = process.argv[2] ?? "validate";
@@ -382,19 +387,26 @@ function applyFixtureMutations(source, mutations, label, failures) {
  * @param {object} result Structurally valid result contract instance.
  * @param {string} label Fixture path used in failures.
  * @param {string[]} failures Accumulated validation failures.
+ * @why Issue #17 adds a standalone result whose readable sources intentionally avoid the legacy evidence-ID graph.
+ * @constraints Legacy evidence-link checks apply only to the three released envelope-based v1 contracts; focused contracts must not acquire those fields implicitly.
  */
 function validateResultSemantics(result, label, failures) {
-  const evidenceIds = collectUniqueIds(result.evidence, `${label} evidence`, failures);
-  collectUniqueIds(result.findings, `${label} findings`, failures);
-  validateEvidenceLinks(result.findings, "evidence_ids", evidenceIds, `${label} findings`, failures, true);
-  validateEvidenceLinks(result.verification, "evidence_ids", evidenceIds, `${label} verification`, failures, false);
-
   if (result.completion.status === "incomplete" && (typeof result.completion.stop_reason !== "string" || result.completion.stop_reason.trim() === "")) {
     failures.push(`${label} incomplete completion must provide a precise stop_reason.`);
   }
   if (result.completion.status === "complete" && "stop_reason" in result.completion) {
     failures.push(`${label} complete completion must not provide stop_reason.`);
   }
+  if (result.contract_id === "content-question-review/v1" && result.completion.status === "complete" && result.human_escalations.some((escalation) => escalation.blocking)) {
+    failures.push(`${label} complete completion must not include a blocking human escalation.`);
+  }
+
+  if (!legacyEnvelopeContractIds.has(result.contract_id)) return;
+
+  const evidenceIds = collectUniqueIds(result.evidence, `${label} evidence`, failures);
+  collectUniqueIds(result.findings, `${label} findings`, failures);
+  validateEvidenceLinks(result.findings, "evidence_ids", evidenceIds, `${label} findings`, failures, true);
+  validateEvidenceLinks(result.verification, "evidence_ids", evidenceIds, `${label} verification`, failures, false);
 
   if (result.contract_id === "seo-opportunity-set/v1") {
     collectUniqueIds(result.opportunities, `${label} opportunities`, failures);
