@@ -1,0 +1,694 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/TechSpokes/seo-agent-tools/catalog/schemas/ai-brand-representation-snapshot.v1.schema.json",
+  "title": "AI Brand Representation Snapshot v1",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "shared-evidence.schema.json"
+    },
+    {
+      "type": "object",
+      "required": [
+        "framing",
+        "channel_observations",
+        "comparison",
+        "cost_summary"
+      ],
+      "properties": {
+        "contract_id": {
+          "const": "ai-brand-representation-snapshot/v1"
+        },
+        "framing": {
+          "$ref": "#/$defs/framing"
+        },
+        "channel_observations": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "$ref": "#/$defs/channelObservation"
+          }
+        },
+        "comparison": {
+          "$ref": "#/$defs/comparison"
+        },
+        "cost_summary": {
+          "$ref": "#/$defs/costSummary"
+        }
+      }
+    }
+  ],
+  "unevaluatedProperties": false,
+  "$defs": {
+    "channel": {
+      "enum": [
+        "chatgpt",
+        "gemini",
+        "perplexity"
+      ]
+    },
+    "competitorInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https?://"
+        }
+      },
+      "anyOf": [
+        {
+          "properties": {
+            "label": true
+          },
+          "required": [
+            "label"
+          ]
+        },
+        {
+          "properties": {
+            "url": true
+          },
+          "required": [
+            "url"
+          ]
+        }
+      ]
+    },
+    "framing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "suppliedSubject",
+        "settledBrandName",
+        "canonicalWebsite",
+        "location",
+        "suppliedCompetitorPanel",
+        "suppliedProductsOrServices",
+        "limitations"
+      ],
+      "properties": {
+        "suppliedSubject": {
+          "type": "string",
+          "minLength": 1
+        },
+        "settledBrandName": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "canonicalWebsite": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^https?://"
+        },
+        "location": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "suppliedCompetitorPanel": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/competitorInput"
+          }
+        },
+        "suppliedProductsOrServices": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "limitations": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "invocationConditions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "brand",
+        "location",
+        "competitors",
+        "productsOrServices"
+      ],
+      "properties": {
+        "brand": {
+          "type": "string",
+          "minLength": 1
+        },
+        "location": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "competitors": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "productsOrServices": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "dimension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "category"
+      ],
+      "properties": {
+        "category": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "information": {
+          "type": "string",
+          "minLength": 1
+        },
+        "nativeScore": {
+          "type": "number"
+        }
+      }
+    },
+    "controlledCompetitorObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "panelIndex",
+        "observedName",
+        "observedUrl",
+        "awareness",
+        "sentiment",
+        "credibility",
+        "limitations"
+      ],
+      "properties": {
+        "panelIndex": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "observedName": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "observedUrl": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^https?://"
+        },
+        "awareness": {
+          "$ref": "#/$defs/dimension"
+        },
+        "sentiment": {
+          "$ref": "#/$defs/dimension"
+        },
+        "credibility": {
+          "$ref": "#/$defs/dimension"
+        },
+        "limitations": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "generatedCompetitor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "url",
+        "awareness",
+        "sentiment",
+        "credibility",
+        "limitations"
+      ],
+      "properties": {
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "url": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^https?://"
+        },
+        "awareness": {
+          "$ref": "#/$defs/dimension"
+        },
+        "sentiment": {
+          "$ref": "#/$defs/dimension"
+        },
+        "credibility": {
+          "$ref": "#/$defs/dimension"
+        },
+        "limitations": {
+          "$ref": "#/$defs/stringArray"
+        }
+      },
+      "anyOf": [
+        {
+          "properties": {
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ]
+        },
+        {
+          "properties": {
+            "url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "url"
+          ]
+        }
+      ]
+    },
+    "report": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "brandDescription",
+        "awareness",
+        "sentiment",
+        "credibility",
+        "generatedTopics",
+        "generatedAssociations",
+        "sourceDescriptors",
+        "controlledCompetitorObservations",
+        "generatedCompetitors"
+      ],
+      "properties": {
+        "brandDescription": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "awareness": {
+          "$ref": "#/$defs/dimension"
+        },
+        "sentiment": {
+          "$ref": "#/$defs/dimension"
+        },
+        "credibility": {
+          "$ref": "#/$defs/dimension"
+        },
+        "generatedTopics": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "generatedAssociations": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "sourceDescriptors": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "controlledCompetitorObservations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/controlledCompetitorObservation"
+          }
+        },
+        "generatedCompetitors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/generatedCompetitor"
+          }
+        }
+      }
+    },
+    "channelObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "channel",
+        "outcome",
+        "recognitionStatus",
+        "observedAt",
+        "evidenceIds",
+        "conditions",
+        "qualityNotes",
+        "limitations"
+      ],
+      "properties": {
+        "channel": {
+          "$ref": "#/$defs/channel"
+        },
+        "outcome": {
+          "enum": [
+            "report",
+            "not_recognized",
+            "failed",
+            "unavailable",
+            "not_attempted"
+          ]
+        },
+        "recognitionStatus": {
+          "enum": [
+            "recognized",
+            "not_recognized",
+            "indeterminate"
+          ]
+        },
+        "observedAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "evidenceIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "conditions": {
+          "$ref": "#/$defs/invocationConditions"
+        },
+        "report": {
+          "$ref": "#/$defs/report"
+        },
+        "qualityNotes": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "limitations": {
+          "$ref": "#/$defs/stringArray"
+        }
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "outcome": {
+              "const": "report"
+            },
+            "recognitionStatus": {
+              "const": "recognized"
+            },
+            "observedAt": {
+              "type": "string"
+            },
+            "evidenceIds": {
+              "type": "array",
+              "minItems": 1
+            },
+            "report": true
+          },
+          "required": [
+            "report"
+          ]
+        },
+        {
+          "properties": {
+            "outcome": {
+              "const": "not_recognized"
+            },
+            "recognitionStatus": {
+              "const": "not_recognized"
+            },
+            "observedAt": {
+              "type": "string"
+            },
+            "evidenceIds": {
+              "type": "array",
+              "minItems": 1
+            }
+          },
+          "not": {
+            "properties": {
+              "report": true
+            },
+            "required": [
+              "report"
+            ]
+          }
+        },
+        {
+          "properties": {
+            "outcome": {
+              "const": "failed"
+            },
+            "recognitionStatus": {
+              "const": "indeterminate"
+            },
+            "observedAt": {
+              "type": "string"
+            },
+            "evidenceIds": {
+              "type": "array",
+              "minItems": 1
+            }
+          },
+          "not": {
+            "properties": {
+              "report": true
+            },
+            "required": [
+              "report"
+            ]
+          }
+        },
+        {
+          "properties": {
+            "outcome": {
+              "const": "unavailable"
+            },
+            "recognitionStatus": {
+              "const": "indeterminate"
+            },
+            "observedAt": {
+              "type": "null"
+            }
+          },
+          "not": {
+            "properties": {
+              "report": true
+            },
+            "required": [
+              "report"
+            ]
+          }
+        },
+        {
+          "properties": {
+            "outcome": {
+              "const": "not_attempted"
+            },
+            "recognitionStatus": {
+              "const": "indeterminate"
+            },
+            "observedAt": {
+              "type": "null"
+            }
+          },
+          "not": {
+            "properties": {
+              "report": true
+            },
+            "required": [
+              "report"
+            ]
+          }
+        }
+      ]
+    },
+    "comparisonClaim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "statement",
+        "evidenceIds"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "recognition_status",
+            "category",
+            "description",
+            "topic",
+            "association",
+            "competitor",
+            "limitation"
+          ]
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidenceIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "comparison": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "channelsAttempted",
+        "usableReportChannels",
+        "completeness",
+        "supportedAgreements",
+        "supportedDifferences",
+        "excludedComparisonClaims",
+        "scoreComparisonPolicy"
+      ],
+      "properties": {
+        "channelsAttempted": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/channel"
+          }
+        },
+        "usableReportChannels": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/channel"
+          }
+        },
+        "completeness": {
+          "enum": [
+            "complete",
+            "partial",
+            "unavailable"
+          ]
+        },
+        "supportedAgreements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/comparisonClaim"
+          }
+        },
+        "supportedDifferences": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/comparisonClaim"
+          }
+        },
+        "excludedComparisonClaims": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "scoreComparisonPolicy": {
+          "const": "Native scores are channel-specific and must not be averaged, normalized, or used to rank channels."
+        }
+      }
+    },
+    "channelCost": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "channel",
+        "quotedAmount",
+        "chargedAmount"
+      ],
+      "properties": {
+        "channel": {
+          "$ref": "#/$defs/channel"
+        },
+        "quotedAmount": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "chargedAmount": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "costSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unit",
+        "totalQuoted",
+        "totalCharged",
+        "channels"
+      ],
+      "properties": {
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "totalQuoted": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "totalCharged": {
+          "type": "number",
+          "minimum": 0
+        },
+        "channels": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "$ref": "#/$defs/channelCost"
+          }
+        }
+      }
+    },
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

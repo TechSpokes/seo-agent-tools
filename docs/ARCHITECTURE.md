@@ -43,7 +43,7 @@ The projection direction is public repository to private server. This build neve
 
 ## Result Contracts
 
-The opportunity, diagnostic, and implementation-handoff v1 contracts retain their shared evidence envelope and evidence-ID semantics. Focused contracts may instead reference additive shared primitives without inheriting that envelope. `content-question-review/v1` uses human-readable sources directly inside ordered question assessments and structured escalations so a reader does not need to reconstruct an internal ID graph. Verification continues to audit a source result rather than creating an unrelated generic result.
+The opportunity, diagnostic, implementation-handoff, and AI Brand Representation Snapshot v1 contracts retain the shared evidence envelope and evidence-ID semantics. The snapshot adds closed framing, channel-observation, comparison, and cost structures plus generic semantic validation for exact channel coverage, identical conditions, preflight all-stop behavior, comparison evidence from multiple eligible channel rows, deterministic completion and disposition, and arithmetic cost reconciliation. Focused contracts may instead reference additive shared primitives without inheriting that envelope. `content-question-review/v1` uses human-readable sources directly inside ordered question assessments and structured escalations so a reader does not need to reconstruct an internal ID graph. Verification continues to audit a source result rather than creating an unrelated generic result.
 
 New result contracts are versioned. A recipe references an explicit contract version, and an incompatible contract change requires a new version instead of silently changing existing recipe meaning.
 

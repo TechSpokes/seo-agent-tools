@@ -25,6 +25,20 @@ Recipe discovery should prefer executable candidates. An availability state of `
 
 Treat result-contract compatibility as a separate check from availability and approval. An unfamiliar contract is usable only when the server supplies its exact versioned fields, meanings, and validation rules in an interpretable form. Do not map it to a locally known contract because their names or purposes appear similar. If the exact contract is missing or incompatible, stop before its evidence-collection calls and report `unsupported-result-contract` with the observed skill, recipe, and server versions.
 
+## Route Brand Representation Work
+
+Use a current direct capability when the user asks how one named answer channel represents a brand that the caller explicitly supplies. Preserve that invocation's recognition status, conditions, generated report material, source-descriptor limitations, and native scores without calling the result a three-channel snapshot.
+
+Use `ai-brand-representation-snapshot` when the decision requires a comparable current observation across ChatGPT, Gemini, and Perplexity. Settle one subject, intended brand, website, location, controlled competitor panel, supplied products or services, and identity limitations before preflight. Preserve supplied lists even when they cannot be sent, and omit an optional invocation list that does not satisfy the runtime's current requirements instead of inventing padding.
+
+Resolve the exact recipe and `ai-brand-representation-snapshot/v1` contract from the connected server. Obtain current budget, authorization, headroom, and availability for all three separately required channel capabilities before execution. Plan no more than one observation per channel under identical settled conditions; parallel execution is optional, not required.
+
+A valid report and a valid `not_recognized` result are both invocation-scoped domain outcomes. Do not rerun either outcome to seek a preferred answer, and do not initiate a hidden retry. A server-directed retry for an actual retryable execution failure remains governed by the connected server. Preserve failed, unavailable, and not-attempted channels explicitly, keep controlled-panel competitor observations separate from generated competitors, and keep supplied products or services separate from generated associations.
+
+Compare report descriptions, categories, topics, associations, and competitors only when at least two structured reports are usable, and link each comparison claim to evidence from at least two eligible channel rows. Recognition-status comparison may use valid report and not-recognized outcomes. Preserve native finite scores, including zero, but never average, normalize, or rank channel scores; missing scores remain absent, and generated source descriptors are not verified citations.
+
+Buyer-prompt presence asks whether an unbranded buyer question names the brand. Trend analysis compares methodologically compatible observations over time. Neither question is answered by a direct brand-conditioned report or one AI Brand Representation Snapshot, so route it to a separately supported method or report the current capability gap.
+
 ## Resolve the Evidence Plan
 
 The selected full recipe, not its compact discovery card, defines execution. For every evidence-plan entry:
@@ -79,7 +93,7 @@ Never place credentials, private identities, customer data, account balances, or
 Classify evidence outcomes by when and how they occur.
 
 - A readiness failure means authorization, availability, input, parameter, budget, or exact-contract requirements are not satisfied before evidence execution. Do not start the affected paid or protected step. Report the precise prerequisite through the selected recipe's stop behavior.
-- An execution-time evidence failure means the capability was authorized and available with valid parameters, but it could not produce required evidence for the relevant input. Return the primary contract as an incomplete result. Preserve only valid observations and supported findings, identify the exact missing or structurally unavailable evidence and failure class, mark unsupported layers unknown, state the unresolved question and prohibited conclusions or interventions, give an appropriate client-side, user-supplied, connected, or manual recovery route plus the condition for resuming, use `defer`, and omit every conditional implementation handoff.
+- An execution-time evidence failure means the capability was authorized and available with valid parameters, but it could not produce required evidence for the relevant input. Return the primary contract as an incomplete result. Preserve only valid observations and supported findings, identify the exact missing or structurally unavailable evidence and failure class, mark unsupported layers unknown, state the unresolved question and prohibited conclusions or interventions, give an appropriate client-side, user-supplied, connected, or manual recovery route plus the condition for resuming, and omit every conditional implementation handoff. Use the primary contract's deterministic disposition when it defines one; otherwise use `defer`.
 - Completed empty evidence means the capability completed successfully and returned no observations. Preserve it as legitimate completed evidence rather than relabeling it as an execution failure or padding the result.
 
 The server or tool being unavailable, caller authorization being absent, cost approval being missing, a required input being unresolved, result-contract skew, or a required source capability being absent are readiness failures when detected before execution. Weak, contradictory, or structurally unavailable evidence discovered after a ready step begins follows the recipe's execution-time failure or constrained-completion behavior.
