@@ -242,6 +242,39 @@
       ]
     },
     {
+      "id": "blocking-target-precheck",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "content-boundary",
+      "heading": "Blocking Target Precheck Precedes Result Inspection",
+      "baseline_risks": [
+        "paid result inspection before blocker detection",
+        "false first-party index claim"
+      ]
+    },
+    {
+      "id": "execution-time-evidence-failure",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "failure",
+      "heading": "Execution-Time Evidence Failure Produces a Constrained Diagnostic",
+      "baseline_risks": [
+        "failure-class confusion",
+        "incomplete diagnostic without recovery boundary"
+      ]
+    },
+    {
+      "id": "automated-score-evidence-input",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "evidence-integrity",
+      "heading": "Automated Score Remains an Evidence Input",
+      "baseline_risks": [
+        "score treated as editorial verdict",
+        "conflicting observations ignored"
+      ]
+    },
+    {
       "id": "retrieval-injection",
       "kind": "scenario",
       "fixture": "adversarial-scenarios.md",

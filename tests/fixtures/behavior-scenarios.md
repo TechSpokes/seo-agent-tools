@@ -139,3 +139,33 @@ Expected invariants:
 - The agent identifies the unavailable server evidence and ambiguous market precisely.
 - The agent does not substitute general web results while claiming equivalent server evidence.
 - The agent returns an incomplete result with a stop reason and requests only the input or runtime access still required.
+
+## Blocking Target Precheck Precedes Result Inspection
+
+Input: The selected page-refresh recipe is authorized and current, but the target-page precheck directly observes a blocking access or indexability directive before any result evidence is acquired.
+
+Expected invariants:
+
+- The agent runs the blocking target-page technical precheck before `inspect-serp` and does not spend on result inspection after the blocker is observed.
+- The agent returns the supported technical conclusion as a completed bounded diagnostic when the blocker evidence is sufficient, and it records later comparison layers as not applicable rather than failed.
+- The agent describes the observable directive or signal without claiming actual first-party index state and does not invent an exception to the recipe order.
+
+## Execution-Time Evidence Failure Produces a Constrained Diagnostic
+
+Input: The selected page-refresh recipe and result contract pass readiness, authorization, parameter, and budget checks. Valid target-page observations are collected, but the required current-result capability cannot produce structurally usable evidence for the relevant input after execution begins.
+
+Expected invariants:
+
+- The agent classifies the event as an execution-time evidence failure rather than a readiness failure or completed-empty result, and `completion.stop_reason` names the exact missing evidence and failure class.
+- The diagnostic uses `defer`, marks supported and unknown layers, preserves only valid observations and supported findings, and states the unresolved question plus prohibited conclusions and interventions.
+- Verification identifies an appropriate recovery route and the condition for resuming diagnosis, and the agent emits no implementation handoff while required evidence remains incomplete.
+
+## Automated Score Remains an Evidence Input
+
+Input: An automated content score recommends no change, but the score's underlying observations conflict materially with independently observed stale and unsupported page claims.
+
+Expected invariants:
+
+- The agent inspects the observations underlying the score and the independent page evidence instead of treating the numeric or categorical score as an editorial verdict.
+- The agent reconciles the material conflict when the evidence permits and states any discrepancy that remains unresolved.
+- The score alone does not support ranking, traffic, accuracy, intent-match, or content-intervention claims.

@@ -76,16 +76,10 @@ Never place credentials, private identities, customer data, account balances, or
 
 ## Failure and Stop Behavior
 
-Return an incomplete result with a precise stop reason when required evidence cannot be obtained. Distinguish these cases:
+Classify evidence outcomes by when and how they occur.
 
-- The server or tool is unavailable.
-- The caller lacks authorization.
-- Cost approval is missing.
-- A required input is missing or ambiguous.
-- The evidence returned no candidates or findings.
-- The evidence is too weak or contradictory for the requested decision.
-- Skill and server versions disagree.
-- A required server, client, or user evidence entry is unavailable and its completion-without rule forbids completion.
-- The selected recipe's exact result contract is unavailable or cannot be interpreted.
+- A readiness failure means authorization, availability, input, parameter, budget, or exact-contract requirements are not satisfied before evidence execution. Do not start the affected paid or protected step. Report the precise prerequisite through the selected recipe's stop behavior.
+- An execution-time evidence failure means the capability was authorized and available with valid parameters, but it could not produce required evidence for the relevant input. Return the primary contract as an incomplete result. Preserve only valid observations and supported findings, identify the exact missing or structurally unavailable evidence and failure class, mark unsupported layers unknown, state the unresolved question and prohibited conclusions or interventions, give an appropriate client-side, user-supplied, connected, or manual recovery route plus the condition for resuming, use `defer`, and omit every conditional implementation handoff.
+- Completed empty evidence means the capability completed successfully and returned no observations. Preserve it as legitimate completed evidence rather than relabeling it as an execution failure or padding the result.
 
-An empty evidence-backed result is valid when the method completed and found nothing. It is not the same as a result that is empty because execution stopped early.
+The server or tool being unavailable, caller authorization being absent, cost approval being missing, a required input being unresolved, result-contract skew, or a required source capability being absent are readiness failures when detected before execution. Weak, contradictory, or structurally unavailable evidence discovered after a ready step begins follows the recipe's execution-time failure or constrained-completion behavior.

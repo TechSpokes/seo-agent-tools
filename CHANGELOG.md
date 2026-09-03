@@ -2,6 +2,20 @@
 
 ## [Unreleased]
 
+## [v0.4.1] - 2026-09-03
+
+### Changed
+
+- `page-refresh-brief@2.0.1` now performs the blocking target-page technical precheck before result inspection and acquires target and comparison content only after the precheck passes.
+- Public guidance now distinguishes readiness failures, execution-time required-evidence failures, and successful completed-empty evidence, with a constrained `seo-diagnostic/v1` recovery shape for incomplete execution.
+- Automated content and quality scores now require observation-level review and conflict reconciliation before they can support a conclusion.
+- Catalog, package, plugin, and current-version identities advance to `0.4.1` without changing result-contract versions.
+
+### Added
+
+- Focused behavior scenarios for precheck order, structurally unavailable required evidence, and score-versus-observation conflicts.
+- A contract-valid incomplete diagnostic fixture that records remaining valid evidence, prohibited claims, a recovery route, and a resume condition.
+
 ## [v0.4.0] - 2026-09-03
 
 ### Added

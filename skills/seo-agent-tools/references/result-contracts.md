@@ -21,6 +21,10 @@ The opportunity, diagnostic, and implementation-handoff v1 contracts use the sha
 
 Do not omit empty arrays when emptiness is meaningful. A completed analysis with no supported opportunities or issues is a valid result and must not be rewritten as a failure.
 
+When required evidence fails after readiness passed, use the existing envelope to make the constrained diagnostic complete as an artifact even though execution is incomplete. Put the exact missing or structurally unavailable evidence and failure class in `completion.stop_reason`; mark supported and unknown layers in `evaluated_layers`; preserve only valid observations with their limitations in `evidence`; keep `findings` limited to conclusions those observations support; state the unresolved question and prohibited conclusions or interventions in `constraints`; and put the recovery route and resume condition in `verification`. Use `defer` and do not emit an implementation handoff.
+
+A readiness failure stops before the affected evidence execution and names the unmet authorization, availability, input, parameter, budget, or exact-contract prerequisite. A completed-empty outcome records successful execution with no observations and remains distinct from both readiness failure and execution-time evidence failure.
+
 Use dispositions consistently. `proceed` means the supported action can move forward within current constraints. `conditional` means the action is supported only if a named condition is satisfied. `defer` means the action may be appropriate but must wait for a prerequisite or later evidence. `reject` means the requested action is not supported by the evidence or conflicts with a governing boundary.
 
 For an individual verification check, use `not-run` when no implementation state has been inspected yet and `unavailable` when the implementation was inspected but the required evidence source or observation window is not available.
@@ -70,6 +74,8 @@ Use `seo-diagnostic/v1` for page, site, technical, content-quality, and other ca
 - A page strategy of `create`, `refresh`, `consolidate`, or `preserve` only when the diagnosis supports a page-level content decision.
 
 An empty issue list is valid when the requested checks completed without a supported issue. Preserve useful current behavior explicitly when a change could cause regression.
+
+A directly observed blocking target-page signal can support a complete bounded technical diagnostic when it makes later comparison misleading. Do not claim actual first-party index state from observable directives or public signals. When a required capability passed readiness but failed to produce evidence for the relevant input, return the constrained incomplete shape described above.
 
 ## SEO Implementation Handoff v1
 
