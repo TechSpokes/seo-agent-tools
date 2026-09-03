@@ -134,7 +134,7 @@
     "Exactly one row exists for ChatGPT, Gemini, and Perplexity, including unavailable, failed, or not-attempted rows when applicable.",
     "Proceed is used only for three reports; conditional is used for at least two valid report or not-recognized outcomes when the snapshot is not a three-report comparison; defer is used for fewer than two valid outcomes; reject is used for invalid or unresolved framing before paid execution.",
     "Completion is complete only when all three planned channels produced a valid report or not-recognized outcome.",
-    "Report-content comparison claims use at least two reports, while recognition-status comparison uses only valid report or not-recognized outcomes.",
+    "Every report-content comparison claim links evidence from at least two report rows, while every recognition-status comparison claim links evidence from at least two valid report or not-recognized rows.",
     "The cost summary reconciles channel quoted and charged amounts and preserves unknown quotes only when no quote was reached.",
     "The result makes no universal visibility score, buyer-prompt presence, stable model knowledge, historical trend, or business-impact claim."
   ],

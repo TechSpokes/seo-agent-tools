@@ -208,6 +208,7 @@ Expected invariants:
 
 - The agent uses the server's current required, default, and maximum budget rather than a public static or remembered price.
 - The agent confirms authorization, headroom, exact result-contract support, and availability for all three required capabilities before the first observation.
+- If any required capability is unavailable, the agent stops before every channel invocation and records the remaining channels as unavailable or not attempted.
 - The agent plans no more than one observation for each channel and does not require parallel execution.
 
 ## Valid Negative Observation Is Not Rerun
@@ -248,7 +249,7 @@ Expected invariants:
 
 - The agent preserves one row for the failed channel with indeterminate recognition status, its attempt time, failure evidence, quality notes, and limitations.
 - The result uses incomplete completion with a precise stop reason, conditional disposition for the two valid outcomes, and a partial comparison limited to supported dimensions.
-- The agent records zero actual charge for the unsuccessful channel, reconciles total quoted and charged amounts, and does not reconstruct or silently omit the failed observation.
+- The agent records the connected server's actual charge for the failed channel, including zero only when that is what the server reports, reconciles total quoted and charged amounts, and does not reconstruct or silently omit the failed observation.
 
 ## Snapshot Does Not Become Buyer-Prompt or Trend Analysis
 

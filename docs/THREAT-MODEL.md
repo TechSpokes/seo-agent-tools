@@ -42,7 +42,7 @@ Expected list sizes can pressure an agent to invent opportunities or issues. Res
 
 ### Misclassified Brand Representation
 
-A prompted brand-conditioned report can be mislabeled as unprompted buyer-prompt presence, stable model knowledge, a calibrated cross-channel score, or a historical trend. The snapshot contract preserves invocation conditions, separates supplied framing from generated material, forbids universal and averaged score fields, requires exact channel outcomes, and limits report-content comparison to at least two usable reports.
+A prompted brand-conditioned report can be mislabeled as unprompted buyer-prompt presence, stable model knowledge, a calibrated cross-channel score, or a historical trend. The snapshot contract preserves invocation conditions, separates supplied framing from generated material, forbids universal and averaged score fields, requires exact channel outcomes, stops all channel execution when preflight availability fails, and requires every comparison claim to link evidence from at least two eligible channel rows.
 
 ### Context-Dependent Handoffs
 

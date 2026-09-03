@@ -469,6 +469,10 @@ function validateBrandSnapshotSemantics(result, label, failures) {
   validateExactChannelList(result.comparison.channelsAttempted, attemptedChannels, `${label} comparison.channelsAttempted`, failures);
   validateExactChannelList(result.comparison.usableReportChannels, reportChannels, `${label} comparison.usableReportChannels`, failures);
 
+  if (observations.some((item) => item.outcome === "unavailable") && attemptedChannels.length > 0) {
+    failures.push(`${label} unavailable preflight outcome requires zero attempted channel outcomes.`);
+  }
+
   if (result.disposition === "reject") {
     if (observations.some((item) => item.outcome !== "not_attempted")) {
       failures.push(`${label} reject disposition requires every channel outcome to be not_attempted.`);
@@ -492,11 +496,20 @@ function validateBrandSnapshotSemantics(result, label, failures) {
 
   const claims = [...result.comparison.supportedAgreements, ...result.comparison.supportedDifferences];
   for (const claim of claims) {
+    const eligibleOutcomes = claim.kind === "recognition_status" ? validOutcomes : new Set(["report"]);
+    const claimEvidenceIds = new Set(claim.evidenceIds);
+    const evidencedChannels = observations.filter(
+      (item) => eligibleOutcomes.has(item.outcome) && item.evidenceIds.some((evidenceId) => claimEvidenceIds.has(evidenceId)),
+    );
     if (claim.kind === "recognition_status" && validCount < 2) {
       failures.push(`${label} recognition-status comparison requires at least two valid channel outcomes.`);
     }
     if (claim.kind !== "recognition_status" && reportChannels.length < 2) {
       failures.push(`${label} report-content comparison kind ${claim.kind} requires at least two usable reports.`);
+    }
+    if (evidencedChannels.length < 2) {
+      const evidenceClass = claim.kind === "recognition_status" ? "valid-outcome" : "report";
+      failures.push(`${label} comparison kind ${claim.kind} must link evidence from at least two ${evidenceClass} channel rows.`);
     }
   }
 
@@ -520,7 +533,7 @@ function validateBrandSnapshotSemantics(result, label, failures) {
     if (cost.quotedAmount === null && !["unavailable", "not_attempted"].includes(outcome)) {
       failures.push(`${label} cost_summary.channels quote for ${cost.channel} may be null only when no quote was reached.`);
     }
-    if (["failed", "unavailable", "not_attempted"].includes(outcome) && cost.chargedAmount !== 0) {
+    if (["unavailable", "not_attempted"].includes(outcome) && cost.chargedAmount !== 0) {
       failures.push(`${label} cost_summary.channels charge for ${cost.channel} must be zero for outcome ${outcome}.`);
     }
   }

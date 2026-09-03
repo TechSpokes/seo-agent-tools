@@ -170,12 +170,12 @@
         {
           "op": "set",
           "path": "/cost_summary/channels/2/chargedAmount",
-          "value": 0
+          "value": 0.25
         },
         {
           "op": "set",
           "path": "/cost_summary/totalCharged",
-          "value": 2
+          "value": 2.25
         }
       ]
     },
@@ -519,6 +519,120 @@
       ]
     },
     {
+      "id": "brand-snapshot-unavailable-mixed-with-attempt-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "invalid",
+      "expected_error": "unavailable preflight outcome requires zero attempted channel outcomes",
+      "mutations": [
+        {
+          "op": "delete",
+          "path": "/evidence/0"
+        },
+        {
+          "op": "set",
+          "path": "/findings",
+          "value": []
+        },
+        {
+          "op": "set",
+          "path": "/verification/0/evidence_ids",
+          "value": [
+            "evidence-gemini",
+            "evidence-perplexity"
+          ]
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/0/outcome",
+          "value": "unavailable"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/0/recognitionStatus",
+          "value": "indeterminate"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/0/observedAt",
+          "value": null
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/0/evidenceIds",
+          "value": []
+        },
+        {
+          "op": "delete",
+          "path": "/channel_observations/0/report"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/0/limitations",
+          "value": [
+            "The required channel capability was unavailable at preflight."
+          ]
+        },
+        {
+          "op": "set",
+          "path": "/comparison/channelsAttempted",
+          "value": [
+            "gemini",
+            "perplexity"
+          ]
+        },
+        {
+          "op": "set",
+          "path": "/comparison/usableReportChannels",
+          "value": [
+            "gemini",
+            "perplexity"
+          ]
+        },
+        {
+          "op": "set",
+          "path": "/comparison/completeness",
+          "value": "partial"
+        },
+        {
+          "op": "set",
+          "path": "/disposition",
+          "value": "conditional"
+        },
+        {
+          "op": "set",
+          "path": "/completion/status",
+          "value": "incomplete"
+        },
+        {
+          "op": "set",
+          "path": "/completion/stop_reason",
+          "value": "A required capability was unavailable at preflight, but channel observations were incorrectly attempted."
+        },
+        {
+          "op": "set",
+          "path": "/cost_summary/totalQuoted",
+          "value": null
+        },
+        {
+          "op": "set",
+          "path": "/cost_summary/totalCharged",
+          "value": 2
+        },
+        {
+          "op": "set",
+          "path": "/cost_summary/channels/0/quotedAmount",
+          "value": null
+        },
+        {
+          "op": "set",
+          "path": "/cost_summary/channels/0/chargedAmount",
+          "value": 0
+        }
+      ]
+    },
+    {
       "id": "brand-snapshot-rejected-ambiguous-subject-valid",
       "kind": "result",
       "path": "tests/fixtures/contracts/brand-snapshot-rejected.json",
@@ -597,6 +711,86 @@
             "evidenceIds": [
               "evidence-chatgpt",
               "evidence-perplexity"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "brand-snapshot-single-channel-comparison-evidence-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "invalid",
+      "expected_error": "must link evidence from at least two report channel rows",
+      "mutations": [
+        {
+          "op": "append",
+          "path": "/comparison/supportedAgreements",
+          "value": {
+            "kind": "category",
+            "statement": "A comparison claim cites only the ChatGPT observation.",
+            "evidenceIds": [
+              "evidence-chatgpt"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "brand-snapshot-wrong-outcome-comparison-evidence-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/brand-snapshot-three-reports.json",
+      "contract_id": "ai-brand-representation-snapshot/v1",
+      "expected": "invalid",
+      "expected_error": "must link evidence from at least two report channel rows",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/channel_observations/1/outcome",
+          "value": "not_recognized"
+        },
+        {
+          "op": "set",
+          "path": "/channel_observations/1/recognitionStatus",
+          "value": "not_recognized"
+        },
+        {
+          "op": "delete",
+          "path": "/channel_observations/1/report"
+        },
+        {
+          "op": "set",
+          "path": "/comparison/usableReportChannels",
+          "value": [
+            "chatgpt",
+            "perplexity"
+          ]
+        },
+        {
+          "op": "set",
+          "path": "/comparison/completeness",
+          "value": "partial"
+        },
+        {
+          "op": "set",
+          "path": "/findings",
+          "value": []
+        },
+        {
+          "op": "set",
+          "path": "/disposition",
+          "value": "conditional"
+        },
+        {
+          "op": "append",
+          "path": "/comparison/supportedDifferences",
+          "value": {
+            "kind": "description",
+            "statement": "A report-content comparison cites one report and one not-recognized outcome.",
+            "evidenceIds": [
+              "evidence-chatgpt",
+              "evidence-gemini"
             ]
           }
         }
