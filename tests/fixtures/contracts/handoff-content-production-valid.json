@@ -3,7 +3,7 @@
   "contract_id": "seo-implementation-handoff/v1",
   "recipe": {
     "id": "content-production-workflow",
-    "version": "1.0.1"
+    "version": "1.1.0"
   },
   "subject": {
     "content_objective": "Publish one evidence-backed guide for an existing site.",

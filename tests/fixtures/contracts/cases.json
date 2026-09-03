@@ -2,6 +2,140 @@
   "schema_version": 1,
   "cases": [
     {
+      "id": "content-question-review-valid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/content-question-review-valid.json",
+      "contract_id": "content-question-review/v1",
+      "expected": "valid"
+    },
+    {
+      "id": "content-question-review-incomplete-with-stop-valid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/content-question-review-valid.json",
+      "contract_id": "content-question-review/v1",
+      "expected": "valid",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/human_escalations/0/blocking",
+          "value": true
+        },
+        {
+          "op": "set",
+          "path": "/completion/status",
+          "value": "incomplete"
+        },
+        {
+          "op": "set",
+          "path": "/completion/stop_reason",
+          "value": "The owner must provide the required private operating constraint before publication approval."
+        }
+      ]
+    },
+    {
+      "id": "content-question-review-incomplete-without-stop-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/content-question-review-valid.json",
+      "contract_id": "content-question-review/v1",
+      "expected": "invalid",
+      "expected_error": "must have required property 'stop_reason'",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/completion/status",
+          "value": "incomplete"
+        }
+      ]
+    },
+    {
+      "id": "content-question-review-blocking-escalation-complete-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/content-question-review-valid.json",
+      "contract_id": "content-question-review/v1",
+      "expected": "invalid",
+      "expected_error": "complete completion must not include a blocking human escalation",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/human_escalations/0/blocking",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "content-question-review-text-payload-mismatch-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/content-question-review-valid.json",
+      "contract_id": "content-question-review/v1",
+      "expected": "invalid",
+      "expected_error": "/questions/0/sources/0/content/0 must have required property 'data'",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/questions/0/sources/0/content/0/type",
+          "value": "json"
+        }
+      ]
+    },
+    {
+      "id": "content-question-review-json-payload-mismatch-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/content-question-review-valid.json",
+      "contract_id": "content-question-review/v1",
+      "expected": "invalid",
+      "expected_error": "/questions/2/sources/1/content/0 must have required property 'text'",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/questions/2/sources/1/content/0/type",
+          "value": "text"
+        }
+      ]
+    },
+    {
+      "id": "content-question-review-source-without-material-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/content-question-review-valid.json",
+      "contract_id": "content-question-review/v1",
+      "expected": "invalid",
+      "expected_error": "must match a schema in anyOf",
+      "mutations": [
+        {
+          "op": "delete",
+          "path": "/questions/0/sources/1/excerpt"
+        }
+      ]
+    },
+    {
+      "id": "content-question-review-partial-without-recommendation-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/content-question-review-valid.json",
+      "contract_id": "content-question-review/v1",
+      "expected": "invalid",
+      "expected_error": "must have required property 'recommendation'",
+      "mutations": [
+        {
+          "op": "delete",
+          "path": "/questions/1/recommendation"
+        }
+      ]
+    },
+    {
+      "id": "content-question-review-legacy-envelope-field-invalid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/content-question-review-valid.json",
+      "contract_id": "content-question-review/v1",
+      "expected": "invalid",
+      "expected_error": "must NOT have additional properties",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/evidence",
+          "value": []
+        }
+      ]
+    },
+    {
       "id": "opportunity-nonempty-valid",
       "kind": "result",
       "path": "tests/fixtures/contracts/opportunity-nonempty.json",

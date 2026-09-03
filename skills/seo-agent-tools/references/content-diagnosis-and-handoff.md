@@ -33,16 +33,26 @@ If the supported intervention is technical, strategic, authority-related, or ope
 Use a server-discovered content-production recipe only after one content objective and page role are selected. Preserve these boundaries:
 
 1. Capture the audience, business goal, conversion path, market, editorial and factual constraints, known site taxonomy, approval owner, and lifecycle constraints before paid research.
-2. Run one bounded research burst before outlining only when candidate subtopics, current intent, or page type can change the structure. Keep metrics conditional on a decision they can change.
+2. Run one bounded research burst before outlining only when candidate subtopics, current intent, page type, or keyword and people-also-ask evidence can materially challenge the proposed page scope, required questions, or site routing. Keep metrics conditional on a decision they can change.
 3. Route outlining and finished drafting to a separate client content capability. Maintain one canonical Markdown, HTML, or text document with explicit metadata provenance, and keep publishing-only instructions outside analyzed body content.
-4. Require focus-specific content analysis. Use helpfulness or readability evidence only when it can catch a material regression or change approval. Treat coverage, semantic relevance, and overlap checks as optional direct paths for named uncertainties.
+4. Require focus-specific content analysis. When approved questions are present, review their exact wording in the approved order against the canonical draft before publication approval. Use helpfulness or readability evidence only when it can catch a material regression or change approval. Treat coverage, semantic relevance, and overlap checks as optional direct paths for named uncertainties.
 5. Resolve score conflicts through the audience and evidence-backed objective. An SEO-motivated edit must not materially degrade helpfulness or readability without an explicit supported tradeoff.
 6. Verify material factual claims separately. Content-analysis scores do not prove accuracy, originality, ranking impact, or search-engine classifier behavior.
-7. Record the canonical artifact identity, evidence-linked requirements, preservation and prohibition constraints, missing inputs, intended publication target, acceptance criteria, and verification plan. Obtain approval before routing publication to an independently authorized client capability.
+7. Record the canonical artifact identity, evidence-linked requirements, preservation and prohibition constraints, missing inputs, intended publication target, acceptance criteria, and verification plan. Resolve blocking question reviews and human escalations, then obtain approval before routing publication to an independently authorized client capability.
 8. Verify the public page with current page content, metadata, and blocking technical evidence. A staged or client-supplied snapshot can support pre-publication static checks, but it cannot prove production transport, execution, crawlability, freshness, authenticity, or equivalence.
 9. For time-limited content, record the review trigger and decision owner. Do not infer retain, update, unpublish, noindex, or redirect without site-policy authority.
 
 Keep the canonical page body and detailed claim-verification material in client-owned artifacts. The validated handoff records their stable identities, decisions, evidence links, and verification state without reproducing finished content.
+
+## Review Approved Questions
+
+Before the brief is approved, current keyword and people-also-ask evidence may challenge proposed scope, questions, or site routing when it can materially change the plan. Once the client approves the brief, treat its questions as authoritative for draft review. Preserve their exact wording and order even when a separate query-coverage analysis generates similar or broader questions.
+
+Assess each approved question against the governing brief and canonical draft. Cite readable sources directly inside the assessment: include a brief, conversation, or other governing source and the relevant draft passage or bounded absence evidence. Keep generated or independently discovered questions in the supplemental collection; they do not satisfy approved questions.
+
+Resolve ordinary uncertainty before escalating. Inspect the brief and editorial constraints, inspect relevant draft passages, retrieve available evidence, reconcile source conflicts by authority, provenance, scope, and freshness, and apply an existing rule when it determines the answer. Create a structured human escalation only when a material issue still depends on intent, approval, authority, private knowledge, ownership, or a genuine business or editorial tradeoff. Package the context, reason, exact request, relevant sources, options and consequences when applicable, supported recommendation when available, and blocking state. A blocking unresolved review or escalation makes the question review incomplete.
+
+Final angle, source selection, quotations, and editorial approval remain human or client decisions. The SEO workflow can show evidence and consequences but must not silently assume those responsibilities.
 
 ## Build a Self-Contained Handoff
 

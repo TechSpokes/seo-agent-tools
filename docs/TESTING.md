@@ -17,8 +17,8 @@ npm run validate
 When runtime or release behavior changes, also build and verify the intended release candidate:
 
 ```bash
-npm run package -- v0.3.2
-npm run release:verify-assets -- v0.3.2
+npm run package -- v0.4.0
+npm run release:verify-assets -- v0.4.0
 ```
 
 Use the intended version tag rather than retaining an older release example after the package version changes.
@@ -45,7 +45,7 @@ Report a successful `npm run validate` result as structural or evaluation-regist
 
 `tests/evals/cases.json` is the machine-discoverable registry. Every scenario heading must be registered, and every required segment must have at least one case.
 
-`tests/fixtures/contracts/cases.json` registers valid and intentionally invalid JSON instances assessed by catalog validation. The result cases cover a non-empty opportunity set, completed empty opportunity and diagnostic results, a diagnostic with issues, an incomplete diagnostic with a precise stop reason, a self-contained implementation handoff, unresolved evidence, an unsupported disposition, and missing handoff context. Catalog and recipe cases prove rejection of unknown fields, unsupported schema versions, uncontrolled capability and scope values, unknown steps and result contracts, invalid evidence source and use classes, missing conditional predicates, invalid bounds, and ambiguous output composition. The registry and its source instances remain under `tests/` and are excluded from release archives and the server projection.
+`tests/fixtures/contracts/cases.json` registers valid and intentionally invalid JSON instances assessed by catalog validation. The result cases cover a non-empty opportunity set, completed empty opportunity and diagnostic results, a diagnostic with issues, an incomplete diagnostic with a precise stop reason, a self-contained implementation handoff, and a content-question review with ordered supplied questions, separate supplemental questions, readable source variants, human escalations, and completion behavior. Negative cases preserve legacy unresolved-evidence checks and reject unsupported dispositions, missing handoff context, mismatched source payloads, missing source material, missing revision recommendations, blocking escalations in complete reviews, and incomplete reviews without stop reasons. Catalog and recipe cases prove rejection of unknown fields, unsupported schema versions, uncontrolled capability and scope values, unknown steps and result contracts, invalid evidence source and use classes, missing conditional predicates, invalid bounds, and ambiguous output composition. The registry and its source instances remain under `tests/` and are excluded from release archives and the server projection.
 
 After a substantial instruction change, run fresh-context agent evaluations against representative fixtures. Give each evaluator only the installed runtime tree plus the prompt and test facts needed for its case. Record whether the output satisfied the invariants; do not count an evaluator's agreement with the prose as execution evidence.
 

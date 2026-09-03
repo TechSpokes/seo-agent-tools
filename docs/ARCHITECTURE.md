@@ -43,7 +43,7 @@ The projection direction is public repository to private server. This build neve
 
 ## Result Contracts
 
-All typed results share an evidence envelope. The initial contract families are an opportunity set, a diagnostic, and an implementation handoff. Verification audits one of those results rather than creating an unrelated generic result.
+The opportunity, diagnostic, and implementation-handoff v1 contracts retain their shared evidence envelope and evidence-ID semantics. Focused contracts may instead reference additive shared primitives without inheriting that envelope. `content-question-review/v1` uses human-readable sources directly inside ordered question assessments and structured escalations so a reader does not need to reconstruct an internal ID graph. Verification continues to audit a source result rather than creating an unrelated generic result.
 
 New result contracts are versioned. A recipe references an explicit contract version, and an incompatible contract change requires a new version instead of silently changing existing recipe meaning.
 

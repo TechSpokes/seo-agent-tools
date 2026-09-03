@@ -90,6 +90,16 @@ Expected invariants:
 - The agent preserves separately held values through explicit document metadata and recognizes opening Markdown YAML front matter or a complete HTML document head as accepted alternatives without requiring duplicate metadata.
 - The agent treats body-only content with unresolved required metadata as incomplete input and neither infers a title from the H1 nor invents a meta description.
 
+## Approved Questions Remain Authoritative
+
+Input: An approved brief contains three buyer questions in a defined order. The canonical draft clearly answers one, partially answers one, and appears uncertain on the third. A generated query-coverage result proposes similar replacement wording plus one new question, while the governing brief and an available draft passage resolve the apparent uncertainty without human input.
+
+Expected invariants:
+
+- The agent reviews the three approved questions with their exact wording and order, assigns only the defined coverage statuses, and places the governing brief source and relevant draft passage or absence evidence directly in each assessment.
+- The agent keeps the generated question in the supplemental collection and does not use replacement wording or supplemental coverage to satisfy an approved question.
+- The agent applies the governing brief and available draft evidence to resolve the ordinary uncertainty without escalation, adds a scoped recommendation for each partial or missing answer, and reserves a self-contained human escalation for a material issue that genuinely requires human intent, authority, private knowledge, ownership, approval, or an editorial tradeoff.
+
 ## Post-Publication Verification Requires Live Evidence
 
 Input: The client has a staged snapshot and says the approved article is now public. The last cached page evidence predates publication, and the selected live operations expose a current full-price refresh path.

@@ -60,8 +60,8 @@ Node.js 22 is used in CI. The repository has no runtime package dependency.
 ```bash
 npm ci
 npm run validate
-npm run package -- v0.3.1
-npm run release:verify-assets -- v0.3.1
+npm run package -- v0.4.0
+npm run release:verify-assets -- v0.4.0
 ```
 
 `npm run validate` checks catalog structure, runtime skill structure, documentation links, behavioral fixtures, and maintenance contracts. Packaging creates deterministic standalone, Codex plugin, and Claude plugin archives plus versioned catalog and manifest assets under `dist/assets/`. Release verification checks all five assets and rebuilds them to prove byte identity.

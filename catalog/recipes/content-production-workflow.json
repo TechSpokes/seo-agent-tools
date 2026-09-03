@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "content-production-workflow",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "title": "Content Production Workflow",
   "summary": "Plan, evaluate, publish, and verify one bounded existing-site content artifact while preserving business context, factual limits, approval, freshness, and lifecycle ownership.",
   "primary_domain": "content",
@@ -25,6 +25,7 @@
       "use": "required",
       "steps": [
         "acquire-context",
+        "analyze-document",
         "approve-outline",
         "prepare-publication-handoff",
         "record-lifecycle-decision"
@@ -285,11 +286,11 @@
     },
     {
       "id": "research-before-outline",
-      "instruction": "Use supplied site evidence and one bounded research burst before outlining only when candidate subtopics, intent, page type, or priority can materially change."
+      "instruction": "Use supplied site evidence and one bounded research burst before outlining only when candidate subtopics, intent, page type, priority, or keyword and people-also-ask evidence can materially challenge the proposed page scope, required questions, or site routing before the brief is approved."
     },
     {
       "id": "approve-outline",
-      "instruction": "Have the client prepare an outline that links material sections, proof needs, and internal-link needs to supported context or evidence, then obtain the required approval."
+      "instruction": "Have the client prepare an outline that links material sections, proof needs, internal-link needs, and proposed buyer or people-also-ask questions to supported context or evidence. Resolve material research challenges, then obtain approval and preserve the exact wording and order of the approved questions."
     },
     {
       "id": "prepare-canonical-document",
@@ -297,7 +298,7 @@
     },
     {
       "id": "analyze-document",
-      "instruction": "Run the required content SEO analysis only with a canonical document that resolves the intended SEO title and meta description alongside its format and body for the supported focus. Treat missing required metadata as incomplete input rather than omitting it, inferring it from the H1, or inventing replacement values. Run only the conditional quality checks whose result can change revision or approval; do not maximize scores blindly."
+      "instruction": "Run the required content SEO analysis only with a canonical document that resolves the intended SEO title and meta description alongside its format and body for the supported focus. Treat missing required metadata as incomplete input rather than omitting it, inferring it from the H1, or inventing replacement values. When the approved context contains buyer or people-also-ask questions, review every exact supplied question in its original order against the draft, cite the governing brief and relevant draft passage or absence directly in each assessment, and keep independently discovered questions in the separate supplemental collection. Use generated query coverage only as a supplemental signal. Resolve retrievable uncertainty through bounded evidence before creating a structured human escalation for a material issue that still requires intent, authority, private knowledge, approval, ownership, or a business or editorial tradeoff. Run only the conditional quality checks whose result can change revision or approval; do not maximize scores blindly."
     },
     {
       "id": "verify-factual-claims",
@@ -309,7 +310,7 @@
     },
     {
       "id": "confirm-approval",
-      "instruction": "Obtain the required human or client approval for the exact canonical artifact and publication target."
+      "instruction": "Obtain the required human or client approval for the exact canonical artifact and publication target only after any blocking supplied-question review or human escalation is resolved. Final angle, sourcing, quotations, and editorial approval remain human or client responsibilities."
     },
     {
       "id": "publish-content",
@@ -325,7 +326,7 @@
     },
     {
       "id": "produce-handoff",
-      "instruction": "Return the evidence-linked implementation handoff with publication verification, limitations, completion state, and remaining lifecycle ownership."
+      "instruction": "Return the evidence-linked implementation handoff with publication verification, limitations, completion state, and remaining lifecycle ownership. When approved buyer or people-also-ask questions were supplied, also return the standalone question review with supplied and supplemental questions kept separate and with any unresolved material escalation packaged as a self-contained request."
     }
   ],
   "evidence_requirements": [
@@ -334,17 +335,20 @@
     "Material factual claims have separate verification evidence or an explicit blocking record; content-analysis scores never satisfy factual verification.",
     "Publication and live verification are client and server evidence respectively; a staged snapshot cannot establish production equivalence.",
     "The canonical page body remains a client-owned artifact and is not embedded in the validated handoff.",
-    "The canonical document evidence resolves the document format, body content, intended SEO title, and intended meta description for the required content SEO analysis. The title and description come from explicit document metadata, recognized opening Markdown YAML front matter, or a complete HTML document head; a body-only document is incomplete when either value is unresolved."
+    "The canonical document evidence resolves the document format, body content, intended SEO title, and intended meta description for the required content SEO analysis. The title and description come from explicit document metadata, recognized opening Markdown YAML front matter, or a complete HTML document head; a body-only document is incomplete when either value is unresolved.",
+    "Each approved buyer or people-also-ask question retains its exact wording and original order, cites the governing brief source and relevant draft passage or absence directly, and remains separate from supplemental generated questions."
   ],
   "stop_conditions": [
     "Stop or narrow before paid research when the audience, market, page role, factual constraints, or approval ownership is materially ambiguous.",
     "Stop before a paid step when current authorization or budget is insufficient for the selected bounded evidence path.",
     "Stop before content SEO analysis when the focus keyword, document format, document body, intended SEO title, or intended meta description is unresolved, and stop publication when the canonical document, factual verification, or required approval is incomplete.",
+    "Return the question review as incomplete when a material supplied-question assessment or blocking human escalation remains unresolved after bounded autonomous resolution.",
     "Return an incomplete handoff when the published page or required live verification evidence cannot be obtained."
   ],
   "completion_criteria": [
     "The business and editorial context, research bounds, approved outline, canonical artifact identity, document format, and provenance of its resolvable intended SEO title and meta description are recorded.",
     "The required content SEO analysis uses the canonical body and intended metadata for the supported focus; selected conditional analyses are evidence-linked, and score conflicts or input limitations are explicit.",
+    "When approved questions are present, every exact supplied question is assessed in its original order with direct human-readable sources and any scoped revision recommendation, supplemental questions remain separate, and no blocking review or escalation remains unresolved.",
     "Material factual claims are separately verified or the result stops incomplete.",
     "Approval, client-owned publication, live page reading, metadata, and technical verification are recorded.",
     "The handoff is self-contained, contains no finished page body, and identifies lifecycle ownership and any remaining checks."
@@ -353,6 +357,11 @@
     {
       "id": "seo-implementation-handoff/v1",
       "role": "primary"
+    },
+    {
+      "id": "content-question-review/v1",
+      "role": "conditional",
+      "condition": "Emit when the approved content context contains buyer or people-also-ask questions."
     }
   ],
   "bounds": {

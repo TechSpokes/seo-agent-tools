@@ -187,6 +187,17 @@
       ]
     },
     {
+      "id": "approved-questions-authoritative",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "content-boundary",
+      "heading": "Approved Questions Remain Authoritative",
+      "baseline_risks": [
+        "generated questions replace approved wording",
+        "resolvable uncertainty escalated to a human"
+      ]
+    },
+    {
       "id": "live-publication-verification",
       "kind": "scenario",
       "fixture": "behavior-scenarios.md",

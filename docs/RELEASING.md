@@ -23,14 +23,14 @@ Result contracts use explicit identifiers such as `seo-diagnostic/v1`. Add `v2` 
 
 ```bash
 npm run validate
-npm run package -- v0.3.2
-npm run release:verify-assets -- v0.3.2
+npm run package -- v0.4.0
+npm run release:verify-assets -- v0.4.0
 ```
 
 4. Run the repository preflight when the branch and remote state are ready for release.
 
 ```bash
-npm run release:preflight -- v0.3.2
+npm run release:preflight -- v0.4.0
 ```
 
 5. Review `dist/assets/SHA256SUMS`, the three ZIP inventories, and both versioned catalog files under `dist/catalog/`.
