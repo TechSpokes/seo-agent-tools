@@ -3,7 +3,7 @@
   "contract_id": "seo-implementation-handoff/v1",
   "recipe": {
     "id": "content-production-workflow",
-    "version": "1.0.0"
+    "version": "1.0.1"
   },
   "subject": {
     "content_objective": "Publish one evidence-backed guide for an existing site.",
@@ -24,7 +24,7 @@
       "source": "client-owned canonical document",
       "subject": "canonical document content-guide-1",
       "observed_at": "2026-08-15T10:30:00Z",
-      "observation": "The approved document identity and metadata provenance are recorded without embedding the page body.",
+      "observation": "The approved document identity and the accepted provenance of its resolvable intended SEO title and meta description are recorded without embedding the page body.",
       "limitations": [
         "The validated handoff does not contain the finished content."
       ]
@@ -34,7 +34,7 @@
       "source": "authorized content analysis",
       "subject": "canonical document content-guide-1",
       "observed_at": "2026-08-15T10:45:00Z",
-      "observation": "The required focus-specific review completed and its input limitations are recorded.",
+      "observation": "The required focus-specific review used the canonical body, intended SEO title, and intended meta description, and its input limitations are recorded.",
       "limitations": [
         "The analysis does not prove factual accuracy, ranking impact, or search-engine classifier behavior."
       ]

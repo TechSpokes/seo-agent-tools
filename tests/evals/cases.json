@@ -176,6 +176,17 @@
       ]
     },
     {
+      "id": "content-seo-canonical-metadata",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "content-boundary",
+      "heading": "Content SEO Analysis Preserves Canonical Metadata",
+      "baseline_risks": [
+        "known SEO metadata discarded during orchestration",
+        "body-only document submitted for required analysis"
+      ]
+    },
+    {
       "id": "live-publication-verification",
       "kind": "scenario",
       "fixture": "behavior-scenarios.md",

@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "content-production-workflow",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "title": "Content Production Workflow",
   "summary": "Plan, evaluate, publish, and verify one bounded existing-site content artifact while preserving business context, factual limits, approval, freshness, and lifecycle ownership.",
   "primary_domain": "content",
@@ -129,13 +129,13 @@
       "scope": {
         "unit": "document",
         "maximum": 1,
-        "guidance": "Maintain one canonical Markdown, HTML, or text document with explicit metadata provenance and a stable client-owned identity."
+        "guidance": "Maintain one canonical Markdown, HTML, or text document with a stable client-owned identity, body content, and a resolvable intended SEO title and meta description for the required content SEO analysis. Preserve separately held values as explicit document metadata, or retain recognized opening Markdown YAML front matter or a complete HTML document head."
       },
       "completion_without": {
         "allowed": false,
-        "limitation": "The method cannot analyze, approve, publish, or verify content without one canonical client-owned document."
+        "limitation": "The method cannot analyze, approve, publish, or verify content without one canonical client-owned document whose format, body, intended SEO title, and intended meta description are resolvable."
       },
-      "fallback": "Return an incomplete handoff and request a canonical document from the responsible content capability."
+      "fallback": "Return an incomplete handoff and request a canonical document from the responsible content capability, identifying any unresolved required body or metadata input."
     },
     {
       "capability": "content-seo-analysis",
@@ -148,11 +148,11 @@
       "scope": {
         "unit": "document",
         "maximum": 1,
-        "guidance": "Evaluate the canonical document once against the supported focus and preserve structural reliability and input limitations."
+        "guidance": "Evaluate the canonical document once against the supported focus only after its format, body, intended SEO title, and intended meta description resolve from explicit document metadata or recognized embedded declarations; preserve structural reliability and input limitations."
       },
       "completion_without": {
         "allowed": false,
-        "limitation": "The method cannot claim that the supplied document received its required focus-specific content review."
+        "limitation": "The method cannot claim that the supplied document received its required focus-specific content review when the focus keyword, document format, document body, intended SEO title, or intended meta description is unresolved."
       },
       "fallback": "Return an incomplete handoff without presenting the document as publication-ready."
     },
@@ -293,11 +293,11 @@
     },
     {
       "id": "prepare-canonical-document",
-      "instruction": "Have a separate client content capability create and edit one canonical document; prefer explicit title and meta-description provenance and keep publishing-only instructions outside analyzed body content."
+      "instruction": "Have a separate client content capability create and edit one canonical document. Preserve the intended SEO title and meta description with it: pass separately held values as explicit document metadata, or retain recognized opening Markdown YAML front matter or a complete HTML document head. Do not reduce a complete draft to body-only content when the required metadata is already known, and keep publishing-only instructions outside analyzed body content."
     },
     {
       "id": "analyze-document",
-      "instruction": "Run the required focus-specific review and only the conditional quality checks whose result can change revision or approval; do not maximize scores blindly."
+      "instruction": "Run the required content SEO analysis only with a canonical document that resolves the intended SEO title and meta description alongside its format and body for the supported focus. Treat missing required metadata as incomplete input rather than omitting it, inferring it from the H1, or inventing replacement values. Run only the conditional quality checks whose result can change revision or approval; do not maximize scores blindly."
     },
     {
       "id": "verify-factual-claims",
@@ -333,17 +333,18 @@
     "Generated variants, third-party estimates, content-analysis scores, and client-supplied snapshots retain their distinct provenance and limitations.",
     "Material factual claims have separate verification evidence or an explicit blocking record; content-analysis scores never satisfy factual verification.",
     "Publication and live verification are client and server evidence respectively; a staged snapshot cannot establish production equivalence.",
-    "The canonical page body remains a client-owned artifact and is not embedded in the validated handoff."
+    "The canonical page body remains a client-owned artifact and is not embedded in the validated handoff.",
+    "The canonical document evidence resolves the document format, body content, intended SEO title, and intended meta description for the required content SEO analysis. The title and description come from explicit document metadata, recognized opening Markdown YAML front matter, or a complete HTML document head; a body-only document is incomplete when either value is unresolved."
   ],
   "stop_conditions": [
     "Stop or narrow before paid research when the audience, market, page role, factual constraints, or approval ownership is materially ambiguous.",
     "Stop before a paid step when current authorization or budget is insufficient for the selected bounded evidence path.",
-    "Stop publication when the canonical document, factual verification, or required approval is incomplete.",
+    "Stop before content SEO analysis when the focus keyword, document format, document body, intended SEO title, or intended meta description is unresolved, and stop publication when the canonical document, factual verification, or required approval is incomplete.",
     "Return an incomplete handoff when the published page or required live verification evidence cannot be obtained."
   ],
   "completion_criteria": [
-    "The business and editorial context, research bounds, approved outline, and canonical artifact identity are recorded.",
-    "Required and selected conditional analyses are evidence-linked, and score conflicts or input limitations are explicit.",
+    "The business and editorial context, research bounds, approved outline, canonical artifact identity, document format, and provenance of its resolvable intended SEO title and meta description are recorded.",
+    "The required content SEO analysis uses the canonical body and intended metadata for the supported focus; selected conditional analyses are evidence-linked, and score conflicts or input limitations are explicit.",
     "Material factual claims are separately verified or the result stops incomplete.",
     "Approval, client-owned publication, live page reading, metadata, and technical verification are recorded.",
     "The handoff is self-contained, contains no finished page body, and identifies lifecycle ownership and any remaining checks."
