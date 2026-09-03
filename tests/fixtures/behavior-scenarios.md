@@ -80,6 +80,16 @@ Expected invariants:
 - User evidence supplies business and editorial context, client capabilities own finished drafting, claim verification, approval, publication, and page reading, and server capabilities supply only their mapped research and analysis evidence.
 - The validated handoff identifies the canonical artifact and evidence records without embedding finished page copy or implying that the SEO server mutated the CMS.
 
+## Content SEO Analysis Preserves Canonical Metadata
+
+Input: The approved draft has a focus keyword, Markdown format and body, an intended SEO title, and an intended meta description. The title and description are held separately from the Markdown body.
+
+Expected invariants:
+
+- The agent treats the focus keyword, document format, document body, resolvable intended SEO title, and resolvable intended meta description as required information for the content SEO analysis.
+- The agent preserves separately held values through explicit document metadata and recognizes opening Markdown YAML front matter or a complete HTML document head as accepted alternatives without requiring duplicate metadata.
+- The agent treats body-only content with unresolved required metadata as incomplete input and neither infers a title from the H1 nor invents a meta description.
+
 ## Post-Publication Verification Requires Live Evidence
 
 Input: The client has a staged snapshot and says the approved article is now public. The last cached page evidence predates publication, and the selected live operations expose a current full-price refresh path.

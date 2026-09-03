@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+## [v0.3.2] - 2026-09-03
+
+### Changed
+
+- `content-production-workflow@1.0.1` now requires a canonical document with a resolvable intended SEO title and meta description before its required content SEO analysis.
+- Recipe guidance now preserves separately held values through explicit document metadata while continuing to accept recognized opening Markdown YAML front matter or a complete HTML document head without duplicate metadata.
+- Missing required metadata is now an explicit incomplete-input condition; agents must not submit body-only content, infer a title from the H1, or invent a meta description.
+- Catalog `0.3.1` and registered behavior evidence cover the corrected metadata-preservation contract without changing workflow steps, capabilities, bounds, result contracts, or runtime-provider behavior.
+
 ## [v0.3.1] - 2026-08-15
 
 ### Changed
