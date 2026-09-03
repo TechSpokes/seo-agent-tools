@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "catalog_version": "0.4.0",
+  "catalog_version": "0.4.1",
   "catalog_schema": "catalog/schemas/catalog.schema.json",
   "recipe_schema": "catalog/schemas/recipe.schema.json",
   "supported_recipe_schema_versions": [

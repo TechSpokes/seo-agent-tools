@@ -1,0 +1,77 @@
+{
+  "analysis_id": "analysis-diagnostic-structurally-unavailable",
+  "contract_id": "seo-diagnostic/v1",
+  "recipe": {
+    "id": "page-refresh-brief",
+    "version": "2.0.1"
+  },
+  "subject": {
+    "url": "https://example.test/page",
+    "market": "example market"
+  },
+  "observed_at": "2026-09-03T12:00:00Z",
+  "evidence": [
+    {
+      "id": "evidence-target-metadata",
+      "source": "authorized target-page metadata",
+      "subject": "https://example.test/page",
+      "observed_at": "2026-09-03T11:59:00Z",
+      "observation": "The target URL and its current canonical metadata were resolved before result inspection.",
+      "limitations": [
+        "This observation does not establish result-page intent, ranking, traffic, or first-party index state."
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "finding-target-resolved",
+      "statement": "The target identity and observed canonical metadata remain supported despite the later result-evidence failure.",
+      "evidence_ids": [
+        "evidence-target-metadata"
+      ],
+      "limitations": [
+        "No content intervention can be selected without the required current-result evidence."
+      ]
+    }
+  ],
+  "disposition": "defer",
+  "confidence": {
+    "level": "low",
+    "reasons": [
+      "Target metadata is valid, but required current-result evidence is structurally unavailable for this input."
+    ]
+  },
+  "constraints": [
+    "Unresolved question: the current result intent and viable page pattern for the supplied market remain unknown.",
+    "Prohibited conclusions and interventions: do not claim ranking, traffic, accuracy, intent match, first-party index state, or prescribe create, refresh, consolidate, or preserve from this incomplete evidence."
+  ],
+  "completion": {
+    "status": "incomplete",
+    "stop_reason": "Execution-time evidence failure: the authorized current-result capability accepted the valid input but could not produce structurally usable required result evidence for the supplied market."
+  },
+  "verification": [
+    {
+      "check": "Recover required current-result evidence",
+      "status": "unavailable",
+      "note": "Use an authorized connected or manual current-result source for the same market. Resume diagnosis only when structurally usable result evidence is available for the relevant input."
+    }
+  ],
+  "evaluated_layers": [
+    {
+      "layer": "target identity and metadata",
+      "status": "clear",
+      "evidence_ids": [
+        "evidence-target-metadata"
+      ]
+    },
+    {
+      "layer": "search intent and result patterns",
+      "status": "unknown"
+    },
+    {
+      "layer": "content intervention",
+      "status": "unknown"
+    }
+  ],
+  "issues": []
+}

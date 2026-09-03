@@ -188,6 +188,13 @@
       "expected": "valid"
     },
     {
+      "id": "diagnostic-structurally-unavailable-evidence-valid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/diagnostic-structurally-unavailable.json",
+      "contract_id": "seo-diagnostic/v1",
+      "expected": "valid"
+    },
+    {
       "id": "diagnostic-unsupported-disposition-invalid",
       "kind": "result",
       "path": "tests/fixtures/contracts/diagnostic-empty.json",
