@@ -54,19 +54,9 @@ Resolve ordinary uncertainty before escalating. Inspect the brief and editorial 
 
 Final angle, source selection, quotations, and editorial approval remain human or client decisions. The SEO workflow can show evidence and consequences but must not silently assume those responsibilities.
 
-## Build a Self-Contained Handoff
+## Prepare a Content Handoff
 
-An implementation handoff must allow a receiving agent to act without access to the analyst's hidden reasoning or conversation history. Include:
-
-- The source analysis identifier and exact target.
-- The intended outcome and chosen intervention.
-- The responsible implementation capability.
-- The evidence-backed requirements and their evidence identifiers.
-- Existing material, page roles, or behavior that must be preserved.
-- Prohibited changes and scope boundaries.
-- Missing inputs or decisions that block part of the work.
-- Acceptance criteria stated as observable conditions.
-- A verification plan tied to the intended outcome.
+Use the [implementation handoff reference](implementation-handoff.md) for the shared action, evidence, and verification requirements.
 
 For content implementation, also include the target query and useful variants, observed intent, recommended page type, audience and journey state, buyer questions, proof requirements, content gaps, internal-link needs, and facts that must not be invented.
 

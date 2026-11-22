@@ -1,7 +1,7 @@
 {
   "name": "seo-agent-tools",
-  "version": "0.6.0",
-  "description": "Evidence-backed SEO analysis, content-production coordination, implementation handoffs, and verification through an SEO MCP server.",
+  "version": "0.7.0",
+  "description": "Evidence-backed SEO analysis, content-production coordination, implementation handoffs, and verification.",
   "author": {
     "name": "TechSpokes"
   },
@@ -17,7 +17,7 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "SEO Agent Tools",
-    "shortDescription": "Evidence-backed SEO analysis through an SEO MCP server.",
+    "shortDescription": "Evidence-backed SEO analysis and verification.",
     "longDescription": "Discover current SEO capabilities and recipes, produce bounded evidence-backed decisions, coordinate client-owned content production without writing finished copy, hand implementation to another agent, and verify completed work.",
     "developerName": "TechSpokes",
     "category": "Productivity",

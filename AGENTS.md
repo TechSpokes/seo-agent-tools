@@ -2,7 +2,7 @@
 
 ## Summary
 
-Maintain `seo-agent-tools` so future agents can use a connected SEO MCP server for bounded evidence-backed analysis, progressive recipe discovery, content-quality diagnosis, implementation handoffs, and verification without depending on private source context.
+Maintain `seo-agent-tools` so agents can use supplied evidence or a connected SEO MCP server for bounded analysis, progressive recipe discovery, content-quality diagnosis, implementation handoffs, and verification without depending on private source context.
 
 The public repository owns portable instructions, canonical recipe methodology, controlled discovery vocabulary, result contracts, tests, and deterministic projection. The connected private server owns executable tools, provider bindings, authentication, caller authorization, current cost, capability mapping, and runtime availability.
 
@@ -26,7 +26,7 @@ The product goal is to help an agent turn an SEO request into a supported decisi
 
 The maintenance goal is to keep the installed public skill lean, the recipe catalog scalable, public contracts explicit, projections deterministic, and release packages portable without leaking private server implementation or source-analysis material.
 
-The five initial recipes are migration seed data. Do not encode their count, names, current domains, output bounds, or shared shape as a permanent catalog limit.
+Use the catalog's declared recipe identities, taxonomy, evidence bounds and result contracts. Keep validation and discovery extensible as the catalog grows.
 
 ## Hard Constraints
 

@@ -1,12 +1,12 @@
 # SEO Agent Tools
 
-SEO Agent Tools is the canonical public source for portable SEO methodology, recipes, evidence discipline, and result contracts used through a connected SEO MCP server. It helps an agent choose a direct evidence lookup or discover a versioned analytical recipe, diagnose page and site problems, prepare implementation handoffs, and verify completed work.
+SEO Agent Tools is the canonical public source for portable SEO methodology, recipes, evidence discipline, and result contracts. It helps an agent analyze supplied evidence, choose a direct lookup or discover a versioned recipe through an SEO MCP server, diagnose page and site problems, prepare implementation handoffs, and verify completed work.
 
 The skill does not write finished content, expose private server internals, or implement persistent jobs. The connected server remains the runtime authority for current tools, private mappings, recipe availability, authorization, and cost.
 
 ## What It Helps Agents Do
 
-- Answer narrow SEO questions with the smallest sufficient server evidence path.
+- Answer narrow SEO questions from adequate supplied evidence or a focused authorized lookup.
 - Discover recipes progressively without loading an entire catalog into context.
 - Execute a selected recipe with bounded evidence, explicit stops, and typed results.
 - Observe how ChatGPT, Gemini, and Perplexity currently represent one supplied brand under identical framing without inventing a universal visibility score.
@@ -15,7 +15,7 @@ The skill does not write finished content, expose private server internals, or i
 - Hand implementation requirements to another agent without depending on shared conversation history.
 - Verify implemented work against the original result and acceptance criteria.
 
-For work from supplied Google reports, follow the [Search Console and GA4 export guide](docs/google-data-exports.md).
+For supplied Google reports, follow the [Search Console and GA4 export guide](docs/google-data-exports.md) and the [Google report evidence reference](skills/seo-agent-tools/references/google-report-evidence.md).
 
 ## Install
 
@@ -29,7 +29,7 @@ Use [INSTALL.md](INSTALL.md) for release pins, update previews, verification, re
 
 ## Use
 
-Invoke `$seo-agent-tools` when the agent has access to an SEO MCP server and the task requires SEO evidence or a reusable decision.
+Invoke `$seo-agent-tools` when the task calls for evidence-backed SEO analysis, a reusable decision, or verification. A readable supplied report can support an answer without connecting to Google. The current server governs any tools or recipes used through its interface.
 
 Example requests:
 
@@ -44,7 +44,7 @@ The installed skill discovers the connected server's current surface at runtime.
 
 ## Public Recipe Catalog
 
-The root [catalog](catalog/catalog.json) contains versioned public SEO methods, controlled discovery facets, source-classed evidence plans, provider-neutral evidence bounds, missing-capability behavior, and explicit JSON result composition. The initial recipes preserve current migration behavior, but the catalog format is designed for additional methods without changing the runtime skill's workflow.
+The root [catalog](catalog/catalog.json) contains versioned public SEO methods, controlled discovery facets, source-classed evidence plans, provider-neutral evidence bounds, missing-capability behavior, and explicit JSON result composition. The catalog supports new methods within the current skill workflow.
 
 The private server can import a pinned public revision, map stable capability IDs to its own tool registry, and resolve evidence units into a conservative caller-specific call plan. Direct analysis remains usable whenever a connected compatible server exposes suitable tools. A public recipe is executable only when that server exposes a compatible recipe version and the exact result contracts; catalog presence is not entitlement. This repository does not contain provider bindings, credentials, tenant state, or private pricing logic.
 
@@ -64,8 +64,8 @@ Use Node.js 22.2 or later to build and verify release archives. CI uses Node.js 
 ```bash
 npm ci
 npm run validate
-npm run package -- v0.6.0
-npm run release:verify-assets -- v0.6.0
+npm run package -- v0.7.0
+npm run release:verify-assets -- v0.7.0
 ```
 
 `npm run validate` checks catalog structure, runtime skill structure, documentation links, behavioral fixtures, and maintenance contracts. Packaging creates deterministic standalone, Codex plugin, and Claude plugin archives plus versioned catalog and manifest assets under `dist/assets/`. Release verification checks all five assets and rebuilds them to prove byte identity.

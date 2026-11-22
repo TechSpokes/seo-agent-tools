@@ -1,8 +1,8 @@
 {
   "name": "seo-agent-tools",
   "displayName": "SEO Agent Tools",
-  "version": "0.6.0",
-  "description": "Evidence-backed SEO analysis, content-production coordination, implementation handoffs, and verification through an SEO MCP server.",
+  "version": "0.7.0",
+  "description": "Evidence-backed SEO analysis, content-production coordination, implementation handoffs, and verification.",
   "author": {
     "name": "TechSpokes"
   },

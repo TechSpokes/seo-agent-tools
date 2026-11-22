@@ -4,7 +4,7 @@
 
 - A host that can load standard agent skills from a skills directory.
 - GitHub CLI with the `gh skill` command available.
-- A connected SEO MCP server for analysis behavior after installation.
+- A connected SEO MCP server for current runtime tools and recipe discovery.
 
 Confirm GitHub CLI support:
 
@@ -12,7 +12,7 @@ Confirm GitHub CLI support:
 gh skill --help
 ```
 
-Installation can succeed without an SEO server, but the skill must stop rather than invent analysis data when no compatible server is connected.
+The installed skill can also analyze readable supplied reports without a server connection. It requests the missing evidence when supplied material cannot support the requested conclusion.
 
 ## Install the Latest Published Source
 
@@ -29,7 +29,7 @@ Restart or reload the host if it does not detect skill changes automatically.
 Use an immutable release tag when reproducibility matters:
 
 ```bash
-gh skill install TechSpokes/seo-agent-tools skills/seo-agent-tools@v0.1.0 --dir "<ABSOLUTE_SKILLS_FOLDER>"
+gh skill install TechSpokes/seo-agent-tools skills/seo-agent-tools@v0.7.0 --dir "<ABSOLUTE_SKILLS_FOLDER>"
 ```
 
 Treat changing between a pinned release and a floating source as a separate user decision. Record the intended source and ref where the host or installation metadata supports it.

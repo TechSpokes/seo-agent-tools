@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "organic-search-performance-opportunity-decisions",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "title": "Organic Search Performance and Opportunity Decisions",
   "summary": "Investigate a material change in Google organic search visibility or prioritize a bounded opportunity using Search Console evidence, current target suitability and the site's objective.",
   "primary_domain": "visibility",
@@ -44,7 +44,7 @@
         "allowed": false,
         "limitation": "No first-party performance claim or ranked opportunity can be supported without inspected Search Console evidence adequate to the question."
       },
-      "fallback": "Inspect a readable user-supplied report or observations from an independently authorized connection. If neither supplies the required data, request the exact missing report, scope or columns and stop the unsupported part."
+      "fallback": "Use an adequate readable report without requiring connected access. For decision-relevant gaps, request the exact missing report, scope or columns, or use independently authorized connected evidence when available. Stop the unsupported part if the missing evidence remains unavailable."
     },
     {
       "capability": "first-party-performance-data",
@@ -112,11 +112,11 @@
     },
     {
       "id": "inspect-evidence",
-      "instruction": "Inspect a readable export or evidence returned by an independently authorized connection. For the connected path, select only decision-relevant report shapes and obtain a current quote and authorization before chargeable calls. Record source, observation date, scope, freshness, filters, aggregation and coverage. Keep property aggregates, page aggregates and returned query rows apart. When additional rows can change the decision, inspect each period's own continuation and extend only the required bounded comparison. Keep unreturned keys and ambiguous export zeros unknown."
+      "instruction": "Inspect supplied or independently authorized connected reports. Record source, observation time, scope, freshness, filters, aggregation and coverage. For connected acquisition, select decision-relevant report shapes and obtain a current quote and authorization before chargeable calls. Extend each period's own continuation only while additional rows can change the decision. Combine responses only for compatible property, ordered dimensions, filters, search surface, aggregation, reporting-period definitions and metrics."
     },
     {
       "id": "diagnose-change",
-      "instruction": "For a change question, compare like units and show the decisive counts and denominators for each period. Locate material contributors by relevant page, query, device or market. Check concentration and show what changed outside a leading page when the data supports it. Calculate CTR from compatible clicks and impressions, and keep source-reported average position at its own grain. Report what differs without assigning a cause from timing or correlation."
+      "instruction": "Accumulate actual observations by exact full dimension tuple and period. Keep observed zeros and earlier returned values when another response marks the same period not returned. Count each tuple once and count identical repeated observations once per period. Preserve conflicting observations with their sources and observation times and leave the affected changes unresolved. Calculate changes after accumulation, using only comparable observations. Show decisive values and denominators, locate material contributors and check what changed outside a leading page when supported. Calculate CTR from compatible clicks and impressions and keep average position at its reported grain. Report the change without assigning a cause from timing or correlation."
     },
     {
       "id": "qualify-opportunities",
@@ -129,13 +129,13 @@
   ],
   "evidence_requirements": [
     "Preserve clicks, impressions, CTR and average position with the observed aggregation and reporting grain. Keep separately acquired denominators distinct.",
-    "Preserve known zeros, not returned values, unavailable values and export placeholders without inferring 100% loss or complete query coverage.",
+    "Keep property aggregates, page aggregates and returned query rows apart. Preserve observed zeros, missing values and ambiguous export placeholders. Keep unmatched values unknown and report distinct matched, unmatched and conflicting keys. Completed continuation covers the available scoped rows and does not establish exhaustive source coverage.",
     "Give each action the current target, decisive values and periods, applicable user objective, confidence limits and one verification step.",
     "Treat GSC clicks and GA4 sessions or events as separate observations. Limit Google-origin analysis to the compatible Google organic slice where GA4 is material."
   ],
   "stop_conditions": [
     "Stop the first-party conclusion without a matched readable report or independently authorized observations. State whether the source is absent, unreadable or insufficient and request only what would resolve the remaining question.",
-    "With incompatible or preliminary intervals, filters or aggregation, state the exact comparability gap and limit the answer to supported observations. Use an explicit incomplete result when the requested conclusion depends on that gap.",
+    "With incompatible scope, preliminary intervals or unresolved conflicting observations, state the exact comparability gap and limit the answer to supported observations. Use an explicit incomplete result when the requested conclusion depends on that gap.",
     "Withhold candidate ranking when demand, materiality, intent or current target suitability remains unresolved. Record a completed result with no supported action when the requested assessment was adequately performed."
   ],
   "completion_criteria": [

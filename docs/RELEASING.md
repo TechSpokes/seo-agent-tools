@@ -11,7 +11,7 @@ npm run version:check
 npm run version:check -- vX.Y.Z
 ```
 
-Recipe versions are independent semantic versions. Increment a recipe version when its inputs, sequence, evidence sources or uses, evidence scope, completion-without behavior, stops, completion criteria, bounds, output composition, or result meaning changes. Use a new major recipe version when an importer must consume an incompatible recipe-schema shape, as with the schema v1 to v2 evidence-plan migration. Preserve old immutable versions in release history or Git tags; do not silently change a server-pinned recipe.
+Recipe versions are independent semantic versions. Increment a recipe version when its inputs, sequence, evidence sources or uses, evidence scope, completion-without behavior, stops, completion criteria, bounds, output composition, or result meaning changes. Use a new major recipe version when an importer must consume an incompatible recipe-schema shape. Preserve pinned recipe identities through immutable release history or Git tags.
 
 Result contracts use explicit identifiers such as `seo-diagnostic/v1`. Add `v2` for an incompatible field or meaning change. Catalog metadata has its own semantic version for importer-visible catalog changes.
 
@@ -23,14 +23,14 @@ Result contracts use explicit identifiers such as `seo-diagnostic/v1`. Add `v2` 
 
 ```bash
 npm run validate
-npm run package -- v0.6.0
-npm run release:verify-assets -- v0.6.0
+npm run package -- v0.7.0
+npm run release:verify-assets -- v0.7.0
 ```
 
 4. Run the repository preflight when the branch and remote state are ready for release.
 
 ```bash
-npm run release:preflight -- v0.6.0
+npm run release:preflight -- v0.7.0
 ```
 
 5. Review `dist/assets/SHA256SUMS`, the three ZIP inventories, and both versioned catalog files under `dist/catalog/`.

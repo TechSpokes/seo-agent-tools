@@ -17,8 +17,8 @@ npm run validate
 When runtime or release behavior changes, also build and verify the intended release candidate:
 
 ```bash
-npm run package -- v0.6.0
-npm run release:verify-assets -- v0.6.0
+npm run package -- v0.7.0
+npm run release:verify-assets -- v0.7.0
 ```
 
 Use the intended version tag rather than retaining an older release example after the package version changes.
@@ -48,6 +48,8 @@ Report a successful `npm run validate` result as structural or evaluation-regist
 `tests/fixtures/contracts/cases.json` registers valid and intentionally invalid JSON instances assessed by catalog validation. The result cases cover a non-empty opportunity set, completed empty opportunity and diagnostic results, a diagnostic with issues, an incomplete diagnostic with a precise stop reason, a constrained incomplete diagnostic for structurally unavailable required evidence, a self-contained implementation handoff, a content-question review with ordered supplied questions, and AI Brand Representation Snapshot outcomes across reports, valid negatives, post-start failures, preflight unavailability, insufficient evidence, and rejected framing. Snapshot negative cases reject missing or duplicate channels, unresolved evidence, inconsistent conditions, universal or averaged scores, mismatched disposition or completion, invalid null quotes, and unreconciled cost totals. Other negative cases preserve legacy unresolved-evidence checks and reject unsupported dispositions, missing handoff context, mismatched source payloads, missing source material, missing revision recommendations, blocking escalations in complete reviews, and incomplete reviews without stop reasons. Catalog and recipe cases prove rejection of unknown fields, unsupported schema versions, uncontrolled capability and scope values, unknown steps and result contracts, invalid evidence source and use classes, missing conditional predicates, invalid bounds, and ambiguous output composition. The registry and its source instances remain under `tests/` and are excluded from release archives and the server projection.
 
 After a substantial instruction change, run fresh-context agent evaluations against representative fixtures. Give each evaluator only the installed runtime tree plus the prompt and test facts needed for its case. Record whether the output satisfied the invariants; do not count an evaluator's agreement with the prose as execution evidence.
+
+For a handoff case, give a fresh recipient only the handoff produced by the first evaluator. Check whether the recipient can identify and verify the action from its target, evidence and constraints.
 
 ## Milestone-Based Verification
 

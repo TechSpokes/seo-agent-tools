@@ -1462,6 +1462,13 @@
       ]
     },
     {
+      "id": "handoff-google-canonical-correction-valid",
+      "kind": "result",
+      "path": "tests/fixtures/contracts/handoff-google-canonical-correction-valid.json",
+      "contract_id": "seo-implementation-handoff/v1",
+      "expected": "valid"
+    },
+    {
       "id": "handoff-self-contained-valid",
       "kind": "result",
       "path": "tests/fixtures/contracts/handoff-valid.json",

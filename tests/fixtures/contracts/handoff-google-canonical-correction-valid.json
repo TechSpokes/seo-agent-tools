@@ -1,0 +1,98 @@
+{
+  "analysis_id": "winter-url-canonical-handoff",
+  "contract_id": "seo-implementation-handoff/v1",
+  "subject": {
+    "url": "https://example.test/tours/winter"
+  },
+  "observed_at": "2026-06-09T10:00:00Z",
+  "evidence": [
+    {
+      "id": "declared-canonical",
+      "source": "User-supplied HTTP and HTML snapshot",
+      "subject": "https://example.test/tours/winter",
+      "observed_at": "2026-06-09T10:00:00Z",
+      "observation": "HTTP 200 with an HTML canonical declared as https://example.test/tours/archive.",
+      "limitations": [
+        "The snapshot shows the live declaration at its observation time."
+      ]
+    },
+    {
+      "id": "owner-approved-target",
+      "source": "User-supplied site owner decision",
+      "subject": "https://example.test/tours/winter",
+      "observed_at": "2026-06-09T10:00:00Z",
+      "observation": "The site owner confirmed this URL as the preferred indexable version.",
+      "limitations": []
+    },
+    {
+      "id": "winter-query-clicks",
+      "source": "User-supplied Search Console Web export for sc-domain:example.test",
+      "subject": "https://example.test/tours/winter, query winter tour",
+      "observed_at": "2026-06-09T10:00:00Z",
+      "observation": "The exact page and query row reports 12 clicks on April 1-30 and 0 clicks on May 1-31, 2026.",
+      "limitations": [
+        "This bounded comparison supplies no causal attribution or current Google-selected canonical."
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "canonical-mismatch",
+      "statement": "The live canonical declaration differs from the site owner's preferred indexable URL.",
+      "evidence_ids": [
+        "declared-canonical",
+        "owner-approved-target"
+      ]
+    }
+  ],
+  "disposition": "proceed",
+  "confidence": {
+    "level": "high",
+    "reasons": [
+      "The supplied snapshot and confirmed target support correcting the current canonical declaration."
+    ]
+  },
+  "constraints": [
+    "The approved change covers only the canonical declaration on the winter URL.",
+    "Attribution of the click change and Google's canonical selection both remain unknown."
+  ],
+  "completion": {
+    "status": "complete"
+  },
+  "verification": [
+    {
+      "check": "Verify the corrected live canonical and preservation requirements after implementation.",
+      "status": "not-run"
+    }
+  ],
+  "source_analysis_id": "winter-url-canonical-diagnostic",
+  "intended_outcome": "Align the winter URL's canonical declaration with the approved preferred URL.",
+  "responsible_capability": "Site implementation owner responsible for page metadata",
+  "requirements": [
+    {
+      "statement": "On https://example.test/tours/winter, change the HTML canonical from https://example.test/tours/archive to https://example.test/tours/winter.",
+      "evidence_ids": [
+        "declared-canonical",
+        "owner-approved-target"
+      ]
+    }
+  ],
+  "preserve": [
+    "Existing page content, redirect behavior and analytics configuration."
+  ],
+  "prohibited": [
+    "Changing page copy, redirects, analytics, or metadata on other URLs."
+  ],
+  "missing_inputs": [
+    "A later authorized indexed-version observation is needed to verify Google's eventual selection."
+  ],
+  "acceptance_criteria": [
+    "The live winter URL still returns HTTP 200 and declares itself as canonical.",
+    "Page content, redirect behavior and analytics configuration remain as recorded before the change."
+  ],
+  "verification_plan": [
+    "Capture the current response, content, redirect behavior and analytics configuration before editing.",
+    "Read the live response and HTML after deployment and compare the preserved behavior with the baseline.",
+    "Record index selection separately when a later authorized observation is available."
+  ]
+}

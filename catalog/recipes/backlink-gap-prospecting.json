@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "backlink-gap-prospecting",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "title": "Backlink Gap Prospecting",
   "summary": "Compare referring-domain evidence for a target and confirmed competitors, then qualify a bounded set of relevant outreach prospects.",
   "primary_domain": "authority",
@@ -112,7 +112,7 @@
         "allowed": false,
         "limitation": "The method cannot qualify topical relevance, outreach angle, or disqualifying context without source-page evidence."
       },
-      "fallback": "If no finalist source page can be read, return incomplete; otherwise narrow the completed set to candidates whose source context was observed."
+      "fallback": "If finalists remain and none of their source pages can be read, return incomplete. Otherwise narrow the completed set to candidates with observed source context. When no finalists remain after supported screening, complete with an empty set and explain the decisive reasons."
     }
   ],
   "steps": [
@@ -130,15 +130,15 @@
     },
     {
       "id": "retrieve-domain-sets",
-      "instruction": "Retrieve bounded referring-domain evidence for the target and confirmed competitors with comparable conditions."
+      "instruction": "Retrieve bounded referring-domain evidence for the target and confirmed competitors with comparable conditions. Keep source scope, period when reported, and the bounds of each observed set."
     },
     {
       "id": "compute-and-rank-gaps",
-      "instruction": "Identify domains that support relevant competitors but not the target, then rank candidates by supported relevance and authority evidence."
+      "instruction": "Identify candidate gaps where a referring domain occurs in a competitor set and is unobserved in the bounded target set. Omission is evidence only about the observed set. Require independent evidence at the claimed scope for stronger absence conclusions. Rank candidates by supported relevance and authority evidence."
     },
     {
       "id": "qualify-sites",
-      "instruction": "Inspect finalist source context, topical relevance, plausible outreach angle, and disqualifying evidence."
+      "instruction": "Inspect finalist source context, topical relevance, plausible outreach angle, and disqualifying evidence. Reconcile any direct observation of a target link with the candidate gap. A single source page establishes only what that page shows. Reject or qualify the candidate according to the observed evidence."
     },
     {
       "id": "produce-prospect-list",
@@ -147,6 +147,7 @@
   ],
   "evidence_requirements": [
     "Each prospect is supported by an observed link to a relevant confirmed competitor.",
+    "Preserve missing or conflicting target observations. A link observed pointing to the target rules out confirmed domain-wide absence even if the referring domain was omitted from the target subset.",
     "Authority metrics record their source, freshness, and limitations.",
     "Relevance and outreach angle are interpretations linked to source context.",
     "Contact information is reported only when lawfully and directly observed; it is never invented."
@@ -158,7 +159,7 @@
     "Return an empty completed opportunity set when no prospect survives qualification."
   ],
   "completion_criteria": [
-    "The target, competitors, data conditions, and comparison logic are recorded.",
+    "The target, competitors, source conditions, observed bounds, and comparison logic are recorded.",
     "Every included prospect has link evidence, relevance, qualification, confidence, and constraints.",
     "Material finalist rejections have reasons.",
     "No more than twenty qualified prospects are returned."
