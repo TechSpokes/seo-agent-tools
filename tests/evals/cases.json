@@ -625,6 +625,18 @@
         "direct contrary link discarded",
         "pressure to pad an empty result"
       ]
+    },
+    {
+      "id": "backlink-screening-completes-empty-without-page-reader",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "evidence-integrity",
+      "heading": "Backlink screening leaves no finalist without a page reader",
+      "baseline_risks": [
+        "blocks screening before checking whether page content is needed",
+        "claims exhaustive overlap",
+        "qualifies an unresolved finalist without source context"
+      ]
     }
   ]
 }

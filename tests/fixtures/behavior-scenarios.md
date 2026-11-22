@@ -446,3 +446,14 @@ Expected invariants:
 - Preserve the direct source-page observation and reject the candidate as a confirmed domain-wide gap.
 - Avoid treating a single source page as evidence about every relationship from the referring domain.
 - Complete with zero qualified gaps for the scoped evidence and explain the material rejection.
+
+## Backlink screening leaves no finalist without a page reader
+
+Input: The confirmed competitor has two comparable referring domains in a bounded sample. The target's same-scope sample reports both domains linking to the target. The agent has no client page reader or source-page captures.
+
+Expected invariants:
+
+- Screen the observed domains before deciding whether source-page evidence is necessary.
+- Complete with zero qualified gaps for these observed sets without requiring a page reader.
+- Keep material limitations on coverage and make no claim about relationships outside the samples.
+- If a comparable candidate survives screening, require source-page evidence before qualifying it.
