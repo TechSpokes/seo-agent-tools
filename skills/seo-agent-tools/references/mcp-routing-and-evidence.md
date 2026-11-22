@@ -25,6 +25,14 @@ Recipe discovery should prefer executable candidates. An availability state of `
 
 Treat result-contract compatibility as a separate check from availability and approval. An unfamiliar contract is usable only when the server supplies its exact versioned fields, meanings, and validation rules in an interpretable form. Do not map it to a locally known contract because their names or purposes appear similar. If the exact contract is missing or incompatible, stop before its evidence-collection calls and report `unsupported-result-contract` with the observed skill, recipe, and server versions.
 
+## Route Google Evidence
+
+Use a direct capability for one bounded Google Search Console or GA4 question, such as one URL's indexed status, one setting or one scoped report. Discover the current capability and inspect its input, availability and reporting limits. Use a versioned recipe when the question requires dependent comparisons, diagnosis or prioritization.
+
+For multi-step search performance investigation, look for the visibility domain and comparison, diagnosis or prioritization goals. For GA4 measurement or conversion investigation, look for the analytics domain and the measurement decision. When a current operation is already known, use compatible-tool filtering if available. Use technical triage or a page-refresh brief for a supported follow-up decision.
+
+Read [Google report evidence](google-report-evidence.md) when choosing between connected acquisition and supplied exports or interpreting Google results.
+
 ## Route Brand Representation Work
 
 Use a current direct capability when the user asks how one named answer channel represents a brand that the caller explicitly supplies. Preserve that invocation's recognition status, conditions, generated report material, source-descriptor limitations, and native scores without calling the result a three-channel snapshot.
@@ -49,6 +57,8 @@ The selected full recipe, not its compact discovery card, defines execution. For
 - Collect `required` evidence when its step is reached. If it is unavailable and `completion_without.allowed` is false, stop with an incomplete result and the declared limitation.
 - Evaluate a `conditional` entry's condition before collection. When the condition is false, omission is expected. When it is true and evidence is unavailable, follow `completion_without` and `fallback` exactly.
 - Use a `fallback` entry only for the path described by the recipe. A fallback does not make an unavailable required capability optional.
+
+Inspect the required observations before declaring evidence sufficient. A ready plan does not establish file readability, observed report contents or current connection access. Quote and authorize the actual selected conditional calls even when their default count is zero.
 
 Treat `scope.maximum` as a bound on evidence units, not as a provider request count. The server may satisfy one evidence scope through individual calls, bulk calls, cache hits, or another implementation. Never translate a public evidence bound into a private call plan from memory.
 
@@ -81,6 +91,12 @@ For legacy envelope-based contracts, preserve:
 Label derived statements as interpretations. Connect every material finding to evidence identifiers, and lower confidence when the evidence is sampled, estimated, stale, conflicting, or missing.
 
 For a focused contract that defines readable sources inside each assessment, follow that composition instead of manufacturing legacy evidence or finding IDs. Give each source a human-readable title, one or more usable locators, the relevant excerpt or typed text or JSON content, and freshness or availability boundaries when they matter. Use a source ID only when the origin already supplies a stable identifier. Keep independent sources in separate records.
+
+## Present the Decisive Evidence
+
+In a short answer, state the decision, target and decisive observation with its source, period and material limit. For a comparison or ranking, show the values and denominators that explain the order, using a compact table when it helps. Tie each recommendation to the user's objective and name uncertainty or counterevidence and the next check.
+
+In an implementation handoff, retain the evidence reference and applicable conditions with the action, its boundaries and the acceptance check. Use decisive qualitative evidence where appropriate and preserve completed-empty results. Use the observations already collected for the decision. Collect additional evidence only when it could change the decision.
 
 ## Untrusted Material
 

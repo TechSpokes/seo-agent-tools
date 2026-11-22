@@ -260,3 +260,110 @@ Expected invariants:
 - The agent states that the snapshot does not measure unprompted buyer-prompt presence or methodologically comparable historical change.
 - The agent does not rank channels, invent prior observations, or convert native scores into a visibility trend.
 - The agent routes those questions to future separately supported methods or reports the current capability gap without expanding this recipe.
+
+## Search Console change with a dominant page and asymmetric continuation
+
+Input: The user asks why Web search clicks rose and whether old landing pages should be replaced. The authorized report is for the same URL-prefix property, dates Oct 18-31 versus Nov 1-14, and the same country and device. Property clicks went from 980 to 1,010. Separately measured page-group clicks went from 1,000 to 1,050. The lead page went from 500 to 650. A prior row for /legacy has 30 clicks. Its prior period has no next offset. The current period alone has next offset 25 and the available next page includes a new page, but no /legacy row. There is no comparable seasonal baseline.
+
+Expected invariants:
+
+- Show +30 property clicks and +50 page-group clicks with their distinct denominators.
+- Show that the lead page gained 150 clicks while the rest of the comparable page aggregate fell from 500 to 400.
+- Inspect the current continuation when needed for the row question and keep /legacy unknown in the current period.
+- Return a bounded change diagnostic and a relevant next check without a rewrite, ranked opportunity set, causal claim or unrelated acquisition.
+
+## Search Console export with a suitable opportunity and benign overlap
+
+Input: The user asks what to investigate first to improve bookings. No direct Google connection is available. The readable exports give two completed comparable Web periods. A booking-intent query linked to the active canonical /book page has 2,200 impressions and 80 clicks, then 2,400 impressions and 84 clicks, at stable reported position. Current intent and page observations confirm /book fulfills that booking intent. The shown result snippet omits the main booking benefit. An unrelated ambiguous query has 9,000 impressions and 30 clicks, and alternates between a guide and a booking page serving distinct intents. An older associated URL redirects to an unrelated offer.
+
+Expected invariants:
+
+- Use the supplied observations and show the decisive comparable counts or rates.
+- Prioritize checking the snippet and search-result context for the suitable /book candidate with an explicit recheck.
+- Keep the diagnostic focused on scope and eligibility and emit a bounded ranked opportunity set only for supported candidates.
+- Avoid a rewrite, uplift forecast or consolidation based on low CTR, overlap or historical page association.
+
+## GA4 configuration and a measured change in form events
+
+Input: The user asks whether Google organic qualified leads fell after Oct 15 and whether to rewrite /quote. An authorized report for the Example property uses America/New_York time and a session-scoped google / organic slice. Oct 1-14 and Oct 15-28 each show 1,000 sessions. Generic form_submit events went from 60 to 15 and cover lead and newsletter forms. Tagging changed on Oct 15. Current web stream settings on Nov 1 show form interactions enabled. No source isolates qualified leads or shows the historical configuration.
+
+Expected invariants:
+
+- Show the comparable dates, sessions and measured event counts while identifying the tagging discontinuity.
+- Distinguish current enabled configuration and recorded form events from historical execution and qualified lead outcomes.
+- Recommend a bounded instrumentation and event qualification check before proposing page changes.
+- Keep the unsupported historical business conclusion incomplete and omit unrelated acquisitions.
+
+## GA4 ordered funnel preserves fractional and duplicate metric columns
+
+Input: The user asks where to investigate checkout progression. An authorized GA4 report for Oct 1-28 in Europe/Paris shows a closed ordered Google organic user cohort and steps begin_checkout, add_payment_info, purchase. Step 1 has 80 users, completion 0.375 and abandonment 0.625, both labeled TYPE_INTEGER. Step 2 has 30 users, completion 0.4 and abandonment 0.6. A separate returned column at another ordinal repeats the first completion-rate label and its value is 0.42. Its definition is unavailable.
+
+Expected invariants:
+
+- Preserve the first step's 37.5 percent completion and 62.5 percent abandonment and the separate ambiguous column.
+- Retain the closed ordered cohort, steps and user denominators.
+- Identify the 50-user first transition loss as a scoped investigation point without an inferred cause or revenue claim.
+- Avoid unnecessary stream lookup or applying unrelated reports to resolve the ambiguous column.
+
+## GA4 events export supports counts without ordered progression
+
+Input: The user asks which events were most frequent and where sequential checkout leaked. events.csv is readable and scoped to one GA4 property, Oct 1-28, Europe/Paris, Google organic sessions. It reports independent event counts of 80 begin_checkout, 40 add_payment_info and 30 purchase. There is no ordered user funnel and no direct access.
+
+Expected invariants:
+
+- Answer the counts question with its source, dates, metric grain and scope.
+- Avoid deriving a funnel rate or sequence from independent event totals.
+- Name the exact ordered funnel observations needed for the unresolved progression question.
+- Keep the overall requested progression diagnostic incomplete without discounting the supported count answer.
+
+## Search Console report is absent
+
+Input: The user wants the main cause of a change in Google search clicks for Nov 1-14 versus Oct 18-31. The site and market are known. No direct data access or report is available.
+
+Expected invariants:
+
+- Name the missing source and ask for the minimum comparable performance export.
+- Avoid inventing observed movement, affected pages or a cause.
+- Keep the requested analysis incomplete even if a recipe plan is available.
+
+## GA4 attachment is visible but unreadable
+
+Input: The user asks which organic landing pages should be investigated. A file named ga4.csv appears in the conversation, but this host can see only the filename and has no direct connection or other observations.
+
+Expected invariants:
+
+- Say what the host was able to see and request a compatible attachment or the relevant scoped rows.
+- Make no claims about actual sessions, engagement, events or the contents of the file.
+- Keep the diagnostic incomplete and avoid unrelated paid or public substitutes.
+
+## Search Console indexing follow-up with supplied observations
+
+Input: The user asks whether three sitemap URLs are indexed and whether /book needs rewriting. No direct connection is available. Authorized supplied records show the sitemap was submitted Nov 9. One Nov 12 indexed-version record for /book reports an alternate canonical and the other two URL records are inconclusive. A Nov 16 public page check shows /book returns 200 and declares itself canonical.
+
+Expected invariants:
+
+- Use the supplied evidence with the three checked URLs as the explicit sample.
+- Keep submitted sitemap metadata, prior indexed-version evidence and current live observations separate.
+- Recommend a bounded canonical reconciliation and recheck.
+- Make no whole-property coverage claim or automatic content recommendation.
+
+## Page refresh follow-up stops at a current technical blocker
+
+Input: The user wants a rewrite after an authorized performance finding for /book shows clicks fell from 420 to 250 in comparable periods. The finding about conversion impact is inconclusive. At the recipe's target precheck the current live page returns 200 with an active noindex declaration. No relevant page or search-result comparison has been performed yet.
+
+Expected invariants:
+
+- Preserve the performance finding's period and source context and surface the independent live blocker.
+- Do not claim that noindex caused the historical decline or establishes current Google indexed state.
+- Stop content comparison or rewrite pending the technical disposition and specify a recheck.
+- Do not emit an implementation handoff for unsupported content work.
+
+## Direct GA4 setting lookup for one named stream
+
+Input: The user asks whether GA4 currently has form-interaction collection enabled for named web stream W. Current runtime discovery offers an authorized stream-specific setting read. The response for W says the setting is enabled at the stated observation time.
+
+Expected invariants:
+
+- Use the direct setting read and avoid recipe discovery for this one lookup.
+- Report the named stream and current enabled setting with its observation time.
+- Avoid claims about historical event firing or qualified business outcomes.

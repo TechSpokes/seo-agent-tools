@@ -33,7 +33,7 @@ For an individual verification check, use `not-run` when no implementation state
 
 A full recipe identifies exactly one `primary` result contract. Return that contract for both completed execution and explicit incomplete execution so the completion state and stop reason remain machine-readable.
 
-An additional result contract has a `conditional` role and a deterministic condition. Emit it only when that condition is satisfied. For the seed page-refresh method, the implementation handoff is emitted only when the diagnostic is complete and its disposition is `proceed` or `conditional`; do not emit it for `reject`, incomplete execution, or an unresolved `defer`.
+An additional result contract has a `conditional` role and a deterministic condition. Emit it only when that condition is satisfied. For a page-refresh handoff, the diagnostic must be complete and its disposition must be `proceed` or `conditional` for a supported intervention. An investigation that still needs decisive evidence stays in the diagnostic. The organic search method adds an opportunity set only after a completed prioritization assessment supports a ranked candidate. A change-only result uses the primary diagnostic.
 
 Output composition does not change contract compatibility requirements. Interpret the exact versioned schema for every result that may be emitted before collecting evidence that exists solely for that result.
 
@@ -101,7 +101,7 @@ Use `seo-diagnostic/v1` for page, site, technical, content-quality, and other ca
 - For each issue, the affected scope, priority, evidence, competing explanations, likely root cause, recommended intervention, and verification method.
 - A page strategy of `create`, `refresh`, `consolidate`, or `preserve` only when the diagnosis supports a page-level content decision.
 
-An empty issue list is valid when the requested checks completed without a supported issue. Preserve useful current behavior explicitly when a change could cause regression.
+An empty issue list is valid when the requested checks completed without a supported issue. A current measurement setting can support a bounded finding while historical performance remains unknown. Preserve a source's reported numeric precision and column identity in evidence. Preserve useful current behavior explicitly when a change could cause regression.
 
 A directly observed blocking target-page signal can support a complete bounded technical diagnostic when it makes later comparison misleading. Do not claim actual first-party index state from observable directives or public signals. When a required capability passed readiness but failed to produce evidence for the relevant input, return the constrained incomplete shape described above.
 

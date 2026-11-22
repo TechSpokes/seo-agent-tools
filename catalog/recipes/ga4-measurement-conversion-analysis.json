@@ -1,0 +1,89 @@
+{
+  "schema_version": 2,
+  "id": "ga4-measurement-conversion-analysis",
+  "version": "1.0.0",
+  "title": "GA4 Measurement and Conversion Analysis",
+  "summary": "Use Google Analytics 4 (GA4) evidence to assess measurement validity, organic landing-page outcomes, or ordered conversion progression and choose the next justified check.",
+  "primary_domain": "analytics",
+  "operations": [
+    "compare",
+    "diagnose",
+    "prioritize",
+    "validate",
+    "verify"
+  ],
+  "target": "site",
+  "required_inputs": [
+    {
+      "id": "objective",
+      "description": "The decision to make and what counts as a meaningful outcome for the site, such as a qualified lead, a booking, a purchase, or an engagement goal."
+    },
+    {
+      "id": "property_scope",
+      "description": "The site and intended GA4 property. Confirm the authorized property or the property represented in the supplied evidence before drawing conclusions."
+    }
+  ],
+  "evidence_plan": [
+    {
+      "capability": "first-party-performance-data",
+      "source": "user",
+      "use": "required",
+      "steps": [
+        "identify-scope",
+        "inspect-evidence",
+        "choose-action"
+      ],
+      "scope": {
+        "unit": "context-record",
+        "maximum": 1,
+        "guidance": "Use one scoped GA4 property context with only the reports or settings that can change the decision. Inspect an adequate export through a compatible host or acquire observations from an independently authorized connected source."
+      },
+      "completion_without": {
+        "allowed": false,
+        "limitation": "A complete answer about GA4 measurement or reported outcomes requires inspected first-party evidence adequate for the selected branch."
+      },
+      "fallback": "Use a readable export or independently authorized observation available for the same question. If only a narrower question is supported, state its scope and the remaining prerequisite. Return an incomplete diagnostic for an unanswered required decision."
+    }
+  ],
+  "steps": [
+    {
+      "id": "identify-scope",
+      "instruction": "Confirm the decision and business-outcome definition. Identify the exact property and any analysis dates, property timezone, acquisition scope, attribution scope, filters, dimensions, and metric definitions that affect the question. Identify the web stream only for stream-specific settings or a stream-scoped question. Select measurement validity, organic landing-page outcomes, ordered progression, or current activity according to the decision."
+    },
+    {
+      "id": "inspect-evidence",
+      "instruction": "Inspect an adequate supplied export if the host can read it, or select the independently authorized connected requests that can resolve the question. Check availability, authorization, current pricing, and the bounded inputs before any selected connected call. For measurement validity, inspect relevant current settings or definitions and compare observed event reporting across the requested dates only when the question needs historical evidence. For landing-page outcomes, compare aligned sessions, engagement, and validated key events. For progression, inspect an ordered-user funnel with compatible definitions. Use realtime evidence only for a current-activity question."
+    },
+    {
+      "id": "choose-action",
+      "instruction": "Link each material finding to observed evidence and explain measurement or scope limits. Where a supported issue exists, give its scope, competing explanations, likely cause, intervention, and verification. Otherwise describe supported observations with an empty issue list. Choose the next bounded action, such as an instrumentation check, measurement repair for the responsible owner, a landing-page or funnel investigation, monitoring, or no change."
+    }
+  ],
+  "evidence_requirements": [
+    "Record each decisive source, property, applicable date range and timezone, cohort or filters, and measurement conditions. Distinguish all Organic Search from the Google organic subset, and keep session acquisition and attributed event outcomes in their stated scopes.",
+    "Separate present settings and key-event definitions from historical recorded activity. A setting cannot establish that an event fired, how it was collected, or whether a business transaction succeeded. A missing scoped row leaves that outcome unknown. Qualify any comparison affected by a known tracking change or measurement discontinuity.",
+    "Keep counts, rates, and averages in their reported units and denominators. Check metric definitions and compatibility when material. Treat a generic form event as recorded activity and use a qualified-lead or revenue label only when its business definition is verified.",
+    "For a funnel, retain ordered steps, open or closed entry, the cohort, time boundaries, and the source denominators. Preserve fractional values even when source type metadata implies integers. Keep repeated metric labels distinct by column position and table context, and mark any unresolved meaning. Independent aggregate event totals establish recorded counts only.",
+    "When using Search Console for context, state each source's timezone, attribution limits, and metric definitions separately. A Search Console click and a GA4 session measure different activity. A landing-page aggregate cannot assign conversions to individual search queries."
+  ],
+  "stop_conditions": [
+    "If no adequate source is authorized or supplied, ask only for the report or setting that would resolve the question and return an incomplete diagnostic.",
+    "If the host cannot read the attachment, report the format or access prerequisite and draw no conclusions from the unread file.",
+    "If an inspected export lacks material fields, comparable periods, or ordered-user evidence, return supported observations within its scope. Identify the exact missing input and mark any required unresolved analysis incomplete."
+  ],
+  "completion_criteria": [
+    "The requested branch has adequate inspected evidence, or the result records the unresolved decision and a precise stop reason.",
+    "The evidence supports the distinction between current configuration, recorded outcomes, and any supported explanation. An adequate observation can yield a completed result with no issues.",
+    "Any recommendation states what to observe next to confirm or challenge it within the scoped property and measurement window."
+  ],
+  "output_contracts": [
+    {
+      "id": "seo-diagnostic/v1",
+      "role": "primary"
+    }
+  ],
+  "bounds": {
+    "max_results": 3,
+    "sample_guidance": "Use the smallest set of equivalent periods, landing pages, event definitions, or ordered steps needed for the decision. Return at most three supported issues."
+  }
+}
