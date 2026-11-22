@@ -378,3 +378,14 @@ Expected invariants:
 - Complete the dated two-URL diagnostic using the supplied evidence alone.
 - Skip irrelevant live-page and site sample checks.
 - Make no claim about current page behavior, current indexing or whole-property coverage.
+
+## Search Console opportunity selects current target checks
+
+Input: The user asks which booking query-page pair deserves a nearer look. A readable matched Search Console export shows one high-volume booking query associated with /reservations and a stable reported position. Current page declarations and search-result intent are unknown. The current plan offers an authorized public page metadata check and a separately quotable Google search-result check. The user authorizes the stated quote for at most one query result observation. Results for that query and page are not provided yet.
+
+Expected invariants:
+
+- Use the existing report for observed search performance and select only evidence needed to qualify the candidate.
+- Bound the current checks to /reservations and the named query in the same decision scope.
+- Avoid a ranked opportunity, rewrite, or consolidation before the current evidence arrives.
+- Avoid unnecessary data collection or a GA4 query for this booking-intent suitability question.

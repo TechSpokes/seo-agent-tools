@@ -556,6 +556,18 @@
         "required live checks block sufficient supplied indexed evidence",
         "dated observations stated as current coverage"
       ]
+    },
+    {
+      "id": "google-gsc-current-target",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "discovery",
+      "heading": "Search Console opportunity selects current target checks",
+      "baseline_risks": [
+        "current suitability assumed from historical association",
+        "evidence collected without bounded checks",
+        "unsupported ranking before evidence returns"
+      ]
     }
   ]
 }

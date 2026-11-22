@@ -59,7 +59,7 @@ Generated projection files use immutable versioned names under `dist/catalog/`. 
 
 ## Develop and Validate
 
-Node.js 22 is used in CI. The repository has no runtime package dependency.
+Use Node.js 22.2 or later to build and verify release archives. CI uses Node.js 22 and the installed skill has no Node.js dependency.
 
 ```bash
 npm ci

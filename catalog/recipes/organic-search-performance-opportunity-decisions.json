@@ -65,6 +65,44 @@
         "limitation": "A supported visibility decision can complete. Leave unobserved or incompatible engagement and conversion effects unknown."
       },
       "fallback": "Keep the conclusion inside Search Console scope and request only the compatible GA4 observations needed for any remaining decision."
+    },
+    {
+      "capability": "page-metadata",
+      "source": "server",
+      "use": "conditional",
+      "steps": [
+        "qualify-opportunities"
+      ],
+      "scope": {
+        "unit": "page",
+        "maximum": 3,
+        "guidance": "Inspect current declarations for only the retained candidate pages whose suitability is unresolved."
+      },
+      "condition": "The opportunity decision depends on a page's current suitability and adequate current page observations have not been supplied.",
+      "completion_without": {
+        "allowed": true,
+        "limitation": "Leave unverified candidates out of the ranked set and identify what current page evidence the decision needs."
+      },
+      "fallback": "Request a current page observation or continue only with supported demand and visibility findings."
+    },
+    {
+      "capability": "serp-results",
+      "source": "server",
+      "use": "conditional",
+      "steps": [
+        "qualify-opportunities"
+      ],
+      "scope": {
+        "unit": "query",
+        "maximum": 2,
+        "guidance": "Inspect only relevant candidate queries in the applicable market and device scope."
+      },
+      "condition": "A current search-result observation can resolve a material intent or result-presentation question and adequate observations are not already available.",
+      "completion_without": {
+        "allowed": true,
+        "limitation": "Leave unresolved intent and result-presentation claims unconfirmed and omit candidates that depend on them."
+      },
+      "fallback": "Request the relevant current result observations or report the supported narrower performance finding."
     }
   ],
   "steps": [
@@ -82,7 +120,7 @@
     },
     {
       "id": "qualify-opportunities",
-      "instruction": "For a prioritization question, examine relevant demand, observed volume, persistence, plausible headroom and current target suitability. Verify intent and page suitability before ranking a candidate. Treat low CTR and multi-page overlap as investigative signals. Use page, search-result, technical or GA4 observations only where they can change the decision. If comparing GA4 and Search Console, align the URL, property, periods and acquisition scope, preserve timezone and metric differences, and leave query-to-conversion attribution unknown."
+      "instruction": "For a prioritization question, examine relevant demand, observed volume, persistence, plausible headroom and current target suitability. Verify intent and page suitability before ranking a candidate. Treat low CTR and multi-page overlap as investigative signals. Select the conditional page metadata or search-result checks only when their observations can change the ranking. If a material technical or full-page content question remains, record a bounded follow-up before recommending an intervention. Use GA4 only where a comparable business outcome can change the decision. If comparing GA4 and Search Console, align the URL, property, periods and acquisition scope, preserve timezone and metric differences, and leave query-to-conversion attribution unknown."
     },
     {
       "id": "report-decision",
