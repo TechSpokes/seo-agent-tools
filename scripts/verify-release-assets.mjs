@@ -4,13 +4,14 @@
  * @constraints Rebuilds only ignored dist output and never changes source, Git refs, releases, or remote state.
  */
 /* global process */
+import assert from "node:assert/strict";
 import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { validateCatalog } from "./catalog.mjs";
-import { readStoredZip } from "./lib/stored-zip.mjs";
+import { createStoredZip, readStoredZip } from "./lib/stored-zip.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const tag = process.argv[2];
@@ -34,6 +35,7 @@ const releaseFiles = [...archives.map(({ file }) => file), catalogFile, catalogM
 const canonical = validateCatalog();
 
 verifyReleaseOutputs();
+verifyStoredZipChecksum();
 const firstBuild = snapshotReleaseOutputs();
 runPackage();
 verifyReleaseOutputs();
@@ -50,6 +52,32 @@ function verifyReleaseOutputs() {
   verifyChecksums(releaseFiles);
   for (const archive of archives) verifyArchive(archive);
   verifyCatalogArtifacts();
+}
+
+/** Verify ZIP CRC-32 against a standard check value independent of the archive reader.
+ * @returns {void}
+ * @throws {Error} If either header has a nonstandard CRC or a header mismatch is accepted.
+ * @sideEffects Creates and removes a one-entry scratch archive beneath ignored dist output.
+ */
+function verifyStoredZipChecksum() {
+  const scratch = fs.mkdtempSync(path.join(root, "dist", "verify-zip-"));
+  const archive = path.join(scratch, "crc32.zip");
+  try {
+    createStoredZip([{ name: "vector.txt", data: Buffer.from("123456789") }], archive);
+    const bytes = fs.readFileSync(archive);
+    const localChecksumOffset = 14;
+    const endRecordOffset = bytes.length - 22;
+    const centralDirectoryOffset = bytes.readUInt32LE(endRecordOffset + 16);
+    const expectedChecksum = 0xcbf43926;
+    requireEqual(bytes.readUInt32LE(localChecksumOffset), expectedChecksum, "local header CRC-32");
+    requireEqual(bytes.readUInt32LE(centralDirectoryOffset + 16), expectedChecksum, "central header CRC-32");
+    bytes.writeUInt32LE(0, localChecksumOffset);
+    fs.writeFileSync(archive, bytes);
+    assert.throws(() => readStoredZip(archive), /different CRC values in its local and central headers/);
+  } finally {
+    fs.rmSync(archive, { force: true });
+    fs.rmdirSync(scratch);
+  }
 }
 
 function discoverSkillName() {

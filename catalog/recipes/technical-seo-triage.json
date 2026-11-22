@@ -1,9 +1,9 @@
 {
   "schema_version": 2,
   "id": "technical-seo-triage",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "title": "Technical SEO Triage",
-  "summary": "Inspect a bounded site sample, identify supported technical SEO issues, and prioritize the few fixes most likely to change crawl, index, or page behavior.",
+  "summary": "Investigate a bounded site or indexing question and prioritize supported technical fixes or rechecks for the affected URLs.",
   "primary_domain": "technical",
   "operations": [
     "diagnose",
@@ -21,7 +21,7 @@
     {
       "capability": "page-metadata",
       "source": "server",
-      "use": "required",
+      "use": "conditional",
       "steps": [
         "discover-sample",
         "inspect-static-signals",
@@ -32,16 +32,17 @@
         "maximum": 10,
         "guidance": "Inspect metadata for no more than ten representative pages in the bounded sample."
       },
+      "condition": "Collect metadata for a full site triage or when current page declarations can resolve a material question in the selected indexing investigation.",
       "completion_without": {
         "allowed": false,
-        "limitation": "The method cannot identify or compare the sampled pages reliably without page metadata."
+        "limitation": "When this check is needed, a complete finding about current page declarations requires adequate metadata observations."
       },
       "fallback": "Narrow the sample if possible; otherwise return an incomplete diagnostic."
     },
     {
       "capability": "page-technical-signals",
       "source": "server",
-      "use": "required",
+      "use": "conditional",
       "steps": [
         "inspect-static-signals",
         "run-provider-checks",
@@ -52,9 +53,10 @@
         "maximum": 10,
         "guidance": "Inspect technical signals for the same representative sample of no more than ten pages."
       },
+      "condition": "Collect technical signals for a full site triage or when current page behavior can resolve a material question in the selected indexing investigation.",
       "completion_without": {
         "allowed": false,
-        "limitation": "The method cannot support technical issue findings without observable technical signals."
+        "limitation": "When this check is needed, a complete finding about current page behavior requires adequate technical signal observations."
       },
       "fallback": "Return an incomplete diagnostic rather than inferring site-wide technical state."
     },
@@ -103,64 +105,70 @@
       "source": "user",
       "use": "conditional",
       "steps": [
+        "run-provider-checks",
         "classify-findings",
         "produce-triage"
       ],
       "scope": {
         "unit": "context-record",
         "maximum": 1,
-        "guidance": "Use one user-supplied or independently authorized search-performance context for the sampled scope."
+        "guidance": "Use one context for the exact property, with the relevant submitted sitemap metadata and indexed-version observations for up to ten named URLs."
       },
-      "condition": "Use first-party evidence only when the user supplies it or authorizes an independent source and the requested finding depends on crawl, index, click, or other account state.",
+      "condition": "Use first-party evidence when a material crawl, index, sitemap, or search finding depends on account state. Reuse adequate authorized supplied evidence or acquire the missing observations through an authorized connection.",
       "completion_without": {
         "allowed": true,
         "limitation": "The result cannot claim private crawl, index, or search-performance state."
       },
-      "fallback": "Limit the diagnostic to observable public signals and mark first-party checks unavailable."
+      "fallback": "Use any supported public observations and identify the smallest missing first-party report or URL observation needed for the private-account question."
     }
   ],
   "steps": [
     {
       "id": "discover-sample",
-      "instruction": "Define a representative, bounded URL sample from known site structure, user input, or available discovery evidence."
+      "instruction": "For an indexing investigation, identify the exact Search Console property and the named URLs or submitted sitemap needed for the question. For broader site triage, define a representative, bounded URL sample from known site structure, user input, or available discovery evidence."
     },
     {
       "id": "budget-preflight",
-      "instruction": "Inspect current runtime cost and authorization for the planned sample and provider-backed checks."
+      "instruction": "Reuse adequate supplied observations. Confirm current authorization, availability, and cost for the planned sample and any additional evidence acquisition before making those calls."
     },
     {
       "id": "inspect-static-signals",
-      "instruction": "Inspect accessible status, redirect, canonical, metadata, structured, rendering, and linking signals that do not require broader paid checks."
+      "instruction": "For site triage, inspect accessible status, redirect, canonical, metadata, structured, rendering, and linking signals required for the sample. For a narrower indexing question, observe current status, redirects, robots directives, canonicals, or other live signals only when they can resolve a material question raised by the account evidence."
     },
     {
       "id": "run-provider-checks",
-      "instruction": "Run only authorized provider checks that can confirm or reject a material issue in the sample."
+      "instruction": "Run only authorized checks that can confirm or reject a material issue in the sample. If supplied first-party evidence is insufficient and connected acquisition is permitted, inspect only the selected property, relevant submitted sitemap metadata, and indexed-version observations needed for the named URLs. Verify relevant public signals on the live page if a new indexed-version finding makes that comparison necessary."
     },
     {
       "id": "classify-findings",
-      "instruction": "Group observations into supported issues, suspected issues, unaffected scope, and unknown scope without extrapolating the sample to the full site."
+      "instruction": "Group observations into supported issues, suspected issues, unaffected scope, and unknown scope. Identify the scope and observation date of submitted sitemap metadata, each Google indexed-version observation, and each current public observation."
     },
     {
       "id": "produce-triage",
-      "instruction": "Return the highest-value supported fixes with severity, confidence, affected sample, evidence, impact, owner, and verification method."
+      "instruction": "Return the highest-value supported fixes or rechecks with severity, confidence, affected sample, decisive observations, impact, owner, and verification method. State which claims the inspected scope supports and which questions remain open."
     }
   ],
   "evidence_requirements": [
     "Every issue identifies the observed URL sample and evidence source.",
     "Site-wide claims are made only when the evidence covers the full claimed scope.",
     "Severity and impact are reasoned separately from confidence.",
-    "Verification methods state what observable change would confirm the fix."
+    "Verification methods state what observable change would confirm the fix.",
+    "Sitemap submission establishes submission metadata. Report current processing observations where available and omit deprecated sitemap indexed counts.",
+    "An indexed-version observation supports only the named URL and recorded observation. Current public tests describe the live page. Report the inspected sample size and the scope that remains unknown."
   ],
   "stop_conditions": [
     "Stop or narrow the sample when broad crawling would exceed authorization or cost bounds.",
-    "Stop private-account diagnosis when no authorized first-party source is connected.",
+    "Route a standalone supported one-URL lookup directly to an authorized lookup when acquisition is needed. Use this method for a multi-step investigation.",
+    "When full triage or the selected indexing question requires a current public check, inspect adequate evidence for that check or mark the affected question incomplete.",
+    "Stop the unsupported private-account diagnosis when adequate authorized first-party evidence is absent. Ask for the smallest missing input or complete only a clearly narrower supported question.",
     "Return an empty completed diagnostic when the supported checks find no material issue."
   ],
   "completion_criteria": [
     "The inspected sample and its limits are explicit.",
     "Each reported issue has severity, confidence, scope, evidence, intervention owner, and verification method.",
     "The result contains no more than five prioritized fixes and may contain fewer when evidence does not support five.",
-    "Unknown and unaffected scope are not presented as fixed."
+    "Unknown and unaffected scope are not presented as fixed.",
+    "Complete a full site triage only after its required sample checks. A narrower indexing diagnosis can complete when sufficient evidence answers the stated question, with uninspected scope identified."
   ],
   "output_contracts": [
     {

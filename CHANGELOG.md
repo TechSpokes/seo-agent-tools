@@ -2,6 +2,22 @@
 
 ## [Unreleased]
 
+## [v0.6.0] - 2026-11-22
+
+### Added
+
+- Organic Search Performance and Opportunity Decisions and GA4 Measurement and Conversion Analysis for authorized reports and adequate supplied exports.
+- The controlled `analytics` discovery domain and a Google report export and upload guide reachable from the portable skill.
+
+### Changed
+
+- Technical SEO Triage and Page Refresh Brief now use relevant scoped first-party observations when they can change the decision.
+- Shared presentation guidance now asks for the decisive source values, scope, uncertainty and verification behind each material recommendation.
+
+### Fixed
+
+- Standalone and plugin ZIPs now carry standard CRC-32 checksums that standard ZIP readers validate when opening files.
+
 ## [v0.5.0] - 2026-09-03
 
 ### Added

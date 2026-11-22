@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "page-refresh-brief",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "title": "Page Refresh Brief",
   "summary": "Diagnose whether one page should be refreshed, consolidated, preserved, or routed to another intervention, then prepare a verification-ready brief.",
   "primary_domain": "page",
@@ -98,6 +98,26 @@
       "fallback": "Return an incomplete diagnostic and request a compatible full-page reader."
     },
     {
+      "capability": "first-party-search-data",
+      "source": "user",
+      "use": "conditional",
+      "steps": [
+        "acquire-page-context",
+        "classify-gaps"
+      ],
+      "scope": {
+        "unit": "context-record",
+        "maximum": 1,
+        "guidance": "Use one authorized search context for the exact target and property, with reporting periods, filters, and observed URL and query scope where material."
+      },
+      "condition": "Use adequate supplied or authorized connected first-party search evidence when an observed visibility change or account-level indexing finding can change the page decision.",
+      "completion_without": {
+        "allowed": true,
+        "limitation": "The brief cannot claim first-party search performance or indexing state."
+      },
+      "fallback": "Continue with supported public page and search evidence. Identify the missing search report or URL observation if it is needed for the requested decision."
+    },
+    {
       "capability": "first-party-performance-data",
       "source": "user",
       "use": "conditional",
@@ -108,24 +128,24 @@
       "scope": {
         "unit": "context-record",
         "maximum": 1,
-        "guidance": "Use one user-supplied or independently authorized performance context for the target page."
+        "guidance": "Use one authorized analytics context for the exact target, reporting periods, source slice, and decision objective."
       },
-      "condition": "Use first-party evidence only when the user supplies it or authorizes an independent source and the diagnosis requires clicks, conversions, revenue, behavior, or index-state claims.",
+      "condition": "Use adequate supplied or authorized connected analytics evidence when engagement, measured conversions, revenue, or other observed behavior can change the page decision.",
       "completion_without": {
         "allowed": true,
-        "limitation": "The result is limited to public page and search evidence and cannot claim first-party performance or index state."
+        "limitation": "The brief cannot claim first-party engagement, conversion, revenue, or other measured behavior."
       },
-      "fallback": "Mark operational outcome claims unavailable and continue only with the supported public-evidence diagnosis."
+      "fallback": "Continue with supported page and search evidence. Identify the missing analytics observation if it is needed for the requested decision."
     }
   ],
   "steps": [
     {
       "id": "acquire-page-context",
-      "instruction": "Confirm the page objective, site role, target market, known query context, and constraints on changes."
+      "instruction": "Confirm the page objective, site role, target market, known query context, and constraints on changes. When given a performance finding, establish its target, source, reporting periods, evidence references, objective, uncertainty, and proposed next question. Reuse adequate evidence and check whether its dates and scope still support the decision."
     },
     {
       "id": "budget-preflight",
-      "instruction": "Inspect current runtime cost and authorization for page retrieval, result inspection, and comparison."
+      "instruction": "Inspect current authorization, availability, and cost for page retrieval, result inspection, comparison, and any necessary additional first-party acquisition."
     },
     {
       "id": "inspect-target",
@@ -141,11 +161,11 @@
     },
     {
       "id": "classify-gaps",
-      "instruction": "Classify supported causes across technical access, site role, intent, planning, content, authority, and operational evidence. Treat every automated content or quality score as an evidence input rather than an editorial verdict: inspect its underlying observations, reconcile material conflicts with independently observed page evidence, and state unresolved discrepancies before reporting a score-derived conclusion."
+      "instruction": "Classify supported causes across technical access, site role, intent, planning, content, authority, and operational evidence. Treat every automated content or quality score as an evidence input rather than an editorial verdict: inspect its underlying observations, reconcile material conflicts with independently observed page evidence, and state unresolved discrepancies before reporting a score-derived conclusion. Check whether the current target suits the observed intent before recommending optimization. Evaluate overlapping pages in light of their distinct roles and the evidence of actual competition for the intended destination."
     },
     {
       "id": "produce-brief",
-      "instruction": "Return the diagnostic and, when implementation is justified, a handoff with preserve, change, remove, add, proof, link, acceptance, and verification requirements."
+      "instruction": "Return the supported disposition, including preservation, refresh, technical repair, consolidation, further investigation, or another justified action. When implementation is justified, link the handoff to the target, objective, decisive observations, uncertainty, implementation boundary, and a practical verification check. Specify applicable preservation, change, removal, addition, proof, linking, and acceptance requirements."
     }
   ],
   "evidence_requirements": [
@@ -153,7 +173,9 @@
     "Every proposed change or preservation constraint links to an observation or explicit user requirement.",
     "Competing technical, strategic, authority, and operational explanations are considered before prescribing content.",
     "First-party performance claims appear only when supplied or returned by an authorized source.",
-    "Automated scores support conclusions only when their underlying observations were inspected and material conflicts were reconciled or recorded as unresolved."
+    "Automated scores support conclusions only when their underlying observations were inspected and material conflicts were reconciled or recorded as unresolved.",
+    "A performance finding can guide the next check. Complete the current technical precheck, page and intent assessment, and required evidence checks before recommending content changes.",
+    "Support a current target recommendation with appropriate live page and intent evidence. For creation or consolidation, show distinct unmet intent or harmful competition and the evidence needed for that action."
   ],
   "stop_conditions": [
     "Stop before inspect-serp when an observed blocking access, crawl, or indexability signal makes page comparison misleading; sufficient blocker evidence supports a completed bounded technical diagnostic even though comparison did not begin.",
@@ -177,7 +199,7 @@
     {
       "id": "seo-implementation-handoff/v1",
       "role": "conditional",
-      "condition": "Emit only when the diagnostic is complete and its disposition is proceed or conditional."
+      "condition": "Emit only when the diagnostic is complete, its disposition is proceed or conditional, and the evidence required for the specific intervention supports an implementation-ready action."
     }
   ],
   "bounds": {

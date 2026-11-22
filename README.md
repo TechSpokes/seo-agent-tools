@@ -15,6 +15,8 @@ The skill does not write finished content, expose private server internals, or i
 - Hand implementation requirements to another agent without depending on shared conversation history.
 - Verify implemented work against the original result and acceptance criteria.
 
+For work from supplied Google reports, follow the [Search Console and GA4 export guide](docs/google-data-exports.md).
+
 ## Install
 
 Install the canonical skill with a GitHub CLI version that supports `gh skill`:
@@ -57,13 +59,13 @@ Generated projection files use immutable versioned names under `dist/catalog/`. 
 
 ## Develop and Validate
 
-Node.js 22 is used in CI. The repository has no runtime package dependency.
+Use Node.js 22.2 or later to build and verify release archives. CI uses Node.js 22 and the installed skill has no Node.js dependency.
 
 ```bash
 npm ci
 npm run validate
-npm run package -- v0.5.0
-npm run release:verify-assets -- v0.5.0
+npm run package -- v0.6.0
+npm run release:verify-assets -- v0.6.0
 ```
 
 `npm run validate` checks catalog structure, runtime skill structure, documentation links, behavioral fixtures, and maintenance contracts. Packaging creates deterministic standalone, Codex plugin, and Claude plugin archives plus versioned catalog and manifest assets under `dist/assets/`. Release verification checks all five assets and rebuilds them to prove byte identity.

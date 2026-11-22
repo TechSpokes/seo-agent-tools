@@ -20,6 +20,7 @@ The release packages contain one small skill tree. It teaches routing, evidence 
 - skills/seo-agent-tools/references/content-diagnosis-and-handoff.md
 - skills/seo-agent-tools/references/install-and-update-this-skill.md
 - skills/seo-agent-tools/references/mcp-routing-and-evidence.md
+- skills/seo-agent-tools/references/google-report-evidence.md
 - skills/seo-agent-tools/references/result-contracts.md
 <!-- canonical-runtime-map:end -->
 

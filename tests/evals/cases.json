@@ -427,6 +427,147 @@
         "false operational claims",
         "source-class confusion"
       ]
+    },
+    {
+      "id": "google-gsc-change",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "evidence-integrity",
+      "heading": "Search Console change with a dominant page and asymmetric continuation",
+      "baseline_risks": [
+        "property and page denominators combined",
+        "leader masking",
+        "unreturned key treated as zero",
+        "causal overclaim"
+      ]
+    },
+    {
+      "id": "google-gsc-export-opportunity",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "evidence-integrity",
+      "heading": "Search Console export with a suitable opportunity and benign overlap",
+      "baseline_risks": [
+        "traffic-only ranking",
+        "automatic rewrite",
+        "benign overlap called cannibalization",
+        "stale target assumed suitable"
+      ]
+    },
+    {
+      "id": "google-ga4-measurement",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "evidence-integrity",
+      "heading": "GA4 configuration and a measured change in form events",
+      "baseline_risks": [
+        "configured setting reported as historical execution",
+        "generic events reported as qualified leads",
+        "measurement break ignored"
+      ]
+    },
+    {
+      "id": "google-ga4-ordered-funnel",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "evidence-integrity",
+      "heading": "GA4 ordered funnel preserves fractional and duplicate metric columns",
+      "baseline_risks": [
+        "fractional rates coerced to integers",
+        "distinct metric columns collapsed",
+        "cause inferred from step counts"
+      ]
+    },
+    {
+      "id": "google-ga4-export-partial",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "failure",
+      "heading": "GA4 events export supports counts without ordered progression",
+      "baseline_risks": [
+        "event totals reported as ordered progression",
+        "useful narrower count answer discarded"
+      ]
+    },
+    {
+      "id": "google-no-source",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "failure",
+      "heading": "Search Console report is absent",
+      "baseline_risks": [
+        "observations invented without data",
+        "scope-wide export requested without cause"
+      ]
+    },
+    {
+      "id": "google-unreadable-source",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "failure",
+      "heading": "GA4 attachment is visible but unreadable",
+      "baseline_risks": [
+        "filename mistaken for inspected evidence",
+        "unrelated acquisition used to fill a gap"
+      ]
+    },
+    {
+      "id": "google-indexing-sampled",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "handoff",
+      "heading": "Search Console indexing follow-up with supplied observations",
+      "baseline_risks": [
+        "sample extrapolated",
+        "submitted sitemap treated as indexing proof",
+        "indexed-version and live observations conflated"
+      ]
+    },
+    {
+      "id": "google-refresh-blocked",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "handoff",
+      "heading": "Page refresh follow-up stops at a current technical blocker",
+      "baseline_risks": [
+        "technical precheck bypassed",
+        "historical causation assumed",
+        "unsupported content handoff"
+      ]
+    },
+    {
+      "id": "google-direct-lookup",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "routing",
+      "heading": "Direct GA4 setting lookup for one named stream",
+      "baseline_risks": [
+        "unnecessary recipe launch",
+        "current configuration used to claim historical events"
+      ]
+    },
+    {
+      "id": "google-indexing-export-only",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "evidence-integrity",
+      "heading": "Supplied indexed-version records resolve a narrow technical question",
+      "baseline_risks": [
+        "required live checks block sufficient supplied indexed evidence",
+        "dated observations stated as current coverage"
+      ]
+    },
+    {
+      "id": "google-gsc-current-target",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "discovery",
+      "heading": "Search Console opportunity selects current target checks",
+      "baseline_risks": [
+        "current suitability assumed from historical association",
+        "evidence collected without bounded checks",
+        "unsupported ranking before evidence returns"
+      ]
     }
   ]
 }

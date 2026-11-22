@@ -1,0 +1,161 @@
+{
+  "schema_version": 2,
+  "id": "organic-search-performance-opportunity-decisions",
+  "version": "1.0.0",
+  "title": "Organic Search Performance and Opportunity Decisions",
+  "summary": "Investigate a material change in Google organic search visibility or prioritize a bounded opportunity using Search Console evidence, current target suitability and the site's objective.",
+  "primary_domain": "visibility",
+  "operations": [
+    "compare",
+    "diagnose",
+    "prioritize"
+  ],
+  "target": "site",
+  "required_inputs": [
+    {
+      "id": "decision",
+      "description": "State whether the user needs a change diagnosis, opportunity prioritization, or both, and identify the site objective and action the result could change."
+    },
+    {
+      "id": "property_scope",
+      "description": "Identify the exact Search Console property, search surface, relevant market, device and other filters or segments."
+    },
+    {
+      "id": "reporting_scope",
+      "description": "Identify the reporting periods, grouping and aggregation needed for the decision. Choose comparable completed periods for a change question and preserve the source's freshness and coverage limits."
+    }
+  ],
+  "evidence_plan": [
+    {
+      "capability": "first-party-search-data",
+      "source": "user",
+      "use": "required",
+      "steps": [
+        "inspect-evidence",
+        "diagnose-change",
+        "qualify-opportunities"
+      ],
+      "scope": {
+        "unit": "context-record",
+        "maximum": 1,
+        "guidance": "Use one Search Console property and one decision scope. Keep each comparison period, aggregation, surface and segment identifiable within that scope."
+      },
+      "completion_without": {
+        "allowed": false,
+        "limitation": "No first-party performance claim or ranked opportunity can be supported without inspected Search Console evidence adequate to the question."
+      },
+      "fallback": "Inspect a readable user-supplied report or observations from an independently authorized connection. If neither supplies the required data, request the exact missing report, scope or columns and stop the unsupported part."
+    },
+    {
+      "capability": "first-party-performance-data",
+      "source": "user",
+      "use": "conditional",
+      "steps": [
+        "qualify-opportunities",
+        "report-decision"
+      ],
+      "scope": {
+        "unit": "context-record",
+        "maximum": 1,
+        "guidance": "Use one relevant, compatible GA4 property and reporting scope when business outcomes can change this decision."
+      },
+      "condition": "The requested decision materially depends on observed organic landing-page outcomes that Search Console cannot establish.",
+      "completion_without": {
+        "allowed": true,
+        "limitation": "A supported visibility decision can complete. Leave unobserved or incompatible engagement and conversion effects unknown."
+      },
+      "fallback": "Keep the conclusion inside Search Console scope and request only the compatible GA4 observations needed for any remaining decision."
+    },
+    {
+      "capability": "page-metadata",
+      "source": "server",
+      "use": "conditional",
+      "steps": [
+        "qualify-opportunities"
+      ],
+      "scope": {
+        "unit": "page",
+        "maximum": 3,
+        "guidance": "Inspect current declarations for only the retained candidate pages whose suitability is unresolved."
+      },
+      "condition": "The opportunity decision depends on a page's current suitability and adequate current page observations have not been supplied.",
+      "completion_without": {
+        "allowed": true,
+        "limitation": "Leave unverified candidates out of the ranked set and identify what current page evidence the decision needs."
+      },
+      "fallback": "Request a current page observation or continue only with supported demand and visibility findings."
+    },
+    {
+      "capability": "serp-results",
+      "source": "server",
+      "use": "conditional",
+      "steps": [
+        "qualify-opportunities"
+      ],
+      "scope": {
+        "unit": "query",
+        "maximum": 2,
+        "guidance": "Inspect only relevant candidate queries in the applicable market and device scope."
+      },
+      "condition": "A current search-result observation can resolve a material intent or result-presentation question and adequate observations are not already available.",
+      "completion_without": {
+        "allowed": true,
+        "limitation": "Leave unresolved intent and result-presentation claims unconfirmed and omit candidates that depend on them."
+      },
+      "fallback": "Request the relevant current result observations or report the supported narrower performance finding."
+    }
+  ],
+  "steps": [
+    {
+      "id": "define-scope",
+      "instruction": "Select the change and/or opportunity branch. Confirm the exact property, Web or other search surface, objective, comparison periods, search type, aggregation, dimensions and filters. Match completed periods, allow for reporting lag and seasonality, and record a missing seasonal baseline. Use a brand segment only where supported and identify whether it is native or user-defined."
+    },
+    {
+      "id": "inspect-evidence",
+      "instruction": "Inspect a readable export or evidence returned by an independently authorized connection. For the connected path, select only decision-relevant report shapes and obtain a current quote and authorization before chargeable calls. Record source, observation date, scope, freshness, filters, aggregation and coverage. Keep property aggregates, page aggregates and returned query rows apart. When additional rows can change the decision, inspect each period's own continuation and extend only the required bounded comparison. Keep unreturned keys and ambiguous export zeros unknown."
+    },
+    {
+      "id": "diagnose-change",
+      "instruction": "For a change question, compare like units and show the decisive counts and denominators for each period. Locate material contributors by relevant page, query, device or market. Check concentration and show what changed outside a leading page when the data supports it. Calculate CTR from compatible clicks and impressions, and keep source-reported average position at its own grain. Report what differs without assigning a cause from timing or correlation."
+    },
+    {
+      "id": "qualify-opportunities",
+      "instruction": "For a prioritization question, examine relevant demand, observed volume, persistence, plausible headroom and current target suitability. Verify intent and page suitability before ranking a candidate. Treat low CTR and multi-page overlap as investigative signals. Select the conditional page metadata or search-result checks only when their observations can change the ranking. If a material technical or full-page content question remains, record a bounded follow-up before recommending an intervention. Use GA4 only where a comparable business outcome can change the decision. If comparing GA4 and Search Console, align the URL, property, periods and acquisition scope, preserve timezone and metric differences, and leave query-to-conversion attribution unknown."
+    },
+    {
+      "id": "report-decision",
+      "instruction": "Return one bounded diagnostic for the selected question. Show the decisive observations and source scope behind each recommendation, then give a practical recheck and uncertainty. For a request that only asks for opportunities, use the diagnostic to record coverage and eligibility. Emit a ranked opportunity set only when the completed assessment supports at least one currently suitable, evidence-linked candidate. Preserve, monitor or request a discriminating check where an intervention is unsupported."
+    }
+  ],
+  "evidence_requirements": [
+    "Preserve clicks, impressions, CTR and average position with the observed aggregation and reporting grain. Keep separately acquired denominators distinct.",
+    "Preserve known zeros, not returned values, unavailable values and export placeholders without inferring 100% loss or complete query coverage.",
+    "Give each action the current target, decisive values and periods, applicable user objective, confidence limits and one verification step.",
+    "Treat GSC clicks and GA4 sessions or events as separate observations. Limit Google-origin analysis to the compatible Google organic slice where GA4 is material."
+  ],
+  "stop_conditions": [
+    "Stop the first-party conclusion without a matched readable report or independently authorized observations. State whether the source is absent, unreadable or insufficient and request only what would resolve the remaining question.",
+    "With incompatible or preliminary intervals, filters or aggregation, state the exact comparability gap and limit the answer to supported observations. Use an explicit incomplete result when the requested conclusion depends on that gap.",
+    "Withhold candidate ranking when demand, materiality, intent or current target suitability remains unresolved. Record a completed result with no supported action when the requested assessment was adequately performed."
+  ],
+  "completion_criteria": [
+    "Return a scope-matched diagnostic with evidence-linked findings, source and coverage limits, and a justified next action or no-action disposition.",
+    "Preserve distinct denominators and missingness in any comparison. Expose a material leading-page contribution and the supported comparison of the remainder.",
+    "Emit a conditional opportunity set only for a completed prioritization assessment with supported candidates. Rank using the user's objective, persistence, materiality and current suitability without forecasts."
+  ],
+  "output_contracts": [
+    {
+      "id": "seo-diagnostic/v1",
+      "role": "primary"
+    },
+    {
+      "id": "seo-opportunity-set/v1",
+      "role": "conditional",
+      "condition": "The requested opportunity assessment is complete and at least one bounded candidate has evidence of relevant demand, materiality and current target suitability."
+    }
+  ],
+  "bounds": {
+    "max_results": 10,
+    "sample_guidance": "Start at the aggregate scope that answers the question, then inspect only decision-relevant segments and target examples. State actual returned coverage and stop extending rows when more evidence cannot change the decision."
+  }
+}

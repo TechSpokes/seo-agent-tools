@@ -1,6 +1,6 @@
 ---
 name: seo-agent-tools
-description: Use when an agent must investigate an SEO question with a connected SEO MCP server, observe current AI brand representation, discover and run an available SEO recipe, coordinate evidence-backed content production without writing the copy, diagnose why a page or site is underperforming, prepare an implementation handoff, or verify completed SEO work. Do not use it to write finished content, reveal private server internals, or invent unavailable tools, data, or persistent job behavior.
+description: Use when an agent must investigate an SEO question with a connected SEO MCP server or supplied Google reports, observe current AI brand representation, discover and run an available SEO recipe, coordinate evidence-backed content production without writing the copy, diagnose why a page or site is underperforming, prepare an implementation handoff, or verify completed SEO work. Do not use it to write finished content, reveal private server internals, or invent unavailable tools, data, or persistent job behavior.
 ---
 
 # SEO Agent Tools
@@ -23,7 +23,7 @@ When the user has already selected one content objective and wants to move from 
 
 ## Working Model
 
-A direct analysis uses one or a few server capabilities when the question is narrow and the evidence path is obvious.
+A direct analysis uses one or a few server capabilities or inspected user-supplied observations when the question is narrow and the evidence path is clear.
 
 A direct one-channel brand analysis observes how one named answer channel represents a brand that the caller explicitly supplies. The three-channel AI Brand Representation Snapshot is a versioned recipe that applies identical settled framing to ChatGPT, Gemini, and Perplexity and returns one current, non-persistent result. Neither path measures unprompted buyer-prompt presence, stable model knowledge, or historical change.
 
@@ -47,6 +47,8 @@ A result contract makes the decision reusable by defining the exact subject, sup
 
 Use direct analysis when one bounded evidence lookup can answer the question and a multi-step method would add no decision value.
 
+For Google Search Console or GA4, use a direct lookup for one report, setting or URL observation. Use recipe discovery for dependent Google performance or measurement decisions. A readable authorized export can supply evidence for a supported method.
+
 Use a current direct capability when the user asks about one answer channel. Use recipe discovery for a comparable ChatGPT, Gemini, and Perplexity brand-representation snapshot. Do not use either path to answer whether unbranded buyer prompts mention the brand or whether visibility changed over time; those questions require separately supported methods and evidence.
 
 Use recipe discovery when the request requires several dependent evidence steps, a repeatable methodology, or a typed result that another agent or system will consume. Filter compact recipe cards by goal facets, compare a small candidate set, then retrieve one full recipe definition. Treat a card's capability list as a discovery summary; the selected full recipe's evidence plan and output composition govern execution. An unfamiliar recipe name or facet is acceptable when the server describes it; an uninterpretable result contract is not.
@@ -68,7 +70,7 @@ Use verification when work has already been implemented or when a recipe require
 
 ## Required Stops
 
-Stop or narrow the work when the server is unavailable, the selected capability or recipe is not available to the caller, a required input is missing, cost authorization is unresolved, the exact result contract cannot be interpreted, evidence does not support the requested conclusion, or the request would disclose private server implementation or credentials.
+Stop or narrow the affected path when the selected capability or recipe is unavailable, a required input is missing, cost authorization is unresolved, the exact result contract cannot be interpreted, evidence does not support the requested conclusion, or the request would disclose private server implementation or credentials.
 
 Do not substitute general web search for server-only data while presenting it as equivalent. Do not claim access to first-party clicks, conversions, revenue, index state, or account data unless the user supplied it or authorized a connected source that returned it.
 

@@ -5,6 +5,7 @@
  */
 import fs from "node:fs";
 import path from "node:path";
+import { crc32 } from "node:zlib";
 
 const CENTRAL_DIRECTORY_SIGNATURE = 0x02014b50;
 const END_OF_CENTRAL_DIRECTORY_SIGNATURE = 0x06054b50;
@@ -15,7 +16,6 @@ const FIXED_DOS_DATE = 33;
 const FIXED_DOS_TIME = 0;
 const MAX_UINT16 = 0xffff;
 const MAX_UINT32 = 0xffffffff;
-const CRC32_TABLE = createCrc32Table();
 
 /** Create a deterministic ZIP that stores sorted regular files without compression.
  * @param {Array<{name: string, data: Buffer}>} entries Slash-separated archive names and bytes.
@@ -97,7 +97,7 @@ export function createStoredZip(entries, destination) {
 /** Read and validate a deterministic stored ZIP without extracting it.
  * @param {string} archive ZIP file to inspect.
  * @returns {Map<string, Buffer>} Sorted archive names and their verified bytes.
- * @throws {Error} When the archive is malformed, compressed, duplicated, unsafe, or fails CRC validation.
+ * @throws {Error} When the archive is malformed, compressed, duplicated, unsafe, or fails header or payload CRC validation.
  * @constraints Supports the archive format emitted by createStoredZip.
  */
 export function readStoredZip(archive) {
@@ -148,6 +148,10 @@ export function readStoredZip(archive) {
     requireBounds(bytes, localHeaderOffset, 30, archive);
     if (bytes.readUInt32LE(localHeaderOffset) !== LOCAL_FILE_SIGNATURE) {
       throw new Error(`${archive} entry ${name} has an invalid local header.`);
+    }
+    const localChecksum = bytes.readUInt32LE(localHeaderOffset + 14);
+    if (localChecksum !== checksum) {
+      throw new Error(`${archive} entry ${name} has different CRC values in its local and central headers.`);
     }
     const localNameLength = bytes.readUInt16LE(localHeaderOffset + 26);
     const localExtraLength = bytes.readUInt16LE(localHeaderOffset + 28);
@@ -222,22 +226,4 @@ function requireClassicZipLimit(value, label, maximum = MAX_UINT16) {
 
 function compareNames(left, right) {
   return left < right ? -1 : left > right ? 1 : 0;
-}
-
-function crc32(bytes) {
-  let checksum = MAX_UINT32;
-  for (const byte of bytes) {
-    checksum = CRC32_TABLE[(checksum ^ byte) & 0xff] ^ (checksum >>> 8);
-  }
-  return (checksum ^ MAX_UINT32) >>> 0;
-}
-
-function createCrc32Table() {
-  return Array.from({ length: 256 }, (_, value) => {
-    let entry = value;
-    for (let bit = 0; bit < 8; bit += 1) {
-      entry = (entry & 1) === 1 ? 0xedb88320 ^ (entry >>> 8) : entry >>> 1;
-    }
-    return entry >>> 0;
-  });
 }

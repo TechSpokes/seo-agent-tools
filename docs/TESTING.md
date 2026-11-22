@@ -17,8 +17,8 @@ npm run validate
 When runtime or release behavior changes, also build and verify the intended release candidate:
 
 ```bash
-npm run package -- v0.5.0
-npm run release:verify-assets -- v0.5.0
+npm run package -- v0.6.0
+npm run release:verify-assets -- v0.6.0
 ```
 
 Use the intended version tag rather than retaining an older release example after the package version changes.
