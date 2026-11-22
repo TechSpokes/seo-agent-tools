@@ -389,3 +389,71 @@ Expected invariants:
 - Bound the current checks to /reservations and the named query in the same decision scope.
 - Avoid a ranked opportunity, rewrite, or consolidation before the current evidence arrives.
 - Avoid unnecessary data collection or a GA4 query for this booking-intent suitability question.
+
+## Search Console comparison joins compatible pages by exact tuple and period
+
+Input: The user supplies two readable Web Search Console response pages for `sc-domain:example.test`, ordered dimensions `[page, query]`, all countries and devices, page aggregation, April 1-30 and May 1-31, 2026, and matching click definitions. The source records June 8 and June 9 observation times respectively. The user asks what changed and what to investigate. No Google connection is available. A separately labeled Image export uses the same property and date windows and reports 30 May clicks for the first tuple.
+
+| Response | Page | Query | April clicks | May clicks |
+| --- | --- | --- | --- | --- |
+| 1 | /tour?a=1 | winter | 12 | not_returned |
+| 1 | /tour?a=2 | winter | 4 | 8 |
+| 1 | /faq | access | not_returned | 9 |
+| 2 | /tour?a=1 | winter | not_returned | 0 |
+| 2 | /tour?a=2 | winter | 4 | 11 |
+| 2 | /fees | price | 2 | not_returned |
+
+Both Web continuation indicators are complete. The source returned only scoped rows.
+
+Expected invariants:
+
+- Report four distinct Web tuples. The exact /tour?a=1 and winter tuple has 12 April and zero May clicks, a change of -12 clicks.
+- Keep the repeated April 4 once and report the competing May values of 8 and 11 with provenance for /tour?a=2. Withhold the affected delta.
+- Keep the April comparison for /faq and the May comparison for /fees unknown.
+- Preserve the observed Web scope, response observation times and bounded coverage, and omit the incompatible Image value from the comparison.
+- Complete the supported investigation from the supplied observations without suggesting connection setup, an acquisition quote or a page rewrite.
+
+## Search Console mixed route requires comparable evidence and a selected quote
+
+Input: The user asks how monthly Web clicks changed for mobile visitors to /tour and wants to avoid spending unless a missing comparator is necessary. The supplied April mobile Web report is readable. The attached May mobile Web export cannot be opened. A readable May desktop Web report uses the same property. The connected method is marked available with zero default calls and can acquire a separately quoted May mobile Web report after the user authorizes that request. No quote or approval exists for that call.
+
+Expected invariants:
+
+- Describe the supported April observation and leave the requested month-over-month comparison incomplete.
+- Request only the readable May report for the same property, page, search surface and mobile scope, or offer conditional acquisition with its current quote and authorization.
+- Keep the desktop observation outside the requested mobile comparison.
+- Keep availability, evidence readiness and price distinct. Do not call or describe the connected acquisition as free.
+
+## Google decision hands off one independently supported correction
+
+Input: The user asks for a handoff after a completed finding about `https://example.test/tours/winter`. The supplied export for the exact URL reports 12 April Web clicks and zero May clicks for the `winter tour` query. A live snapshot supplied by the user records HTTP 200 and a canonical pointing to `https://example.test/tours/archive` on June 9, 2026 at 10:00 UTC. The site owner has confirmed the winter URL is the preferred indexable version. The user asks for a canonical correction while preserving the content, redirect behavior and analytics configuration. No subsequent implementation, Google selection or outcomes are observed.
+
+Expected invariants:
+
+- Produce an actionable handoff using the current `seo-implementation-handoff/v1` contract. Give a second recipient only the produced handoff.
+- The recipient identifies the exact URL, live declared canonical, required self-canonical, responsible site implementation capability and protected behaviors.
+- The handoff ties the correction to the live observation and approved target. Keep the supplied observed click change and reporting periods as separate evidence.
+- Verification checks the live HTTP status, canonical and preserved behavior after implementation. Separate any later indexed-version observation if authorized.
+- Leave unverified causation, implementation and change in performance unresolved.
+
+## Backlink candidate omitted from a partial target set already links to target
+
+Input: The target is `example.test`. The bounded target list contains its top two referring domains from a June 1 observation. The comparable competitor list includes `local-guide.test`. The partial target list omits it. The agent has a permitted read of one representative page at `https://local-guide.test/trails`. The page links to both the confirmed competitor and `https://example.test/tours`. No other candidate remains after relevance screening.
+
+Expected invariants:
+
+- Qualify the original comparison as a difference in observed bounded sets.
+- Preserve the direct source-page observation and reject the candidate as a confirmed domain-wide gap.
+- Avoid treating a single source page as evidence about every relationship from the referring domain.
+- Complete with zero qualified gaps for the scoped evidence and explain the material rejection.
+
+## Backlink screening leaves no finalist without a page reader
+
+Input: The confirmed competitor has two comparable referring domains in a bounded sample. The target's same-scope sample reports both domains linking to the target. The agent has no client page reader or source-page captures.
+
+Expected invariants:
+
+- Screen the observed domains before deciding whether source-page evidence is necessary.
+- Complete with zero qualified gaps for these observed sets without requiring a page reader.
+- Keep material limitations on coverage and make no claim about relationships outside the samples.
+- If a comparable candidate survives screening, require source-page evidence before qualifying it.

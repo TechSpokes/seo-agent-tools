@@ -7,13 +7,13 @@ description: Use when an agent must investigate an SEO question with a connected
 
 ## Purpose
 
-Use the connected SEO MCP server to turn an SEO question into a bounded, evidence-backed decision. Select current server capabilities at runtime, distinguish observations from interpretations, and finish with either a direct answer, a typed analysis result, an implementation handoff, or a verification report.
+Turn an SEO question into a bounded, evidence-backed decision using inspectable supplied material or current authorized server capabilities. Distinguish observations from interpretations and finish with a direct answer, a typed analysis result, an implementation handoff, or a verification report.
 
 The server is the authority for tools, recipes, availability, authorization, and current cost. This public skill explains how to work with that authority; it does not promise that every public method is available to every caller.
 
 ## Activation Boundaries
 
-Activate this skill for SEO analysis that benefits from server evidence, including keyword and search-result investigation, current AI brand-representation observation, page and site diagnosis, technical triage, competitor or backlink comparison, recipe discovery, content-production coordination, implementation planning, and verification of SEO changes.
+Activate this skill for SEO analysis using inspectable supplied evidence or server capabilities, including Google report interpretation, keyword and search-result investigation, current AI brand-representation observation, page and site diagnosis, technical triage, competitor or backlink comparison, recipe discovery, content-production coordination, implementation planning, and verification of SEO changes.
 
 Use another skill or hand off when the primary task is writing finished page copy, administering the MCP server, implementing provider integrations, changing billing or access policy, or designing persistent jobs and scheduled workflows.
 
@@ -29,25 +29,25 @@ A direct one-channel brand analysis observes how one named answer channel repres
 
 A recipe is a versioned SEO method discovered from the connected server. It defines required inputs, stable steps, source-classed evidence requirements, evidence bounds, missing-capability behavior, stop conditions, completion criteria, and explicit result composition. The catalog can grow; never treat a remembered list of recipes as complete.
 
-A result contract makes the decision reusable by defining the exact subject, supporting material, decision fields, completion state, and any required verification or escalation. Some contracts use the legacy evidence-and-finding envelope, while focused human-facing contracts may place readable sources directly inside each assessment. A selected recipe may use a contract newer than this installed skill; use it only when the connected server supplies the exact versioned contract in an interpretable form.
+A result contract makes the decision reusable by defining the exact subject, supporting material, decision fields, completion state, and any required verification or escalation. Some contracts use a shared evidence-and-finding envelope. Others place readable sources directly inside each assessment. For an unfamiliar contract, use the exact versioned form supplied by the connected server when it is interpretable.
 
 ## Workflow
 
 1. State the SEO decision in plain language, identify the subject being evaluated, and record the user constraints that can change the method or result.
-2. Inspect the connected server's current tool and recipe-discovery surface. Do not infer availability from this skill, a public catalog, or a previous session.
+2. Inspect the supplied material for relevance, readability and scope. When selecting a server capability or a versioned recipe, check the connected server's current discovery surface for availability.
 3. Choose the shortest route that can answer the question with sufficient evidence: direct analysis, recipe execution, content-quality diagnosis, implementation handoff, or verification.
-4. Before any paid or approval-gated call, obtain current price and balance information when the server exposes it, state the expected call scope, and follow the user's authorization boundary.
+4. Before a paid call, obtain the current quote for the selected scope and check balance information when available. Follow the user's authorization and the server's approval requirements before any approval-gated call.
 5. Confirm that the selected recipe's evidence plan, primary result contract, and any conditional result contracts are interpretable before collecting evidence. Use contracts embedded in the full server-resolved recipe or obtained through a discovered server schema surface. Never coerce an unfamiliar contract into a locally documented family; stop for unsupported result-contract skew when the exact shape is unavailable or incompatible.
 6. Execute only the selected path. Resolve each evidence entry by its `server`, `client`, or `user` source, apply its required, conditional, or fallback use, respect the provider-neutral evidence bound, and follow its declared completion-without behavior. Load full recipe definitions only after selecting a candidate. Distinguish a readiness failure before evidence execution, an execution-time failure after readiness passed, and a successful completed-empty result; report each through the selected recipe and result contract without inventing evidence.
 7. Separate observed facts from interpretations. Preserve source, subject, observation time, locale, device, query, and other conditions needed to understand what each item of evidence means. Treat an automated content or quality score as one evidence input, inspect its underlying observations, and reconcile or disclose material conflicts before using it in a conclusion.
-8. Return the applicable result contract. If another agent must implement the decision, add a handoff that specifies outcomes, constraints, acceptance criteria, and verification without drafting the finished content.
+8. Return the applicable result. Prepare a handoff when another agent owns a supported action and the selected method allows it.
 9. Verify the result against the original decision and completion criteria. Report unavailable checks and unresolved uncertainty instead of implying completion.
 
 ## Route the Request
 
 Use direct analysis when one bounded evidence lookup can answer the question and a multi-step method would add no decision value.
 
-For Google Search Console or GA4, use a direct lookup for one report, setting or URL observation. Use recipe discovery for dependent Google performance or measurement decisions. A readable authorized export can supply evidence for a supported method.
+For Google Search Console or GA4, read a supplied export first when it could answer the question. Use a direct lookup for one missing report, setting or URL observation. Use recipe discovery for dependent performance or measurement decisions when a connected server offers a suitable method. Adequate supplied evidence can support a bounded direct answer without connected acquisition.
 
 Use a current direct capability when the user asks about one answer channel. Use recipe discovery for a comparable ChatGPT, Gemini, and Perplexity brand-representation snapshot. Do not use either path to answer whether unbranded buyer prompts mention the brand or whether visibility changed over time; those questions require separately supported methods and evidence.
 
@@ -64,7 +64,9 @@ Use verification when work has already been implemented or when a recipe require
 ## Load References Only When Needed
 
 - Read [MCP routing and evidence](references/mcp-routing-and-evidence.md) before discovering tools or recipes, making paid calls, handling version skew, or collecting evidence from untrusted pages.
-- Read [Content diagnosis and handoff](references/content-diagnosis-and-handoff.md) when a request involves page quality, a proposed rewrite, content gaps, site-page overlap, or an implementation handoff.
+- Read [Google report evidence](references/google-report-evidence.md) when reading supplied or connected Search Console or GA4 reports, combining observations, or choosing an acquisition route.
+- Read [Content diagnosis](references/content-diagnosis-and-handoff.md) when a request involves page quality, a proposed rewrite, content gaps, or site-page overlap.
+- Read [Implementation handoff](references/implementation-handoff.md) when transferring a supported action to another agent or team.
 - Read [Result contracts](references/result-contracts.md) when producing a structured analysis, opportunity set, diagnostic, handoff, or verification report.
 - Read [Install and update this skill](references/install-and-update-this-skill.md) only when the user asks to install, inspect, update, repair, pin, or remove this skill.
 

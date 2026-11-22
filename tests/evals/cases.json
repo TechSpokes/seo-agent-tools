@@ -48,6 +48,14 @@
       "expected": "activate"
     },
     {
+      "id": "activate-supplied-google-analysis",
+      "kind": "activation",
+      "fixture": "activation.md",
+      "segment": "activation",
+      "prompt": "Read the attached Search Console exports and tell me whether the spring change warrants action. I have no Google connection here.",
+      "expected": "activate"
+    },
+    {
       "id": "activate-handoff",
       "kind": "activation",
       "fixture": "activation.md",
@@ -567,6 +575,67 @@
         "current suitability assumed from historical association",
         "evidence collected without bounded checks",
         "unsupported ranking before evidence returns"
+      ]
+    },
+    {
+      "id": "google-gsc-comparison-accumulates-returned-values",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "evidence-integrity",
+      "heading": "Search Console comparison joins compatible pages by exact tuple and period",
+      "baseline_risks": [
+        "duplicate tuples inflate coverage",
+        "response-local absence erases an observation",
+        "conflicting values are silently discarded",
+        "incompatible sources are combined"
+      ]
+    },
+    {
+      "id": "google-mixed-source-requires-comparability-and-quote",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "cost-authority",
+      "heading": "Search Console mixed route requires comparable evidence and a selected quote",
+      "baseline_risks": [
+        "visible filename confused with evidence",
+        "incompatible comparison reported",
+        "zero default count mistaken for an acquisition quote"
+      ]
+    },
+    {
+      "id": "google-canonical-correction-handoff",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "handoff",
+      "heading": "Google decision hands off one independently supported correction",
+      "baseline_risks": [
+        "recipient depends on earlier context",
+        "live declarations confused with indexed conditions",
+        "click change presented as proof of causation"
+      ]
+    },
+    {
+      "id": "backlink-gap-does-not-infer-absence",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "evidence-integrity",
+      "heading": "Backlink candidate omitted from a partial target set already links to target",
+      "baseline_risks": [
+        "omission treated as absence",
+        "direct contrary link discarded",
+        "pressure to pad an empty result"
+      ]
+    },
+    {
+      "id": "backlink-screening-completes-empty-without-page-reader",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "evidence-integrity",
+      "heading": "Backlink screening leaves no finalist without a page reader",
+      "baseline_risks": [
+        "blocks screening before checking whether page content is needed",
+        "claims exhaustive overlap",
+        "qualifies an unresolved finalist without source context"
       ]
     }
   ]

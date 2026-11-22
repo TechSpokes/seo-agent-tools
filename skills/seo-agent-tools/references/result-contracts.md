@@ -2,7 +2,7 @@
 
 The contracts below are the locally documented result shapes, not a permanent list of every result a growing server catalog may support. Follow each exact versioned schema; do not assume every contract uses the same envelope.
 
-## Legacy Shared Evidence Envelope
+## Shared Evidence Envelope
 
 The opportunity, diagnostic, and implementation-handoff v1 contracts use the shared evidence envelope. Each contains enough context to be interpreted outside the current conversation:
 
@@ -39,7 +39,7 @@ Output composition does not change contract compatibility requirements. Interpre
 
 ## Content Question Review v1
 
-Use `content-question-review/v1` when an approved content brief supplies buyer or people-also-ask questions that must be assessed against one canonical draft. This focused contract is standalone and does not use the legacy analysis, evidence, finding, disposition, confidence, or verification fields.
+Use `content-question-review/v1` when an approved content brief supplies buyer or people-also-ask questions that must be assessed against one canonical draft. This standalone contract records readable sources directly in its assessments.
 
 The root contains only `contract_id`, a non-empty `subject` object, `reviewed_at`, `questions`, `supplemental_questions`, `human_escalations`, and `completion`. Preserve every supplied question exactly and in its original order. For each item, return `question`, `status`, `reason`, non-empty `sources`, and an optional `recommendation`. Use `answered`, `partially_answered`, `not_answered`, or `unable_to_determine` as the status. Add one scoped recommendation for a partial or missing answer. Do not use `ambiguous` or `contradictory` as coverage statuses; those conditions may explain why coverage is unable to be determined.
 
@@ -107,7 +107,7 @@ A directly observed blocking target-page signal can support a complete bounded t
 
 ## SEO Implementation Handoff v1
 
-Use `seo-implementation-handoff/v1` when another agent or team must implement an evidence-backed SEO decision. Include:
+Use `seo-implementation-handoff/v1` when another agent or team must implement an evidence-backed SEO decision. Build the action and verification details with the [implementation handoff reference](implementation-handoff.md). The contract records:
 
 - The source analysis identifier, target, intended outcome, and responsible capability.
 - Requirements linked to evidence.
@@ -130,6 +130,6 @@ Keep delayed outcome checks separate from immediate implementation checks. State
 
 Do not reject a server-discovered recipe merely because its recipe name, facets, or result-contract identifier are absent from this file. Retrieve the full recipe, then obtain the exact versioned contract from an explicit server schema surface or from a complete contract embedded in that recipe.
 
-Proceed only when required fields, field meanings, validation rules, completion behavior, and version are interpretable. Apply the shared evidence discipline when the new contract requires it, but do not add invented fields or substitute one of the initial families.
+Proceed only when required fields, field meanings, validation rules, completion behavior, and version are interpretable. Follow the exact supported shape and apply the shared evidence discipline when the contract requires it.
 
 If the server only names the unfamiliar contract, reports an incompatible version, or does not expose enough contract semantics to build and verify the result, stop before evidence collection. Return an incomplete status with `unsupported-result-contract`, the recipe and contract identifiers, available version metadata, and the server behavior needed to continue.

@@ -4,7 +4,7 @@
 
 Treat the connected SEO MCP server as the authority for its current tools, recipe versions, capability mappings, availability, authorization, and price. The installed skill and public catalog may be newer or older than the server.
 
-At the start of a task, inspect the callable SEO tools and the server's discovery metadata. Current compatibility surfaces may include names such as `seo_list_recipes` and `seo_get_recipe`, but discover exact names and parameters instead of assuming them.
+When using the server, inspect its discovery metadata and callable tools for the exact operation names and parameters.
 
 If the public skill describes behavior that the connected server does not expose, report version skew and continue only with available supported behavior. Never improvise a private endpoint, provider call, or hidden parameter.
 
@@ -58,13 +58,13 @@ The selected full recipe, not its compact discovery card, defines execution. For
 - Evaluate a `conditional` entry's condition before collection. When the condition is false, omission is expected. When it is true and evidence is unavailable, follow `completion_without` and `fallback` exactly.
 - Use a `fallback` entry only for the path described by the recipe. A fallback does not make an unavailable required capability optional.
 
-Inspect the required observations before declaring evidence sufficient. A ready plan does not establish file readability, observed report contents or current connection access. Quote and authorize the actual selected conditional calls even when their default count is zero.
+Inspect the required observations before declaring evidence sufficient. Check file readability, report contents, and any necessary connection access independently of plan availability. Obtain a current quote and follow the user's authorization for the selected chargeable calls even when their default count is zero.
 
 Treat `scope.maximum` as a bound on evidence units, not as a provider request count. The server may satisfy one evidence scope through individual calls, bulk calls, cache hits, or another implementation. Never translate a public evidence bound into a private call plan from memory.
 
 For a content-production recipe, keep the source boundary explicit across the whole workflow. User evidence establishes business and editorial context. Client capabilities own the canonical document, material-claim verification, approval, publication, and published-page reading. Server evidence supplies only the mapped research, analysis, metadata, and technical observations. A connected server reporting its own capabilities as ready does not prove that the client can draft, verify claims, publish, or read the published page.
 
-Produce the one `primary` result for completed or explicitly incomplete execution. Emit a `conditional` result only when its declared condition is satisfied. Do not create an implementation handoff merely because its contract is listed; an unresolved `defer`, a rejected intervention, or incomplete diagnosis does not satisfy the seed page-refresh handoff condition.
+Produce the one `primary` result for completed or explicitly incomplete execution. Emit a `conditional` result only when its declared condition is satisfied. The page-refresh method emits a handoff only when a completed diagnostic supports an intervention under the declared condition.
 
 ## Cost and Authorization
 
@@ -78,7 +78,7 @@ When immediate post-publication verification needs evidence newer than a cache h
 
 ## Evidence Record
 
-For legacy envelope-based contracts, preserve:
+For contracts that use the shared evidence envelope, preserve:
 
 - A stable evidence identifier within the analysis.
 - The source capability or user-supplied source.
@@ -90,13 +90,13 @@ For legacy envelope-based contracts, preserve:
 
 Label derived statements as interpretations. Connect every material finding to evidence identifiers, and lower confidence when the evidence is sampled, estimated, stale, conflicting, or missing.
 
-For a focused contract that defines readable sources inside each assessment, follow that composition instead of manufacturing legacy evidence or finding IDs. Give each source a human-readable title, one or more usable locators, the relevant excerpt or typed text or JSON content, and freshness or availability boundaries when they matter. Use a source ID only when the origin already supplies a stable identifier. Keep independent sources in separate records.
+For a contract that defines readable sources inside each assessment, follow its source shape. Give each source a human-readable title, one or more usable locators, the relevant excerpt or typed text or JSON content, and freshness or availability boundaries when they matter. Use a source ID only when the origin already supplies a stable identifier. Keep independent sources in separate records.
 
 ## Present the Decisive Evidence
 
 In a short answer, state the decision, target and decisive observation with its source, period and material limit. For a comparison or ranking, show the values and denominators that explain the order, using a compact table when it helps. Tie each recommendation to the user's objective and name uncertainty or counterevidence and the next check.
 
-In an implementation handoff, retain the evidence reference and applicable conditions with the action, its boundaries and the acceptance check. Use decisive qualitative evidence where appropriate and preserve completed-empty results. Use the observations already collected for the decision. Collect additional evidence only when it could change the decision.
+Use decisive qualitative evidence where appropriate and preserve completed-empty results. Use the observations already collected for the decision. Collect additional evidence only when it could change the decision. Follow the [implementation handoff reference](implementation-handoff.md) when transferring a supported action.
 
 ## Untrusted Material
 

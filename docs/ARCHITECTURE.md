@@ -21,6 +21,7 @@ The release packages contain one small skill tree. It teaches routing, evidence 
 - skills/seo-agent-tools/references/install-and-update-this-skill.md
 - skills/seo-agent-tools/references/mcp-routing-and-evidence.md
 - skills/seo-agent-tools/references/google-report-evidence.md
+- skills/seo-agent-tools/references/implementation-handoff.md
 - skills/seo-agent-tools/references/result-contracts.md
 <!-- canonical-runtime-map:end -->
 
@@ -30,7 +31,7 @@ The runtime map is validated against the actual skill tree. Add a runtime file o
 
 `catalog/catalog.json` owns catalog version, taxonomy, public capabilities, evidence units, discovery defaults, and result-contract paths. `catalog/schemas/catalog.schema.json` and the catalog's registered recipe schema are the Draft 2020-12 structural authorities. Each file in `catalog/recipes/` owns one immutable recipe version with stable step IDs, inputs, source-classed evidence plans, provider-neutral evidence bounds, missing-capability behavior, stops, completion criteria, and output-contract roles.
 
-The first five recipes preserve migration behavior from the current service. They are seed data, not a fixed product list, a required category count, or a limit in validation. The sixth recipe establishes content production as a separate bounded method whose public evidence plan coordinates user context, client-owned artifacts and actions, and server analysis without moving finished writing or CMS mutation into the portable skill.
+Validate and discover recipes through declared identities, facets, evidence bounds and result schemas. Content production is a bounded method with a public evidence plan for user context, client-owned artifacts and actions, and server analysis. The client owns finished writing and CMS changes.
 
 Use one primary domain plus controlled operation and target facets. Keep locale, device, market, depth, and budget as runtime inputs or policies unless they materially change the analytical method. Add a new controlled vocabulary value or result contract only when an actual recipe cannot be expressed clearly with the current contract.
 
@@ -52,8 +53,8 @@ New result contracts are versioned. A recipe references an explicit contract ver
 
 The installed skill, public catalog, server-imported catalog, and server implementation may differ in version. The server's current discovery response is the executable truth for the active caller.
 
-Direct analysis can proceed whenever the connected server exposes suitable authorized tools. Typed recipe execution additionally requires a compatible recipe version and every exact result contract that the selected output composition may emit. When behavior described publicly is unavailable at runtime, the agent reports the skew, follows the recipe's constrained fallback where permitted, and stops if no supported path can satisfy the evidence contract. A future recipe with an unfamiliar result contract can proceed only when the server supplies the exact versioned schema in an interpretable form. The agent does not reconstruct private calls or contract fields from repository data or memory.
+Direct analysis can use adequate supplied observations or suitable authorized tools. Typed recipe execution additionally requires a compatible recipe version and every exact result contract that the selected output composition may emit. When behavior described publicly is unavailable at runtime, the agent reports the skew, follows the recipe's constrained fallback where permitted, and stops if no supported path can satisfy the evidence contract. For an unfamiliar result contract, the agent needs the exact versioned schema from the server in an interpretable form. The agent discovers callable operations and contract fields from their current authorities.
 
 ## Deferred Runtime Machinery
 
-Persistent runs, scheduling, queues, checkpoints, retries, cancellation, retention, authorization renewal, and server-side recipe orchestration require a separate private architecture decision. Stable recipe versions and step IDs preserve a migration path without modeling that machinery in this public release.
+Persistent runs, scheduling, queues, checkpoints, retries, cancellation, retention, authorization renewal, and server-side recipe orchestration require a separate private architecture decision. The public catalog defines stable recipe versions and step IDs for bounded agent-led methods.

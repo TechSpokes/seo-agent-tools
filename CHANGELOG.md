@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 
+## [v0.7.0] - 2026-11-22
+
+### Changed
+
+- Organic Search Performance and Opportunity Decisions joins compatible Search Console observations by exact dimension tuple and reporting period, preserving zeros, unknowns, and conflicts.
+- Google evidence guidance uses adequate supplied reports directly and checks the price and authorization for optional connected acquisition.
+- A focused implementation handoff reference carries the target, decisive evidence, supported action and verification into the recipient's context.
+
+### Fixed
+
+- Backlink Gap Prospecting treats omission in a bounded target set as unobserved evidence and reconciles directly observed target links before qualifying a prospect.
+
 ## [v0.6.0] - 2026-11-22
 
 ### Added

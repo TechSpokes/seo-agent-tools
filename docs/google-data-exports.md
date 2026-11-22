@@ -12,6 +12,8 @@ If you can export an authorized Google report, you can share the file with an as
 
 Search Console report exports can contain only 1,000 representative table rows even when chart totals cover more observations. Queries can omit anonymized or low-volume searches. Page-grouped tables and property-level chart totals can count observations differently. An exported zero may represent a value shown as unavailable in the report. [Google's Search Console export instructions](https://support.google.com/webmasters/answer/12919797) and [report discrepancy guidance](https://support.google.com/webmasters/answer/17010575).
 
+Separate Pages and Queries tables describe their own groupings. If the decision depends on a specific page-and-query pair, supply a report that gives the needed pair or a query table explicitly filtered to the exact page. See the [Google report evidence reference](../skills/seo-agent-tools/references/google-report-evidence.md) for compatible comparisons.
+
 ## Export GA4 reports
 
 1. Open [Google Analytics](https://analytics.google.com/) and select the exact GA4 property.
