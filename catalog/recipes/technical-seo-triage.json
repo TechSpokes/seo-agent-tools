@@ -21,7 +21,7 @@
     {
       "capability": "page-metadata",
       "source": "server",
-      "use": "required",
+      "use": "conditional",
       "steps": [
         "discover-sample",
         "inspect-static-signals",
@@ -32,16 +32,17 @@
         "maximum": 10,
         "guidance": "Inspect metadata for no more than ten representative pages in the bounded sample."
       },
+      "condition": "Collect metadata for a full site triage or when current page declarations can resolve a material question in the selected indexing investigation.",
       "completion_without": {
         "allowed": false,
-        "limitation": "The method cannot identify or compare the sampled pages reliably without page metadata."
+        "limitation": "When this check is needed, a complete finding about current page declarations requires adequate metadata observations."
       },
       "fallback": "Narrow the sample if possible; otherwise return an incomplete diagnostic."
     },
     {
       "capability": "page-technical-signals",
       "source": "server",
-      "use": "required",
+      "use": "conditional",
       "steps": [
         "inspect-static-signals",
         "run-provider-checks",
@@ -52,9 +53,10 @@
         "maximum": 10,
         "guidance": "Inspect technical signals for the same representative sample of no more than ten pages."
       },
+      "condition": "Collect technical signals for a full site triage or when current page behavior can resolve a material question in the selected indexing investigation.",
       "completion_without": {
         "allowed": false,
-        "limitation": "The method cannot support technical issue findings without observable technical signals."
+        "limitation": "When this check is needed, a complete finding about current page behavior requires adequate technical signal observations."
       },
       "fallback": "Return an incomplete diagnostic rather than inferring site-wide technical state."
     },
@@ -157,6 +159,7 @@
   "stop_conditions": [
     "Stop or narrow the sample when broad crawling would exceed authorization or cost bounds.",
     "Route a standalone supported one-URL lookup directly to an authorized lookup when acquisition is needed. Use this method for a multi-step investigation.",
+    "When full triage or the selected indexing question requires a current public check, inspect adequate evidence for that check or mark the affected question incomplete.",
     "Stop the unsupported private-account diagnosis when adequate authorized first-party evidence is absent. Ask for the smallest missing input or complete only a clearly narrower supported question.",
     "Return an empty completed diagnostic when the supported checks find no material issue."
   ],

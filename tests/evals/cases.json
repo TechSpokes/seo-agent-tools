@@ -545,6 +545,17 @@
         "unnecessary recipe launch",
         "current configuration used to claim historical events"
       ]
+    },
+    {
+      "id": "google-indexing-export-only",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "evidence-integrity",
+      "heading": "Supplied indexed-version records resolve a narrow technical question",
+      "baseline_risks": [
+        "required live checks block sufficient supplied indexed evidence",
+        "dated observations stated as current coverage"
+      ]
     }
   ]
 }

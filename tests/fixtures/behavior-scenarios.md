@@ -367,3 +367,14 @@ Expected invariants:
 - Use the direct setting read and avoid recipe discovery for this one lookup.
 - Report the named stream and current enabled setting with its observation time.
 - Avoid claims about historical event firing or qualified business outcomes.
+
+## Supplied indexed-version records resolve a narrow technical question
+
+Input: The user asks which Google-selected canonical was recorded for each of two URLs in one Search Console property on Nov 12. A readable, authorized export gives the exact property and date. Both /offer-a and /offer-b have an indexed-version observation and Google-selected canonical /offer. There is no direct connection or accessible live-page reader. The user asks about the two recorded Google observations.
+
+Expected invariants:
+
+- Use both exact account observations and state that each records /offer as the Google-selected canonical.
+- Complete the dated two-URL diagnostic using the supplied evidence alone.
+- Skip irrelevant live-page and site sample checks.
+- Make no claim about current page behavior, current indexing or whole-property coverage.
