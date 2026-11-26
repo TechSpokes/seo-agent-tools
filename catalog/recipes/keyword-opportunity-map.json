@@ -1,7 +1,7 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "id": "keyword-opportunity-map",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "title": "Keyword Opportunity Map",
   "summary": "Find and validate a bounded set of keyword clusters, then map each supported opportunity to an existing or proposed page.",
   "primary_domain": "keyword",

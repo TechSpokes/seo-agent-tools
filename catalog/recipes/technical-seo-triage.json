@@ -1,7 +1,7 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "id": "technical-seo-triage",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "title": "Technical SEO Triage",
   "summary": "Investigate a bounded site or indexing question and prioritize supported technical fixes or rechecks for the affected URLs.",
   "primary_domain": "technical",

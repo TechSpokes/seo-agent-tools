@@ -1,3 +1,3 @@
 # Worked case
 
-Two domains appear in the competitor's bounded report. One already occurs in the target report. On the other domain the inspected source page links to both the competitor and target. Reject both as confirmed gaps and return an empty qualified set. Report only what the two observed sets and the one inspected page establish.
+A museum has published an accessible exhibit map. A competitor's bounded referring-domain sample includes a regional educators' association that is unobserved in the museum's comparable sample. A full read of the association's field-trip guide shows the link to the competitor in a section inviting accessible visitor resources. Record the association as one qualified prospect for that guide, explain the editorial fit and cite the inspected page. Report the museum link as unobserved in the sampled sets; whether it exists elsewhere remains unknown. No other domain survived screening.

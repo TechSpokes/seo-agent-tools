@@ -6,16 +6,33 @@
       "objective": "The owner confirms this is the intended indexable admissions page.",
       "target": "https://example.org/admissions",
       "market": "English, UK",
-      "capture": {
-        "id": "live-admissions-r1",
-        "observed_at": "2026-09-03T12:05:00Z",
-        "requested_url": "https://example.org/admissions",
-        "final_url": "https://example.org/admissions",
-        "status": 200,
-        "meta_robots": "noindex,follow",
-        "canonical": "https://example.org/admissions"
-      },
-      "limits": "No indexed-version evidence, traffic report or search-result comparison. We can hand requirements to the site editor."
+      "limits": "No indexed-version evidence, traffic report or search-result comparison. We can hand requirements to the site editor.",
+      "observations": [
+        {
+          "id": "admissions-response-1",
+          "capability": "page-technical-signals",
+          "source": "server",
+          "observed_at": "2026-09-03T12:05:00Z",
+          "subject": "https://example.org/admissions",
+          "provenance": "Retained successful observation from the authorized technical check of the live target.",
+          "coverage": "One HTTP request to the named URL and its full redirect chain. No rendered or indexed-version observation.",
+          "requested_url": "https://example.org/admissions",
+          "final_url": "https://example.org/admissions",
+          "redirect_chain": [],
+          "status": 200
+        },
+        {
+          "id": "admissions-head-1",
+          "capability": "page-metadata",
+          "source": "server",
+          "observed_at": "2026-09-03T12:05:00Z",
+          "subject": "https://example.org/admissions",
+          "provenance": "Retained successful observation from the authorized metadata check of the same live response.",
+          "coverage": "Complete static HTML head for the final URL; no rendered DOM or indexed-version data.",
+          "meta_robots": "noindex,follow",
+          "canonical": "https://example.org/admissions"
+        }
+      ]
     }
   },
   {
@@ -243,21 +260,57 @@
       "target": "https://example.org",
       "competitor": "https://example.com",
       "scope": "Comparable sample of the top two referring domains per site in the same market and period, with further rows outside the sample. Competitor supplied and confirmed as serving the same local event audience.",
-      "target_referrers": [
-        "local-news.example",
-        "city-list.example"
-      ],
-      "competitor_referrers": [
-        "city-list.example",
-        "venue-notes.example"
-      ],
       "finalist": {
         "id": "permitted-capture",
         "producer": "Authorized server full-page read",
         "coverage": "Complete current HTML of the representative source page, including all links and the article body.",
         "url": "https://venue-notes.example/list",
-        "observation": "The page directly links to both example.org and example.com. No other candidate survived screening."
-      }
+        "observation": "The page directly links to both example.org and example.com. No other candidate survived screening.",
+        "observed_at": "2026-09-03T12:05:00Z",
+        "capability": "page-content"
+      },
+      "backlink_sets": [
+        {
+          "id": "target-referrers-1",
+          "capability": "backlink-sets",
+          "source": "server",
+          "subject": "https://example.org",
+          "observed_at": "2026-09-03T12:05:00Z",
+          "provenance": "Retained successful result of an authorized referring-domain comparison on the named domain.",
+          "coverage": {
+            "scope": "Domain including subdomains",
+            "observation_period": "2026-08-01 through 2026-08-31 UTC",
+            "sort": "Descending observed referring-page count",
+            "returned": 2,
+            "limit": 2,
+            "has_more": true
+          },
+          "referrers": [
+            "local-news.example",
+            "city-list.example"
+          ]
+        },
+        {
+          "id": "competitor-referrers-1",
+          "capability": "backlink-sets",
+          "source": "server",
+          "subject": "https://example.com",
+          "observed_at": "2026-09-03T12:05:00Z",
+          "provenance": "Retained successful result of an authorized referring-domain comparison on the named domain.",
+          "coverage": {
+            "scope": "Domain including subdomains",
+            "observation_period": "2026-08-01 through 2026-08-31 UTC",
+            "sort": "Descending observed referring-page count",
+            "returned": 2,
+            "limit": 2,
+            "has_more": true
+          },
+          "referrers": [
+            "city-list.example",
+            "venue-notes.example"
+          ]
+        }
+      ]
     }
   }
 ]

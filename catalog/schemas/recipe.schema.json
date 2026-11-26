@@ -104,12 +104,6 @@
               "user"
             ]
           },
-          "equivalent_sources": {
-            "type": "array",
-            "minItems": 1,
-            "uniqueItems": true,
-            "items": { "enum": ["client", "server", "user"] }
-          },
           "use": {
             "enum": [
               "conditional",

@@ -1554,7 +1554,69 @@
         {
           "op": "set",
           "path": "/schema_version",
+          "value": 4
+        }
+      ]
+    },
+    {
+      "id": "recipe-v2-rejects-v3-equivalence",
+      "kind": "recipe",
+      "path": "tests/fixtures/contracts/recipe-valid.json",
+      "expected": "invalid",
+      "expected_error": "must NOT have additional properties",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/schema_version",
+          "value": 2
+        },
+        {
+          "op": "set",
+          "path": "/evidence_plan/0/equivalent_sources",
+          "value": [
+            "user"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "recipe-v3-permits-qualified-alternate-source",
+      "kind": "recipe",
+      "path": "tests/fixtures/contracts/recipe-valid.json",
+      "expected": "valid",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/schema_version",
           "value": 3
+        },
+        {
+          "op": "set",
+          "path": "/evidence_plan/0/equivalent_sources",
+          "value": [
+            "user"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "recipe-v3-excludes-preferred-source-from-equivalents",
+      "kind": "recipe",
+      "path": "tests/fixtures/contracts/recipe-valid.json",
+      "expected": "invalid",
+      "expected_error": "must exclude its preferred source",
+      "mutations": [
+        {
+          "op": "set",
+          "path": "/schema_version",
+          "value": 3
+        },
+        {
+          "op": "set",
+          "path": "/evidence_plan/0/equivalent_sources",
+          "value": [
+            "server"
+          ]
         }
       ]
     },

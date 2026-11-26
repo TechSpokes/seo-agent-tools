@@ -1,7 +1,7 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "id": "page-refresh-brief",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "title": "Page Refresh Brief",
   "summary": "Diagnose whether one page should be refreshed, consolidated, preserved, or routed to another intervention, then prepare a verification-ready brief.",
   "primary_domain": "page",

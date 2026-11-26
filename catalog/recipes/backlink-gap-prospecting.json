@@ -1,7 +1,7 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "id": "backlink-gap-prospecting",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "title": "Backlink Gap Prospecting",
   "summary": "Compare referring-domain evidence for a target and confirmed competitors, then qualify a bounded set of relevant outreach prospects.",
   "primary_domain": "authority",

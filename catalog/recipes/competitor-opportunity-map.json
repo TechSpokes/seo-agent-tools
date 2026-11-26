@@ -1,7 +1,7 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "id": "competitor-opportunity-map",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "title": "Competitor Opportunity Map",
   "summary": "Confirm relevant search competitors, compare their supported demand and pages with the target domain, and rank opportunities to pursue, defer, or reject.",
   "primary_domain": "competition",

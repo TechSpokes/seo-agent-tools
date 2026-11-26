@@ -5,7 +5,10 @@
 import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
+import MarkdownIt from "markdown-it";
 import { parseDocument } from "yaml";
+
+const markdown = new MarkdownIt("commonmark");
 
 const markdownFile = /^(?:SKILL\.md|(?:references|examples)\/[a-z0-9]+(?:-[a-z0-9]+)*\.md)$/;
 const localSchema = /^[a-z][a-z0-9.-]*\.schema\.json$/;
@@ -54,21 +57,36 @@ function readPublishedMarkdown(absolute) {
   }
   // @constraints Documentation and reserved example links are citations only. The builder never retrieves them.
   for (const match of text.matchAll(/\b(?:[a-z][a-z0-9+.-]*:\/\/)[^\s)>\x60]+/gi)) {
-    const url = new URL(match[0]);
-    const documentation = [
-      ["https://developers.google.com", "/search/docs/"],
-      ["https://developers.google.com", "/analytics/"],
-      ["https://support.google.com", "/analytics/answer/"],
-      ["https://support.google.com", "/webmasters/answer/"],
-      ["https://schema.org", "/docs/"],
-      ["https://example.org", "/"],
-      ["https://example.com", "/"]
-    ];
-    if (url.username || url.password || url.search || !documentation.some(([origin, prefix]) => url.origin === origin && url.pathname.startsWith(prefix))) {
-      throw new Error(absolute + " contains an unreviewed documentation URL.");
-    }
+    checkCitation(match[0], absolute);
   }
   return text;
+}
+
+function checkCitation(target, source) {
+  const url = new URL(target);
+  const documentation = [
+    ["https://developers.google.com", "/search/docs/"],
+    ["https://developers.google.com", "/analytics/"],
+    ["https://support.google.com", "/analytics/answer/"],
+    ["https://support.google.com", "/webmasters/answer/"],
+    ["https://schema.org", "/docs/"],
+    ["https://example.org", "/"],
+    ["https://example.com", "/"]
+  ];
+  if (url.username || url.password || url.search || !documentation.some(([origin, prefix]) => url.origin === origin && url.pathname.startsWith(prefix))) {
+    throw new Error(source + " contains an unreviewed documentation URL.");
+  }
+}
+
+function *linkedFiles(text, source) {
+  for (const block of markdown.parse(text, {})) {
+    for (const token of [block, ...(block.children ?? [])]) {
+      if (token.type === "link_open") yield token.attrGet("href");
+      if (token.type === "image" || ((token.type === "html_inline" || token.type === "html_block") && /\b(?:href|src)\s*=/i.test(token.content))) {
+        throw new Error(source + " requires ordinary Markdown links to method references.");
+      }
+    }
+  }
 }
 
 function readMethodDirectory(directory, relative, files) {
@@ -128,9 +146,14 @@ function checkLinks(recipe, files, contractPaths) {
     if (reachable.has(file)) return;
     reachable.add(file);
     if (files[file].media_type !== "text/markdown") return;
-    for (const match of files[file].text.matchAll(/\[[^\]\n]*\]\(([^)\n]*)\)/g)) {
-      const target = match[1];
-      if (target.startsWith("#") || target.startsWith("https://")) continue;
+    const text = file === "SKILL.md" ? files[file].text.replace(/^---\n[\s\S]*?\n---\n/, "") : files[file].text;
+    const source = recipe.id + "/" + file;
+    for (const target of linkedFiles(text, source)) {
+      if (target.startsWith("#")) continue;
+      if (/^[a-z][a-z0-9+.-]*:/i.test(target)) {
+        checkCitation(target, source);
+        continue;
+      }
       const portion = target.split("#", 1)[0];
       const resolved = path.posix.normalize(path.posix.join(path.posix.dirname(file), portion));
       if (!portion || portion.startsWith("/") || /[:\\%?\s]/.test(portion) || !Object.hasOwn(files, resolved)) {

@@ -1,7 +1,7 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "id": "content-production-workflow",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "title": "Content Production Workflow",
   "summary": "Plan, evaluate, publish, and verify one bounded existing-site content artifact while preserving business context, factual limits, approval, freshness, and lifecycle ownership.",
   "primary_domain": "content",
