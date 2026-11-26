@@ -1,0 +1,3 @@
+# Worked case
+
+A complete equipment manual is being reviewed against two approved installer questions. The first asks which tools are supplied. The parts list identifies the bracket but says nothing about supplied tools. Mark this question not_answered, cite the brief and the inspected manual, and recommend adding the verified tool inventory at the parts list. The second asks how to release the latch; section 3 describes the release lever and shows its location. Mark it answered and cite that section and the question source. Keep the two rows in their original order. The review is complete with one documented revision need.

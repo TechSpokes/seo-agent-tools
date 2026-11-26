@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [v0.8.0] - 2026-11-26
+
+- Publish a versioned entry, stage references, examples and exact result contracts for each maintained method. Format 3 records raw-byte integrity for every package file.
+- Add Content Question Coverage Review for a fixed set of audience questions and one supplied document or page capture.
+
 ## [v0.7.0] - 2026-11-22
 
 ### Changed

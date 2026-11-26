@@ -1,7 +1,7 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "id": "content-production-workflow",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "title": "Content Production Workflow",
   "summary": "Plan, evaluate, publish, and verify one bounded existing-site content artifact while preserving business context, factual limits, approval, freshness, and lifecycle ownership.",
   "primary_domain": "content",
@@ -53,13 +53,17 @@
       "scope": {
         "unit": "page",
         "maximum": 6,
-        "guidance": "Read the published page and no more than five existing pages needed to resolve taxonomy, overlap, preservation, or internal-link questions."
+        "guidance": "Read the published page and no more than five existing pages needed to resolve taxonomy, overlap, preservation, or internal-link questions. An authorized full-page read or supplied capture can satisfy this stage when its identity, time, completeness and retained material support the actual claim. Record the producer and coverage. A search snippet or partial extract cannot establish full-page coverage."
       },
       "completion_without": {
         "allowed": false,
-        "limitation": "The method cannot confirm the published artifact or its relationship to relevant existing pages without client-observed page content."
+        "limitation": "Live publication verification and comparisons with relevant existing pages require an inspected page from the appropriate environment."
       },
-      "fallback": "Return an incomplete handoff and identify the exact page evidence the client must supply."
+      "fallback": "Identify the missing page evidence. Continue any independently supported preparation or handoff and keep unverified publication incomplete.",
+      "equivalent_sources": [
+        "server",
+        "user"
+      ]
     },
     {
       "capability": "keyword-expansion",
@@ -333,7 +337,7 @@
     "Every outline and publication requirement links to user, client, or server evidence or is labeled as an unresolved constraint.",
     "Generated variants, third-party estimates, content-analysis scores, and client-supplied snapshots retain their distinct provenance and limitations.",
     "Material factual claims have separate verification evidence or an explicit blocking record; content-analysis scores never satisfy factual verification.",
-    "Publication and live verification are client and server evidence respectively; a staged snapshot cannot establish production equivalence.",
+    "Actual publication requires independent approval and publication evidence. Verify the live page in its published environment. A staged or approved document cannot establish production equivalence.",
     "The canonical page body remains a client-owned artifact and is not embedded in the validated handoff.",
     "The canonical document evidence resolves the document format, body content, intended SEO title, and intended meta description for the required content SEO analysis. The title and description come from explicit document metadata, recognized opening Markdown YAML front matter, or a complete HTML document head; a body-only document is incomplete when either value is unresolved.",
     "Each approved buyer or people-also-ask question retains its exact wording and original order, cites the governing brief source and relevant draft passage or absence directly, and remains separate from supplemental generated questions."

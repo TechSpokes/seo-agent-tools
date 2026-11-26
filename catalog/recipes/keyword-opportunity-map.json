@@ -1,7 +1,7 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "id": "keyword-opportunity-map",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "title": "Keyword Opportunity Map",
   "summary": "Find and validate a bounded set of keyword clusters, then map each supported opportunity to an existing or proposed page.",
   "primary_domain": "keyword",
@@ -87,14 +87,18 @@
       "scope": {
         "unit": "page",
         "maximum": 5,
-        "guidance": "Read only representative known pages needed to test ownership or overlap."
+        "guidance": "Read only representative known pages needed to test ownership or overlap. An authorized full-page read or supplied capture can satisfy this stage when its identity, time, completeness and retained material support the actual claim. Record the producer and coverage. A search snippet or partial extract cannot establish full-page coverage."
       },
       "condition": "Use page content when the subject has an existing site and a finalist may overlap a known page role.",
       "completion_without": {
         "allowed": true,
         "limitation": "The result cannot confirm page ownership or site-page overlap and must label affected mappings as provisional."
       },
-      "fallback": "Map the query cluster to an unresolved page decision and request a compatible page reader before implementation."
+      "fallback": "Map the query cluster to an unresolved page decision and request a compatible page reader before implementation.",
+      "equivalent_sources": [
+        "server",
+        "user"
+      ]
     }
   ],
   "steps": [

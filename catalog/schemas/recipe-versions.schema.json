@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/TechSpokes/seo-agent-tools/catalog/schemas/recipe-versions.schema.json",
+  "title": "Versioned SEO Agent Tools Recipes",
+  "type": "object",
+  "if": {
+    "properties": {
+      "schema_version": {
+        "const": 3
+      }
+    },
+    "required": [
+      "schema_version"
+    ]
+  },
+  "then": {
+    "$ref": "recipe.v3.schema.json"
+  },
+  "else": {
+    "$ref": "recipe.schema.json"
+  }
+}

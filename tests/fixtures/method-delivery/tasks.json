@@ -1,0 +1,316 @@
+[
+  {
+    "id": "refresh-blocker",
+    "task": "The team wants to rewrite the admissions page because visitors may have stopped finding it. Diagnose what to change first and give us the bounded result for the evidence available.",
+    "evidence": {
+      "objective": "The owner confirms this is the intended indexable admissions page.",
+      "target": "https://example.org/admissions",
+      "market": "English, UK",
+      "limits": "No indexed-version evidence, traffic report or search-result comparison. We can hand requirements to the site editor.",
+      "observations": [
+        {
+          "id": "admissions-response-1",
+          "capability": "page-technical-signals",
+          "source": "server",
+          "observed_at": "2026-09-03T12:05:00Z",
+          "subject": "https://example.org/admissions",
+          "provenance": "Retained successful observation from the authorized technical check of the live target.",
+          "coverage": "One HTTP request to the named URL and its full redirect chain. No rendered or indexed-version observation.",
+          "requested_url": "https://example.org/admissions",
+          "final_url": "https://example.org/admissions",
+          "redirect_chain": [],
+          "status": 200
+        },
+        {
+          "id": "admissions-head-1",
+          "capability": "page-metadata",
+          "source": "server",
+          "observed_at": "2026-09-03T12:05:00Z",
+          "subject": "https://example.org/admissions",
+          "provenance": "Retained successful observation from the authorized metadata check of the same live response.",
+          "coverage": "Complete static HTML head for the final URL; no rendered DOM or indexed-version data.",
+          "meta_robots": "noindex,follow",
+          "canonical": "https://example.org/admissions"
+        }
+      ]
+    }
+  },
+  {
+    "id": "editor-handoff",
+    "task": "Coordinate delivery of the approved article through publication and verification. Give the owner the useful artifact you can finish today.",
+    "evidence": {
+      "target": "https://example.org/access",
+      "objective": "Give first-time attendees accurate access instructions before arrival.",
+      "audience": "First-time workshop attendees",
+      "context": "English-language existing event site. The access page explains the venue entrance. No material commercial or time-limited claims.",
+      "document": {
+        "id": "access-guide-r4",
+        "format": "Markdown",
+        "title": "Venue access",
+        "description": "Find the step-free entrance.",
+        "body": "Use the step-free side entrance beside reception."
+      },
+      "evidence": [
+        {
+          "id": "review-1",
+          "text": "Document analysis completed on r4 with the stated title, description and focus 'venue access'; relevant scope and metadata were verified."
+        },
+        {
+          "id": "review-2",
+          "text": "Facilities manager independently verified the entrance and the directions against the current venue layout."
+        },
+        {
+          "id": "approval-4",
+          "text": "Editor approved exact revision r4 and target. The CMS publisher owns publication. No approved buyer questions were supplied."
+        }
+      ],
+      "limits": "There is no publishing capability or live response available in this session."
+    }
+  },
+  {
+    "id": "question-review",
+    "task": "Review the attendee guide against the supplied list. Tell the editor which questions still need revisions and return the maintained result.",
+    "evidence": {
+      "observed_at": "2026-09-03T12:05:00Z",
+      "brief": {
+        "id": "event-brief-r2",
+        "origin": "Editor-approved questions for first-time attendees, section 2",
+        "questions": [
+          "When do doors open?",
+          "What does the ticket include?",
+          "Can I bring a guest?"
+        ]
+      },
+      "document": {
+        "id": "event-guide-r3",
+        "origin": "Complete editor-supplied text of the current attendee guide",
+        "sections": [
+          {
+            "heading": "Arrival",
+            "text": "The doors open at 08:30."
+          },
+          {
+            "heading": "Tickets",
+            "text": "Your ticket includes the workshop. See the printed insert for meal arrangements."
+          },
+          {
+            "heading": "Contact",
+            "text": "Email the event coordinator for access requests."
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "question-review-incomplete",
+    "task": "Review the attendee guide against the supplied list. Tell the editor which questions still need revisions and return the maintained result.",
+    "evidence": {
+      "observed_at": "2026-09-03T12:05:00Z",
+      "brief": {
+        "id": "event-brief-r2",
+        "origin": "Editor-approved questions for first-time attendees, section 2",
+        "questions": [
+          "When do doors open?",
+          "What does the ticket include?",
+          "Can I bring a guest?"
+        ]
+      },
+      "document": {
+        "id": "event-guide-r3",
+        "origin": "Editor supplied a capture of the current guide; the last page could not be read.",
+        "sections": [
+          {
+            "heading": "Arrival",
+            "text": "The doors open at 08:30."
+          },
+          {
+            "heading": "Tickets",
+            "text": "Your ticket includes the workshop. See the printed insert for meal arrangements."
+          },
+          {
+            "heading": "Contact",
+            "text": "Email the event coordinator for access requests."
+          },
+          {
+            "heading": "Guests",
+            "text": "[capture failed for the complete section; no guest-policy text available]"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "frozen-channels",
+    "task": "Summarize this prompted observation of Example Brand across the three named answer channels using the applicable maintained method. Use the historical frozen records supplied below.",
+    "evidence": {
+      "observed_at": "2026-09-03T12:05:00Z",
+      "framing": {
+        "suppliedSubject": "https://example.org",
+        "settledBrandName": "Example Brand",
+        "canonicalWebsite": "https://example.org",
+        "location": "France",
+        "suppliedCompetitorPanel": [],
+        "suppliedProductsOrServices": [],
+        "limitations": []
+      },
+      "conditions": {
+        "brand": "https://example.org",
+        "location": "France",
+        "competitors": [],
+        "productsOrServices": []
+      },
+      "channel_records": [
+        {
+          "channel": "chatgpt",
+          "observed_at": "2026-09-03T12:01:00Z",
+          "outcome": "report",
+          "recognitionStatus": "recognized",
+          "report": {
+            "brandDescription": "The generated report describes Example Brand as a workshop organizer.",
+            "awareness": {
+              "category": "emerging",
+              "information": "Limited category awareness.",
+              "nativeScore": 0
+            },
+            "sentiment": {
+              "category": "neutral",
+              "information": "Neutral description."
+            },
+            "credibility": {
+              "category": "moderate"
+            },
+            "generatedTopics": [
+              "workshops"
+            ],
+            "generatedAssociations": [],
+            "sourceDescriptors": [],
+            "controlledCompetitorObservations": [],
+            "generatedCompetitors": []
+          }
+        },
+        {
+          "channel": "gemini",
+          "observed_at": "2026-09-03T12:02:00Z",
+          "outcome": "not_recognized",
+          "recognitionStatus": "not_recognized"
+        },
+        {
+          "channel": "perplexity",
+          "observed_at": "2026-09-03T12:03:00Z",
+          "outcome": "failed",
+          "error": "Request began but no channel report was produced."
+        }
+      ],
+      "costs": {
+        "unit": "fixture-unit",
+        "quoted_per_channel": [
+          0,
+          0,
+          0
+        ],
+        "charged_per_channel": [
+          0,
+          0,
+          0
+        ]
+      },
+      "notes": "Identical settled inputs and sufficient authority for all three were confirmed before the historical fixture was recorded. No new invocations authorized."
+    }
+  },
+  {
+    "id": "repair-retained",
+    "task": "Our earlier review failed validation. Correct its result and give us the short editorial summary. The supplied materials are the evidence used for the earlier review.",
+    "evidence": {
+      "observed_at": "2026-09-03T12:05:00Z",
+      "brief": {
+        "id": "event-brief-r2",
+        "origin": "Editor-approved questions for first-time attendees, section 2",
+        "questions": [
+          "When do doors open?",
+          "What does the ticket include?",
+          "Can I bring a guest?"
+        ]
+      },
+      "document": {
+        "id": "event-guide-r3",
+        "origin": "Complete editor-supplied text of the current attendee guide",
+        "sections": [
+          {
+            "heading": "Arrival",
+            "text": "The doors open at 08:30."
+          },
+          {
+            "heading": "Tickets",
+            "text": "Your ticket includes the workshop. See the printed insert for meal arrangements."
+          },
+          {
+            "heading": "Contact",
+            "text": "Email the event coordinator for access requests."
+          }
+        ]
+      },
+      "error": "The questions array used 'partial' for the second item, omitted its recommendation and added a completion.status of 'provisional'. The source review and observations are retained."
+    }
+  },
+  {
+    "id": "bounded-gaps",
+    "task": "Which competitor backlink opportunities survive qualification for our local event site? Give the maintained bounded result and explain material exclusions.",
+    "evidence": {
+      "observed_at": "2026-09-03T12:05:00Z",
+      "target": "https://example.org",
+      "competitor": "https://example.com",
+      "scope": "Comparable sample of the top two referring domains per site in the same market and period, with further rows outside the sample. Competitor supplied and confirmed as serving the same local event audience.",
+      "finalist": {
+        "id": "permitted-capture",
+        "producer": "Authorized server full-page read",
+        "coverage": "Complete current HTML of the representative source page, including all links and the article body.",
+        "url": "https://venue-notes.example/list",
+        "observation": "The page directly links to both example.org and example.com. No other candidate survived screening.",
+        "observed_at": "2026-09-03T12:05:00Z",
+        "capability": "page-content"
+      },
+      "backlink_sets": [
+        {
+          "id": "target-referrers-1",
+          "capability": "backlink-sets",
+          "source": "server",
+          "subject": "https://example.org",
+          "observed_at": "2026-09-03T12:05:00Z",
+          "provenance": "Retained successful result of an authorized referring-domain comparison on the named domain.",
+          "coverage": {
+            "scope": "Domain including subdomains",
+            "observation_period": "2026-08-01 through 2026-08-31 UTC",
+            "sort": "Descending observed referring-page count",
+            "returned": 2,
+            "limit": 2,
+            "has_more": true
+          },
+          "referrers": [
+            "local-news.example",
+            "city-list.example"
+          ]
+        },
+        {
+          "id": "competitor-referrers-1",
+          "capability": "backlink-sets",
+          "source": "server",
+          "subject": "https://example.com",
+          "observed_at": "2026-09-03T12:05:00Z",
+          "provenance": "Retained successful result of an authorized referring-domain comparison on the named domain.",
+          "coverage": {
+            "scope": "Domain including subdomains",
+            "observation_period": "2026-08-01 through 2026-08-31 UTC",
+            "sort": "Descending observed referring-page count",
+            "returned": 2,
+            "limit": 2,
+            "has_more": true
+          },
+          "referrers": [
+            "city-list.example",
+            "venue-notes.example"
+          ]
+        }
+      ]
+    }
+  }
+]

@@ -17,13 +17,15 @@ Use a recipe when evidence steps depend on one another, the method has stop cond
 1. Retrieve available facets such as domain, operation, target, and result contract.
 2. Search compact recipe cards with bounded results or pagination.
 3. Compare only candidates that match the decision and required inputs.
-4. Retrieve the complete definition for the selected recipe.
-5. Confirm its version, inputs, evidence plan, availability, bounds, primary result, and conditional results before execution.
-6. If the output contract is not documented by the installed skill, retrieve the exact versioned shape from a server-described schema surface or confirm that the full recipe embeds it completely.
+4. Open the selected entry. Preserve the recipe and catalog versions across reads. Use the complete definition if that is the server's supported retrieval shape.
+5. Identify the evidence requirements, conditional stages, stops and applicable deliverables before beginning dependent work. Read the referenced stage or file when needed. Request the complete package when explicit inspection or export is the goal.
+6. Use the exact versioned schemas and local dependencies required for that work. Reuse an already loaded exact publication. Stop the affected branch when a file, version or schema is unavailable. An earlier revision cannot silently be replaced by the newest one.
 
 Recipe discovery should prefer executable candidates. An availability state of `approval-required` means pause for the required authorization. User approval does not override server authorization or make an unavailable capability executable. An availability state of `unavailable` means choose a supported alternative or report the gap; it does not authorize reconstructing the recipe with hidden services.
 
 Treat result-contract compatibility as a separate check from availability and approval. An unfamiliar contract is usable only when the server supplies its exact versioned fields, meanings, and validation rules in an interpretable form. Do not map it to a locally known contract because their names or purposes appear similar. If the exact contract is missing or incompatible, stop before its evidence-collection calls and report `unsupported-result-contract` with the observed skill, recipe, and server versions.
+
+A host may offer an ordinary reference route or native Skills. Follow that host's trust and approval decision. An explicit native denial ends the denied action. On a host without native support, the available ordinary tools can serve the pinned method within the caller's existing permissions.
 
 ## Route Google Evidence
 
@@ -49,10 +51,10 @@ Buyer-prompt presence asks whether an unbranded buyer question names the brand. 
 
 ## Resolve the Evidence Plan
 
-The selected full recipe, not its compact discovery card, defines execution. For every evidence-plan entry:
+The pinned entry and its evidence plan define execution. Apply each evidence requirement when its scope and stage are reached.
 
 - Resolve `server` evidence through the connected runtime and its current capability mapping, authorization, availability, and price.
-- Resolve `client` evidence only through a capability the current agent host actually exposes, such as a full-page reader. Do not assume a browser, reader, search integration, spreadsheet processor, or file reader exists.
+- For `client` evidence, use a capability actually available to the host. Where the method declares `equivalent_sources`, inspect the alternate evidence for the same subject, freshness, provenance and sufficient completeness. A snippet cannot prove absence from the whole page. A static capture cannot establish rendered behavior, current index state or editorial approval.
 - Resolve `user` evidence only from material the user supplied or from an independently authorized source. The source class does not imply a first-party connector exists.
 - Collect `required` evidence when its step is reached. If it is unavailable and `completion_without.allowed` is false, stop with an incomplete result and the declared limitation.
 - Evaluate a `conditional` entry's condition before collection. When the condition is false, omission is expected. When it is true and evidence is unavailable, follow `completion_without` and `fallback` exactly.
@@ -62,7 +64,7 @@ Inspect the required observations before declaring evidence sufficient. Check fi
 
 Treat `scope.maximum` as a bound on evidence units, not as a provider request count. The server may satisfy one evidence scope through individual calls, bulk calls, cache hits, or another implementation. Never translate a public evidence bound into a private call plan from memory.
 
-For a content-production recipe, keep the source boundary explicit across the whole workflow. User evidence establishes business and editorial context. Client capabilities own the canonical document, material-claim verification, approval, publication, and published-page reading. Server evidence supplies only the mapped research, analysis, metadata, and technical observations. A connected server reporting its own capabilities as ready does not prove that the client can draft, verify claims, publish, or read the published page.
+For a content-production recipe, keep the source boundary explicit across the whole workflow. User evidence establishes business and editorial context. The responsible content and publication owners retain the canonical document, material-claim verification, approval and publication. For verification, inspect the live published page through a permitted evidence route and confirm its identity and coverage. Server observations depend on the specific authorized operation. A connected server reporting its own capabilities as ready does not prove that the client can draft, verify claims, publish, or read the published page.
 
 Produce the one `primary` result for completed or explicitly incomplete execution. Emit a `conditional` result only when its declared condition is satisfied. The page-refresh method emits a handoff only when a completed diagnostic supports an intervention under the declared condition.
 

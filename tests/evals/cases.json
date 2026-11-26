@@ -637,6 +637,90 @@
         "claims exhaustive overlap",
         "qualifies an unresolved finalist without source context"
       ]
+    },
+    {
+      "id": "method-delivery-refresh-blocker",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "evidence-integrity",
+      "heading": "Page refresh technical precheck",
+      "baseline_risks": [
+        "precheck blocker ignored",
+        "directive equated with index state",
+        "unnecessary result/comparison acquisition"
+      ]
+    },
+    {
+      "id": "method-delivery-editor-handoff",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "evidence-integrity",
+      "heading": "Production handoff without publication",
+      "baseline_risks": [
+        "handoff confused with CMS publication",
+        "factual approval missing",
+        "unsupported complete lifecycle"
+      ]
+    },
+    {
+      "id": "method-delivery-question-review",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "evidence-integrity",
+      "heading": "Single document fixed list",
+      "baseline_risks": [
+        "questions reordered",
+        "known gaps mislabeled incomplete",
+        "partial or missing answer lacks a revision"
+      ]
+    },
+    {
+      "id": "method-delivery-question-review-incomplete",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "evidence-integrity",
+      "heading": "Single document incomplete capture",
+      "baseline_risks": [
+        "unreadable section labeled a proven gap",
+        "complete review with unresolved supplied question",
+        "material evidence already available discarded"
+      ]
+    },
+    {
+      "id": "method-delivery-frozen-channels",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "evidence-integrity",
+      "heading": "Snapshot preserves failed channel",
+      "baseline_risks": [
+        "failed channel discarded",
+        "invalid report-content comparison",
+        "preference-seeking rerun"
+      ]
+    },
+    {
+      "id": "method-delivery-repair-retained",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "evidence-integrity",
+      "heading": "Repair without reacquisition",
+      "baseline_risks": [
+        "invalid enum retained",
+        "format repair drops evidence or ordering",
+        "repeat acquisition"
+      ]
+    },
+    {
+      "id": "method-delivery-bounded-gaps",
+      "kind": "scenario",
+      "fixture": "behavior-scenarios.md",
+      "segment": "evidence-integrity",
+      "heading": "Selected evidence empty set",
+      "baseline_risks": [
+        "equivalent complete page excluded",
+        "bounded target omission becomes exhaustive absence",
+        "prospects padded"
+      ]
     }
   ]
 }

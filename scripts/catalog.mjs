@@ -7,6 +7,7 @@
  */
 /* global process, Buffer */
 import crypto from "node:crypto";
+import { buildMethodPackages } from "./lib/method-packages.mjs";
 import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
@@ -18,6 +19,7 @@ import addFormats from "ajv-formats";
  * @typedef {object} EvidencePlanEntry
  * @property {string} capability
  * @property {"client" | "server" | "user"} source
+ * @property {("client" | "server" | "user")[]} [equivalent_sources]
  * @property {"conditional" | "fallback" | "required"} use
  * @property {string[]} steps
  * @property {{unit: string, maximum: number, guidance: string}} scope
@@ -70,7 +72,7 @@ if (path.resolve(process.argv[1] ?? "") === scriptPath) {
 /**
  * Validate the catalog metadata, recipe definitions, and local schema references.
  *
- * @returns {{catalog: object, recipes: Recipe[], sourceFiles: string[], schemaFiles: string[], fixtureCount: number}} Parsed canonical inputs in deterministic file order.
+ * @returns {{catalog: object, recipes: Recipe[], sourceFiles: string[], schemaFiles: string[], methodPackages: object, fixtureCount: number}} Parsed canonical inputs in deterministic file order.
  * @throws {Error} When a public contract is malformed, ambiguous, or references uncontrolled vocabulary.
  */
 export function validateCatalog() {
@@ -116,10 +118,15 @@ export function validateCatalog() {
 
   const fixtureCount = validateContractFixtures(schemaAuthority, catalog, failures);
   throwFailures(failures);
+  const schemas = Object.fromEntries(schemaAuthority.schemas);
+  const methodPackages = buildMethodPackages(path.join(catalogRoot, "methods"), recipes, catalog.result_contracts, schemas, stableJson);
+  const methodSources = Object.entries(methodPackages).flatMap(([id, method]) => Object.keys(method.files)
+    .filter((file) => file.endsWith(".md")).map((file) => `catalog/methods/${id}/${file}`));
   return {
+    methodPackages,
     catalog,
     recipes: recipes.sort((left, right) => left.id.localeCompare(right.id)),
-    sourceFiles: ["catalog/catalog.json", ...recipeFiles, ...schemaFiles].sort(),
+    sourceFiles: ["catalog/catalog.json", ...recipeFiles, ...schemaFiles, ...methodSources].sort(),
     schemaFiles,
     fixtureCount
   };
@@ -133,7 +140,7 @@ export function validateCatalog() {
  * @sideEffects Replaces only this repository's generated dist/catalog directory.
  */
 export function buildCatalogProjection(options = {}) {
-  const { catalog, recipes, sourceFiles, schemaFiles } = validateCatalog();
+  const { catalog, recipes, sourceFiles, schemaFiles, methodPackages } = validateCatalog();
   const packageManifest = readJson("package.json", []);
   const tag = options.tag ?? `v${packageManifest.version}`;
   if (!/^v[0-9]+\.[0-9]+\.[0-9]+$/.test(tag)) throw new Error(`Catalog release tag ${tag} must use vX.Y.Z format.`);
@@ -154,11 +161,12 @@ export function buildCatalogProjection(options = {}) {
     output_contracts: recipe.output_contracts,
     required_inputs: recipe.required_inputs.map((input) => input.id),
     capabilities: [...new Set(recipe.evidence_plan.map((entry) => entry.capability))].sort(),
-    evidence_sources: [...new Set(recipe.evidence_plan.map((entry) => entry.source))].sort()
+    evidence_sources: [...new Set(recipe.evidence_plan.flatMap((entry) => [entry.source, ...(entry.equivalent_sources ?? [])]))].sort()
   }));
   const schemas = Object.fromEntries(schemaFiles.map((file) => [file, readJson(file, [])]));
   const projection = {
-    schema_version: 2,
+    schema_version: 3,
+    method_packages: methodPackages,
     catalog_id: packageManifest.name,
     skill_version: packageManifest.version,
     catalog_version: catalog.catalog_version,
@@ -178,7 +186,10 @@ export function buildCatalogProjection(options = {}) {
   fs.writeFileSync(artifactPath, projectionText, "utf8");
 
   const manifest = {
-    schema_version: 2,
+    schema_version: 3,
+    package_inventory: Object.fromEntries(Object.entries(methodPackages).map(([id, method]) => [id,
+      Object.fromEntries(Object.entries(method.files).map(([file, { size, sha256 }]) => [file, { size, sha256 }]))
+    ])),
     catalog_id: packageManifest.name,
     source_repository: "https://github.com/TechSpokes/seo-agent-tools",
     release_tag: tag,
@@ -194,7 +205,7 @@ export function buildCatalogProjection(options = {}) {
     })),
     source_checksums: sourceFiles.map((file) => ({
       path: file,
-      sha256: hash(stableJson(readJson(file, [])))
+      sha256: hash(file.endsWith(".md") ? fs.readFileSync(path.join(root, file)) : stableJson(readJson(file, [])))
     })),
     projection: {
       path: artifactName,
@@ -633,6 +644,7 @@ function validateEvidencePlanSemantics(recipe, file, catalog, failures) {
 
   entries.forEach((entry, index) => {
     const label = `${file} evidence_plan[${index}]`;
+    if (entry.equivalent_sources?.includes(entry.source)) failures.push(`${label}.equivalent_sources must exclude its preferred source.`);
     if (!catalog.capabilities.includes(entry.capability)) failures.push(`${label} references unknown capability ${entry.capability}.`);
     for (const step of entry.steps) {
       if (!stepIds.has(step)) failures.push(`${label} references unknown step ${step}.`);

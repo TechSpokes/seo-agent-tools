@@ -457,3 +457,73 @@ Expected invariants:
 - Complete with zero qualified gaps for these observed sets without requiring a page reader.
 - Keep material limitations on coverage and make no claim about relationships outside the samples.
 - If a comparable candidate survives screening, require source-page evidence before qualifying it.
+
+## Page refresh technical precheck
+
+Input: Supply only the task and evidence for `refresh-blocker` in [fixed method delivery tasks](method-delivery/tasks.json) to the evaluator. Use the same evidence for full and progressive retrieval.
+
+Expected invariants:
+
+- Return a complete bounded diagnostic for the live blocking directive. State the unknown index state and cause of any traffic change.
+- Use the intended state and observed directive to support the appropriate scoped implementation handoff with a live verification check.
+- Skip search-result acquisition, page rewriting and unrelated declarations.
+
+## Production handoff without publication
+
+Input: Supply only the task and evidence for `editor-handoff` in [fixed method delivery tasks](method-delivery/tasks.json) to the evaluator. Use the same evidence for full and progressive retrieval.
+
+Expected invariants:
+
+- Hand off revision r4, owner, required action, approval, provenance, preservation rules, acceptance and live checks.
+- Describe completed preparation, pending publication and live verification. Mark the requested end-to-end result incomplete with the precise reason.
+- Do not emit the conditional question-review artifact or claim a completed publication.
+
+## Single document fixed list
+
+Input: Supply only the task and evidence for `question-review` in [fixed method delivery tasks](method-delivery/tasks.json) to the evaluator. Use the same evidence for full and progressive retrieval.
+
+Expected invariants:
+
+- Retain the three exact approved questions in order; assess answered, partially_answered and not_answered.
+- For each row cite the named list and document. Recommend resolving the meal details and clarifying guest policy without inventing either.
+- Return a complete review with the existing completion enum. Keep additional questions separate.
+
+## Single document incomplete capture
+
+Input: Supply only the task and evidence for `question-review-incomplete` in [fixed method delivery tasks](method-delivery/tasks.json) to the evaluator. Use the same evidence for full and progressive retrieval.
+
+Expected invariants:
+
+- Preserve wording, order, readable observations and provenance for all three supplied questions.
+- Use unable_to_determine on the guest question and identify the missing section. Preserve the first two supported statuses.
+- Return incomplete with a stop reason and a specific recovery request. Do not infer that the document omits guest policy.
+
+## Snapshot preserves failed channel
+
+Input: Supply only the task and evidence for `frozen-channels` in [fixed method delivery tasks](method-delivery/tasks.json) to the evaluator. Use the same evidence for full and progressive retrieval.
+
+Expected invariants:
+
+- Preserve all three rows and the failed outcome. Report conditional disposition and incomplete completion.
+- Only recognition comparison has two eligible records. Preserve the native zero and any missing scores as distinct. No score average, trend or premium claim.
+- Repair or validate from retained records only, with zero new invocations.
+
+## Repair without reacquisition
+
+Input: Supply only the task and evidence for `repair-retained` in [fixed method delivery tasks](method-delivery/tasks.json) to the evaluator. Use the same evidence for full and progressive retrieval.
+
+Expected invariants:
+
+- Repair against the exact existing contract using retained evidence. Keep all three original questions and statuses justified by the source.
+- Add a scoped recommendation to the partial and unanswered rows. Align summary and structured completion.
+- Do not repeat acquisition or treat format failure as new missing evidence.
+
+## Selected evidence empty set
+
+Input: Supply only the task and evidence for `bounded-gaps` in [fixed method delivery tasks](method-delivery/tasks.json) to the evaluator. Use the same evidence for full and progressive retrieval.
+
+Expected invariants:
+
+- Use the actual full-page observation despite its server producer; preserve sampled-set limits.
+- Return a complete empty scoped opportunity set and explain the contrary observed target link.
+- Avoid a domain-wide absence conclusion or paid acquisition to pad the list.

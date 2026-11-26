@@ -1,10 +1,11 @@
 {
   "schema_version": 1,
-  "catalog_version": "0.7.0",
+  "catalog_version": "0.8.0",
   "catalog_schema": "catalog/schemas/catalog.schema.json",
-  "recipe_schema": "catalog/schemas/recipe.schema.json",
+  "recipe_schema": "catalog/schemas/recipe-versions.schema.json",
   "supported_recipe_schema_versions": [
-    2
+    2,
+    3
   ],
   "default_discovery_limit": 10,
   "taxonomy": {
@@ -62,6 +63,7 @@
     "content-publication",
     "content-readability-analysis",
     "content-seo-analysis",
+    "document-evidence",
     "factual-claim-verification",
     "first-party-performance-data",
     "first-party-search-data",

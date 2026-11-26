@@ -1,7 +1,7 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "id": "competitor-opportunity-map",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "title": "Competitor Opportunity Map",
   "summary": "Confirm relevant search competitors, compare their supported demand and pages with the target domain, and rank opportunities to pursue, defer, or reject.",
   "primary_domain": "competition",
@@ -108,14 +108,18 @@
       "scope": {
         "unit": "page",
         "maximum": 6,
-        "guidance": "Read no more than one representative page per confirmed competitor and three target-domain pages."
+        "guidance": "Read no more than one representative page per confirmed competitor and three target-domain pages. An authorized full-page read or supplied capture can satisfy this stage when its identity, time, completeness and retained material support the actual claim. Record the producer and coverage. A search snippet or partial extract cannot establish full-page coverage."
       },
       "condition": "Use page content when a retained cluster requires page-role, coverage, or differentiation evidence beyond current result snippets.",
       "completion_without": {
         "allowed": true,
         "limitation": "Affected page-role and differentiation findings remain provisional and cannot support implementation-ready requirements."
       },
-      "fallback": "Keep the affected opportunity conditional and request a compatible page reader before implementation."
+      "fallback": "Keep the affected opportunity conditional and request a compatible page reader before implementation.",
+      "equivalent_sources": [
+        "server",
+        "user"
+      ]
     }
   ],
   "steps": [
