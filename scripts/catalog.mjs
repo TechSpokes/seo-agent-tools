@@ -8,6 +8,7 @@
 /* global process, Buffer */
 import crypto from "node:crypto";
 import { buildMethodPackages } from "./lib/method-packages.mjs";
+import { validateVersionIdentity } from "./lib/version-identity.mjs";
 import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
@@ -140,14 +141,12 @@ export function validateCatalog() {
  * @sideEffects Replaces only this repository's generated dist/catalog directory.
  */
 export function buildCatalogProjection(options = {}) {
+  const { name, version, tag } = validateVersionIdentity(root, options);
   const { catalog, recipes, sourceFiles, schemaFiles, methodPackages } = validateCatalog();
-  const packageManifest = readJson("package.json", []);
-  const tag = options.tag ?? `v${packageManifest.version}`;
-  if (!/^v[0-9]+\.[0-9]+\.[0-9]+$/.test(tag)) throw new Error(`Catalog release tag ${tag} must use vX.Y.Z format.`);
   const sourceCommit = resolveSourceCommit();
   const outputDirectory = path.join(root, "dist", "catalog");
-  const artifactName = `${packageManifest.name}-catalog-${tag}.json`;
-  const manifestName = `${packageManifest.name}-catalog-manifest-${tag}.json`;
+  const artifactName = `${name}-catalog-${tag}.json`;
+  const manifestName = `${name}-catalog-manifest-${tag}.json`;
   resetProjection(outputDirectory);
 
   const cards = recipes.map((recipe) => ({
@@ -167,9 +166,9 @@ export function buildCatalogProjection(options = {}) {
   const projection = {
     schema_version: 3,
     method_packages: methodPackages,
-    catalog_id: packageManifest.name,
-    skill_version: packageManifest.version,
-    catalog_version: catalog.catalog_version,
+    catalog_id: name,
+    skill_version: version,
+    catalog_version: version,
     catalog_schema: catalog.catalog_schema,
     recipe_schema: catalog.recipe_schema,
     supported_recipe_schema_versions: catalog.supported_recipe_schema_versions,
@@ -190,12 +189,12 @@ export function buildCatalogProjection(options = {}) {
     package_inventory: Object.fromEntries(Object.entries(methodPackages).map(([id, method]) => [id,
       Object.fromEntries(Object.entries(method.files).map(([file, { size, sha256 }]) => [file, { size, sha256 }]))
     ])),
-    catalog_id: packageManifest.name,
+    catalog_id: name,
     source_repository: "https://github.com/TechSpokes/seo-agent-tools",
     release_tag: tag,
     source_commit: sourceCommit,
-    skill_version: packageManifest.version,
-    catalog_version: catalog.catalog_version,
+    skill_version: version,
+    catalog_version: version,
     supported_recipe_schema_versions: catalog.supported_recipe_schema_versions,
     result_contracts: Object.keys(catalog.result_contracts).sort(),
     recipe_inventory: recipes.map((recipe) => `${recipe.id}@${recipe.version}`),

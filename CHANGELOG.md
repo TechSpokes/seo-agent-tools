@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [v0.8.1] - 2026-11-26
+
+- Derive the standalone skill, plugin and catalog publication versions from the root package version. Release verification checks the version copies used by tagged-source installs.
+
 ## [v0.8.0] - 2026-11-26
 
 - Publish a versioned entry, stage references, examples and exact result contracts for each maintained method. Format 3 records raw-byte integrity for every package file.

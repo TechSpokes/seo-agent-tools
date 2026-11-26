@@ -1,5 +1,5 @@
 # Version
 
-Current version: `0.8.0`.
+Current version: `0.8.1`.
 
-This version applies to the portable skill and plugin packages. Catalog and recipe definitions have independent versions described in [Releasing](RELEASING.md).
+Release preparation copies the root package version here. It identifies the portable skill, both plugins and the published catalog. [Release and compatibility versions](RELEASING.md)

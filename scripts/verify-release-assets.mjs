@@ -12,13 +12,12 @@ import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { validateCatalog } from "./catalog.mjs";
 import { createStoredZip, readStoredZip } from "./lib/stored-zip.mjs";
+import { validateVersionIdentity } from "./lib/version-identity.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const tag = process.argv[2];
-
-if (!tag || !/^v[0-9]+\.[0-9]+\.[0-9]+$/.test(tag)) {
-  throw new Error("Usage: node scripts/verify-release-assets.mjs vX.Y.Z");
-}
+const [requestedTag, ...extraArguments] = process.argv.slice(2);
+if (extraArguments.length) throw new Error("Usage: npm run release:verify-assets [-- vX.Y.Z]");
+const { tag, version } = validateVersionIdentity(root, { tag: requestedTag });
 
 const skillName = discoverSkillName();
 const assets = path.join(root, "dist", "assets");
@@ -28,8 +27,8 @@ const catalogFile = `${skillName}-catalog-${tag}.json`;
 const catalogManifestFile = `${skillName}-catalog-manifest-${tag}.json`;
 const archives = [
   { file: `${skillName}-${tag}.zip`, stageRoot: skillName },
-  { file: `${skillName}-codex-plugin-${tag}.zip`, stageRoot: `${skillName}-codex-plugin` },
-  { file: `${skillName}-claude-plugin-${tag}.zip`, stageRoot: `${skillName}-claude-plugin` }
+  { file: `${skillName}-codex-plugin-${tag}.zip`, stageRoot: `${skillName}-codex-plugin`, manifestPath: ".codex-plugin/plugin.json" },
+  { file: `${skillName}-claude-plugin-${tag}.zip`, stageRoot: `${skillName}-claude-plugin`, manifestPath: ".claude-plugin/plugin.json" }
 ];
 const releaseFiles = [...archives.map(({ file }) => file), catalogFile, catalogManifestFile];
 const canonical = validateCatalog();
@@ -111,7 +110,7 @@ function verifyChecksums(files) {
   }
 }
 
-function verifyArchive({ file, stageRoot }) {
+function verifyArchive({ file, stageRoot, manifestPath }) {
   const archivePath = path.join(assets, file);
   const archiveEntries = readStoredZip(archivePath);
   const stagedDirectory = path.join(stage, stageRoot);
@@ -131,6 +130,10 @@ function verifyArchive({ file, stageRoot }) {
     }
     inspectPublicContent(file, name, actual);
   }
+  if (manifestPath) {
+    const manifest = JSON.parse(archiveEntries.get(`${stageRoot}/${manifestPath}`).toString("utf8"));
+    requireEqual(manifest.version, version, `${file} plugin version`);
+  }
 }
 
 function verifyCatalogArtifacts() {
@@ -148,7 +151,6 @@ function verifyCatalogArtifacts() {
 
   const artifact = JSON.parse(artifactBytes.toString("utf8"));
   const manifest = JSON.parse(manifestBytes.toString("utf8"));
-  const packageDocument = readJson("package.json");
   const expectedCommit = resolveSourceCommit();
   const expectedSchemas = Object.fromEntries(canonical.schemaFiles.map((file) => [file, readJson(file)]));
   const expectedSourceChecksums = canonical.sourceFiles.map((file) => ({ path: file, sha256: hash(file.endsWith(".md") ? fs.readFileSync(path.join(root, file)) : stableJson(readJson(file))) }));
@@ -171,8 +173,8 @@ function verifyCatalogArtifacts() {
 
   requireEqual(artifact.schema_version, 3, "catalog artifact schema_version");
   requireEqual(artifact.catalog_id, skillName, "catalog artifact catalog_id");
-  requireEqual(artifact.skill_version, packageDocument.version, "catalog artifact skill_version");
-  requireEqual(artifact.catalog_version, canonical.catalog.catalog_version, "catalog artifact catalog_version");
+  requireEqual(artifact.skill_version, version, "catalog artifact skill_version");
+  requireEqual(artifact.catalog_version, version, "catalog artifact catalog_version");
   requireEqual(artifact.catalog_schema, canonical.catalog.catalog_schema, "catalog artifact catalog_schema");
   requireEqual(artifact.recipe_schema, canonical.catalog.recipe_schema, "catalog artifact recipe_schema");
   requireJsonEqual(artifact.supported_recipe_schema_versions, canonical.catalog.supported_recipe_schema_versions, "catalog supported recipe schema versions");
@@ -192,8 +194,8 @@ function verifyCatalogArtifacts() {
   requireEqual(manifest.source_repository, "https://github.com/TechSpokes/seo-agent-tools", "catalog manifest source_repository");
   requireEqual(manifest.release_tag, tag, "catalog manifest release_tag");
   requireEqual(manifest.source_commit, expectedCommit, "catalog manifest source_commit");
-  requireEqual(manifest.skill_version, packageDocument.version, "catalog manifest skill_version");
-  requireEqual(manifest.catalog_version, canonical.catalog.catalog_version, "catalog manifest catalog_version");
+  requireEqual(manifest.skill_version, version, "catalog manifest skill_version");
+  requireEqual(manifest.catalog_version, version, "catalog manifest catalog_version");
   requireJsonEqual(manifest.supported_recipe_schema_versions, canonical.catalog.supported_recipe_schema_versions, "manifest supported recipe schema versions");
   requireJsonEqual(manifest.result_contracts, expectedResultContracts, "manifest result contracts");
   requireJsonEqual(manifest.recipe_inventory, expectedRecipes, "manifest recipe inventory");

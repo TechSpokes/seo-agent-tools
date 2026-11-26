@@ -64,8 +64,8 @@ Use Node.js 22.2 or later to build and verify release archives. CI uses Node.js 
 ```bash
 npm ci
 npm run validate
-npm run package -- v0.8.0
-npm run release:verify-assets -- v0.8.0
+npm run package
+npm run release:verify-assets
 ```
 
 `npm run validate` checks catalog structure, runtime skill structure, documentation links, behavioral fixtures, and maintenance contracts. Packaging creates deterministic standalone, Codex plugin, and Claude plugin archives plus versioned catalog and manifest assets under `dist/assets/`. Release verification checks all five assets and rebuilds them to prove byte identity.

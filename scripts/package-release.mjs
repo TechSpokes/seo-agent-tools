@@ -12,16 +12,12 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { buildCatalogProjection } from "./catalog.mjs";
 import { createStoredZip } from "./lib/stored-zip.mjs";
+import { validateVersionIdentity } from "./lib/version-identity.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const tag = process.argv[2];
-
-if (!tag || !/^v[0-9]+\.[0-9]+\.[0-9]+([.-][A-Za-z0-9.-]+)?$/.test(tag)) {
-  console.error("Usage: npm run package -- vX.Y.Z");
-  process.exit(1);
-}
-
-const version = tag.slice(1);
+const [requestedTag, ...extraArguments] = process.argv.slice(2);
+if (extraArguments.length) throw new Error("Usage: npm run package [-- vX.Y.Z]");
+const { tag } = validateVersionIdentity(root, { tag: requestedTag });
 const skill = discoverCanonicalSkill();
 const dist = path.join(root, "dist");
 const stage = path.join(dist, "stage");
@@ -32,8 +28,8 @@ fs.mkdirSync(stage, { recursive: true });
 fs.mkdirSync(assets, { recursive: true });
 
 stageStandalone(skill);
-stagePlugin("codex", skill, version);
-stagePlugin("claude", skill, version);
+stagePlugin("codex", skill);
+stagePlugin("claude", skill);
 
 const standaloneAsset = path.join(assets, `${skill.name}-${tag}.zip`);
 const codexAsset = path.join(assets, `${skill.name}-codex-plugin-${tag}.zip`);
@@ -164,11 +160,10 @@ function stageStandalone(skill) {
  * Stages one plugin wrapper around the same canonical runtime tree.
  * @param {"codex"|"claude"} type Plugin host type.
  * @param {{name: string, directory: string}} skill Canonical skill identity and source.
- * @param {string} releaseVersion Version without the leading tag prefix.
  * @returns {void}
- * @sideEffects Copies files and writes the staged manifest name and version.
+ * @sideEffects Copies files and writes the staged manifest name.
  */
-function stagePlugin(type, skill, releaseVersion) {
+function stagePlugin(type, skill) {
   const pluginName = `${skill.name}-${type}-plugin`;
   const target = path.join(stage, pluginName);
   const manifestDir = type === "codex" ? ".codex-plugin" : ".claude-plugin";
@@ -180,7 +175,6 @@ function stagePlugin(type, skill, releaseVersion) {
   const manifestPath = path.join(target, manifestDir, "plugin.json");
   const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
   manifest.name = skill.name;
-  manifest.version = releaseVersion;
   fs.writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
 }
 

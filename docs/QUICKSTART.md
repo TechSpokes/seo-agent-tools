@@ -15,8 +15,8 @@ Read [AGENTS.md](../AGENTS.md) and the affected runtime or catalog contract befo
 
 ```bash
 npm run validate
-npm run package -- v0.1.0
-npm run release:verify-assets -- v0.1.0
+npm run package
+npm run release:verify-assets
 ```
 
 Generated output belongs under ignored `dist/`. Public recipe source belongs under `catalog/recipes/`, and portable runtime behavior belongs under `skills/seo-agent-tools/`.

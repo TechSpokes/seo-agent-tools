@@ -17,17 +17,17 @@ npm run validate
 When runtime or release behavior changes, also build and verify the intended release candidate:
 
 ```bash
-npm run package -- v0.8.0
-npm run release:verify-assets -- v0.8.0
+npm run package
+npm run release:verify-assets
 ```
 
-Use the intended version tag rather than retaining an older release example after the package version changes.
+Both commands derive the candidate tag from `package.json`. Pass an explicit tag to check that it matches the candidate.
 
 ## What Validation Covers
 
 `scripts/catalog.mjs` uses AJV's dedicated Draft 2020-12 validator, with RFC 3339 formats, as the structural authority for catalog metadata, recipes, and every result schema. It compiles the complete schema set before validating canonical source, so unresolved local references fail the same command. Repository checks retain only cross-file and semantic invariants: controlled vocabulary membership and ordering, stable and unique identities, step and evidence references, result-contract registration and composition, completion-state meaning, public/private disclosure patterns, and deterministic projection inputs.
 
-`scripts/check-version.mjs` checks that package metadata, both plugin manifests, the changelog, the current-version document, and release notes declare one version. Run it directly with `npm run version:check`, or rely on `npm run validate` to include it.
+`scripts/check-version.mjs` checks that the npm lockfile, both plugin manifests, catalog metadata and the current-version document match the root package version. It also checks for a changelog entry and release notes for that tag. Run it directly with `npm run version:check`, or rely on `npm run validate` to include it.
 
 `scripts/validate-skill.mjs` checks the single runtime source, skill frontmatter, reference links, package manifests, workflow mode, maintenance documentation, GitHub CLI delivery contracts, and release Markdown formatting.
 

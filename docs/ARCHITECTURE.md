@@ -29,7 +29,7 @@ The runtime map is validated against the actual skill tree. Add a runtime file o
 
 ## Catalog Source
 
-`catalog/catalog.json` owns catalog version, taxonomy, public capabilities, evidence units, discovery defaults, and result-contract paths. `catalog/schemas/catalog.schema.json` and the catalog's registered recipe schema are the Draft 2020-12 structural authorities. Each file in `catalog/recipes/` owns one immutable recipe version with stable step IDs, inputs, source-classed evidence plans, provider-neutral evidence bounds, missing-capability behavior, stops, completion criteria, and output-contract roles.
+The root `package.json` owns the publication version copied into `catalog/catalog.json`. The catalog owns taxonomy, public capabilities, evidence units, discovery defaults, and result-contract paths. `catalog/schemas/catalog.schema.json` and the catalog's registered recipe schema are the Draft 2020-12 structural authorities. Each file in `catalog/recipes/` owns one immutable recipe version with stable step IDs, inputs, source-classed evidence plans, provider-neutral evidence bounds, missing-capability behavior, stops, completion criteria, and output-contract roles.
 
 Validate and discover recipes through declared identities, facets, evidence bounds and result schemas. Content production is a bounded method with a public evidence plan for user context, client-owned artifacts and actions, and server analysis. The client owns finished writing and CMS changes.
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/** Validate the exact uncommitted candidate tree before an SEO Agent Tools release.
+/** Validate the exact candidate tree before an SEO Agent Tools release.
  * @since 0.1.0
  * @why A release tag creates immutable public identity, so the exact candidate tree must be reproducible before tagging.
  * @constraints Reads repository and remote release state, resets only generated dist, and never commits, tags, pushes, or publishes.
@@ -13,16 +13,10 @@ import { fileURLToPath } from "node:url";
 import { validateVersionIdentity } from "./lib/version-identity.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const tag = process.argv[2];
-
-if (!tag || !/^v[0-9]+\.[0-9]+\.[0-9]+$/.test(tag)) {
-  throw new Error("Usage: npm run release:preflight -- vX.Y.Z");
-}
-
-const version = tag.slice(1);
+const [requestedTag, ...extraArguments] = process.argv.slice(2);
+if (extraArguments.length) throw new Error("Usage: npm run release:preflight [-- vX.Y.Z]");
+const { tag, version } = validateVersionIdentity(root, { tag: requestedTag });
 const initialTreeDigest = snapshotCandidateTree();
-
-validateVersionIdentity(root, { tag });
 requireUnusedRemoteIdentity();
 runNpm(["run", "validate"]);
 resetGeneratedDistribution();
@@ -43,7 +37,7 @@ console.log(JSON.stringify({
   checksumsSha256: digest(checksums),
   result: "pass"
 }));
-console.log("Commit this exact validated tree, merge it through the protected pull request workflow, then validate and push the annotated tag.");
+console.log("Merge this exact candidate through the protected pull request workflow, then validate and push the annotated tag.");
 
 function requireUnusedRemoteIdentity() {
   const remoteTag = git(["ls-remote", "--tags", "origin", `refs/tags/${tag}`, `refs/tags/${tag}^{}`]);

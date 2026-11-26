@@ -17,4 +17,4 @@ if (extraArguments.length > 0) {
 }
 
 const identity = validateVersionIdentity(root, { tag });
-console.log(`Version identity validation passed: ${identity.tag} is synchronized across package, plugin, changelog, version document, and release notes.`);
+console.log(`Version identity validation passed: ${identity.tag} matches the tagged-source copies and release records.`);
