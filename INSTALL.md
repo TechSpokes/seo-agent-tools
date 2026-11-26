@@ -29,7 +29,7 @@ Restart or reload the host if it does not detect skill changes automatically.
 Use an immutable release tag when reproducibility matters:
 
 ```bash
-gh skill install TechSpokes/seo-agent-tools skills/seo-agent-tools@v0.7.0 --dir "<ABSOLUTE_SKILLS_FOLDER>"
+gh skill install TechSpokes/seo-agent-tools skills/seo-agent-tools@v0.8.0 --dir "<ABSOLUTE_SKILLS_FOLDER>"
 ```
 
 Treat changing between a pinned release and a floating source as a separate user decision. Record the intended source and ref where the host or installation metadata supports it.

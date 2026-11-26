@@ -151,7 +151,7 @@ function verifyCatalogArtifacts() {
   const packageDocument = readJson("package.json");
   const expectedCommit = resolveSourceCommit();
   const expectedSchemas = Object.fromEntries(canonical.schemaFiles.map((file) => [file, readJson(file)]));
-  const expectedSourceChecksums = canonical.sourceFiles.map((file) => ({ path: file, sha256: hash(stableJson(readJson(file))) }));
+  const expectedSourceChecksums = canonical.sourceFiles.map((file) => ({ path: file, sha256: hash(file.endsWith(".md") ? fs.readFileSync(path.join(root, file)) : stableJson(readJson(file))) }));
   const expectedSchemaInventory = canonical.schemaFiles.map((file) => ({ path: file, sha256: hash(stableJson(readJson(file))) }));
   const expectedRecipes = canonical.recipes.map((recipe) => `${recipe.id}@${recipe.version}`);
   const expectedResultContracts = Object.keys(canonical.catalog.result_contracts).sort();
@@ -166,10 +166,10 @@ function verifyCatalogArtifacts() {
     output_contracts: recipe.output_contracts,
     required_inputs: recipe.required_inputs.map((input) => input.id),
     capabilities: [...new Set(recipe.evidence_plan.map((entry) => entry.capability))].sort(),
-    evidence_sources: [...new Set(recipe.evidence_plan.map((entry) => entry.source))].sort()
+    evidence_sources: [...new Set(recipe.evidence_plan.flatMap((entry) => [entry.source, ...(entry.equivalent_sources ?? [])]))].sort()
   }));
 
-  requireEqual(artifact.schema_version, 2, "catalog artifact schema_version");
+  requireEqual(artifact.schema_version, 3, "catalog artifact schema_version");
   requireEqual(artifact.catalog_id, skillName, "catalog artifact catalog_id");
   requireEqual(artifact.skill_version, packageDocument.version, "catalog artifact skill_version");
   requireEqual(artifact.catalog_version, canonical.catalog.catalog_version, "catalog artifact catalog_version");
@@ -187,7 +187,7 @@ function verifyCatalogArtifacts() {
     if (!artifact.schemas[schemaPath]) throw new Error(`Catalog result contract references unbundled schema ${schemaPath}.`);
   }
 
-  requireEqual(manifest.schema_version, 2, "catalog manifest schema_version");
+  requireEqual(manifest.schema_version, 3, "catalog manifest schema_version");
   requireEqual(manifest.catalog_id, skillName, "catalog manifest catalog_id");
   requireEqual(manifest.source_repository, "https://github.com/TechSpokes/seo-agent-tools", "catalog manifest source_repository");
   requireEqual(manifest.release_tag, tag, "catalog manifest release_tag");
@@ -201,6 +201,21 @@ function verifyCatalogArtifacts() {
   requireJsonEqual(manifest.source_checksums, expectedSourceChecksums, "manifest canonical source checksums");
   requireEqual(manifest.projection?.path, catalogFile, "manifest catalog artifact path");
   requireEqual(manifest.projection?.sha256, hash(artifactBytes), "manifest catalog artifact checksum");
+  requireJsonEqual(artifact.method_packages, canonical.methodPackages, "method packages");
+  const inventory = {};
+  for (const [id, method] of Object.entries(artifact.method_packages)) {
+    inventory[id] = {};
+    for (const [file, record] of Object.entries(method.files)) {
+      const bytes = Buffer.from(record.text, "utf8");
+      if (file.endsWith(".md")) {
+        assert.deepEqual(bytes, fs.readFileSync(path.join(root, "catalog", "methods", id, file)), id + "/" + file);
+      }
+      requireEqual(record.size, bytes.length, file + " size");
+      requireEqual(record.sha256, hash(bytes), file + " digest");
+      inventory[id][file] = { size: bytes.length, sha256: hash(bytes) };
+    }
+  }
+  requireJsonEqual(manifest.package_inventory, inventory, "manifest package inventory");
   inspectCatalogDisclosure(artifact, manifest);
 }
 

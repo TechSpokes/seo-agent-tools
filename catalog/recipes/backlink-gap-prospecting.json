@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "backlink-gap-prospecting",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "title": "Backlink Gap Prospecting",
   "summary": "Compare referring-domain evidence for a target and confirmed competitors, then qualify a bounded set of relevant outreach prospects.",
   "primary_domain": "authority",
@@ -106,14 +106,18 @@
       "scope": {
         "unit": "page",
         "maximum": 20,
-        "guidance": "Read one representative source page for each of no more than twenty finalist domains."
+        "guidance": "Read one representative source page for each of no more than twenty finalist domains. An authorized full-page read or supplied capture can satisfy this stage when its identity, time, completeness and retained material support the actual claim. Record the producer and coverage. A search snippet or partial extract cannot establish full-page coverage."
       },
       "condition": "Require source-page evidence when at least one finalist remains after supported screening.",
       "completion_without": {
         "allowed": false,
         "limitation": "The method cannot qualify topical relevance, outreach angle, or disqualifying context without source-page evidence."
       },
-      "fallback": "If finalists remain and none of their source pages can be read, return incomplete. Otherwise narrow the completed set to candidates with observed source context. When no finalists remain after supported screening, complete with an empty set and explain the decisive reasons."
+      "fallback": "If finalists remain and none of their source pages can be read, return incomplete. Otherwise narrow the completed set to candidates with observed source context. When no finalists remain after supported screening, complete with an empty set and explain the decisive reasons.",
+      "equivalent_sources": [
+        "server",
+        "user"
+      ]
     }
   ],
   "steps": [

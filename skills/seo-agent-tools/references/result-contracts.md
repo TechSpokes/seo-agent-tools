@@ -31,7 +31,7 @@ For an individual verification check, use `not-run` when no implementation state
 
 ## Recipe Output Composition
 
-A full recipe identifies exactly one `primary` result contract. Return that contract for both completed execution and explicit incomplete execution so the completion state and stop reason remain machine-readable.
+The selected recipe identifies exactly one `primary` result contract. Return that contract for both completed execution and explicit incomplete execution so the completion state and stop reason remain machine-readable.
 
 An additional result contract has a `conditional` role and a deterministic condition. Emit it only when that condition is satisfied. For a page-refresh handoff, the diagnostic must be complete and its disposition must be `proceed` or `conditional` for a supported intervention. An investigation that still needs decisive evidence stays in the diagnostic. The organic search method adds an opportunity set only after a completed prioritization assessment supports a ranked candidate. A change-only result uses the primary diagnostic.
 
@@ -39,7 +39,7 @@ Output composition does not change contract compatibility requirements. Interpre
 
 ## Content Question Review v1
 
-Use `content-question-review/v1` when an approved content brief supplies buyer or people-also-ask questions that must be assessed against one canonical draft. This standalone contract records readable sources directly in its assessments.
+Use `content-question-review/v1` to assess a fixed question list against one named capture or canonical document, including buyer or people-also-ask questions supplied in an approved content brief. This standalone contract records readable sources directly in its assessments.
 
 The root contains only `contract_id`, a non-empty `subject` object, `reviewed_at`, `questions`, `supplemental_questions`, `human_escalations`, and `completion`. Preserve every supplied question exactly and in its original order. For each item, return `question`, `status`, `reason`, non-empty `sources`, and an optional `recommendation`. Use `answered`, `partially_answered`, `not_answered`, or `unable_to_determine` as the status. Add one scoped recommendation for a partial or missing answer. Do not use `ambiguous` or `contradictory` as coverage statuses; those conditions may explain why coverage is unable to be determined.
 
@@ -49,7 +49,7 @@ A readable source has an open `kind`, a human-readable `title`, at least one loc
 
 Before creating a human escalation, inspect the brief and draft, retrieve available evidence, resolve ordinary source conflicts by authority, provenance, scope, and freshness, and apply any existing rule that determines the outcome. Escalate a material issue only when it still requires human intent, approval, authority, private knowledge, ownership, or a genuine business or editorial tradeoff. The escalation kind remains open; common values include `decision`, `input`, `approval`, `action`, and `review`. The escalation must include its kind, title, context, reason, exact request, relevant sources, blocking state, viable options and consequences when applicable, and a supported recommendation when one exists. Final angle, sourcing, quotations, and editorial approval remain human or client responsibilities.
 
-An incomplete question review requires a precise `stop_reason`. A complete review omits `stop_reason`. A blocking unresolved escalation prevents a complete review; nonblocking escalations may remain when they do not affect publication readiness. Do not add fields outside the exact contract.
+A supported partial or unanswered question with the required revision recommendation can belong to a complete review. A materially unresolved supplied question or blocking decision makes the review incomplete. Compare rows against the original question list to verify wording and order. Structural validation alone cannot make that comparison. An incomplete question review requires a precise `stop_reason`. A complete review omits `stop_reason`. A blocking unresolved escalation prevents a complete review; nonblocking escalations may remain when they do not affect publication readiness. Do not add fields outside the exact contract.
 
 ## AI Brand Representation Snapshot v1
 
@@ -128,7 +128,7 @@ Keep delayed outcome checks separate from immediate implementation checks. State
 
 ## Contracts Added After This Skill Version
 
-Do not reject a server-discovered recipe merely because its recipe name, facets, or result-contract identifier are absent from this file. Retrieve the full recipe, then obtain the exact versioned contract from an explicit server schema surface or from a complete contract embedded in that recipe.
+Do not reject a server-discovered recipe merely because its recipe name, facets, or result-contract identifier are absent from this file. Open the pinned entry and obtain or reuse the exact versioned contract and its dependencies from the same publication.
 
 Proceed only when required fields, field meanings, validation rules, completion behavior, and version are interpretable. Follow the exact supported shape and apply the shared evidence discipline when the contract requires it.
 

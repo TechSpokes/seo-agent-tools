@@ -17,8 +17,8 @@ npm run validate
 When runtime or release behavior changes, also build and verify the intended release candidate:
 
 ```bash
-npm run package -- v0.7.0
-npm run release:verify-assets -- v0.7.0
+npm run package -- v0.8.0
+npm run release:verify-assets -- v0.8.0
 ```
 
 Use the intended version tag rather than retaining an older release example after the package version changes.
@@ -38,6 +38,8 @@ Use the intended version tag rather than retaining an older release example afte
 These scripts prove structure and deterministic delivery. They do not prove model behavior, SEO correctness, live server availability, or provider accuracy.
 
 Report a successful `npm run validate` result as structural or evaluation-registry validation, not as behavioral case execution. Report an evaluation case as passed only after an evaluator ran that case and the named invariants were assessed; identify the exact cases and invariant outcomes.
+
+`tests/method-packages.test.mjs` exercises complete multi-file packages, changed contents, missing references, UTF-8 and line endings, frontmatter, permitted citations and local schema closure. Fixed method-delivery tasks are under `tests/fixtures/method-delivery/`. Give a fresh agent the task and its evidence. Assess its output separately against the registered invariants.
 
 ## Behavioral Evidence
 

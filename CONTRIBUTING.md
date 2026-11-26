@@ -22,8 +22,8 @@ Use a branch and pull request. Keep one change coherent across runtime instructi
 
 ```bash
 npm run validate
-npm run package -- v0.1.0
-npm run release:verify-assets -- v0.1.0
+npm run package -- v0.8.0
+npm run release:verify-assets -- v0.8.0
 ```
 
 Use the intended version tag when release behavior or public package contents change.
@@ -33,6 +33,15 @@ Use the intended version tag when release behavior or public package contents ch
 A recipe describes one bounded SEO decision. It needs discovery metadata that distinguishes it, irreducible required inputs, stable public capability requirements, stable step IDs, evidence requirements, stop conditions, completion criteria, a typed output contract, and representative fixtures.
 
 Do not encode private tool names, provider bindings, authored prices, runtime eligibility, or future job state in a canonical recipe. Do not add a general component language until repeated real duplication proves it reduces maintenance.
+
+## Author a method package
+
+Use Content Question Coverage Review as a worked example. It takes one readable document and a fixed question list and returns the existing `content-question-review/v1` contract.
+
+1. Define the decision, recipe version, inputs, stage IDs, evidence limits, stop conditions and exact output contracts in [the recipe](catalog/recipes/content-question-coverage-review.json). A supplied report or capture must support the claim the stage makes. Record its provenance and limitations.
+2. Write [the entry](catalog/methods/content-question-coverage-review/SKILL.md) with the recipe ID as the frontmatter name and a description that distinguishes the decision. Tell readers which references and contracts each stage needs before they gather evidence. Put reusable stage instructions in `references/` and worked examples in `examples/`. Link to their exact case-sensitive paths. The builder generates the structured evidence plan and mounts the selected contract schemas with their dependencies.
+3. Add a complete and an incomplete example to the maintained fixtures. For question review, compare the answer rows with the original question text and order. Independently assess whether evidence supports each finding and proposed revision. Keep expected findings outside the input shown to the evaluator.
+4. Run the checks above. Inspect the built method in the catalog, then follow a stage link and a contract dependency using the same catalog and recipe versions. An importer can map the declared capabilities to its existing operations. A content-only method uses the standard package reader.
 
 ## Pull Request Description
 

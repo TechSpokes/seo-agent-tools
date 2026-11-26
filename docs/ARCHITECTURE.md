@@ -43,6 +43,12 @@ The manifest identifies the public repository, immutable release tag, source com
 
 The projection direction is public repository to private server. This build never writes into a sibling or private repository.
 
+## Method files
+
+The format 3 projection includes a file index for each recipe under `method_packages`. The built-in package pin combines the catalog identity and revision with the recipe identity and revision. The `SKILL.md` entry links the applicable stages, exact deliverables and examples. `references/evidence-plan.json` carries the structured constraints from the authored recipe. Each mounted result schema resolves its dependencies within `contracts/`.
+
+The release manifest records the exact package file inventory. File sizes and SHA-256 digests cover the UTF-8 bytes served to clients. Consumers verify the inventory and resolve a reference within the same pin. Discovery uses the compact cards and an explicit full read exposes the complete package.
+
 ## Result Contracts
 
 The opportunity, diagnostic, implementation-handoff, and AI Brand Representation Snapshot v1 contracts retain the shared evidence envelope and evidence-ID semantics. The snapshot adds closed framing, channel-observation, comparison, and cost structures plus generic semantic validation for exact channel coverage, identical conditions, preflight all-stop behavior, comparison evidence from multiple eligible channel rows, deterministic completion and disposition, and arithmetic cost reconciliation. Focused contracts may instead reference additive shared primitives without inheriting that envelope. `content-question-review/v1` uses human-readable sources directly inside ordered question assessments and structured escalations so a reader does not need to reconstruct an internal ID graph. Verification continues to audit a source result rather than creating an unrelated generic result.

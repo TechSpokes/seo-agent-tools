@@ -1,0 +1,3 @@
+# Worked case
+
+An approved list asks when a workshop starts, what lunch includes and whether refunds are available. The complete attendee guide gives a 09:00 start and says lunch is provided, with no menu or refund terms. Record answered, partially_answered and not_answered in that order. Cite the list and guide for each row. Recommend adding menu details and linking the approved refund terms. This is a complete assessment with two revision needs. If the guide instead refers to refund terms on an unreadable second page, mark the refund assessment unable_to_determine and the review incomplete until that page is available.

@@ -1,0 +1,106 @@
+{
+  "schema_version": 2,
+  "id": "content-question-coverage-review",
+  "version": "1.0.0",
+  "title": "Content Question Coverage Review",
+  "summary": "Assess how one identified page capture or canonical document answers a fixed set of audience questions. Return passage-level evidence, scoped revisions and any decisions the document owner must resolve.",
+  "primary_domain": "content",
+  "operations": [
+    "audit",
+    "diagnose",
+    "validate"
+  ],
+  "target": "page",
+  "required_inputs": [
+    {
+      "id": "document",
+      "description": "One named page capture or document revision with readable material, source and coverage limits."
+    },
+    {
+      "id": "questions",
+      "description": "The exact supplied or previously established audience questions in order, with the source that defines the set."
+    }
+  ],
+  "evidence_plan": [
+    {
+      "capability": "content-context",
+      "source": "user",
+      "use": "required",
+      "steps": [
+        "identify-inputs",
+        "assess-questions"
+      ],
+      "scope": {
+        "unit": "context-record",
+        "maximum": 1,
+        "guidance": "Preserve one source list, the original wording and order, and the audience or purpose where it changes interpretation."
+      },
+      "completion_without": {
+        "allowed": false,
+        "limitation": "The required assessments and their order cannot be established."
+      },
+      "fallback": "Request the original list or its smallest missing portion. Record material uncertainty and retain the questions already available."
+    },
+    {
+      "capability": "document-evidence",
+      "source": "user",
+      "use": "required",
+      "steps": [
+        "identify-inputs",
+        "assess-questions",
+        "resolve-material-decisions"
+      ],
+      "scope": {
+        "unit": "document",
+        "maximum": 1,
+        "guidance": "Inspect one readable canonical revision or page capture. Record its identity, provenance, passage locators, capture coverage and any unreadable portion."
+      },
+      "completion_without": {
+        "allowed": false,
+        "limitation": "Missing or unreadable material leaves a coverage question unresolved."
+      },
+      "fallback": "Keep supplied questions in order and identify which passage, accessible copy or owner decision could resolve each material uncertainty."
+    }
+  ],
+  "steps": [
+    {
+      "id": "identify-inputs",
+      "instruction": "Identify the exact revision, origin of the list, audience and purpose. Inspect the evidence before treating an attachment or page as readable. The supplied document and question list need no paid research."
+    },
+    {
+      "id": "assess-questions",
+      "instruction": "Review each supplied question in its original order and wording. Cite the question source and the inspected passage or checked extent for an absence. Use answered, partially_answered, not_answered or unable_to_determine. Provide a scoped revision recommendation for partial and unanswered questions; keep supplemental questions separate."
+    },
+    {
+      "id": "resolve-material-decisions",
+      "instruction": "Use available passages and supporting context to resolve ambiguity first. For a material issue that still needs a human, describe the decision, evidence, available options and consequence. Respect current authority and cost before any optional acquisition."
+    },
+    {
+      "id": "deliver-review",
+      "instruction": "Return content-question-review/v1 and align the readable summary with its rows, recommendations and completion. Compare the original list against the result yourself. Record an incomplete result with a precise stop reason whenever a supplied question materially remains unable to determine or a blocking escalation remains open."
+    }
+  ],
+  "evidence_requirements": [
+    "Keep question-list origin and document identity separate; link both to each assessment using readable source records with locators and excerpts or typed content.",
+    "A negative finding needs sufficient coverage of the relevant document. An incomplete capture supports only scoped observations.",
+    "A page capture cannot establish approval, site-wide coverage, search demand, factual certification or publication."
+  ],
+  "stop_conditions": [
+    "Return incomplete with a precise stop reason when a supplied question materially remains unable to determine, the relevant passage or list is unresolved, or an editorial decision blocks the review.",
+    "Limit recommendations to the named artifact. Leave wider inventory, keyword demand and site ownership for a separately scoped task."
+  ],
+  "completion_criteria": [
+    "All supplied questions appear exactly once per supplied position, with exact wording and original order; additional questions remain separate.",
+    "Each row has a supported status, reason and readable evidence, with recommendations for partial or unanswered questions.",
+    "A fully assessed list may contain real coverage gaps and still be complete. Unresolved material assessments and blocking decisions are explicit in incomplete results."
+  ],
+  "output_contracts": [
+    {
+      "id": "content-question-review/v1",
+      "role": "primary"
+    }
+  ],
+  "bounds": {
+    "sample_guidance": "Inspect one named artifact against one fixed list and retain all supplied questions."
+  }
+}
