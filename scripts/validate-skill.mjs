@@ -391,6 +391,7 @@ function validateDeliveryContract() {
   }
   for (const [name, expected] of [
     ["version:check", "node scripts/check-version.mjs"],
+    ["release:prepare", "node scripts/prepare-release.mjs"],
     ["release:preflight", "node scripts/release-preflight.mjs"],
     ["release:state", "node scripts/release-state.mjs"],
     ["release:verify-assets", "node scripts/verify-release-assets.mjs"]
@@ -414,7 +415,7 @@ function validateDeliveryContract() {
     }
   }
 
-  if (!ciWorkflow.includes("release:verify-assets -- v0.0.0")) {
+  if (!/^\s*run: npm run release:verify-assets$/m.test(ciWorkflow)) {
     fail("CI workflow must smoke-test complete release-asset verification.");
   }
 

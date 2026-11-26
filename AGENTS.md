@@ -59,7 +59,7 @@ These documents are mandatory when Read Depth routes the current change to them.
 
 - `skills/seo-agent-tools/SKILL.md` owns public skill behavior and activation boundaries.
 - `docs/ARCHITECTURE.md` owns the public/private authority split, public skill map, catalog shape, and projection model.
-- `catalog/catalog.json` owns controlled facets, capabilities, catalog version, and result-contract registration.
+- `catalog/catalog.json` owns controlled facets, capabilities, and result-contract registration. Release preparation copies the publication version from `package.json`.
 - `catalog/schemas/recipe.schema.json` owns the canonical recipe file contract.
 - `docs/TESTING.md` owns structural, behavioral, fresh-context, and release evidence requirements.
 - `docs/THREAT-MODEL.md` owns authority, privacy, evidence, cost, and package boundaries.
@@ -141,11 +141,11 @@ This command validates structural contracts, including evaluation registration; 
 Run when public skill, catalog projection, packaging, manifests, or release behavior changes:
 
 ```bash
-npm run package -- vX.Y.Z
-npm run release:verify-assets -- vX.Y.Z
+npm run package
+npm run release:verify-assets
 ```
 
-Use the intended release tag. For a substantial instruction change, also run fresh-context evaluations from `docs/TESTING.md` and record which fixture invariants passed or failed.
+The commands derive the release tag from `package.json`. Pass an explicit tag to verify a tagged candidate. For a substantial instruction change, also run fresh-context evaluations from `docs/TESTING.md` and record which fixture invariants passed or failed.
 
 ## Change Boundaries
 

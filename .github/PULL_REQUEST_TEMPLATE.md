@@ -21,8 +21,8 @@ Describe the public behavior or maintenance outcome that changed and why it matt
 ## Validation
 
 - [ ] Ran `npm run validate`
-- [ ] Ran `npm run package -- vX.Y.Z` when package or release behavior changed
-- [ ] Ran `npm run release:verify-assets -- vX.Y.Z` for a release candidate
+- [ ] Ran `npm run package` when package or release behavior changed
+- [ ] Ran `npm run release:verify-assets` for a release candidate
 - [ ] Reviewed changed projection inventory and checksums
 - [ ] Confirmed no credentials, private data, private server implementation, or local paths were added
 

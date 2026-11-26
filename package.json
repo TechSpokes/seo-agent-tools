@@ -1,15 +1,16 @@
 {
   "name": "seo-agent-tools",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "private": true,
   "type": "module",
   "scripts": {
-    "validate": "node scripts/check-version.mjs && node scripts/catalog.mjs validate && node scripts/validate-skill.mjs && node scripts/validate-evaluations.mjs && node --test tests/method-packages.test.mjs",
+    "validate": "node scripts/check-version.mjs && node scripts/catalog.mjs validate && node scripts/validate-skill.mjs && node scripts/validate-evaluations.mjs && node --test tests/method-packages.test.mjs tests/version-identity.test.mjs",
     "version:check": "node scripts/check-version.mjs",
     "catalog:validate": "node scripts/catalog.mjs validate",
     "catalog:build": "node scripts/catalog.mjs build",
     "package": "node scripts/package-release.mjs",
     "verify:gh-skill": "node scripts/verify-gh-skill-install.mjs",
+    "release:prepare": "node scripts/prepare-release.mjs",
     "release:preflight": "node scripts/release-preflight.mjs",
     "release:state": "node scripts/release-state.mjs",
     "release:verify-assets": "node scripts/verify-release-assets.mjs"

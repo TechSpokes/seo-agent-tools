@@ -22,11 +22,11 @@ Use a branch and pull request. Keep one change coherent across runtime instructi
 
 ```bash
 npm run validate
-npm run package -- v0.8.0
-npm run release:verify-assets -- v0.8.0
+npm run package
+npm run release:verify-assets
 ```
 
-Use the intended version tag when release behavior or public package contents change.
+Package commands derive the intended release tag from `package.json`.
 
 ## Recipe Expectations
 
